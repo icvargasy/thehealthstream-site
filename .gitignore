@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Developer & Agent tooling
+.agents/
+.superpowers/
+skills-lock.json
+
+# Private Specs & Design Documents (to exclude from public repo)
+PRODUCT.md
+DESIGN.md
+mission_and_vision.md
+gemini.md
+
+# Agent Planning/Task Artifacts
+implementation_plan.md
+task.md
+walkthrough.md
+*.log
