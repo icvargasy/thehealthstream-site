@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us — The Healthstream</title>
-  <meta name="description" content="Have feedback, scientific corrections, or research proposals? Reach out to our engineering and editorial team.">
+  <meta name="description" content="For research proposals, corrections, or scientific feedback, reach out to our engineering and editorial team.">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -42,6 +42,18 @@
         </picture>
         <span class="brand-text">The Healthstream</span>
       </a>
+    </div>
+
+    <!-- Global Search -->
+    <div class="header-search-container" id="header-search">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="search" id="global-search" placeholder="Search articles or jargon..." aria-label="Search content" autocomplete="off" aria-expanded="false" aria-controls="search-results">
+      </div>
+      <div id="search-results" class="search-results-dropdown" role="listbox" style="display: none;"></div>
     </div>
 
     <div class="header-actions">
@@ -135,8 +147,8 @@
         <div class="sidebar-title">Decoded Networks</div>
         
         <!-- Biology Accordion -->
-        <div class="accordion-group" id="group-biology">
-          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-biology">
+          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="false">
             <span>Biology & Science</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -150,8 +162,8 @@
         </div>
 
         <!-- Lifestyle Accordion -->
-        <div class="accordion-group" id="group-lifestyle">
-          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-lifestyle">
+          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="false">
             <span>Lifestyle & Behavior</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -165,8 +177,8 @@
         </div>
 
         <!-- Books Accordion -->
-        <div class="accordion-group" id="group-book">
-          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-book">
+          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="false">
             <span>Book Summaries</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -188,9 +200,9 @@
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div class="content-container fade-in">
-        <article class="static-page">  <header class="feed-intro" style="margin-bottom: var(--space-4);">    <h1>Contact Us</h1>    <p>Have feedback, scientific corrections, or research proposals? Reach out to our engineering and editorial team.</p>  </header>  <div class="article-body-text"><p>We welcome correspondence from clinicians, researchers, biohackers, and readers. Use our forms to submit feedback, scientific corrections, or inquiries.</p>
+        <article class="static-page">  <header class="feed-intro" style="margin-bottom: var(--space-4);">    <h1>Contact Us</h1>    <p>For research proposals, corrections, or scientific feedback, reach out to our engineering and editorial team.</p>  </header>  <div class="article-body-text"><p>We welcome feedback, scientific corrections, and inquiries from clinicians, researchers, biohackers, and readers.</p>
 <h3>Privacy &amp; Form Operations</h3>
-<p>To preserve reader privacy and maintain our zero-runtime database design, all submissions and contact operations are managed securely through Google Forms. No personal identification data is stored on our hosting platform.</p></div>  <div class="form-container" style="margin-top: var(--space-4);">  <iframe class="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSd5pWfM-0n2XlCpl8sE4B-8zZ5e6O-tXk5NCPn_PlaceholderContact/viewform?embedded=true" title="Send an Inquiry" sandbox="allow-forms allow-scripts allow-same-origin">Loading...</iframe></div></article>
+<p>To protect reader privacy and keep our site entirely static, we route all inquiries and backlog proposals through Google Forms. No personal identification data is stored on our servers.</p></div>  <div class="form-container" style="margin-top: var(--space-4);">  <iframe class="form-iframe" src="https://docs.google.com/forms/d/e/1FAIpQLSd5pWfM-0n2XlCpl8sE4B-8zZ5e6O-tXk5NCPn_PlaceholderContact/viewform?embedded=true" title="Send an Inquiry" sandbox="allow-forms allow-scripts allow-same-origin">Loading...</iframe></div></article>
       </div>
     </main>
 

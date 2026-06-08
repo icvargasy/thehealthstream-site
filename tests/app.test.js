@@ -26,6 +26,18 @@ describe("Client Interaction - app.js", () => {
     localStorageMock.clear();
     vi.clearAllMocks();
 
+    // Mock search_index.json fetch
+    const mockSearchIndex = [
+      { title: "AMPK Energy Activation", slug: "ampk-activation.html", type: "article", category: "Biology & Science", teaser: "Fasting activates AMPK." },
+      { title: "mTOR Growth regulation", slug: "vocabulary.html#mtor", type: "glossary", category: "Jargon Glossary", teaser: "mTOR details." }
+    ];
+    window.fetch = vi.fn().mockImplementation(() =>
+      Promise.resolve({
+        ok: true,
+        json: () => Promise.resolve(mockSearchIndex),
+      })
+    );
+
     // Reset DOM and apply default theme (representing layout.html inline script behavior)
     document.body.innerHTML = `
       <header class="global-header">
@@ -34,6 +46,10 @@ describe("Client Interaction - app.js", () => {
           <span class="sun-icon">Sun</span>
           <span class="moon-icon">Moon</span>
         </button>
+        <div class="header-search-container" id="header-search">
+          <input type="search" id="global-search" placeholder="Search..." aria-label="Search content">
+          <div id="search-results" class="search-results-dropdown" role="listbox" style="display: none;"></div>
+        </div>
       </header>
       
       <div id="dashboard-container">
@@ -195,5 +211,74 @@ describe("Client Interaction - app.js", () => {
     trigger.click();
     expect(section.classList.contains("expanded")).toBe(false);
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("should fetch search index on focus, filter results on input, and support keyboard navigation", async () => {
+    const searchInput = document.getElementById("global-search");
+    const searchResults = document.getElementById("search-results");
+
+    expect(searchResults.style.display).toBe("none");
+
+    // Focus input (should trigger fetch)
+    searchInput.dispatchEvent(new Event("focus"));
+    expect(window.fetch).toHaveBeenCalledWith("search_index.json");
+
+    // Give fetch a tick to resolve
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Type "ampk"
+    searchInput.value = "ampk";
+    searchInput.dispatchEvent(new Event("input"));
+
+    expect(searchResults.style.display).toBe("block");
+    const items = searchResults.querySelectorAll(".search-result-item");
+    expect(items.length).toBe(1);
+    expect(items[0].querySelector(".result-title").textContent).toBe("AMPK Energy Activation");
+
+    // Arrow Down keyboard event
+    searchInput.dispatchEvent(new KeyboardEvent("keydown", { key: "ArrowDown" }));
+    expect(items[0].classList.contains("active")).toBe(true);
+
+    // Escape key to close
+    searchInput.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape" }));
+    expect(searchResults.style.display).toBe("none");
+  });
+
+  it("should force expand the accordion group that contains the active nav link and default collapse others", () => {
+    // Construct local mock DOM
+    document.body.innerHTML = `
+      <div class="accordion-group collapsed" id="group-biology">
+        <button class="accordion-trigger" aria-expanded="false">Biology</button>
+        <div class="accordion-content" id="content-biology">
+          <a href="#" class="nav-link active">Active Link</a>
+        </div>
+      </div>
+      <div class="accordion-group" id="group-lifestyle">
+        <button class="accordion-trigger" aria-expanded="true">Lifestyle</button>
+        <div class="accordion-content" id="content-lifestyle">
+          <a href="#" class="nav-link">Inactive Link</a>
+        </div>
+      </div>
+    `;
+    
+    // Set localStorage mock to collapse lifestyle
+    localStorageStore["cat_collapsed_group-biology"] = "true";
+    localStorageStore["cat_collapsed_group-lifestyle"] = "true";
+
+    // Re-initialize elements
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+
+    const bioGroup = document.getElementById("group-biology");
+    const bioTrigger = bioGroup.querySelector(".accordion-trigger");
+    const lifeGroup = document.getElementById("group-lifestyle");
+    const lifeTrigger = lifeGroup.querySelector(".accordion-trigger");
+
+    // Biology contains .active, must be uncollapsed
+    expect(bioGroup.classList.contains("collapsed")).toBe(false);
+    expect(bioTrigger.getAttribute("aria-expanded")).toBe("true");
+
+    // Lifestyle has no .active, must follow localStorage collapsed
+    expect(lifeGroup.classList.contains("collapsed")).toBe(true);
+    expect(lifeTrigger.getAttribute("aria-expanded")).toBe("false");
   });
 });

@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeJargonPopovers();
   initializeBacklogVoting();
   initializeEvidenceAccordion();
+  initializeSearch();
 });
 
 /**
@@ -99,11 +100,28 @@ function initializeAccordions() {
     const categoryId = group.id;
     if (!trigger || !categoryId) return;
 
-    // Restore state (default is expanded, unless explicitly set to collapsed)
-    const isCollapsed = localStorage.getItem(`cat_collapsed_${categoryId}`) === "true";
+    // Force expand category containing the active link
+    const hasActiveLink = group.querySelector(".nav-link.active") !== null;
+    let isCollapsed = false;
+
+    if (hasActiveLink) {
+      isCollapsed = false;
+      localStorage.setItem(`cat_collapsed_${categoryId}`, "false");
+    } else {
+      const stored = localStorage.getItem(`cat_collapsed_${categoryId}`);
+      if (stored !== null) {
+        isCollapsed = stored === "true";
+      } else {
+        isCollapsed = group.classList.contains("collapsed");
+      }
+    }
+
     if (isCollapsed) {
       group.classList.add("collapsed");
       trigger.setAttribute("aria-expanded", "false");
+    } else {
+      group.classList.remove("collapsed");
+      trigger.setAttribute("aria-expanded", "true");
     }
 
     trigger.addEventListener("click", () => {
@@ -262,5 +280,142 @@ function initializeEvidenceAccordion() {
     section.classList.toggle("expanded");
     const isExpanded = section.classList.contains("expanded");
     trigger.setAttribute("aria-expanded", isExpanded ? "true" : "false");
+  });
+}
+
+/**
+ * Configures and lazy-loads the client-side global autocomplete search bar.
+ * Enables keyboard navigation (Up/Down arrows, Enter to confirm, Escape to close).
+ * @returns {void}
+ */
+function initializeSearch() {
+  const searchInput = document.getElementById("global-search");
+  const searchResults = document.getElementById("search-results");
+  const searchContainer = document.getElementById("header-search");
+  if (!searchInput || !searchResults || !searchContainer) return;
+
+  let searchIndex = null;
+  let activeIndex = -1;
+  let currentMatches = [];
+
+  const loadSearchIndex = async () => {
+    if (searchIndex) return;
+    try {
+      const response = await fetch("search_index.json");
+      if (!response.ok) throw new Error("Network response error");
+      searchIndex = await response.json();
+    } catch (e) {
+      console.error("Failed loading search index payload:", e);
+    }
+  };
+
+  const closeDropdown = () => {
+    searchResults.style.display = "none";
+    searchInput.setAttribute("aria-expanded", "false");
+    activeIndex = -1;
+  };
+
+  const renderResults = () => {
+    if (currentMatches.length === 0) {
+      searchResults.innerHTML = '<div class="search-no-results">No matching biological decodings or terms found.</div>';
+      searchResults.style.display = "block";
+      searchInput.setAttribute("aria-expanded", "true");
+      return;
+    }
+
+    const itemsHtml = currentMatches.map((item, index) => {
+      const badgeClass = item.type === "glossary" ? "cat-glossary" : "cat-article";
+      return `
+        <a href="${item.slug}" class="search-result-item" role="option" id="search-opt-${index}" data-index="${index}">
+          <div class="result-meta">
+            <span class="result-title">${item.title}</span>
+            <span class="result-category-badge ${badgeClass}">${item.category}</span>
+          </div>
+          <p class="result-teaser">${item.teaser}</p>
+        </a>
+      `;
+    }).join("");
+
+    searchResults.innerHTML = itemsHtml;
+    searchResults.style.display = "block";
+    searchInput.setAttribute("aria-expanded", "true");
+    updateActiveItem();
+  };
+
+  const updateActiveItem = () => {
+    const items = searchResults.querySelectorAll(".search-result-item");
+    items.forEach((item, index) => {
+      if (index === activeIndex) {
+        item.classList.add("active");
+        searchInput.setAttribute("aria-activedescendant", item.id);
+        if (typeof item.scrollIntoView === "function") {
+          item.scrollIntoView({ block: "nearest" });
+        }
+      } else {
+        item.classList.remove("active");
+      }
+    });
+  };
+
+  // Lazy load on focus
+  searchInput.addEventListener("focus", async () => {
+    await loadSearchIndex();
+    if (searchInput.value.trim().length > 0) {
+      handleSearchInput();
+    }
+  });
+
+  const handleSearchInput = () => {
+    const query = searchInput.value.toLowerCase().trim();
+    if (!query) {
+      closeDropdown();
+      return;
+    }
+
+    if (!searchIndex) return;
+
+    currentMatches = searchIndex.filter((item) => {
+      return (
+        item.title.toLowerCase().includes(query) ||
+        item.category.toLowerCase().includes(query) ||
+        item.teaser.toLowerCase().includes(query)
+      );
+    }).slice(0, 8);
+
+    activeIndex = -1;
+    renderResults();
+  };
+
+  searchInput.addEventListener("input", handleSearchInput);
+
+  // Keyboard navigation
+  searchInput.addEventListener("keydown", (e) => {
+    if (searchResults.style.display === "none") return;
+
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      activeIndex = (activeIndex + 1) % currentMatches.length;
+      updateActiveItem();
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      activeIndex = activeIndex - 1;
+      if (activeIndex < 0) activeIndex = currentMatches.length - 1;
+      updateActiveItem();
+    } else if (e.key === "Enter") {
+      if (activeIndex >= 0 && activeIndex < currentMatches.length) {
+        e.preventDefault();
+        window.location.href = currentMatches[activeIndex].slug;
+      }
+    } else if (e.key === "Escape") {
+      e.preventDefault();
+      closeDropdown();
+    }
+  });
+
+  // Close dropdown on click outside
+  document.addEventListener("click", (e) => {
+    if (!searchContainer.contains(e.target)) {
+      closeDropdown();
+    }
   });
 }

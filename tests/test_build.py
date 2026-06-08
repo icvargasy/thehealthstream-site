@@ -12,6 +12,7 @@ from tools.compiler.writer import (
     compile_detail_page,
     compile_backlog_page,
     compile_static_content_page,
+    generate_search_index,
 )
 
 
@@ -111,16 +112,48 @@ def test_inject_jargon_links() -> None:
 
 
 def test_compile_base_layout() -> None:
-    """Verifies layout template slot substitutions."""
-    template = "<html><head><title>{{title}}</title></head><body>{{label_nav_home}} {{sidebar_links_biology}} {{content}}</body></html>"
+    """Verifies layout template slot substitutions and accordion states."""
+    template = (
+        "<html><head><title>{{title}}</title></head><body>{{label_nav_home}} {{sidebar_links_biology}} "
+        "class-bio:{{accordion_collapsed_biology}} exp-bio:{{accordion_expanded_biology}} "
+        "class-life:{{accordion_collapsed_lifestyle}} exp-life:{{accordion_expanded_lifestyle}} "
+        "{{content}}</body></html>"
+    )
     translations = {"en": {"nav_home": "Feed"}}
     nodes = [{"slug": "ampk-activation", "title": "AMPK Activation", "type": "biology"}]
     backlog = []
 
-    compiled = compile_base_layout(template, translations, nodes, backlog, "feed")
-    assert "<title>{{title}}</title>" in compiled  # Detail placeholder preserved for now
+    compiled = compile_base_layout(template, translations, nodes, backlog, "feed", "biology")
     assert "Feed" in compiled
     assert 'data-slug="ampk-activation"' in compiled
+    assert "class-bio:" in compiled
+    assert "exp-bio:true" in compiled
+    assert "class-life:collapsed" in compiled
+    assert "exp-life:false" in compiled
+
+
+def test_compile_vocabulary_page() -> None:
+    """Verifies vocabulary page compiles jargon glossary and builds cross-references/mentions."""
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    vocabulary = {
+        "AMPK": {"definition": "An energy sensing enzyme."}
+    }
+    translations = {"en": {"nav_vocabulary": "Glossary"}}
+    nodes = [
+        {
+            "slug": "ampk-activation",
+            "title": "AMPK Activation",
+            "type": "biology",
+            "content": "This activates AMPK."
+        }
+    ]
+    from tools.compiler.writer import compile_vocabulary_page
+    compiled = compile_vocabulary_page(layout, vocabulary, translations, nodes)
+    assert "Glossary" in compiled
+    assert "An energy sensing enzyme" in compiled
+    assert "Mentioned in:" in compiled
+    assert "ampk-activation.html" in compiled
+    assert "AMPK Activation" in compiled
 
 
 def test_compile_feed_page() -> None:
@@ -228,4 +261,38 @@ def test_compile_static_content_page(tmp_path) -> None:
     assert "About Us" in compiled
     assert "Systems biology feedback loop mapping" in compiled
     assert "Our Mission" in compiled
+
+
+def test_generate_search_index(tmp_path) -> None:
+    """Verifies compilation of search_index.json payload."""
+    nodes = [{"slug": "ampk-activation", "title": "AMPK Activation", "type": "biology", "hook_question": "Does snacking block energy?"}]
+    vocabulary = {"AMPK": {"definition": "An energy sensing enzyme."}}
+    translations = {"en": {"category_biology": "Biology & Science", "nav_vocabulary": "Glossary"}}
+    
+    import json
+    import os
+    
+    generate_search_index(str(tmp_path), nodes, vocabulary, translations)
+    
+    index_file = tmp_path / "search_index.json"
+    assert os.path.exists(index_file)
+    
+    with open(index_file, "r", encoding="utf-8") as f:
+        data = json.load(f)
+        
+    assert len(data) == 2
+    # Check article mapping
+    assert data[0]["title"] == "AMPK Activation"
+    assert data[0]["slug"] == "ampk-activation.html"
+    assert data[0]["type"] == "article"
+    assert data[0]["category"] == "Biology & Science"
+    assert data[0]["teaser"] == "Does snacking block energy?"
+    
+    # Check glossary mapping
+    assert data[1]["title"] == "AMPK"
+    assert data[1]["slug"] == "vocabulary.html#ampk"
+    assert data[1]["type"] == "glossary"
+    assert data[1]["category"] == "Glossary"
+    assert data[1]["teaser"] == "An energy sensing enzyme."
+
 

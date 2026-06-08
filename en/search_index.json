@@ -1,0 +1,93 @@
+[
+  {
+    "title": "AMPK Cellular Energy Switch",
+    "slug": "ampk-activation.html",
+    "type": "article",
+    "category": "Biology & Science",
+    "teaser": "Does constant snacking permanently lock our metabolic switches in storage mode?"
+  },
+  {
+    "title": "Circadian Light & Sleep Optimization",
+    "slug": "circadian-sleep-protocol.html",
+    "type": "article",
+    "category": "Lifestyle & Behavior",
+    "teaser": "Can dim screen glow after sunset confuse our ancient biological clocks?"
+  },
+  {
+    "title": "Outlive: Science & Art of Longevity",
+    "slug": "outlive-longevity-summary.html",
+    "type": "article",
+    "category": "Book Summaries",
+    "teaser": "Are we training for the wrong metrics in our current longevity regimens?"
+  },
+  {
+    "title": "AMPK",
+    "slug": "vocabulary.html#ampk",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "Adenosine monophosphate-activated protein kinase; a key enzyme regulating cellular energy homeostasis, activating cell cleanup processes."
+  },
+  {
+    "title": "mTOR",
+    "slug": "vocabulary.html#mtor",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "Mechanistic target of rapamycin; a protein kinase that acts as a central regulator of cell growth, proliferation, and protein synthesis."
+  },
+  {
+    "title": "autophagy",
+    "slug": "vocabulary.html#autophagy",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "The natural, regulated mechanism of the cell that removes unnecessary or dysfunctional components, recycling cellular materials."
+  },
+  {
+    "title": "metabolic flexibility",
+    "slug": "vocabulary.html#metabolic-flexibility",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "The capacity for the body to switch adaptively between substrate sources (carbohydrates and lipids) depending on physiological demands."
+  },
+  {
+    "title": "circadian rhythm",
+    "slug": "vocabulary.html#circadian-rhythm",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "The internal 24-hour biological clock regulating sleep, hormone release, and metabolic scheduling."
+  },
+  {
+    "title": "melatonin",
+    "slug": "vocabulary.html#melatonin",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "A hormone produced by the pineal gland that plays a key role in signaling nightfall and regulating sleep-wake cycles."
+  },
+  {
+    "title": "adenosine",
+    "slug": "vocabulary.html#adenosine",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "A cellular neuromodulator that accumulates during waking hours, generating homeostatic sleep pressure."
+  },
+  {
+    "title": "healthspan",
+    "slug": "vocabulary.html#healthspan",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "The period of life spent free from chronic disease, disability, and functional decline."
+  },
+  {
+    "title": "metabolic syndrome",
+    "slug": "vocabulary.html#metabolic-syndrome",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk."
+  },
+  {
+    "title": "cardiorespiratory fitness",
+    "slug": "vocabulary.html#cardiorespiratory-fitness",
+    "type": "glossary",
+    "category": "Jargon Glossary",
+    "teaser": "The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)."
+  }
+]

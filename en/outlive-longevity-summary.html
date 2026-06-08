@@ -59,6 +59,18 @@
       </a>
     </div>
 
+    <!-- Global Search -->
+    <div class="header-search-container" id="header-search">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="search" id="global-search" placeholder="Search articles or jargon..." aria-label="Search content" autocomplete="off" aria-expanded="false" aria-controls="search-results">
+      </div>
+      <div id="search-results" class="search-results-dropdown" role="listbox" style="display: none;"></div>
+    </div>
+
     <div class="header-actions">
       <button class="icon-button" id="theme-toggle" aria-label="Toggle Theme">
         <!-- Sun icon -->
@@ -150,8 +162,8 @@
         <div class="sidebar-title">Decoded Networks</div>
         
         <!-- Biology Accordion -->
-        <div class="accordion-group" id="group-biology">
-          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-biology">
+          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="false">
             <span>Biology & Science</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -165,8 +177,8 @@
         </div>
 
         <!-- Lifestyle Accordion -->
-        <div class="accordion-group" id="group-lifestyle">
-          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-lifestyle">
+          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="false">
             <span>Lifestyle & Behavior</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -180,7 +192,7 @@
         </div>
 
         <!-- Books Accordion -->
-        <div class="accordion-group" id="group-book">
+        <div class="accordion-group " id="group-book">
           <button class="accordion-trigger" aria-controls="content-book" aria-expanded="true">
             <span>Book Summaries</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
@@ -203,7 +215,7 @@
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div class="content-container fade-in">
-        <article class="article-detail">  <header class="detail-header">    <span class="category-tag" style="display:inline-block; margin-bottom:var(--space-2);">Book Summaries</span>    <h1>Outlive: Science & Art of Longevity</h1>    <div class="detail-tags"><span class="tag-pill">#book</span><span class="tag-pill">#longevity</span><span class="tag-pill">#exercise</span></div>  </header>  <section class="pill-box" aria-labelledby="pill-title">  <svg class="pill-icon" width="24" height="24" viewBox="0 0 24 24">    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"></circle>    <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2"></line>    <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2"></line>  </svg>  <div class="pill-content">    <h2 id="pill-title" class="pill-title">1-Min Takeaway Pill</h2>    <p class="pill-text">True longevity requires prioritizing healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as primary protective shields against the chronic diseases of aging.</p>  </div></section>  <section class="epistemic-section" aria-label="Epistemic Consensus Scale">  <div class="epistemic-title">Epistemic Consensus Scale</div>  <div class="epistemic-bar-wrapper">    <div class="epistemic-bar">      <div class="epistemic-indicator" style="left: 50%;" aria-hidden="true"></div>    </div>  </div>  <div class="epistemic-labels">    <span class="epistemic-label ">High Controversy</span>    <span class="epistemic-label active">Developing Hypothesis</span>    <span class="active epistemic-label ">Established Consensus</span>  </div></section>  <div class="article-body-text"><p>Peter Attia's <em>Outlive</em> calls for a shift from reactive Medicine 2.0 to proactive Medicine 3.0. The core message is that modern medicine is excellent at postponing death but poor at extending <strong><span class="jargon-term" data-term="healthspan" data-definition="The period of life spent free from chronic disease, disability, and functional decline." data-slug="healthspan">healthspan</span></strong>. To combat the four horsemen of aging (cardiovascular disease, cancer, neurodegenerative disease, and <strong><span class="jargon-term" data-term="metabolic syndrome" data-definition="A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk." data-slug="metabolic-syndrome">metabolic syndrome</span></strong>), individuals must build high <strong><span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">cardiorespiratory fitness</span></strong> through Zone 2 training and intensive strength routines. Preserving functional biology into the centenary decade requires intentional early training.</p></div>  <section class="evidence-section">  <button class="evidence-trigger" aria-expanded="false">    <span>Evidence & Data Accordion</span>    <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">      <path d="M7 10l5 5 5-5z"></path>    </svg>  </button>  <div class="evidence-content">    <div class="table-wrapper">  <table class="evidence-table">    <thead>      <tr>        <th>Clinical Study / Primary Source</th>        <th>Study Design</th>        <th>Cohort / Sample Size</th>        <th>Primary Physiological Outcome</th>        <th>Link</th>      </tr>    </thead>    <tbody>      <tr>  <td>Mandsager et al., 2018</td>  <td>Retrospective cohort study</td>  <td>n=122,007 patients</td>  <td>Elite cardiorespiratory fitness associated with a 5-fold reduction in all-cause mortality vs low performers.</td>  <td><a href="https://pubmed.ncbi.nlm.nih.gov/30347268/" target="_blank" rel="noopener">Source ↗</a></td></tr>    </tbody>  </table></div>    <ul class="bib-list"><li class="bib-item" id="ref3">  Attia P. Outlive: The Science and Art of Longevity. Harmony Books; 2023. <a href="https://peterattiamd.com/outlive/" target="_blank" rel="noopener">Link ↗</a></li></ul>  </div></section></article>
+        <article class="article-detail">  <header class="detail-header">    <span class="category-tag" style="display:inline-block; margin-bottom:var(--space-2);">Book Summaries</span>    <h1>Outlive: Science & Art of Longevity</h1>    <div class="detail-tags"><span class="tag-pill">#book</span><span class="tag-pill">#longevity</span><span class="tag-pill">#exercise</span></div>  </header>  <section class="pill-box" aria-labelledby="pill-title">  <svg class="pill-icon" width="24" height="24" viewBox="0 0 24 24">    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"></circle>    <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2"></line>    <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2"></line>  </svg>  <div class="pill-content">    <h2 id="pill-title" class="pill-title">1-Minute Takeaway</h2>    <p class="pill-text">True longevity requires prioritizing healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as primary protective shields against the chronic diseases of aging.</p>  </div></section>  <section class="epistemic-section" aria-label="Epistemic Consensus Scale">  <div class="epistemic-title">Epistemic Consensus Scale</div>  <div class="epistemic-bar-wrapper">    <div class="epistemic-bar">      <div class="epistemic-indicator" style="left: 50%;" aria-hidden="true"></div>    </div>  </div>  <div class="epistemic-labels">    <span class="epistemic-label ">High Controversy</span>    <span class="epistemic-label active">Developing Hypothesis</span>    <span class="active epistemic-label ">Established Consensus</span>  </div></section>  <div class="article-body-text"><p>Peter Attia's <em>Outlive</em> advocates shifting from reactive Medicine 2.0 to proactive Medicine 3.0. His core premise: modern medicine excels at postponing death but fails at extending <strong><span class="jargon-term" data-term="healthspan" data-definition="The period of life spent free from chronic disease, disability, and functional decline." data-slug="healthspan">healthspan</span></strong>. Preventing the 'four horsemen' of aging—cardiovascular disease, cancer, neurodegeneration, and <strong><span class="jargon-term" data-term="metabolic syndrome" data-definition="A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk." data-slug="metabolic-syndrome">metabolic syndrome</span></strong>—requires building <strong><span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">cardiorespiratory fitness</span></strong> and muscle mass through Zone 2 training and strength work. To stay functional in your 80s and 90s, you have to train for it decades earlier.</p></div>  <section class="evidence-section">  <button class="evidence-trigger" aria-expanded="false">    <span>Evidence & Studies</span>    <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">      <path d="M7 10l5 5 5-5z"></path>    </svg>  </button>  <div class="evidence-content">    <div class="table-wrapper">  <table class="evidence-table">    <thead>      <tr>        <th>Clinical Study / Primary Source</th>        <th>Study Design</th>        <th>Cohort / Sample Size</th>        <th>Primary Physiological Outcome</th>        <th>Link</th>      </tr>    </thead>    <tbody>      <tr>  <td>Mandsager et al., 2018</td>  <td>Retrospective cohort study</td>  <td>n=122,007 patients</td>  <td>Elite cardiorespiratory fitness associated with a 5-fold reduction in all-cause mortality vs low performers.</td>  <td><a href="https://pubmed.ncbi.nlm.nih.gov/30347268/" target="_blank" rel="noopener">Source ↗</a></td></tr>    </tbody>  </table></div>    <div class="bib-section-title" style="margin-top: var(--space-4); margin-bottom: var(--space-2); font-family: var(--font-body); font-weight: 700; font-size: var(--font-size-label); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-ink-muted);">  References & Citations</div><ul class="bib-list"><li class="bib-item" id="ref3">  Attia P. Outlive: The Science and Art of Longevity. Harmony Books; 2023. <a href="https://peterattiamd.com/outlive/" target="_blank" rel="noopener">Link ↗</a></li></ul>  </div></section></article>
       </div>
     </main>
 

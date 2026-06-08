@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>The Healthstream — The Healthstream</title>
-  <meta name="description" content="Systems Biology Content Hub">
+  <meta name="description" content="An open reference library mapping the systems biology of longevity.">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
   <link rel="stylesheet" href="./style.css">
 <script type="application/ld+json">
@@ -53,6 +53,18 @@
         </picture>
         <span class="brand-text">The Healthstream</span>
       </a>
+    </div>
+
+    <!-- Global Search -->
+    <div class="header-search-container" id="header-search">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="search" id="global-search" placeholder="Search articles or jargon..." aria-label="Search content" autocomplete="off" aria-expanded="false" aria-controls="search-results">
+      </div>
+      <div id="search-results" class="search-results-dropdown" role="listbox" style="display: none;"></div>
     </div>
 
     <div class="header-actions">
@@ -146,8 +158,8 @@
         <div class="sidebar-title">Decoded Networks</div>
         
         <!-- Biology Accordion -->
-        <div class="accordion-group" id="group-biology">
-          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-biology">
+          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="false">
             <span>Biology & Science</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -161,8 +173,8 @@
         </div>
 
         <!-- Lifestyle Accordion -->
-        <div class="accordion-group" id="group-lifestyle">
-          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-lifestyle">
+          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="false">
             <span>Lifestyle & Behavior</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -176,8 +188,8 @@
         </div>
 
         <!-- Books Accordion -->
-        <div class="accordion-group" id="group-book">
-          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-book">
+          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="false">
             <span>Book Summaries</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -199,7 +211,7 @@
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div class="content-container fade-in">
-        <header class="feed-intro">  <h1>Chronological Stream</h1>  <p>Systems Biology Content Hub</p></header><div class="feed-cards">  <a href="ampk-activation.html" class="feed-card cat-biology">  <div class="card-header">    <span class="category-tag">Biology & Science</span>  </div>  <h2 class="card-title">AMPK Cellular Energy Switch</h2>  <blockquote class="card-teaser-text">Does constant snacking permanently lock our metabolic switches in storage mode?</blockquote></a><a href="circadian-sleep-protocol.html" class="feed-card cat-lifestyle">  <div class="card-header">    <span class="category-tag">Lifestyle & Behavior</span>  </div>  <h2 class="card-title">Circadian Light & Sleep Optimization</h2>  <blockquote class="card-teaser-text">Can dim screen glow after sunset confuse our ancient biological clocks?</blockquote></a><a href="outlive-longevity-summary.html" class="feed-card cat-book">  <div class="card-header">    <span class="category-tag">Book Summaries</span>  </div>  <h2 class="card-title">Outlive: Science & Art of Longevity</h2>  <blockquote class="card-teaser-text">Are we training for the wrong metrics in our current longevity regimens?</blockquote></a></div>
+        <header class="feed-intro">  <h1>Decoded Pathways</h1>  <p>An open reference library mapping the systems biology of longevity.</p></header><div class="feed-cards">  <a href="ampk-activation.html" class="feed-card cat-biology">  <div class="card-header">    <span class="category-tag">Biology & Science</span>  </div>  <h2 class="card-title">AMPK Cellular Energy Switch</h2>  <blockquote class="card-teaser-text">Does constant snacking permanently lock our metabolic switches in storage mode?</blockquote></a><a href="circadian-sleep-protocol.html" class="feed-card cat-lifestyle">  <div class="card-header">    <span class="category-tag">Lifestyle & Behavior</span>  </div>  <h2 class="card-title">Circadian Light & Sleep Optimization</h2>  <blockquote class="card-teaser-text">Can dim screen glow after sunset confuse our ancient biological clocks?</blockquote></a><a href="outlive-longevity-summary.html" class="feed-card cat-book">  <div class="card-header">    <span class="category-tag">Book Summaries</span>  </div>  <h2 class="card-title">Outlive: Science & Art of Longevity</h2>  <blockquote class="card-teaser-text">Are we training for the wrong metrics in our current longevity regimens?</blockquote></a></div>
       </div>
     </main>
 

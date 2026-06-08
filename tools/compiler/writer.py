@@ -6,6 +6,7 @@ for landing feeds, detailed decodings, the vocabulary indexes, and static pages.
 
 import os
 import shutil
+import json
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from typing import Dict, List, Any
@@ -19,6 +20,7 @@ def compile_base_layout(
     nodes: List[Dict[str, Any]],
     backlog: List[Dict[str, Any]],
     active_nav: str,
+    active_category: str = "",
     base_path: str = "./",
 ) -> str:
     """Pre-populates the master layout shell with UI labels and navigation structures.
@@ -29,6 +31,7 @@ def compile_base_layout(
         nodes: Complete list of article nodes for sidebar links.
         backlog: List of proposed backlog items.
         active_nav: 'feed', 'vocab', 'backlog', 'about', or 'contact' to highlight active links.
+        active_category: 'biology', 'lifestyle', or 'book' to keep that accordion expanded.
         base_path: Relative string prefix for correct asset links.
 
     Returns:
@@ -50,6 +53,16 @@ def compile_base_layout(
     html = html.replace("{{nav_active_backlog}}", "active" if active_nav == "backlog" else "")
     html = html.replace("{{nav_active_about}}", "active" if active_nav == "about" else "")
     html = html.replace("{{nav_active_contact}}", "active" if active_nav == "contact" else "")
+
+    # Set accordion states based on active_category
+    categories = ["biology", "lifestyle", "book"]
+    for cat in categories:
+        if cat == active_category:
+            html = html.replace(f"{{{{accordion_collapsed_{cat}}}}}", "")
+            html = html.replace(f"{{{{accordion_expanded_{cat}}}}}", "true")
+        else:
+            html = html.replace(f"{{{{accordion_collapsed_{cat}}}}}", "collapsed")
+            html = html.replace(f"{{{{accordion_expanded_{cat}}}}}", "false")
 
     # Group sidebar links by category
     bio_links = []
@@ -242,7 +255,13 @@ def compile_detail_page(
         
     bib_list_html = ""
     if bib_items:
-        bib_list_html = f'<ul class="bib-list">{"".join(bib_items)}</ul>'
+        bib_title = labels.get("evidence_bibliography", "References & Citations")
+        bib_list_html = (
+            f'<div class="bib-section-title" style="margin-top: var(--space-4); margin-bottom: var(--space-2); font-family: var(--font-body); font-weight: 700; font-size: var(--font-size-label); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-ink-muted);">'
+            f'  {bib_title}'
+            f'</div>'
+            f'<ul class="bib-list">{"".join(bib_items)}</ul>'
+        )
 
     accordion_html = (
         f'<section class="evidence-section">'
@@ -310,6 +329,7 @@ def compile_vocabulary_page(
     layout_html: str,
     vocabulary: Dict[str, Any],
     translations: Dict[str, Any],
+    nodes: List[Dict[str, Any]],
 ) -> str:
     """Compiles the Jargon Glossary index page (vocabulary.html).
 
@@ -317,19 +337,47 @@ def compile_vocabulary_page(
         layout_html: Pre-populated master layout HTML.
         vocabulary: Glossary definitions dictionary.
         translations: Translations dictionary.
+        nodes: Complete list of article nodes.
 
     Returns:
         The complete HTML string for the glossary page.
     """
+    import re
     labels = translations.get("en", {})
+    
+    # Calculate mentions map
+    mentions: Dict[str, List[Dict[str, str]]] = {term: [] for term in vocabulary.keys()}
+    for n in nodes:
+        for term in vocabulary.keys():
+            pattern = re.compile(r"(?<![\w-])" + re.escape(term) + r"(?![\w-])", re.IGNORECASE)
+            if pattern.search(n["content"]):
+                mentions[term].append({
+                    "title": n["title"],
+                    "slug": f"{n['slug']}.html"
+                })
     
     cards = []
     for term in sorted(vocabulary.keys()):
         slug = slugify(term)
+        
+        # Build mentions HTML
+        term_mentions = mentions.get(term, [])
+        mentions_html = ""
+        if term_mentions:
+            links = []
+            for m in sorted(term_mentions, key=lambda x: x["title"]):
+                links.append(f'<a href="{m["slug"]}" class="vocab-mention-link">{m["title"]}</a>')
+            mentions_html = (
+                f'<div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">'
+                f'  <span style="font-weight: 600;">Mentioned in:</span> {", ".join(links)}'
+                f'</div>'
+            )
+
         card_html = (
             f'<div class="vocab-card" id="{slug}">'
             f'  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">{term}</h3>'
             f'  <p style="margin-top:var(--space-1); line-height:1.5;">{vocabulary[term].get("definition", "")}</p>'
+            f'  {mentions_html}'
             f'</div>'
         )
         cards.append(card_html)
@@ -569,3 +617,53 @@ Sitemap: https://varga.github.io/thehealthstream/sitemap.xml
     robots_path = os.path.join(output_dir, "robots.txt")
     with open(robots_path, "w", encoding="utf-8") as f:
         f.write(content)
+
+
+def generate_search_index(
+    output_dir: str,
+    nodes: List[Dict[str, Any]],
+    vocabulary: Dict[str, Any],
+    translations: Dict[str, Any],
+) -> None:
+    """Generates a compressed search_index.json file in the output folder.
+
+    Args:
+        output_dir: Target output directory path.
+        nodes: Complete list of article nodes.
+        vocabulary: Glossary definitions dictionary.
+        translations: Mapped UI translations dictionary.
+
+    Raises:
+        IOError: If writing the search index file fails.
+    """
+    labels = translations.get("en", {})
+    index_data = []
+
+    # 1. Map article nodes
+    for n in nodes:
+        category_label = labels.get(f"category_{n['type']}", n["type"])
+        index_data.append({
+            "title": n["title"],
+            "slug": f"{n['slug']}.html",
+            "type": "article",
+            "category": category_label,
+            "teaser": n["hook_question"],
+        })
+
+    # 2. Map glossary terms
+    for term, details in vocabulary.items():
+        index_data.append({
+            "title": term,
+            "slug": f"vocabulary.html#{slugify(term)}",
+            "type": "glossary",
+            "category": labels.get("nav_vocabulary", "Glossary"),
+            "teaser": details.get("definition", ""),
+        })
+
+    index_path = os.path.join(output_dir, "search_index.json")
+    try:
+        with open(index_path, "w", encoding="utf-8") as f:
+            json.dump(index_data, f, ensure_ascii=False, indent=2)
+    except IOError as e:
+        raise IOError(f"Failed writing search index file at {index_path}") from e
+

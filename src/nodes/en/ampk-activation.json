@@ -9,7 +9,7 @@
     "metabolism",
     "longevity"
   ],
-  "content": "The **AMPK** (AMP-activated protein kinase) pathway acts as the metabolic sensor of the human body. When cellular energy (ATP) is depleted, AMPK is phosphorylated. This activates catabolic pathways to produce ATP while turning off anabolic pathways that consume energy, such as those governed by **mTOR**. Frequent nutrient ingestion keeps insulin elevated, suppressing AMPK and locking the body in storage mode. Cultivating **metabolic flexibility** requires downregulating mTOR and upregulating AMPK, which in turn initiates cellular cleanup through **autophagy**.",
+  "content": "The **AMPK** (AMP-activated protein kinase) pathway is the body's metabolic energy sensor. When cellular energy (ATP) runs low, AMPK is phosphorylated. This turns on catabolic pathways to generate ATP and turns off energy-consuming anabolic pathways, like those controlled by **mTOR**. Snacking frequently keeps insulin high, which suppresses AMPK and locks the body in storage mode. **Metabolic flexibility** requires downregulating mTOR and upregulating AMPK to trigger cellular cleanup through **autophagy**.",
   "evidence_table": [
     {
       "study": "Apfeld et al., 2004",

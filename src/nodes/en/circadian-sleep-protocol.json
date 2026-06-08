@@ -9,7 +9,7 @@
     "circadian",
     "sleep"
   ],
-  "content": "Our **circadian rhythm** is dictated by the suprachiasmatic nucleus, which relies on light cues to synchronize peripheral organs. Morning light resets the master clock, stopping the production of **melatonin** and starting cortisol synthesis. Throughout the day, waking activities cause **adenosine** to build up in the basal forebrain, creating sleep pressure. Artificial light exposure at night blocks melatonin secretion, preventing the deep and REM cycles necessary for neurological recovery and hormone synthesis.",
+  "content": "The suprachiasmatic nucleus regulates our **circadian rhythm** by using light cues to synchronize peripheral organs. Morning light resets this master clock, halting **melatonin** and triggering cortisol synthesis. During the day, waking activity builds up **adenosine** in the forebrain to create sleep pressure. Artificial light at night blocks melatonin, disrupting the deep and REM sleep cycles needed for neurological recovery.",
   "evidence_table": [
     {
       "study": "Zeitzer et al., 2000",

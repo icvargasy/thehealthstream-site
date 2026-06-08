@@ -18,6 +18,7 @@ from compiler.writer import (
     copy_static_assets,
     generate_sitemap,
     generate_robots_txt,
+    generate_search_index,
 )
 
 
@@ -94,6 +95,7 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="feed",
+        active_category="",
     )
     feed_page_html = compile_feed_page(
         layout_html=base_layout_feed,
@@ -111,11 +113,13 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="vocab",
+        active_category="",
     )
     vocab_page_html = compile_vocabulary_page(
         layout_html=base_layout_vocab,
         vocabulary=vocabulary,
         translations=translations,
+        nodes=nodes,
     )
     with open(os.path.join(output_dir, "vocabulary.html"), "w", encoding="utf-8") as f:
         f.write(vocab_page_html)
@@ -128,6 +132,7 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="backlog",
+        active_category="",
     )
     backlog_page_html = compile_backlog_page(
         layout_html=base_layout_backlog,
@@ -145,6 +150,7 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="about",
+        active_category="",
     )
     about_md_path = os.path.join(src_dir, "nodes", "en", "about.md")
     about_page_html = compile_static_content_page(
@@ -166,6 +172,7 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="contact",
+        active_category="",
     )
     contact_md_path = os.path.join(src_dir, "nodes", "en", "contact.md")
     contact_page_html = compile_static_content_page(
@@ -193,6 +200,7 @@ def run_build() -> None:
             nodes=nodes,
             backlog=backlog,
             active_nav="",
+            active_category=node["type"],
         )
         detail_page_html = compile_detail_page(
             layout_html=base_layout_detail,
@@ -213,6 +221,10 @@ def run_build() -> None:
     # 12. Generate robots.txt
     print("Generating robots.txt...")
     generate_robots_txt(output_dir)
+
+    # 13. Generate Search Index
+    print("Generating search_index.json...")
+    generate_search_index(output_dir, nodes, vocabulary, translations)
 
     print("\n==================================================")
     print("   [Success] Site Compiled Successfully to en/   ")

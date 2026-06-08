@@ -1,4 +1,4 @@
-We welcome correspondence from clinicians, researchers, biohackers, and readers. Use our forms to submit feedback, scientific corrections, or inquiries.
+We welcome feedback, scientific corrections, and inquiries from clinicians, researchers, biohackers, and readers.
 
 ### Privacy & Form Operations
-To preserve reader privacy and maintain our zero-runtime database design, all submissions and contact operations are managed securely through Google Forms. No personal identification data is stored on our hosting platform.
+To protect reader privacy and keep our site entirely static, we route all inquiries and backlog proposals through Google Forms. No personal identification data is stored on our servers.

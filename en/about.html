@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About Us — The Healthstream</title>
-  <meta name="description" content="Systems Biology Content Hub">
+  <meta name="description" content="An open reference library mapping the systems biology of longevity.">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
   <link rel="stylesheet" href="./style.css">
 </head>
@@ -42,6 +42,18 @@
         </picture>
         <span class="brand-text">The Healthstream</span>
       </a>
+    </div>
+
+    <!-- Global Search -->
+    <div class="header-search-container" id="header-search">
+      <div class="search-input-wrapper">
+        <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+        <input type="search" id="global-search" placeholder="Search articles or jargon..." aria-label="Search content" autocomplete="off" aria-expanded="false" aria-controls="search-results">
+      </div>
+      <div id="search-results" class="search-results-dropdown" role="listbox" style="display: none;"></div>
     </div>
 
     <div class="header-actions">
@@ -135,8 +147,8 @@
         <div class="sidebar-title">Decoded Networks</div>
         
         <!-- Biology Accordion -->
-        <div class="accordion-group" id="group-biology">
-          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-biology">
+          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="false">
             <span>Biology & Science</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -150,8 +162,8 @@
         </div>
 
         <!-- Lifestyle Accordion -->
-        <div class="accordion-group" id="group-lifestyle">
-          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-lifestyle">
+          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="false">
             <span>Lifestyle & Behavior</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -165,8 +177,8 @@
         </div>
 
         <!-- Books Accordion -->
-        <div class="accordion-group" id="group-book">
-          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="true">
+        <div class="accordion-group collapsed" id="group-book">
+          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="false">
             <span>Book Summaries</span>
             <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
               <path d="M7 10l5 5 5-5z"></path>
@@ -188,13 +200,13 @@
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div class="content-container fade-in">
-        <article class="static-page">  <header class="feed-intro" style="margin-bottom: var(--space-4);">    <h1>About Us</h1>    <p>Systems Biology Content Hub</p>  </header>  <div class="article-body-text"><p>The Healthstream is an open-access, citation-backed reference library mapping metabolic, neuro-endocrine, and physiological networks.</p>
+        <article class="static-page">  <header class="feed-intro" style="margin-bottom: var(--space-4);">    <h1>About Us</h1>    <p>An open reference library mapping the systems biology of longevity.</p>  </header>  <div class="article-body-text"><p>The Healthstream is an independent, citation-backed reference library mapping metabolic, endocrine, and physiological networks.</p>
 <h3>Core Tenet: Systems Biology</h3>
-<p>We treat the human body as an interconnected circuit board of feedback loops rather than a collection of isolated symptoms. Every page provides objective, citation-backed summaries of biological networks to assist readers in evaluating protocols and lifestyle adjustments.</p>
+<p>We look at the human body as an interconnected network of feedback loops, not a collection of isolated symptoms. Every page provides objective, citation-backed summaries of biological circuits to help you evaluate longevity protocols and lifestyle habits.</p>
 <h3>Decoupled Epistemics</h3>
-<p>We do not publish opinions, commercial product recommendations, or sponsored endorsements. Every summary includes:
+<p>We do not publish opinions, recommend commercial products, or accept sponsorships. Every profile includes:
 - A visual <strong>Epistemic Consensus Scale</strong> representing the current state of scientific agreement.
-- An <strong>Evidence &amp; Data Accordion</strong> tracking clinical study designs, sample sizes, and primary outcomes.
+- An <strong>Evidence &amp; Studies</strong> disclosure tracking clinical study designs, sample sizes, and primary outcomes.
 - Interactive jargon popovers detailing precise molecular and biological definitions.</p></div>  </article>
       </div>
     </main>
