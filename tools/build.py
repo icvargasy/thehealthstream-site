@@ -13,8 +13,11 @@ from compiler.writer import (
     compile_feed_page,
     compile_detail_page,
     compile_vocabulary_page,
+    compile_backlog_page,
+    compile_static_content_page,
     copy_static_assets,
     generate_sitemap,
+    generate_robots_txt,
 )
 
 
@@ -117,14 +120,70 @@ def run_build() -> None:
     with open(os.path.join(output_dir, "vocabulary.html"), "w", encoding="utf-8") as f:
         f.write(vocab_page_html)
 
-    # 6. Compile individual detail pages (with Jargon linking)
+    # 6. Compile backlog.html (Backlog Proposals Page)
+    print("Compiling backlog page (backlog.html)...")
+    base_layout_backlog = compile_base_layout(
+        template_content=template_content,
+        translations=translations,
+        nodes=nodes,
+        backlog=backlog,
+        active_nav="backlog",
+    )
+    backlog_page_html = compile_backlog_page(
+        layout_html=base_layout_backlog,
+        backlog=backlog,
+        translations=translations,
+    )
+    with open(os.path.join(output_dir, "backlog.html"), "w", encoding="utf-8") as f:
+        f.write(backlog_page_html)
+
+    # 7. Compile about.html (About Us Page)
+    print("Compiling about page (about.html)...")
+    base_layout_about = compile_base_layout(
+        template_content=template_content,
+        translations=translations,
+        nodes=nodes,
+        backlog=backlog,
+        active_nav="about",
+    )
+    about_md_path = os.path.join(src_dir, "nodes", "en", "about.md")
+    about_page_html = compile_static_content_page(
+        layout_html=base_layout_about,
+        md_filepath=about_md_path,
+        title_key="nav_about",
+        desc_key="site_tagline",
+        translations=translations,
+        has_contact_form=False,
+    )
+    with open(os.path.join(output_dir, "about.html"), "w", encoding="utf-8") as f:
+        f.write(about_page_html)
+
+    # 8. Compile contact.html (Contact Us Page)
+    print("Compiling contact page (contact.html)...")
+    base_layout_contact = compile_base_layout(
+        template_content=template_content,
+        translations=translations,
+        nodes=nodes,
+        backlog=backlog,
+        active_nav="contact",
+    )
+    contact_md_path = os.path.join(src_dir, "nodes", "en", "contact.md")
+    contact_page_html = compile_static_content_page(
+        layout_html=base_layout_contact,
+        md_filepath=contact_md_path,
+        title_key="nav_contact",
+        desc_key="contact_desc",
+        translations=translations,
+        has_contact_form=True,
+    )
+    with open(os.path.join(output_dir, "contact.html"), "w", encoding="utf-8") as f:
+        f.write(contact_page_html)
+
+    # 9. Compile individual detail pages (with Jargon linking)
     for node in nodes:
         print(f"Linking jargon and compiling detail page: {node['slug']}.html...")
-        
-        # Inject popover markers inside raw text nodes of article content
         linked_content = inject_jargon_links(node["content"], vocabulary)
         
-        # Create a deep copy of node data to avoid modifying the original list
         node_copy = node.copy()
         node_copy["content"] = linked_content
         
@@ -135,23 +194,25 @@ def run_build() -> None:
             backlog=backlog,
             active_nav="",
         )
-        
         detail_page_html = compile_detail_page(
             layout_html=base_layout_detail,
             node=node_copy,
             translations=translations,
         )
-        
         with open(os.path.join(output_dir, f"{node['slug']}.html"), "w", encoding="utf-8") as f:
             f.write(detail_page_html)
 
-    # 7. Mirror CSS, Javascript, and media assets
+    # 10. Mirror CSS, Javascript, and media assets
     print("Copying script and style assets to the output folder...")
     copy_static_assets(output_dir)
 
-    # 8. Generate SEO Sitemap
+    # 11. Generate SEO Sitemap
     print("Generating sitemap.xml...")
     generate_sitemap(output_dir, nodes)
+
+    # 12. Generate robots.txt
+    print("Generating robots.txt...")
+    generate_robots_txt(output_dir)
 
     print("\n==================================================")
     print("   [Success] Site Compiled Successfully to en/   ")

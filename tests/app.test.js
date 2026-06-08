@@ -63,6 +63,14 @@ describe("Client Interaction - app.js", () => {
             <p>
               Let's test <span class="jargon-term" data-term="AMPK" data-definition="Energy enzyme" data-slug="ampk">AMPK</span>.
             </p>
+            <section class="evidence-section">
+              <button class="evidence-trigger" aria-expanded="false">
+                <span>Evidence</span>
+              </button>
+              <div class="evidence-content">
+                <p>Deep scientific evidence.</p>
+              </div>
+            </section>
           </div>
         </main>
       </div>
@@ -169,5 +177,23 @@ describe("Client Interaction - app.js", () => {
       "backlog_votes",
       JSON.stringify({ "autophagy-kinetics": true })
     );
+  });
+
+  it("should expand/collapse the scientific evidence accordion on click", () => {
+    const section = document.querySelector(".evidence-section");
+    const trigger = section.querySelector(".evidence-trigger");
+
+    expect(section.classList.contains("expanded")).toBe(false);
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+
+    // Click trigger to expand
+    trigger.click();
+    expect(section.classList.contains("expanded")).toBe(true);
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+
+    // Click trigger again to collapse
+    trigger.click();
+    expect(section.classList.contains("expanded")).toBe(false);
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
   });
 });

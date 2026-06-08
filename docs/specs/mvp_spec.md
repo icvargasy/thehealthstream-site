@@ -2,7 +2,7 @@
 
 ## Objective
 We are building a zero-runtime static content portal compiling metabolic, lifestyle, and book summaries. The target readers are Biohackers and Information Seekers. Success is defined by:
-- Instant page loads and perfect SEO/GEO search indexability.
+- Instant page loads and perfect SEO/GEO search indexability (including robots.txt and sitemap entries).
 - Strict WCAG AA contrast ratio compliance using an OKLCH custom properties system.
 - Fluid responsive interactions (theme toggles, collapsible sidebars, popovers, and voting counters) implemented in Vanilla JS.
 
@@ -32,28 +32,48 @@ thehealthstream/
 │   ├── templates/
 │   │   └── layout.html          # Global HTML template wrapper
 │   ├── nodes/
-│   │   └── en/                  # Source JSON article files
+│   │   └── en/                  # Source JSON article files and static Markdown pages
+│   │       ├── about.md         # About page narrative
+│   │       └── contact.md       # Contact page narrative
 │   ├── styles/                  # Modular design sheets
 │   │   ├── variables.css        # Core design tokens
 │   │   ├── layout.css           # Global resets and grid frameworks
-│   │   └── components.css       # Widgets, popovers, card styling
+│   │   └── components.css       # Widgets, popovers, card styling, and iframe boxes
 │   ├── backlog.json             # Decoded nodes proposal list
-│   ├── translations.json        # Static UI string labels
+│   ├── translations.json        # Static UI string labels and Google Form URLs
 │   └── vocabulary.json          # Jargon glossary definitions
 ├── tools/
 │   ├── compiler/
 │   │   ├── reader.py            # Data loading & validator
 │   │   ├── linker.py            # Jargon matching & link regex injector
-│   │   └── writer.py            # HTML compiler, asset manager & sitemap generator
+│   │   └── writer.py            # HTML compiler, static MD parser, sitemap & robots writer
 │   ├── build.py                 # Build orchestrator
 │   └── new_entry.py             # CLI article bootstrapper
 ├── en/                          # Target compilation output directory
-├── style.css                    # Master styling imports entry point
-├── app.js                       # Vanilla client interaction script
-├── tests/
-│   ├── app.test.js              # Vitest JSDOM event tests
-│   └── test_build.py            # Pytest compiler tests
+│   ├── index.html               # Homepage feed
+│   ├── vocabulary.html          # Jargon Glossary page
+│   ├── backlog.html             # Topic proposals and submission page
+│   ├── about.html               # About page
+│   ├── contact.html             # Contact page
+│   ├── style.css                # Compiled stylesheet
+│   ├── app.js                   # Client interactions script
+│   ├── robots.txt               # Bot accessibility configuration
+│   └── sitemap.xml              # SEO mapping
 ```
+
+## Security & Data Operations
+- **Serverless Form Processing**: To preserve privacy, all forms (Inquiries and Backlog topic submissions) route through secure external Google Forms.
+- **Iframe Sandboxing**: Any embedded Google Form must utilize strict iframe sandbox parameters:
+  ```html
+  sandbox="allow-forms allow-scripts allow-same-origin"
+  ```
+  This isolates form executions and prevents clickjacking or window redirects.
+
+## SEO/GEO Optimization Mappings
+- **robots.txt**: Explicitly allows crawler access to AI search engine bots (`ChatGPT-User`, `GPTBot`, `PerplexityBot`, `ClaudeBot`) to maximize citation opportunities in AI search graphs.
+- **JSON-LD Schema**:
+  - Hompage (`index.html`) embeds `Organization` schema.
+  - Detail articles embed `FAQPage` schema dynamically mapped from article takeaway pills.
 
 ## Code Style
 
@@ -62,65 +82,16 @@ thehealthstream/
 - Include Google-style docstrings for all functions.
 - Explicit Exception Handling (no bare `except:`).
 
-```python
-def load_json(path: str) -> dict:
-    """Ingests a JSON file and parses it.
-
-    Args:
-        path: Path to the target file.
-
-    Returns:
-        The deserialized JSON content.
-
-    Raises:
-        FileNotFoundError: If the file is not found.
-        ValueError: If parsing fails.
-    """
-    try:
-        with open(path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError as e:
-        raise FileNotFoundError(f"Missing file: {path}") from e
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Malformed JSON: {path}") from e
-```
-
 ### JavaScript Conventions
 - Run under `"use strict"`.
 - Use JSDoc-style comments for all functions.
 - Explicit, single-responsibility event handlers.
 
-```javascript
-"use strict";
-
-/**
- * Toggles the expanded class on the given element.
- * @param {HTMLElement} element - The target container.
- * @returns {void}
- */
-function toggleAccordion(element) {
-  if (!element) return;
-  element.classList.toggle("is-expanded");
-}
-```
-
 ## Testing Strategy
 - **Compiler Level**:
-  - Verify that `reader.py` validates schemas correctly (rejects missing fields, validates types).
-  - Verify that `linker.py` replaces words matched from `vocabulary.json` with `<span class="jargon-term">` elements only in text blocks (ignoring HTML tag structures).
-  - Verify that `writer.py` generates HTML pages, copies assets, and writes `sitemap.xml`.
+  - Validate schema types and required fields.
+  - Verify case-insensitive jargon linker ignores HTML tags, attributes, and existing links.
+  - Verify static Markdown page compilations, robots.txt outputs, sitemaps, and JSON-LD injections.
 - **Client Level (Vitest + JSDOM)**:
-  - Simulate clicks on Sidebar toggles and verify `.left-collapsed` class and storage updates.
-  - Simulate jargon term clicks and verify popover insertions and position logic.
-  - Simulate backlog voting clicks and verify localStorage and UI counter adjustments.
-
-## Boundaries
-- **Always**: Prefix commands with `rtk`. Run tests before planning commits. Document public interfaces.
-- **Ask First**: Adding external dependencies or framework wrappers.
-- **Never**: Introduce runtime backend web servers (must remain 100% static HTML/JS).
-
-## Success Criteria
-1. `rtk pytest` returns green on compiler testing.
-2. `rtk pnpm test` returns green on client interactions.
-3. Running `rtk python tools/build.py` constructs a valid `en/` folder containing `index.html`, `vocabulary.html`, `style.css`, `app.js`, `assets/`, `styles/`, `sitemap.xml`, and matching articles (e.g. `ampk-activation.html`).
-4. Site visual interface matches styling specifications (OKLCH, responsive layout, dark/light theme, accordions, and popovers).
+  - Verify dark/light toggles and layout collapsed persistences.
+  - Verify click-to-open jargon popovers and backlog votes increment logic.

@@ -6,7 +6,13 @@ Validates article readers, Jargon auto-linking regex replacements, and page comp
 import pytest
 from tools.compiler.reader import validate_node
 from tools.compiler.linker import inject_jargon_links, slugify
-from tools.compiler.writer import compile_base_layout, compile_feed_page, compile_detail_page
+from tools.compiler.writer import (
+    compile_base_layout,
+    compile_feed_page,
+    compile_detail_page,
+    compile_backlog_page,
+    compile_static_content_page,
+)
 
 
 def test_validate_node_valid() -> None:
@@ -139,7 +145,7 @@ def test_compile_feed_page() -> None:
 
 def test_compile_detail_page() -> None:
     """Verifies that individual detailed pages are properly compiled."""
-    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    layout = "<html><head></head><body>{{title}} {{meta_description}} {{content}}</body></html>"
     node = {
         "slug": "ampk-activation",
         "title": "AMPK Activation",
@@ -164,4 +170,62 @@ def test_compile_detail_page() -> None:
     assert "AMPK Activation" in compiled
     assert "Fasting pill" in compiled
     assert "Consensus Scale" in compiled
-    assert "left: 80%" in compiled  # Consensus position
+    assert "left: 80%" in compiled
+    # Verify Schema.org FAQPage injection
+    assert 'application/ld+json' in compiled
+    assert '"@type": "FAQPage"' in compiled
+
+
+def test_compile_backlog_page() -> None:
+    """Verifies that the dedicated Backlog page renders backlog cards and Google Form."""
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    backlog = [
+        {
+            "id": "autophagy-kinetics",
+            "title": "Autophagy Kinetics",
+            "description": "Fasting trigger",
+            "votes": 124,
+        }
+    ]
+    translations = {
+        "en": {
+            "nav_backlog": "Backlog List",
+            "backlog_title": "Proposed Backlog",
+            "backlog_desc": "Vote to decide.",
+            "form_backlog_url": "https://docs.google.com/backlog-form",
+            "form_submit_theme_title": "Submit Theme",
+        }
+    }
+
+    compiled = compile_backlog_page(layout, backlog, translations)
+    assert "Backlog List" in compiled
+    assert "Autophagy Kinetics" in compiled
+    assert "124" in compiled
+    assert "sandbox=" in compiled
+    assert "https://docs.google.com/backlog-form" in compiled
+
+
+def test_compile_static_content_page(tmp_path) -> None:
+    """Verifies parsing of Markdown copy files into final themed static HTML pages."""
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    md_file = tmp_path / "about.md"
+    md_file.write_text("### Our Mission\nSystems biology feedback loop mapping.", encoding="utf-8")
+
+    translations = {
+        "en": {
+            "nav_about": "About Us",
+            "site_tagline": "Static biological reference hub.",
+        }
+    }
+
+    compiled = compile_static_content_page(
+        layout_html=layout,
+        md_filepath=str(md_file),
+        title_key="nav_about",
+        desc_key="site_tagline",
+        translations=translations,
+    )
+    assert "About Us" in compiled
+    assert "Systems biology feedback loop mapping" in compiled
+    assert "Our Mission" in compiled
+

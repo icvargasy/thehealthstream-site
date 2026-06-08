@@ -1,7 +1,7 @@
 """Static HTML compiler, asset pipeline, and sitemap writer for The Healthstream.
 
 This module processes templates and merges structured data into final HTML files
-for landing feeds, detailed decodings, and the vocabulary indexes.
+for landing feeds, detailed decodings, the vocabulary indexes, and static pages.
 """
 
 import os
@@ -27,8 +27,8 @@ def compile_base_layout(
         template_content: The raw HTML content of layout.html.
         translations: Dictionary of translation key-value mappings.
         nodes: Complete list of article nodes for sidebar links.
-        backlog: List of proposed backlog items for sidebar voting.
-        active_nav: 'feed' or 'vocab' to assign the active tab class.
+        backlog: List of proposed backlog items.
+        active_nav: 'feed', 'vocab', 'backlog', 'about', or 'contact' to highlight active links.
         base_path: Relative string prefix for correct asset links.
 
     Returns:
@@ -47,6 +47,9 @@ def compile_base_layout(
     # Set navigation active flags
     html = html.replace("{{nav_active_feed}}", "active" if active_nav == "feed" else "")
     html = html.replace("{{nav_active_vocab}}", "active" if active_nav == "vocab" else "")
+    html = html.replace("{{nav_active_backlog}}", "active" if active_nav == "backlog" else "")
+    html = html.replace("{{nav_active_about}}", "active" if active_nav == "about" else "")
+    html = html.replace("{{nav_active_contact}}", "active" if active_nav == "contact" else "")
 
     # Group sidebar links by category
     bio_links = []
@@ -69,22 +72,6 @@ def compile_base_layout(
     html = html.replace("{{sidebar_links_lifestyle}}", "\n".join(life_links))
     html = html.replace("{{sidebar_links_book}}", "\n".join(book_links))
 
-    # Compile Backlog widget
-    backlog_items = []
-    for item in backlog:
-        item_html = (
-            f'<li class="backlog-item" data-id="{item["id"]}">'
-            f'  <div class="backlog-header">'
-            f'    <span class="backlog-title">{item["title"]}</span>'
-            f'    <span class="backlog-votes" data-base-votes="{item["votes"]}">{item["votes"]}</span>'
-            f'  </div>'
-            f'  <div class="backlog-desc">{item["description"]}</div>'
-            f'  <button class="vote-btn">Vote</button>'
-            f'</li>'
-        )
-        backlog_items.append(item_html)
-
-    html = html.replace("{{sidebar_backlog}}", "\n".join(backlog_items))
     return html
 
 
@@ -110,7 +97,6 @@ def compile_feed_page(
     cards = []
     
     for n in sorted_nodes:
-        # Category boundary configuration
         category_label = labels.get(f"category_{n['type']}", n["type"])
         card_html = (
             f'<a href="{n["slug"]}.html" class="feed-card cat-{n["type"]}">'
@@ -137,6 +123,20 @@ def compile_feed_page(
     html = layout_html.replace("{{title}}", labels.get("site_title", "The Healthstream"))
     html = html.replace("{{meta_description}}", labels.get("site_tagline", ""))
     html = html.replace("{{content}}", intro_html)
+    
+    # Inject Organization JSON-LD Schema
+    org_schema = """<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "The Healthstream",
+  "url": "https://varga.github.io/thehealthstream/",
+  "logo": "https://varga.github.io/thehealthstream/assets/logo_only_light.png",
+  "sameAs": []
+}
+</script>
+"""
+    html = html.replace("</head>", f"{org_schema}\n</head>")
     return html
 
 
@@ -188,7 +188,7 @@ def compile_detail_page(
         f'  <div class="epistemic-labels">'
         f'    <span class="epistemic-label {"active" if status == "high-controversy" else ""}">{labels.get("consensus_controversial", "Controversy")}</span>'
         f'    <span class="epistemic-label {"active" if status == "developing" else ""}">{labels.get("consensus_developing", "Developing")}</span>'
-        f'    <span class="epistemic-label {"active" if status == "consensus" else ""}">{labels.get("consensus_established", "Consensus")}</span>'
+        f'    <span class="active epistemic-label {"active" if status == "consensus" else ""}">{labels.get("consensus_established", "Consensus")}</span>'
         f'  </div>'
         f'</section>'
     )
@@ -277,7 +277,7 @@ def compile_detail_page(
         f'</article>'
     )
     
-    # Combine into layout and highlight active sidebar link
+    # Combine into layout
     html = layout_html.replace("{{title}}", node["title"])
     html = html.replace("{{meta_description}}", node["hook_question"])
     html = html.replace("{{content}}", full_content)
@@ -285,6 +285,24 @@ def compile_detail_page(
     # Mark specific sidebar item active in layout
     html = html.replace(f'data-slug="{node["slug"]}"', f'data-slug="{node["slug"]}" class="nav-link active"')
     
+    # Inject FAQPage JSON-LD Schema (SEO/GEO Optimization)
+    escaped_pill = node["takeaway_pill"].replace('"', '\\"')
+    faq_schema = f"""<script type="application/ld+json">
+{{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [{{
+    "@type": "Question",
+    "name": "What is the core takeaway for {node['title']}?",
+    "acceptedAnswer": {{
+      "@type": "Answer",
+      "text": "{escaped_pill}"
+    }}
+  }}]
+}}
+</script>
+"""
+    html = html.replace("</head>", f"{faq_schema}\n</head>")
     return html
 
 
@@ -305,7 +323,6 @@ def compile_vocabulary_page(
     """
     labels = translations.get("en", {})
     
-    # Build list of glossary terms sorted alphabetically
     cards = []
     for term in sorted(vocabulary.keys()):
         slug = slugify(term)
@@ -330,6 +347,124 @@ def compile_vocabulary_page(
     html = layout_html.replace("{{title}}", labels.get("nav_vocabulary", "Jargon Glossary"))
     html = html.replace("{{meta_description}}", labels.get("vocabulary_desc", ""))
     html = html.replace("{{content}}", vocab_html)
+    return html
+
+
+def compile_backlog_page(
+    layout_html: str,
+    backlog: List[Dict[str, Any]],
+    translations: Dict[str, Any],
+) -> str:
+    """Compiles the dedicated Backlog proposals and Google Forms submission page.
+
+    Args:
+        layout_html: Pre-populated master layout HTML.
+        backlog: List of proposed backlog items.
+        translations: Translations dictionary.
+
+    Returns:
+        The complete HTML string for the backlog page.
+    """
+    labels = translations.get("en", {})
+    
+    backlog_items = []
+    for item in backlog:
+        item_html = (
+            f'<li class="backlog-item" data-id="{item["id"]}" style="background-color: var(--bg-surface-alt); border: 1px solid var(--border-color); padding: var(--space-3); border-radius: var(--radius-card); display: flex; flex-direction: column; gap: var(--space-2);">'
+            f'  <div class="backlog-header" style="display: flex; align-items: center; justify-content: space-between;">'
+            f'    <span class="backlog-title" style="font-weight: 700; font-size: 1.1rem; color: var(--text-ink);">{item["title"]}</span>'
+            f'    <span class="backlog-votes" data-base-votes="{item["votes"]}" style="background-color: var(--selected-bg); color: var(--accent-synapse); border: 1px solid var(--selected-border); border-radius: var(--radius-pill); padding: 2px 10px; font-weight: 700; font-size: 0.85rem;">{item["votes"]}</span>'
+            f'  </div>'
+            f'  <div class="backlog-desc" style="color: var(--text-ink-muted); line-height: 1.5;">{item["description"]}</div>'
+            f'  <button class="vote-btn" style="align-self: flex-start; padding: 6px 16px;">Vote</button>'
+            f'</li>'
+        )
+        backlog_items.append(item_html)
+        
+    form_url = labels.get("form_backlog_url", "")
+    form_title = labels.get("form_submit_theme_title", "Submit Proposal")
+    
+    form_html = (
+        f'<section class="submit-theme-section" style="margin-top: var(--space-5); border-top: 1px solid var(--border-color); padding-top: var(--space-4);">'
+        f'  <h2>{form_title}</h2>'
+        f'  <p style="color: var(--text-ink-muted); margin-bottom: var(--space-3);">{labels.get("backlog_desc", "")}</p>'
+        f'  <div class="form-container">'
+        f'    <iframe class="form-iframe" src="{form_url}" title="{form_title}" sandbox="allow-forms allow-scripts allow-same-origin">Loading...</iframe>'
+        f'  </div>'
+        f'</section>'
+    )
+    
+    content_html = (
+        f'<header class="feed-intro">'
+        f'  <h1>{labels.get("backlog_title", "Proposed Backlog")}</h1>'
+        f'</header>'
+        f'<ul class="backlog-list" style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">'
+        f'  {"".join(backlog_items)}'
+        f'</ul>'
+        f'{form_html}'
+    )
+    
+    html = layout_html.replace("{{title}}", labels.get("nav_backlog", "Proposed Backlog"))
+    html = html.replace("{{meta_description}}", labels.get("backlog_desc", ""))
+    html = html.replace("{{content}}", content_html)
+    return html
+
+
+def compile_static_content_page(
+    layout_html: str,
+    md_filepath: str,
+    title_key: str,
+    desc_key: str,
+    translations: Dict[str, Any],
+    has_contact_form: bool = False,
+) -> str:
+    """Compiles a static content page (like About Us or Contact Us) from Markdown.
+
+    Args:
+        layout_html: Pre-populated master layout HTML.
+        md_filepath: Path to the Markdown copy file.
+        title_key: Label dictionary key representing page title.
+        desc_key: Label dictionary key representing page meta description.
+        translations: Translations dictionary.
+        has_contact_form: True if a Google Form iframe embed is required.
+
+    Returns:
+        The complete HTML string for the static page.
+    """
+    labels = translations.get("en", {})
+    
+    try:
+        with open(md_filepath, "r", encoding="utf-8") as f:
+            md_content = f.read()
+    except FileNotFoundError as e:
+        raise FileNotFoundError(f"Content Markdown file missing at: {md_filepath}") from e
+
+    compiled_body = markdown.markdown(md_content)
+    
+    form_html = ""
+    if has_contact_form:
+        form_url = labels.get("form_contact_url", "")
+        form_title = labels.get("form_submit_contact_title", "Contact Inquiry")
+        form_html = (
+            f'<div class="form-container" style="margin-top: var(--space-4);">'
+            f'  <iframe class="form-iframe" src="{form_url}" title="{form_title}" sandbox="allow-forms allow-scripts allow-same-origin">Loading...</iframe>'
+            f'</div>'
+        )
+        
+    page_html = (
+        f'<article class="static-page">'
+        f'  <header class="feed-intro" style="margin-bottom: var(--space-4);">'
+        f'    <h1>{labels.get(title_key, "Info")}</h1>'
+        f'    {f"<p>{labels.get(desc_key)}</p>" if labels.get(desc_key) else ""}'
+        f'  </header>'
+        f'  <div class="article-body-text">{compiled_body}</div>'
+        f'  {form_html}'
+        f'</article>'
+    )
+    
+    html = layout_html.replace("{{title}}", labels.get(title_key, "Info"))
+    html = html.replace("{{meta_description}}", labels.get(desc_key, ""))
+    html = html.replace("{{content}}", page_html)
     return html
 
 
@@ -379,11 +514,10 @@ def generate_sitemap(output_dir: str, nodes: List[Dict[str, Any]]) -> None:
         output_dir: Target directory path.
         nodes: List of article nodes.
     """
-    # Create XML Structure
     urlset = ET.Element("urlset", xmlns="http://www.sitemaps.org/schemas/sitemap/0.9")
     
-    # Standard site pages
-    static_pages = ["index.html", "vocabulary.html"]
+    # Static and custom pages
+    static_pages = ["index.html", "vocabulary.html", "backlog.html", "about.html", "contact.html"]
     for page in static_pages:
         url = ET.SubElement(urlset, "url")
         loc = ET.SubElement(url, "loc")
@@ -403,3 +537,35 @@ def generate_sitemap(output_dir: str, nodes: List[Dict[str, Any]]) -> None:
     sitemap_path = os.path.join(output_dir, "sitemap.xml")
     with open(sitemap_path, "w", encoding="utf-8") as f:
         f.write(pretty_xml)
+
+
+def generate_robots_txt(output_dir: str) -> None:
+    """Generates a robots.txt allowing AI search agents alongside standard bots.
+
+    Args:
+        output_dir: Target output directory path.
+    """
+    content = """User-agent: *
+Allow: /
+
+# Allow AI Search Crawlers explicitly
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Omgilibot
+Allow: /
+
+Sitemap: https://varga.github.io/thehealthstream/sitemap.xml
+"""
+    robots_path = os.path.join(output_dir, "robots.txt")
+    with open(robots_path, "w", encoding="utf-8") as f:
+        f.write(content)

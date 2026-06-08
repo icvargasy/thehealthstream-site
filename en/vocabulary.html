@@ -27,7 +27,7 @@
 
   <!-- Global Header -->
   <header class="global-header">
-    <div class="header-brand">
+    <div class="header-brand-container">
       <button class="icon-button" id="sidebar-toggle" aria-label="Toggle Sidebar" aria-expanded="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
@@ -87,12 +87,44 @@
             </a>
           </li>
           <li>
+            <a href="./backlog.html" class="nav-link " id="nav-backlog">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+              </svg>
+              Proposed Backlog
+            </a>
+          </li>
+          <li>
             <a href="./vocabulary.html" class="nav-link active" id="nav-vocab">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
               </svg>
               Jargon Glossary
+            </a>
+          </li>
+          <li>
+            <a href="./about.html" class="nav-link " id="nav-about">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12.01" y2="8"></line>
+              </svg>
+              About Us
+            </a>
+          </li>
+          <li>
+            <a href="./contact.html" class="nav-link " id="nav-contact">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              Contact Us
             </a>
           </li>
         </ul>
@@ -148,18 +180,8 @@
         </div>
       </nav>
 
-      <!-- Proposed Backlog Widget -->
-      <div class="sidebar-section" style="margin-top: auto; border-bottom: none;">
-        <div class="sidebar-title">Proposed Backlog</div>
-        <p class="backlog-desc" style="font-size: 0.75rem; margin-bottom: var(--space-2); color: var(--sb-text-muted);">
-          Vote to accelerate metabolic decoding of pending system networks.
-        </p>
-        <ul class="backlog-list">
-          <li class="backlog-item" data-id="autophagy-kinetics">  <div class="backlog-header">    <span class="backlog-title">Autophagy Kinetics in Prolonged Fasting</span>    <span class="backlog-votes" data-base-votes="124">124</span>  </div>  <div class="backlog-desc">How long do you need to fast to trigger cellular self-clearing mechanisms?</div>  <button class="vote-btn">Vote</button></li>
-<li class="backlog-item" data-id="nad-precursors">  <div class="backlog-header">    <span class="backlog-title">NAD+ Bioavailability: NMN vs. NR</span>    <span class="backlog-votes" data-base-votes="89">89</span>  </div>  <div class="backlog-desc">An evaluation of metabolic pathway transport differences in oral cofactors.</div>  <button class="vote-btn">Vote</button></li>
-<li class="backlog-item" data-id="zone-2-physiology">  <div class="backlog-header">    <span class="backlog-title">Zone 2 Mitochondrial Adaptations</span>    <span class="backlog-votes" data-base-votes="156">156</span>  </div>  <div class="backlog-desc">How aerobic base training increases mitochondrial density and fat oxidation capacity.</div>  <button class="vote-btn">Vote</button></li>
-        </ul>
-      </div>
+      <!-- Bottom spacer for visual balance -->
+      <div class="sidebar-section" style="margin-top: auto; border-bottom: none;"></div>
 
     </aside>
 
