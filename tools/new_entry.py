@@ -108,6 +108,8 @@ def main() -> None:
     }
     epistemic_status = status_map[status_key]
 
+    content = prompt_user("Enter Article Content Body (Markdown)", "Define the systems biology feedback loops here.")
+
     # 4. Generate JSON schema
     node_data: Dict[str, Any] = {
         "type": content_type,
@@ -116,6 +118,7 @@ def main() -> None:
         "takeaway_pill": pill,
         "epistemic_status": epistemic_status,
         "tags": [content_type],
+        "content": content,
         "evidence_table": [],
         "bibliography": [],
     }

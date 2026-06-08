@@ -1,0 +1,77 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
+
+:root {
+  /* Spacing (8dp System) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 16px;
+  --space-4: 24px;
+  --space-5: 32px;
+  --space-6: 48px;
+  --space-7: 64px;
+
+  /* Typography scale */
+  --font-display: 'Fraunces', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-size-h1: clamp(1.9rem, 3.2vw, 2.5rem);
+  --font-size-h2: clamp(1.35rem, 2.3vw, 1.8rem);
+  --font-size-h3: 1.25rem;
+  --font-size-body: 1rem;
+  --font-size-label: 0.75rem;
+
+  /* Radii */
+  --radius-card: 12px;
+  --radius-button: 8px;
+  --radius-pill: 30px;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Heights */
+  --header-height: 56px;
+  --sidebar-width: 280px;
+
+  /* Accent Color Categories */
+  --accent-biology: oklch(0.42 0.15 15);
+  --accent-lifestyle: oklch(0.62 0.15 140);
+  --accent-book: oklch(0.70 0.16 75);
+}
+
+/* Light Theme Variables */
+body, body[data-theme="light"] {
+  --bg-paper: oklch(0.985 0.005 15);
+  --bg-surface-alt: oklch(0.95 0.008 15);
+  --text-ink: oklch(0.18 0.01 15);
+  --text-ink-muted: oklch(0.45 0.01 15);
+  --border-color: oklch(0.90 0.005 15);
+  --accent-synapse: oklch(0.42 0.15 15);
+  --accent-synapse-hover: oklch(0.35 0.13 15);
+  --selected-bg: oklch(0.42 0.15 15 / 0.06);
+  --selected-border: oklch(0.42 0.15 15 / 0.2);
+
+  /* Sidebar Palette (Light Alabaster) */
+  --sb-bg: oklch(0.96 0.006 15);
+  --sb-text: oklch(0.18 0.01 15);
+  --sb-text-muted: oklch(0.45 0.01 15);
+  --sb-border: oklch(0.90 0.005 15);
+}
+
+/* Dark Theme Variables */
+body[data-theme="dark"] {
+  --bg-paper: oklch(0.10 0.004 15);
+  --bg-surface-alt: oklch(0.18 0.006 15);
+  --text-ink: oklch(0.94 0.005 15);
+  --text-ink-muted: oklch(0.65 0.005 15);
+  --border-color: oklch(0.28 0.008 15);
+  --accent-synapse: oklch(0.68 0.16 15);
+  --accent-synapse-hover: oklch(0.73 0.17 15);
+  --selected-bg: oklch(0.68 0.16 15 / 0.08);
+  --selected-border: oklch(0.68 0.16 15 / 0.3);
+
+  /* Sidebar Palette (Warm Charcoal) */
+  --sb-bg: oklch(0.22 0.006 15);
+  --sb-text: oklch(0.94 0.005 15);
+  --sb-text-muted: oklch(0.65 0.005 15);
+  --sb-border: oklch(0.30 0.008 15);
+}

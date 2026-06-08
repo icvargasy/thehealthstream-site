@@ -1,0 +1,13 @@
+{
+  "name": "thehealthstream",
+  "version": "1.0.0",
+  "description": "A static systems biology content registry",
+  "type": "module",
+  "scripts": {
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "jsdom": "^26.0.0",
+    "vitest": "^3.0.0"
+  }
+}

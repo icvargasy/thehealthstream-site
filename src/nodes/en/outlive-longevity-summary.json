@@ -1,0 +1,29 @@
+{
+  "type": "book",
+  "title": "Outlive: Science & Art of Longevity",
+  "hook_question": "Are we training for the wrong metrics in our current longevity regimens?",
+  "takeaway_pill": "True longevity requires prioritizing healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as primary protective shields against the chronic diseases of aging.",
+  "epistemic_status": "developing",
+  "tags": [
+    "book",
+    "longevity",
+    "exercise"
+  ],
+  "content": "Peter Attia's *Outlive* calls for a shift from reactive Medicine 2.0 to proactive Medicine 3.0. The core message is that modern medicine is excellent at postponing death but poor at extending **healthspan**. To combat the four horsemen of aging (cardiovascular disease, cancer, neurodegenerative disease, and **metabolic syndrome**), individuals must build high **cardiorespiratory fitness** through Zone 2 training and intensive strength routines. Preserving functional biology into the centenary decade requires intentional early training.",
+  "evidence_table": [
+    {
+      "study": "Mandsager et al., 2018",
+      "design": "Retrospective cohort study",
+      "sample": "n=122,007 patients",
+      "outcome": "Elite cardiorespiratory fitness associated with a 5-fold reduction in all-cause mortality vs low performers.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/30347268/"
+    }
+  ],
+  "bibliography": [
+    {
+      "id": "ref3",
+      "text": "Attia P. Outlive: The Science and Art of Longevity. Harmony Books; 2023.",
+      "link": "https://peterattiamd.com/outlive/"
+    }
+  ]
+}

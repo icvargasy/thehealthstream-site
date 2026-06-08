@@ -1,0 +1,29 @@
+{
+  "en": {
+    "site_title": "The Healthstream",
+    "site_tagline": "Systems Biology Content Hub",
+    "feed_title": "Chronological Stream",
+    "nav_home": "Unified Feed",
+    "nav_vocabulary": "Jargon Glossary",
+    "category_biology": "Biology & Science",
+    "category_lifestyle": "Lifestyle & Behavior",
+    "category_book": "Book Summaries",
+    "backlog_title": "Proposed Backlog",
+    "backlog_desc": "Vote to accelerate metabolic decoding of pending system networks.",
+    "button_vote": "Vote",
+    "button_voted": "Voted",
+    "consensus_level": "Epistemic Consensus Scale",
+    "consensus_established": "Established Consensus",
+    "consensus_developing": "Developing Hypothesis",
+    "consensus_controversial": "High Controversy",
+    "takeaway_pill_title": "1-Min Takeaway Pill",
+    "evidence_accordion_title": "Evidence & Data Accordion",
+    "evidence_study": "Clinical Study / Primary Source",
+    "evidence_design": "Study Design",
+    "evidence_sample": "Cohort / Sample Size",
+    "evidence_outcome": "Primary Physiological Outcome",
+    "vocabulary_header": "Jargon Glossary Index",
+    "vocabulary_desc": "A precise index of biological, molecular, and longevity terms used across decoding profiles.",
+    "footer_text": "The Healthstream is an open, non-commercial, citation-backed systems biology reference."
+  }
+}

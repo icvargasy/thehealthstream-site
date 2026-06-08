@@ -1,0 +1,36 @@
+{
+  "type": "lifestyle",
+  "title": "Circadian Light & Sleep Optimization",
+  "hook_question": "Can dim screen glow after sunset confuse our ancient biological clocks?",
+  "takeaway_pill": "Exposing eyes to bright sunlight within 30 minutes of waking and eliminating artificial blue light after dark aligns hormone release for deeper restorative sleep.",
+  "epistemic_status": "consensus",
+  "tags": [
+    "lifestyle",
+    "circadian",
+    "sleep"
+  ],
+  "content": "Our **circadian rhythm** is dictated by the suprachiasmatic nucleus, which relies on light cues to synchronize peripheral organs. Morning light resets the master clock, stopping the production of **melatonin** and starting cortisol synthesis. Throughout the day, waking activities cause **adenosine** to build up in the basal forebrain, creating sleep pressure. Artificial light exposure at night blocks melatonin secretion, preventing the deep and REM cycles necessary for neurological recovery and hormone synthesis.",
+  "evidence_table": [
+    {
+      "study": "Zeitzer et al., 2000",
+      "design": "Controlled human trial",
+      "sample": "n=45 healthy adults",
+      "outcome": "Brief pulses of bright morning light shifted circadian phase by up to 2 hours.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/10893325/"
+    },
+    {
+      "study": "Chang et al., 2015",
+      "design": "Crossover study design",
+      "sample": "n=12 young adults",
+      "outcome": "E-readers before bed suppressed melatonin by 50% and delayed sleep onset by 10 minutes.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/25535358/"
+    }
+  ],
+  "bibliography": [
+    {
+      "id": "ref2",
+      "text": "Duffy JF, et al. Effect of Light on Human Circadian Physiology. Sleep Med Clin. 2009;4(2):165-177.",
+      "link": "https://doi.org/10.1016/j.jsmc.2009.01.004"
+    }
+  ]
+}
