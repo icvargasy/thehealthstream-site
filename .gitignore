@@ -16,9 +16,11 @@ skills-lock.json
 # Private Specs & Design Documents (to exclude from public repo)
 PRODUCT.md
 DESIGN.md
+BRAND.md
 mission_and_vision.md
 gemini.md
 docs/
+scratch/
 
 
 # Agent Planning/Task Artifacts
