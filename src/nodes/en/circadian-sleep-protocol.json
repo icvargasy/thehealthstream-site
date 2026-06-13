@@ -2,14 +2,37 @@
   "type": "lifestyle",
   "title": "Circadian Light & Sleep Optimization",
   "hook_question": "Can dim screen glow after sunset confuse our ancient biological clocks?",
-  "takeaway_pill": "Exposing eyes to bright sunlight within 30 minutes of waking and eliminating artificial blue light after dark aligns hormone release for deeper restorative sleep.",
-  "epistemic_status": "consensus",
+  "takeaway_pill": "To reset our master circadian clock, we must coordinate light, nutrition, and exercise with our biology. Exposing our eyes to bright sunlight within 30 minutes of waking suppresses melatonin and spikes cortisol, preparing our body for a focused day and a restorative night.",
+  "epistemic_rating": {
+    "grade": "High",
+    "rationale": "Consensus is established by high-quality human trials mapping melatonin suppression under localized light wavelengths and sleep polysomnography tests.",
+    "debate_sides": []
+  },
   "tags": [
     "lifestyle",
     "circadian",
     "sleep"
   ],
-  "content": "The suprachiasmatic nucleus regulates our **circadian rhythm** by using light cues to synchronize peripheral organs. Morning light resets this master clock, halting **melatonin** and triggering cortisol synthesis. During the day, waking activity builds up **adenosine** in the forebrain to create sleep pressure. Artificial light at night blocks melatonin, disrupting the deep and REM sleep cycles needed for neurological recovery.",
+  "reading_modes": {
+    "overview_3min": "The suprachiasmatic nucleus (SCN) acts as our body's master circadian clock, keeping our physiology aligned with the rotation of the Earth. By exposing our eyes to bright light in the morning, we signal the SCN to halt **melatonin** production and trigger a healthy cortisol spike. Throughout the day, waking activity builds up **adenosine** in the brain, steadily accumulating sleep pressure. Eliminating artificial blue light after dark is critical to prevent melatonin suppression, allowing our body to enter deep, restorative sleep cycles. While avoiding evening screen glow is difficult in a hyper-connected world, understanding that blue light acts as a false chemical dawn helps us design healthier daily boundaries.",
+    "deep_dive": [
+      {
+        "heading": "The Melanopsin Light Pathway",
+        "body": "Intrinsically photosensitive retinal ganglion cells (ipRGCs) contain the photopigment melanopsin, which is highly sensitive to blue light (around 460–480 nm). These cells project directly to the SCN via the retinohypothalamic tract. Morning sunlight triggers this pathway to reset the circadian clock. Conversely, low-lux glow from screens after dark stimulates ipRGCs, delaying melatonin release and shifting the sleep cycle."
+      },
+      {
+        "heading": "Adenosine and Sleep Pressure",
+        "body": "As we consume ATP for energy during waking hours, **adenosine** accumulates in the basal forebrain. Adenosine binding to A1 receptors inhibits arousal-promoting neurons, steadily building homeostatic sleep pressure. During sleep, the glymphatic system clears this adenosine accumulation, resetting the brain for the next waking cycle."
+      }
+    ]
+  },
+  "edges": [
+    {
+      "target": "ampk-activation",
+      "type": "requires",
+      "mechanism": "Adenosine clearance and sleep recovery are necessary to support cell repair pathways triggered by AMPK."
+    }
+  ],
   "evidence_table": [
     {
       "study": "Zeitzer et al., 2000",

@@ -54,15 +54,16 @@ describe("Client Interaction - app.js", () => {
       
       <div id="dashboard-container">
         <aside id="sidebar">
-          <div class="accordion-group" id="group-biology">
-            <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="true">
-              <span>Biology</span>
-              <svg class="chevron"></svg>
-            </button>
-            <div class="accordion-content" id="content-biology">
-              <!-- Links -->
-            </div>
-          </div>
+          <nav class="sidebar-section">
+            <div class="sidebar-title">Topics</div>
+            <ul class="nav-list">
+              <li>
+                <a href="category-biology.html" class="nav-link category-link cat-biology" data-category="biology">
+                  Biological Circuits <span class="category-count">(1)</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
           
           <div class="sidebar-section">
             <ul class="backlog-list">
@@ -76,6 +77,15 @@ describe("Client Interaction - app.js", () => {
         
         <main id="reading-pane">
           <div class="content-container">
+            <div class="detail-grade-container">
+              <button class="detail-grade-badge grade-high" id="grade-trigger" aria-haspopup="true" aria-expanded="false">
+                High
+              </button>
+              <div class="grade-popover-card" id="grade-popover" role="dialog">
+                <button class="grade-popover-close">&times;</button>
+                <p class="grade-popover-rationale">Consensus is supported.</p>
+              </div>
+            </div>
             <p>
               Let's test <span class="jargon-term" data-term="AMPK" data-definition="Energy enzyme" data-slug="ampk">AMPK</span>.
             </p>
@@ -135,23 +145,6 @@ describe("Client Interaction - app.js", () => {
     expect(localStorageMock.setItem).toHaveBeenCalledWith("left_sidebar_collapsed", "false");
   });
 
-  it("should toggle category accordions inside sidebar", () => {
-    const group = document.getElementById("group-biology");
-    const trigger = group.querySelector(".accordion-trigger");
-
-    expect(group.classList.contains("collapsed")).toBe(false);
-
-    // Toggle collapse
-    trigger.click();
-    expect(group.classList.contains("collapsed")).toBe(true);
-    expect(localStorageMock.setItem).toHaveBeenCalledWith("cat_collapsed_group-biology", "true");
-
-    // Toggle expand
-    trigger.click();
-    expect(group.classList.contains("collapsed")).toBe(false);
-    expect(localStorageMock.setItem).toHaveBeenCalledWith("cat_collapsed_group-biology", "false");
-  });
-
   it("should display popover definitions when clicking jargon terms", () => {
     const term = document.querySelector(".jargon-term");
     
@@ -168,14 +161,17 @@ describe("Client Interaction - app.js", () => {
     expect(popover).not.toBeNull();
     expect(popover.classList.contains("visible")).toBe(true);
     expect(popover.querySelector(".popover-def").textContent).toBe("Energy enzyme");
-    expect(popover.querySelector("a").getAttribute("href")).toBe("vocabulary.html#ampk");
+    expect(popover.querySelector("a").getAttribute("href")).toBe("vocabulary/ampk.html");
 
     // Click outside to dismiss
     document.body.click();
     expect(popover.classList.contains("visible")).toBe(false);
   });
 
-  it("should record backlog votes in localStorage and disable button", () => {
+  it("should record backlog votes in localStorage and disable button", async () => {
+    // Pre-populate email in localStorage to bypass prompt
+    localStorageStore["voter_email"] = "test@example.com";
+
     const item = document.querySelector(".backlog-item");
     const badge = item.querySelector(".backlog-votes");
     const button = item.querySelector(".vote-btn");
@@ -185,9 +181,15 @@ describe("Client Interaction - app.js", () => {
 
     // Vote
     button.click();
+    
+    // Wait for the async fetch to finish and update UI
+    await vi.waitFor(() => {
+      if (badge.textContent !== "125") throw new Error("Badge not updated");
+    });
+
     expect(badge.textContent).toBe("125");
     expect(button.disabled).toBe(true);
-    expect(button.textContent).toBe("Voted");
+    expect(button.textContent).toBe("Topic Supported");
     expect(button.classList.contains("voted")).toBe(true);
     expect(localStorageMock.setItem).toHaveBeenCalledWith(
       "backlog_votes",
@@ -244,41 +246,77 @@ describe("Client Interaction - app.js", () => {
     expect(searchResults.style.display).toBe("none");
   });
 
-  it("should force expand the accordion group that contains the active nav link and default collapse others", () => {
-    // Construct local mock DOM
+  it("should switch reading tabs correctly on detailed pages", () => {
+    // Construct local mock DOM with reading tabs
     document.body.innerHTML = `
-      <div class="accordion-group collapsed" id="group-biology">
-        <button class="accordion-trigger" aria-expanded="false">Biology</button>
-        <div class="accordion-content" id="content-biology">
-          <a href="#" class="nav-link active">Active Link</a>
-        </div>
+      <div class="reading-tabs">
+        <button class="tab-btn active" data-tab="overview" aria-selected="true">Overview</button>
+        <button class="tab-btn" data-tab="deepdive" aria-selected="false">Deep Dive</button>
       </div>
-      <div class="accordion-group" id="group-lifestyle">
-        <button class="accordion-trigger" aria-expanded="true">Lifestyle</button>
-        <div class="accordion-content" id="content-lifestyle">
-          <a href="#" class="nav-link">Inactive Link</a>
-        </div>
-      </div>
+      <div id="tab-overview">Overview Content</div>
+      <div id="tab-deepdive" class="hidden">Deep Dive Content</div>
     `;
-    
-    // Set localStorage mock to collapse lifestyle
-    localStorageStore["cat_collapsed_group-biology"] = "true";
-    localStorageStore["cat_collapsed_group-lifestyle"] = "true";
 
-    // Re-initialize elements
+    // Re-initialize listeners
     document.dispatchEvent(new Event("DOMContentLoaded"));
 
-    const bioGroup = document.getElementById("group-biology");
-    const bioTrigger = bioGroup.querySelector(".accordion-trigger");
-    const lifeGroup = document.getElementById("group-lifestyle");
-    const lifeTrigger = lifeGroup.querySelector(".accordion-trigger");
+    const buttons = document.querySelectorAll(".tab-btn");
+    const overviewBtn = buttons[0];
+    const deepdiveBtn = buttons[1];
+    const tabOverview = document.getElementById("tab-overview");
+    const tabDeepdive = document.getElementById("tab-deepdive");
 
-    // Biology contains .active, must be uncollapsed
-    expect(bioGroup.classList.contains("collapsed")).toBe(false);
-    expect(bioTrigger.getAttribute("aria-expanded")).toBe("true");
+    expect(tabOverview.classList.contains("hidden")).toBe(false);
+    expect(tabDeepdive.classList.contains("hidden")).toBe(true);
 
-    // Lifestyle has no .active, must follow localStorage collapsed
-    expect(lifeGroup.classList.contains("collapsed")).toBe(true);
-    expect(lifeTrigger.getAttribute("aria-expanded")).toBe("false");
+    // Click deep dive tab
+    deepdiveBtn.click();
+
+    expect(overviewBtn.classList.contains("active")).toBe(false);
+    expect(deepdiveBtn.classList.contains("active")).toBe(true);
+    expect(overviewBtn.getAttribute("aria-selected")).toBe("false");
+    expect(deepdiveBtn.getAttribute("aria-selected")).toBe("true");
+
+    expect(tabOverview.classList.contains("hidden")).toBe(true);
+    expect(tabDeepdive.classList.contains("hidden")).toBe(false);
+
+    // Click overview tab back
+    overviewBtn.click();
+
+    expect(overviewBtn.classList.contains("active")).toBe(true);
+    expect(deepdiveBtn.classList.contains("active")).toBe(false);
+    expect(overviewBtn.getAttribute("aria-selected")).toBe("true");
+    expect(deepdiveBtn.getAttribute("aria-selected")).toBe("false");
+
+    expect(tabOverview.classList.contains("hidden")).toBe(false);
+    expect(tabDeepdive.classList.contains("hidden")).toBe(true);
+  });
+
+  it("should toggle the GRADE evidence rating popover on click and dismiss correctly", () => {
+    const trigger = document.getElementById("grade-trigger");
+    const popover = document.getElementById("grade-popover");
+    const closeBtn = popover.querySelector(".grade-popover-close");
+
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(popover.classList.contains("visible")).toBe(false);
+
+    // Click trigger to show
+    trigger.click();
+    expect(trigger.getAttribute("aria-expanded")).toBe("true");
+    expect(popover.classList.contains("visible")).toBe(true);
+
+    // Click close button to hide
+    closeBtn.click();
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(popover.classList.contains("visible")).toBe(false);
+
+    // Click trigger to show again
+    trigger.click();
+    expect(popover.classList.contains("visible")).toBe(true);
+
+    // Click outside to dismiss
+    document.body.click();
+    expect(trigger.getAttribute("aria-expanded")).toBe("false");
+    expect(popover.classList.contains("visible")).toBe(false);
   });
 });

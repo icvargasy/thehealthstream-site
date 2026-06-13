@@ -13,6 +13,8 @@ from compiler.writer import (
     compile_feed_page,
     compile_detail_page,
     compile_vocabulary_page,
+    compile_tag_page,
+    compile_category_page,
     compile_backlog_page,
     compile_static_content_page,
     copy_static_assets,
@@ -95,12 +97,12 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="feed",
-        active_category="",
     )
     feed_page_html = compile_feed_page(
         layout_html=base_layout_feed,
         nodes=nodes,
         translations=translations,
+        vocabulary=vocabulary,
     )
     with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(feed_page_html)
@@ -113,7 +115,6 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="vocab",
-        active_category="",
     )
     vocab_page_html = compile_vocabulary_page(
         layout_html=base_layout_vocab,
@@ -124,6 +125,48 @@ def run_build() -> None:
     with open(os.path.join(output_dir, "vocabulary.html"), "w", encoding="utf-8") as f:
         f.write(vocab_page_html)
 
+    # 5.5 Compile individual vocabulary term detail pages
+    print("Compiling individual jargon detail pages under vocabulary/...")
+    vocab_dest_dir = os.path.join(output_dir, "vocabulary")
+    os.makedirs(vocab_dest_dir, exist_ok=True)
+    
+    # Calculate mentions map for terms
+    import re
+    from compiler.linker import slugify
+    from compiler.writer import compile_vocabulary_detail_page
+    mentions = {term: [] for term in vocabulary.keys()}
+    for n in nodes:
+        overview_text = n["reading_modes"]["overview_3min"]
+        deep_dive_text = " ".join([item["body"] for item in n["reading_modes"]["deep_dive"]])
+        combined_text = f"{n['title']} {n['hook_question']} {n['takeaway_pill']} {overview_text} {deep_dive_text}"
+        for term in vocabulary.keys():
+            pattern = re.compile(r"(?<![\w-])" + re.escape(term) + r"(?![\w-])", re.IGNORECASE)
+            if pattern.search(combined_text):
+                mentions[term].append({
+                    "title": n["title"],
+                    "slug": f"{n['slug']}.html"
+                })
+
+    for term, vocab_item in vocabulary.items():
+        slug = slugify(term)
+        base_layout_term = compile_base_layout(
+            template_content=template_content,
+            translations=translations,
+            nodes=nodes,
+            backlog=backlog,
+            active_nav="vocab",
+            base_path="../",
+        )
+        term_html = compile_vocabulary_detail_page(
+            layout_html=base_layout_term,
+            term=term,
+            vocab_item=vocab_item,
+            mentions=mentions.get(term, []),
+            translations=translations,
+        )
+        with open(os.path.join(vocab_dest_dir, f"{slug}.html"), "w", encoding="utf-8") as f:
+            f.write(term_html)
+
     # 6. Compile backlog.html (Backlog Proposals Page)
     print("Compiling backlog page (backlog.html)...")
     base_layout_backlog = compile_base_layout(
@@ -132,12 +175,12 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="backlog",
-        active_category="",
     )
     backlog_page_html = compile_backlog_page(
         layout_html=base_layout_backlog,
         backlog=backlog,
         translations=translations,
+        vocabulary=vocabulary,
     )
     with open(os.path.join(output_dir, "backlog.html"), "w", encoding="utf-8") as f:
         f.write(backlog_page_html)
@@ -150,7 +193,6 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="about",
-        active_category="",
     )
     about_md_path = os.path.join(src_dir, "nodes", "en", "about.md")
     about_page_html = compile_static_content_page(
@@ -159,7 +201,8 @@ def run_build() -> None:
         title_key="nav_about",
         desc_key="site_tagline",
         translations=translations,
-        has_contact_form=False,
+        vocabulary=vocabulary,
+        form_type="",
     )
     with open(os.path.join(output_dir, "about.html"), "w", encoding="utf-8") as f:
         f.write(about_page_html)
@@ -172,7 +215,6 @@ def run_build() -> None:
         nodes=nodes,
         backlog=backlog,
         active_nav="contact",
-        active_category="",
     )
     contact_md_path = os.path.join(src_dir, "nodes", "en", "contact.md")
     contact_page_html = compile_static_content_page(
@@ -181,18 +223,106 @@ def run_build() -> None:
         title_key="nav_contact",
         desc_key="contact_desc",
         translations=translations,
-        has_contact_form=True,
+        vocabulary=vocabulary,
+        form_type="contact",
     )
     with open(os.path.join(output_dir, "contact.html"), "w", encoding="utf-8") as f:
         f.write(contact_page_html)
 
+    # 8.5. Compile submit-proposal.html (Submit Proposal Page)
+    print("Compiling submit proposal page (submit-proposal.html)...")
+    base_layout_proposal = compile_base_layout(
+        template_content=template_content,
+        translations=translations,
+        nodes=nodes,
+        backlog=backlog,
+        active_nav="submit-proposal",
+    )
+    proposal_md_path = os.path.join(src_dir, "nodes", "en", "submit-proposal.md")
+    proposal_page_html = compile_static_content_page(
+        layout_html=base_layout_proposal,
+        md_filepath=proposal_md_path,
+        title_key="nav_submit_proposal",
+        desc_key="submit_proposal_desc",
+        translations=translations,
+        vocabulary=vocabulary,
+        form_type="proposal",
+    )
+    with open(os.path.join(output_dir, "submit-proposal.html"), "w", encoding="utf-8") as f:
+        f.write(proposal_page_html)
+
+    # 8.6. Compile terms.html (Terms of Use Page)
+    print("Compiling terms of use page (terms.html)...")
+    base_layout_terms = compile_base_layout(
+        template_content=template_content,
+        translations=translations,
+        nodes=nodes,
+        backlog=backlog,
+        active_nav="",
+    )
+    terms_md_path = os.path.join(src_dir, "nodes", "en", "terms.md")
+    terms_page_html = compile_static_content_page(
+        layout_html=base_layout_terms,
+        md_filepath=terms_md_path,
+        title_key="nav_terms",
+        desc_key="terms_desc",
+        translations=translations,
+        vocabulary=vocabulary,
+        form_type="",
+    )
+    with open(os.path.join(output_dir, "terms.html"), "w", encoding="utf-8") as f:
+        f.write(terms_page_html)
+
+    # 8.7. Compile privacy.html (Privacy Policy Page)
+    print("Compiling privacy policy page (privacy.html)...")
+    base_layout_privacy = compile_base_layout(
+        template_content=template_content,
+        translations=translations,
+        nodes=nodes,
+        backlog=backlog,
+        active_nav="",
+    )
+    privacy_md_path = os.path.join(src_dir, "nodes", "en", "privacy.md")
+    privacy_page_html = compile_static_content_page(
+        layout_html=base_layout_privacy,
+        md_filepath=privacy_md_path,
+        title_key="nav_privacy",
+        desc_key="privacy_desc",
+        translations=translations,
+        vocabulary=vocabulary,
+        form_type="",
+    )
+    with open(os.path.join(output_dir, "privacy.html"), "w", encoding="utf-8") as f:
+        f.write(privacy_page_html)
+
     # 9. Compile individual detail pages (with Jargon linking)
     for node in nodes:
         print(f"Linking jargon and compiling detail page: {node['slug']}.html...")
-        linked_content = inject_jargon_links(node["content"], vocabulary)
         
         node_copy = node.copy()
-        node_copy["content"] = linked_content
+        overview_linked = inject_jargon_links(node["reading_modes"]["overview_3min"], vocabulary)
+        deep_dive_linked = [
+            {
+                "heading": item["heading"],
+                "body": inject_jargon_links(item["body"], vocabulary)
+            }
+            for item in node["reading_modes"]["deep_dive"]
+        ]
+        evidence_table_linked = [
+            {
+                "study": item["study"],
+                "design": item.get("design", ""),
+                "sample": item.get("sample", ""),
+                "outcome": inject_jargon_links(item["outcome"], vocabulary),
+                "link": item["link"]
+            }
+            for item in node.get("evidence_table", [])
+        ]
+        node_copy["reading_modes"] = {
+            "overview_3min": overview_linked,
+            "deep_dive": deep_dive_linked
+        }
+        node_copy["evidence_table"] = evidence_table_linked
         
         base_layout_detail = compile_base_layout(
             template_content=template_content,
@@ -200,27 +330,86 @@ def run_build() -> None:
             nodes=nodes,
             backlog=backlog,
             active_nav="",
-            active_category=node["type"],
         )
         detail_page_html = compile_detail_page(
             layout_html=base_layout_detail,
             node=node_copy,
             translations=translations,
+            nodes=nodes,
         )
         with open(os.path.join(output_dir, f"{node['slug']}.html"), "w", encoding="utf-8") as f:
             f.write(detail_page_html)
 
-    # 10. Mirror CSS, Javascript, and media assets
+    # 10. Compile tag filter pages
+    print("Compiling tag pages (tags/*.html)...")
+    tags_output_dir = os.path.join(output_dir, "tags")
+    os.makedirs(tags_output_dir, exist_ok=True)
+
+    # Collect all unique tags across all nodes (preserve original case from first occurrence)
+    seen_tags: dict = {}
+    for node in nodes:
+        for t in node.get("tags", []):
+            key = t.lower()
+            if key not in seen_tags:
+                seen_tags[key] = t
+
+    for tag_slug, tag_raw in seen_tags.items():
+        base_layout_tag = compile_base_layout(
+            template_content=template_content,
+            translations=translations,
+            nodes=nodes,
+            backlog=backlog,
+            active_nav="",
+            base_path="../",
+        )
+        tag_page_html = compile_tag_page(
+            layout_html=base_layout_tag,
+            tag=tag_raw,
+            nodes=nodes,
+            translations=translations,
+            backlog=backlog,
+            vocabulary=vocabulary,
+        )
+        tag_out_path = os.path.join(tags_output_dir, f"{tag_slug}.html")
+        with open(tag_out_path, "w", encoding="utf-8") as f:
+            f.write(tag_page_html)
+        print(f"  Written: tags/{tag_slug}.html ({len([n for n in nodes if any(t.lower() == tag_slug for t in n.get('tags', []))])} articles)")
+
+    # 10.5 Compile category filter pages
+    print("Compiling category pages (category-*.html)...")
+    categories = ["biology", "lifestyle", "book"]
+    for cat in categories:
+        base_layout_cat = compile_base_layout(
+            template_content=template_content,
+            translations=translations,
+            nodes=nodes,
+            backlog=backlog,
+            active_nav=f"category-{cat}",
+        )
+        cat_page_html = compile_category_page(
+            layout_html=base_layout_cat,
+            category_type=cat,
+            nodes=nodes,
+            translations=translations,
+            vocabulary=vocabulary,
+        )
+        cat_out_path = os.path.join(output_dir, f"category-{cat}.html")
+        with open(cat_out_path, "w", encoding="utf-8") as f:
+            f.write(cat_page_html)
+        print(f"  Written: category-{cat}.html")
+
+    # 11. Mirror CSS, Javascript, and media assets
     print("Copying script and style assets to the output folder...")
     copy_static_assets(output_dir)
 
-    # 11. Generate SEO Sitemap
+    # 12. Generate SEO Sitemap (includes tag pages)
     print("Generating sitemap.xml...")
-    generate_sitemap(output_dir, nodes)
-
+    site_url = translations.get("en", {}).get("site_url", "https://varga.github.io/thehealthstream").rstrip("/")
+    generate_sitemap(output_dir, nodes, list(seen_tags.keys()), site_url)
+    
     # 12. Generate robots.txt
     print("Generating robots.txt...")
-    generate_robots_txt(output_dir)
+    generate_robots_txt(output_dir, site_url)
 
     # 13. Generate Search Index
     print("Generating search_index.json...")

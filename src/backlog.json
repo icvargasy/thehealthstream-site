@@ -3,18 +3,24 @@
     "id": "autophagy-kinetics",
     "title": "Autophagy Kinetics in Prolonged Fasting",
     "description": "How long do you need to fast to trigger cellular self-clearing mechanisms?",
-    "votes": 124
+    "category": "biology",
+    "votes": 124,
+    "tags": ["biology", "metabolism", "fasting"]
   },
   {
     "id": "nad-precursors",
     "title": "NAD+ Bioavailability: NMN vs. NR",
     "description": "An evaluation of metabolic pathway transport differences in oral cofactors.",
-    "votes": 89
+    "category": "biology",
+    "votes": 89,
+    "tags": ["biology", "metabolism", "supplements"]
   },
   {
     "id": "zone-2-physiology",
     "title": "Zone 2 Mitochondrial Adaptations",
     "description": "How aerobic base training increases mitochondrial density and fat oxidation capacity.",
-    "votes": 156
+    "category": "lifestyle",
+    "votes": 156,
+    "tags": ["lifestyle", "exercise", "mitochondria"]
   }
 ]

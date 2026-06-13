@@ -1,0 +1,43 @@
+name: Update Content Backlog Pipeline
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs daily at midnight UTC
+  workflow_dispatch: # Allows manual trigger from the Actions tab
+
+jobs:
+  update-backlog:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install markdown pytest
+
+      - name: Import latest proposals and votes
+        run: python tools/new_entry_in_pipeline.py --import
+
+      - name: Rebuild static web pages
+        run: python tools/build.py
+
+      - name: Commit and push updates
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add src/backlog.json en/
+          if ! git diff --cached --quiet; then
+            git commit -m "auto(backlog): sync submissions and recompile static pages [skip ci]"
+            git push
+          else
+            echo "No backlog updates or changes detected."
+          fi

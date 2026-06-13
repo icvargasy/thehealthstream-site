@@ -28,5 +28,11 @@
   },
   "cardiorespiratory fitness": {
     "definition": "The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)."
+  },
+  "GRADE": {
+    "definition": "Grading of Recommendations, Assessment, Development, and Evaluation; a standardized framework for rating the quality of scientific evidence from High to Very Low."
+  },
+  "Evidence Grade": {
+    "definition": "A standardized assessment based on the GRADE framework to rate the quality of research supporting an entry, ranging from High to Very Low."
   }
 }

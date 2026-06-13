@@ -1,27 +1,51 @@
 <?xml version="1.0" ?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://varga.github.io/thehealthstream/index.html</loc>
+    <loc>https://icvargasy.github.io/thehealthstream-site/index.html</loc>
   </url>
   <url>
-    <loc>https://varga.github.io/thehealthstream/vocabulary.html</loc>
+    <loc>https://icvargasy.github.io/thehealthstream-site/vocabulary.html</loc>
   </url>
   <url>
-    <loc>https://varga.github.io/thehealthstream/backlog.html</loc>
+    <loc>https://icvargasy.github.io/thehealthstream-site/backlog.html</loc>
   </url>
   <url>
-    <loc>https://varga.github.io/thehealthstream/about.html</loc>
+    <loc>https://icvargasy.github.io/thehealthstream-site/about.html</loc>
   </url>
   <url>
-    <loc>https://varga.github.io/thehealthstream/contact.html</loc>
+    <loc>https://icvargasy.github.io/thehealthstream-site/contact.html</loc>
   </url>
   <url>
-    <loc>https://varga.github.io/thehealthstream/ampk-activation.html</loc>
+    <loc>https://icvargasy.github.io/thehealthstream-site/ampk-activation.html</loc>
   </url>
   <url>
-    <loc>https://varga.github.io/thehealthstream/circadian-sleep-protocol.html</loc>
+    <loc>https://icvargasy.github.io/thehealthstream-site/circadian-sleep-protocol.html</loc>
   </url>
   <url>
-    <loc>https://varga.github.io/thehealthstream/outlive-longevity-summary.html</loc>
+    <loc>https://icvargasy.github.io/thehealthstream-site/outlive-longevity-summary.html</loc>
+  </url>
+  <url>
+    <loc>https://icvargasy.github.io/thehealthstream-site/tags/biology.html</loc>
+  </url>
+  <url>
+    <loc>https://icvargasy.github.io/thehealthstream-site/tags/metabolism.html</loc>
+  </url>
+  <url>
+    <loc>https://icvargasy.github.io/thehealthstream-site/tags/longevity.html</loc>
+  </url>
+  <url>
+    <loc>https://icvargasy.github.io/thehealthstream-site/tags/lifestyle.html</loc>
+  </url>
+  <url>
+    <loc>https://icvargasy.github.io/thehealthstream-site/tags/circadian.html</loc>
+  </url>
+  <url>
+    <loc>https://icvargasy.github.io/thehealthstream-site/tags/sleep.html</loc>
+  </url>
+  <url>
+    <loc>https://icvargasy.github.io/thehealthstream-site/tags/book.html</loc>
+  </url>
+  <url>
+    <loc>https://icvargasy.github.io/thehealthstream-site/tags/exercise.html</loc>
   </url>
 </urlset>

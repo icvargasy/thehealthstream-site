@@ -6,11 +6,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   initializeTheme();
   initializeSidebar();
-  initializeAccordions();
   initializeJargonPopovers();
   initializeBacklogVoting();
   initializeEvidenceAccordion();
   initializeSearch();
+  initializeReadingTabs();
+  initializeProposalSubmission();
+  initializeContactSubmission();
+  initializeBackToTop();
+  initializeTocNavigation();
+  initializeGradePopover();
 });
 
 /**
@@ -68,8 +73,11 @@ function initializeSidebar() {
   const dashboardContainer = document.getElementById("dashboard-container");
   if (!sidebarToggle || !dashboardContainer) return;
 
-  // Restore collapsed state
-  const isCollapsed = localStorage.getItem("left_sidebar_collapsed") === "true";
+  // Restore collapsed state (default to collapsed on mobile <= 768px if no preference stored)
+  const isMobile = window.innerWidth <= 768;
+  const storedState = localStorage.getItem("left_sidebar_collapsed");
+  const isCollapsed = storedState !== null ? storedState === "true" : isMobile;
+  
   if (isCollapsed) {
     document.body.classList.add("left-collapsed");
     dashboardContainer.classList.add("left-collapsed");
@@ -84,52 +92,6 @@ function initializeSidebar() {
     sidebarToggle.setAttribute("aria-expanded", willCollapse ? "false" : "true");
     
     localStorage.setItem("left_sidebar_collapsed", willCollapse ? "true" : "false");
-  });
-}
-
-/**
- * Configures the collapsible category accordions inside the left sidebar.
- * Restores and persists the open/collapsed state of each category slug.
- * @returns {void}
- */
-function initializeAccordions() {
-  const accordionGroups = document.querySelectorAll(".accordion-group");
-  
-  accordionGroups.forEach((group) => {
-    const trigger = group.querySelector(".accordion-trigger");
-    const categoryId = group.id;
-    if (!trigger || !categoryId) return;
-
-    // Force expand category containing the active link
-    const hasActiveLink = group.querySelector(".nav-link.active") !== null;
-    let isCollapsed = false;
-
-    if (hasActiveLink) {
-      isCollapsed = false;
-      localStorage.setItem(`cat_collapsed_${categoryId}`, "false");
-    } else {
-      const stored = localStorage.getItem(`cat_collapsed_${categoryId}`);
-      if (stored !== null) {
-        isCollapsed = stored === "true";
-      } else {
-        isCollapsed = group.classList.contains("collapsed");
-      }
-    }
-
-    if (isCollapsed) {
-      group.classList.add("collapsed");
-      trigger.setAttribute("aria-expanded", "false");
-    } else {
-      group.classList.remove("collapsed");
-      trigger.setAttribute("aria-expanded", "true");
-    }
-
-    trigger.addEventListener("click", () => {
-      const willCollapse = !group.classList.contains("collapsed");
-      group.classList.toggle("collapsed", willCollapse);
-      trigger.setAttribute("aria-expanded", willCollapse ? "false" : "true");
-      localStorage.setItem(`cat_collapsed_${categoryId}`, willCollapse ? "true" : "false");
-    });
   });
 }
 
@@ -188,10 +150,12 @@ function initializeJargonPopovers() {
       e.stopPropagation();
       const definition = term.getAttribute("data-definition") || "";
       const slug = term.getAttribute("data-slug") || "";
+      const isSubdir = window.location.pathname.includes("/tags/") || window.location.pathname.includes("/vocabulary/");
+      const href = isSubdir ? `../vocabulary/${slug}.html` : `vocabulary/${slug}.html`;
 
       popover.innerHTML = `
         <div class="popover-def">${definition}</div>
-        <a href="vocabulary.html#${slug}" class="popover-link">View in Glossary →</a>
+        <a href="${href}" class="popover-link">View in Glossary &rarr;</a>
       `;
 
       positionPopover(term);
@@ -234,6 +198,8 @@ function initializeBacklogVoting() {
 
   backlogItems.forEach((item) => {
     const itemId = item.getAttribute("data-id");
+    const itemTitle = item.getAttribute("data-title");
+    const itemCategory = item.getAttribute("data-category");
     const voteBtn = item.querySelector(".vote-btn");
     const voteBadge = item.querySelector(".backlog-votes");
     if (!itemId || !voteBtn || !voteBadge) return;
@@ -243,24 +209,92 @@ function initializeBacklogVoting() {
     // Apply saved vote state
     if (votesMap[itemId]) {
       voteBadge.textContent = String(baseVotes + 1);
-      voteBtn.textContent = "Voted";
+      voteBtn.textContent = "Topic Supported";
       voteBtn.classList.add("voted");
       voteBtn.disabled = true;
     }
+
+    const submitVote = (email) => {
+      voteBtn.disabled = true;
+      voteBtn.textContent = "Sending...";
+
+      const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScvE2_p-3PEjrJFZZiemtzs7RJ7DGFt-i4Q2PZQgMK1mMmHrA/formResponse";
+      const bodyData = new URLSearchParams({
+        "emailAddress": email,
+        "entry.1511979281": itemTitle,
+        "entry.557600625": itemCategory,
+        "entry.20589093": "Vote cast from Healthstream website"
+      });
+
+      fetch(formUrl, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: bodyData.toString()
+      })
+      .then(() => {
+        votesMap[itemId] = true;
+        localStorage.setItem("backlog_votes", JSON.stringify(votesMap));
+
+        voteBadge.textContent = String(baseVotes + 1);
+        voteBtn.textContent = "Topic Supported";
+        voteBtn.classList.add("voted");
+        voteBtn.disabled = true;
+      })
+      .catch((err) => {
+        console.error("Failed to submit vote:", err);
+        voteBtn.disabled = false;
+        voteBtn.textContent = "Support";
+        alert("We could not register your support at this moment. Please check your network connection and try again.");
+      });
+    };
 
     voteBtn.addEventListener("click", (e) => {
       e.stopPropagation();
       if (votesMap[itemId]) return;
 
-      // Update local storage
-      votesMap[itemId] = true;
-      localStorage.setItem("backlog_votes", JSON.stringify(votesMap));
+      const voterEmail = localStorage.getItem("voter_email");
+      if (voterEmail) {
+        submitVote(voterEmail);
+      } else {
+        if (item.querySelector(".vote-email-input-wrapper")) return;
 
-      // Update UI state
-      voteBadge.textContent = String(baseVotes + 1);
-      voteBtn.textContent = "Voted";
-      voteBtn.classList.add("voted");
-      voteBtn.disabled = true;
+        const wrapper = document.createElement("div");
+        wrapper.className = "vote-email-input-wrapper";
+        wrapper.innerHTML = `
+          <label for="vote-email-${itemId}">Before we count your support, we need to verify who you are. Please enter your email:</label>
+          <input type="email" id="vote-email-${itemId}" class="vote-email-input" placeholder="your.email@example.com" required>
+          <div class="vote-email-actions">
+            <button class="vote-confirm-btn">Confirm My Support</button>
+            <button class="vote-cancel-btn">Cancel</button>
+          </div>
+        `;
+
+        item.appendChild(wrapper);
+
+        const confirmBtn = wrapper.querySelector(".vote-confirm-btn");
+        const cancelBtn = wrapper.querySelector(".vote-cancel-btn");
+        const emailInput = wrapper.querySelector(".vote-email-input");
+
+        cancelBtn.addEventListener("click", (evt) => {
+          evt.stopPropagation();
+          wrapper.remove();
+        });
+
+        confirmBtn.addEventListener("click", (evt) => {
+          evt.stopPropagation();
+          const emailVal = emailInput.value.trim();
+          if (!emailVal || !emailVal.includes("@")) {
+            emailInput.style.borderColor = "oklch(0.55 0.18 15)";
+            return;
+          }
+          localStorage.setItem("voter_email", emailVal);
+          wrapper.remove();
+          submitVote(emailVal);
+        });
+      }
     });
   });
 }
@@ -418,4 +452,440 @@ function initializeSearch() {
       closeDropdown();
     }
   });
+}
+
+/**
+ * Attaches event listeners for reading mode tabs (3-Min Overview vs. Deep-Dive).
+ * Swaps visible content containers without resetting scroll position.
+ * @returns {void}
+ */
+function initializeReadingTabs() {
+  const tabsContainer = document.querySelector(".reading-tabs");
+  if (!tabsContainer) return;
+
+  const buttons = tabsContainer.querySelectorAll(".tab-btn");
+  const tabOverview = document.getElementById("tab-overview");
+  const tabDeepdive = document.getElementById("tab-deepdive");
+
+  if (!tabOverview || !tabDeepdive) return;
+
+  buttons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const targetTab = btn.getAttribute("data-tab");
+
+      buttons.forEach((b) => {
+        b.classList.toggle("active", b === btn);
+        b.setAttribute("aria-selected", b === btn ? "true" : "false");
+      });
+
+      if (targetTab === "overview") {
+        tabOverview.classList.remove("hidden");
+        tabDeepdive.classList.add("hidden");
+      } else if (targetTab === "deepdive") {
+        tabOverview.classList.add("hidden");
+        tabDeepdive.classList.remove("hidden");
+      }
+    });
+  });
+}
+
+/**
+ * Intercepts submission of the topic proposal form and sends it asynchronously to Google Forms.
+ * Shows a loading indicator, then replaces form with a custom confirmation block.
+ * @returns {void}
+ */
+function initializeProposalSubmission() {
+  const form = document.getElementById("proposal-form");
+  if (!form) return;
+
+  // Pre-fill email if already saved
+  const savedEmail = localStorage.getItem("voter_email");
+  if (savedEmail) {
+    const emailInput = form.querySelector("#form-email");
+    if (emailInput) emailInput.value = savedEmail;
+  }
+
+  // Handle custom dynamic behaviour for the "Other" category text box
+  const otherRadio = form.querySelector("#category-other-radio");
+  const otherText = form.querySelector("#category-other-text");
+  const allRadios = form.querySelectorAll('input[name="entry.336364410"]');
+
+  if (otherRadio && otherText) {
+    otherText.disabled = true;
+    allRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        otherText.disabled = !otherRadio.checked;
+        if (otherRadio.checked) {
+          otherText.focus();
+        }
+      });
+    });
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById("proposal-submit-btn");
+    const messageContainer = document.getElementById("proposal-form-message");
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Submitting...";
+    }
+
+    const email = form.querySelector("#form-email").value.trim();
+    const question = form.querySelector("#form-question").value.trim();
+    const source = form.querySelector("#form-source").value.trim();
+
+    const categoryRadio = form.querySelector('input[name="entry.336364410"]:checked');
+    if (!categoryRadio) {
+      alert("Please select a category.");
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Proposal";
+      }
+      return;
+    }
+
+    let category = categoryRadio.value;
+    let otherResponse = "";
+    if (category === "__other_option__") {
+      otherResponse = otherText.value.trim();
+      if (!otherResponse) {
+        alert("Please specify the other category name.");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Submit Proposal";
+        }
+        otherText.focus();
+        return;
+      }
+    }
+
+    const impact = form.querySelector("#form-impact").value.trim();
+
+    // Cache email locally
+    localStorage.setItem("voter_email", email);
+
+    const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSemSavDnZAVNnZ321Mpnhyc99eVLBqvlQVSrVs745qL7jfx9w/formResponse";
+    const bodyData = new URLSearchParams({
+      "emailAddress": email,
+      "entry.68224125": question,
+      "entry.1814407461": source,
+      "entry.336364410": category,
+      "entry.336364410.other_option_response": otherResponse,
+      "entry.1526174925": impact
+    });
+
+    fetch(formUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: bodyData.toString()
+    })
+    .then(() => {
+      form.innerHTML = `
+        <div class="form-confirmation-card">
+          <div class="confirmation-icon-wrapper">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h2>Proposal Registered</h2>
+          <p>We have received your suggestion. Every proposal helps us map out a more complete layout of our shared biological circuits. Our team will review how this integrates with existing pathways shortly.</p>
+          <a href="index.html" class="submit-btn back-explore-btn">&larr; Back to Explore</a>
+        </div>
+      `;
+    })
+    .catch((err) => {
+      console.error("Proposal submission error:", err);
+      if (messageContainer) {
+        messageContainer.style.display = "block";
+        messageContainer.className = "form-message error";
+        messageContainer.textContent = "We could not register your proposal at this moment. Please check your network connection and try again.";
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Submit Proposal";
+      }
+    });
+  });
+}
+
+/**
+ * Intercepts contact inquiry submissions and executes background AJAX form posts to Google Forms.
+ * @returns {void}
+ */
+function initializeContactSubmission() {
+  const form = document.getElementById("contact-form");
+  if (!form) return;
+
+  // Pre-fill cached email if exists
+  const cachedEmail = localStorage.getItem("voter_email");
+  const emailInput = form.querySelector("#form-email");
+  if (cachedEmail && emailInput) {
+    emailInput.value = cachedEmail;
+  }
+
+  // Handle other text inputs enabling/disabling
+  const inquiryOtherRadio = form.querySelector("#inquiry-other-radio");
+  const inquiryOtherText = form.querySelector("#inquiry-other-text");
+  const inquiryRadios = form.querySelectorAll('input[name="entry.941828249"]');
+
+  if (inquiryOtherRadio && inquiryOtherText) {
+    inquiryOtherText.disabled = true;
+    inquiryRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        inquiryOtherText.disabled = !inquiryOtherRadio.checked;
+        if (inquiryOtherRadio.checked) inquiryOtherText.focus();
+      });
+    });
+  }
+
+  const roleOtherRadio = form.querySelector("#role-other-radio");
+  const roleOtherText = form.querySelector("#role-other-text");
+  const roleRadios = form.querySelectorAll('input[name="entry.885889466"]');
+
+  if (roleOtherRadio && roleOtherText) {
+    roleOtherText.disabled = true;
+    roleRadios.forEach((radio) => {
+      radio.addEventListener("change", () => {
+        roleOtherText.disabled = !roleOtherRadio.checked;
+        if (roleOtherRadio.checked) roleOtherText.focus();
+      });
+    });
+  }
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const submitBtn = document.getElementById("contact-submit-btn");
+    const messageContainer = document.getElementById("contact-form-message");
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+    }
+
+    const email = form.querySelector("#form-email").value.trim();
+    const message = form.querySelector("#form-message").value.trim();
+
+    const inquiryRadio = form.querySelector('input[name="entry.941828249"]:checked');
+    if (!inquiryRadio) {
+      alert("Please select the nature of your inquiry.");
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Inquiry";
+      }
+      return;
+    }
+
+    let inquiry = inquiryRadio.value;
+    let inquiryOther = "";
+    if (inquiry === "__other_option__") {
+      inquiryOther = inquiryOtherText.value.trim();
+      if (!inquiryOther) {
+        alert("Please specify the other inquiry nature.");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Send Inquiry";
+        }
+        inquiryOtherText.focus();
+        return;
+      }
+    }
+
+    const roleRadio = form.querySelector('input[name="entry.885889466"]:checked');
+    let role = roleRadio ? roleRadio.value : "";
+    let roleOther = "";
+    if (role === "__other_option__") {
+      roleOther = roleOtherText.value.trim();
+      if (!roleOther) {
+        alert("Please specify your role.");
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "Send Inquiry";
+        }
+        roleOtherText.focus();
+        return;
+      }
+    }
+
+    // Cache email locally
+    localStorage.setItem("voter_email", email);
+
+    const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScnY0-A9rXKikkqJOqWRFgC32kns-ShE56xZ8lW9WMSBvnMHw/formResponse";
+    const bodyData = new URLSearchParams({
+      "emailAddress": email,
+      "entry.941828249": inquiry,
+      "entry.941828249.other_option_response": inquiryOther,
+      "entry.1129689218": message,
+      "entry.885889466": role,
+      "entry.885889466.other_option_response": roleOther
+    });
+
+    fetch(formUrl, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded"
+      },
+      body: bodyData.toString()
+    })
+    .then(() => {
+      form.innerHTML = `
+        <div class="form-confirmation-card">
+          <div class="confirmation-icon-wrapper">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <h2>Message Registered</h2>
+          <p>We have successfully registered your inquiry. Our engineering and editorial team will review your feedback shortly. Thank you for helping us refine our decodings.</p>
+          <a href="index.html" class="submit-btn back-explore-btn">&larr; Back to Explore</a>
+        </div>
+      `;
+    })
+    .catch((err) => {
+      console.error("Contact submission error:", err);
+      if (messageContainer) {
+        messageContainer.style.display = "block";
+        messageContainer.className = "form-message error";
+        messageContainer.textContent = "We could not register your inquiry at this moment. Please check your network connection and try again.";
+      }
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Inquiry";
+      }
+    });
+  });
+}
+
+/**
+ * Configures the floating Back to Top button scroll visibility and trigger actions.
+ * @returns {void}
+ */
+function initializeBackToTop() {
+  const readingPane = document.getElementById("reading-pane");
+  const backToTopBtn = document.getElementById("back-to-top");
+  if (!readingPane || !backToTopBtn) return;
+
+  readingPane.addEventListener("scroll", () => {
+    if (readingPane.scrollTop > 300) {
+      backToTopBtn.classList.add("visible");
+    } else {
+      backToTopBtn.classList.remove("visible");
+    }
+  });
+
+  backToTopBtn.addEventListener("click", () => {
+    readingPane.scrollTo({ top: 0, behavior: "smooth" });
+  });
+}
+
+/**
+ * Controls active state highlighting and smooth navigation scrolling for the detail page TOC.
+ * @returns {void}
+ */
+function initializeTocNavigation() {
+  const readingPane = document.getElementById("reading-pane");
+  const tocLinks = document.querySelectorAll(".toc-link");
+  const sections = document.querySelectorAll(".detail-section");
+  if (!readingPane || tocLinks.length === 0) return;
+
+  // Handle click scroll events
+  tocLinks.forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const targetId = link.getAttribute("href");
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        // Calculate the target offset relative to the reading pane
+        const targetOffsetTop = targetEl.offsetTop;
+        // Scroll with a smooth transition, adjusting slightly for scroll padding
+        readingPane.scrollTo({
+          top: targetOffsetTop - 16,
+          behavior: "smooth"
+        });
+
+        // Set active class
+        tocLinks.forEach((l) => l.classList.remove("active"));
+        link.classList.add("active");
+      }
+    });
+  });
+
+  // Track active section on scroll
+  readingPane.addEventListener("scroll", () => {
+    let currentActiveId = "";
+    const paneScrollTop = readingPane.scrollTop;
+    
+    sections.forEach((section) => {
+      const sectionTop = section.offsetTop;
+      if (paneScrollTop >= (sectionTop - 120)) {
+        currentActiveId = "#" + section.id;
+      }
+    });
+
+    if (currentActiveId) {
+      tocLinks.forEach((link) => {
+        if (link.getAttribute("href") === currentActiveId) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
+    }
+  });
+}
+
+/**
+ * Toggles the GRADE evidence rating popover card and manages click dismissal.
+ * @returns {void}
+ */
+function initializeGradePopover() {
+  const trigger = document.getElementById("grade-trigger");
+  const popover = document.getElementById("grade-popover");
+  if (!trigger || !popover) return;
+
+  const toggle = (show) => {
+    const willShow = show !== undefined ? show : (trigger.getAttribute("aria-expanded") !== "true");
+    trigger.setAttribute("aria-expanded", willShow ? "true" : "false");
+    popover.classList.toggle("visible", willShow);
+  };
+
+  trigger.addEventListener("click", (e) => {
+    e.stopPropagation();
+    toggle();
+  });
+
+  const closeBtn = popover.querySelector(".grade-popover-close");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      toggle(false);
+    });
+  }
+
+  // Dismiss when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!popover.contains(e.target) && !trigger.contains(e.target)) {
+      toggle(false);
+    }
+  });
+
+  // Dismiss on ESC key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") {
+      toggle(false);
+    }
+  });
+
+  // Dismiss on reading pane scroll
+  const readingPane = document.getElementById("reading-pane");
+  if (readingPane) {
+    readingPane.addEventListener("scroll", () => toggle(false));
+  }
 }

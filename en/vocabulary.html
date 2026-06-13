@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jargon Glossary — The Healthstream</title>
-  <meta name="description" content="A precise index of biological, molecular, and longevity terms mapped across our pathway profiles.">
+  <title>Lexicon — The Healthstream</title>
+  <meta name="description" content="A precise index of biological, molecular, and longevity terms used across our decoded entries.">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=1.0.2">
 </head>
 <body>
   <script>
@@ -95,7 +95,7 @@
                 <rect x="14" y="12" width="7" height="9"></rect>
                 <rect x="3" y="16" width="7" height="5"></rect>
               </svg>
-              Unified Feed
+              Explore
             </a>
           </li>
           <li>
@@ -108,7 +108,7 @@
                 <line x1="3" y1="12" x2="3.01" y2="12"></line>
                 <line x1="3" y1="18" x2="3.01" y2="18"></line>
               </svg>
-              Proposed Backlog
+              In the Pipeline
             </a>
           </li>
           <li>
@@ -117,7 +117,7 @@
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
               </svg>
-              Jargon Glossary
+              Lexicon
             </a>
           </li>
           <li>
@@ -127,7 +127,16 @@
                 <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
               </svg>
-              About Us
+              Our Mission
+            </a>
+          </li>
+          <li>
+            <a href="./submit-proposal.html" class="nav-link " id="nav-submit-proposal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+              Submit Proposal
             </a>
           </li>
           <li>
@@ -142,69 +151,65 @@
         </ul>
       </nav>
 
-      <!-- Decoded Category Accordions -->
+      <!-- Topics: Flat Static Categories -->
       <nav class="sidebar-section">
-        <div class="sidebar-title">Decoded Networks</div>
-        
-        <!-- Biology Accordion -->
-        <div class="accordion-group collapsed" id="group-biology">
-          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="false">
-            <span>Biology & Science</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-biology">
-            <ul class="nav-list">
-              <li><a href="./ampk-activation.html" class="nav-link" data-slug="ampk-activation">AMPK Cellular Energy Switch</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Lifestyle Accordion -->
-        <div class="accordion-group collapsed" id="group-lifestyle">
-          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="false">
-            <span>Lifestyle & Behavior</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-lifestyle">
-            <ul class="nav-list">
-              <li><a href="./circadian-sleep-protocol.html" class="nav-link" data-slug="circadian-sleep-protocol">Circadian Light & Sleep Optimization</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Books Accordion -->
-        <div class="accordion-group collapsed" id="group-book">
-          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="false">
-            <span>Book Summaries</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-book">
-            <ul class="nav-list">
-              <li><a href="./outlive-longevity-summary.html" class="nav-link" data-slug="outlive-longevity-summary">Outlive: Science & Art of Longevity</a></li>
-            </ul>
-          </div>
-        </div>
+        <div class="sidebar-title">Topics</div>
+        <ul class="nav-list">
+          <li>
+            <a href="./category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
+              Biological Circuits <span class="category-count">(1)</span>
+            </a>
+          </li>
+          <li>
+            <a href="./category-lifestyle.html" class="nav-link category-link cat-lifestyle " data-category="lifestyle">
+              Lifestyle Practices <span class="category-count">(1)</span>
+            </a>
+          </li>
+          <li>
+            <a href="./category-book.html" class="nav-link category-link cat-book " data-category="book">
+              Finds <span class="category-count">(1)</span>
+            </a>
+          </li>
+        </ul>
       </nav>
 
-      <!-- Bottom spacer for visual balance -->
-      <div class="sidebar-section" style="margin-top: auto; border-bottom: none;"></div>
+
+
+      <!-- Sidebar Footer / Medical Disclaimer -->
+      <div class="sidebar-footer" style="margin-top: auto; padding: var(--space-3); font-size: 0.7rem; line-height: 1.4; color: var(--sb-text-muted); border-top: 1px solid var(--sb-border);">
+        <strong>Disclaimer:</strong> The Healthstream is a systems biology library. Content does not constitute clinical, diagnostic, or therapeutic medical advice.
+      </div>
 
     </aside>
 
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div class="content-container fade-in">
-        <header class="feed-intro">  <h1>Jargon Glossary Index</h1>  <p>A precise index of biological, molecular, and longevity terms mapped across our pathway profiles.</p></header><div class="vocab-grid">  <div class="vocab-card" id="ampk">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">AMPK</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">Adenosine monophosphate-activated protein kinase; a key enzyme regulating cellular energy homeostasis, activating cell cleanup processes.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="ampk-activation.html" class="vocab-mention-link">AMPK Cellular Energy Switch</a></div></div><div class="vocab-card" id="adenosine">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">adenosine</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">A cellular neuromodulator that accumulates during waking hours, generating homeostatic sleep pressure.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="circadian-sleep-protocol.html" class="vocab-mention-link">Circadian Light & Sleep Optimization</a></div></div><div class="vocab-card" id="autophagy">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">autophagy</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">The natural, regulated mechanism of the cell that removes unnecessary or dysfunctional components, recycling cellular materials.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="ampk-activation.html" class="vocab-mention-link">AMPK Cellular Energy Switch</a></div></div><div class="vocab-card" id="cardiorespiratory-fitness">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">cardiorespiratory fitness</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max).</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="outlive-longevity-summary.html" class="vocab-mention-link">Outlive: Science & Art of Longevity</a></div></div><div class="vocab-card" id="circadian-rhythm">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">circadian rhythm</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">The internal 24-hour biological clock regulating sleep, hormone release, and metabolic scheduling.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="circadian-sleep-protocol.html" class="vocab-mention-link">Circadian Light & Sleep Optimization</a></div></div><div class="vocab-card" id="healthspan">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">healthspan</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">The period of life spent free from chronic disease, disability, and functional decline.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="outlive-longevity-summary.html" class="vocab-mention-link">Outlive: Science & Art of Longevity</a></div></div><div class="vocab-card" id="mtor">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">mTOR</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">Mechanistic target of rapamycin; a protein kinase that acts as a central regulator of cell growth, proliferation, and protein synthesis.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="ampk-activation.html" class="vocab-mention-link">AMPK Cellular Energy Switch</a></div></div><div class="vocab-card" id="melatonin">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">melatonin</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">A hormone produced by the pineal gland that plays a key role in signaling nightfall and regulating sleep-wake cycles.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="circadian-sleep-protocol.html" class="vocab-mention-link">Circadian Light & Sleep Optimization</a></div></div><div class="vocab-card" id="metabolic-flexibility">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">metabolic flexibility</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">The capacity for the body to switch adaptively between substrate sources (carbohydrates and lipids) depending on physiological demands.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="ampk-activation.html" class="vocab-mention-link">AMPK Cellular Energy Switch</a></div></div><div class="vocab-card" id="metabolic-syndrome">  <h3 style="font-family: var(--font-body); font-weight:700; margin-top:0; color:var(--accent-synapse);">metabolic syndrome</h3>  <p style="margin-top:var(--space-1); line-height:1.5;">A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk.</p>  <div class="vocab-mentions" style="margin-top: var(--space-3); padding-top: var(--space-2); border-top: 1px dashed var(--border-color); font-size: 0.85rem; color: var(--text-ink-muted);">  <span style="font-weight: 600;">Mentioned in:</span> <a href="outlive-longevity-summary.html" class="vocab-mention-link">Outlive: Science & Art of Longevity</a></div></div></div>
+        <header class="feed-intro">  <h1>Lexicon</h1>  <p>A precise index of biological, molecular, and longevity terms used across our decoded entries.</p></header><nav class="vocab-nav" aria-label="Alphabetical Index"><a href="#a" class="vocab-nav-link">A</a><a href="#c" class="vocab-nav-link">C</a><a href="#e" class="vocab-nav-link">E</a><a href="#g" class="vocab-nav-link">G</a><a href="#h" class="vocab-nav-link">H</a><a href="#m" class="vocab-nav-link">M</a></nav><div class="vocab-container">  <section class="vocab-section" id="a">  <h2 class="vocab-letter-header">A</h2>  <div class="vocab-grid">    <div class="vocab-card" id="ampk">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/ampk.html" class="vocab-card-link">AMPK &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">Adenosine monophosphate-activated protein kinase; a key enzyme regulating cellular energy homeostasi...</p></div><div class="vocab-card" id="adenosine">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/adenosine.html" class="vocab-card-link">adenosine &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">A cellular neuromodulator that accumulates during waking hours, generating homeostatic sleep pressur...</p></div><div class="vocab-card" id="autophagy">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/autophagy.html" class="vocab-card-link">autophagy &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">The natural, regulated mechanism of the cell that removes unnecessary or dysfunctional components, r...</p></div>  </div></section><section class="vocab-section" id="c">  <h2 class="vocab-letter-header">C</h2>  <div class="vocab-grid">    <div class="vocab-card" id="cardiorespiratory-fitness">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/cardiorespiratory-fitness.html" class="vocab-card-link">cardiorespiratory fitness &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during s...</p></div><div class="vocab-card" id="circadian-rhythm">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/circadian-rhythm.html" class="vocab-card-link">circadian rhythm &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">The internal 24-hour biological clock regulating sleep, hormone release, and metabolic scheduling.</p></div>  </div></section><section class="vocab-section" id="e">  <h2 class="vocab-letter-header">E</h2>  <div class="vocab-grid">    <div class="vocab-card" id="evidence-grade">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/evidence-grade.html" class="vocab-card-link">Evidence Grade &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">A standardized assessment based on the GRADE framework to rate the quality of research supporting an...</p></div>  </div></section><section class="vocab-section" id="g">  <h2 class="vocab-letter-header">G</h2>  <div class="vocab-grid">    <div class="vocab-card" id="grade">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/grade.html" class="vocab-card-link">GRADE &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">Grading of Recommendations, Assessment, Development, and Evaluation; a standardized framework for ra...</p></div>  </div></section><section class="vocab-section" id="h">  <h2 class="vocab-letter-header">H</h2>  <div class="vocab-grid">    <div class="vocab-card" id="healthspan">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/healthspan.html" class="vocab-card-link">healthspan &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">The period of life spent free from chronic disease, disability, and functional decline.</p></div>  </div></section><section class="vocab-section" id="m">  <h2 class="vocab-letter-header">M</h2>  <div class="vocab-grid">    <div class="vocab-card" id="mtor">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/mtor.html" class="vocab-card-link">mTOR &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">Mechanistic target of rapamycin; a protein kinase that acts as a central regulator of cell growth, p...</p></div><div class="vocab-card" id="melatonin">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/melatonin.html" class="vocab-card-link">melatonin &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">A hormone produced by the pineal gland that plays a key role in signaling nightfall and regulating s...</p></div><div class="vocab-card" id="metabolic-flexibility">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/metabolic-flexibility.html" class="vocab-card-link">metabolic flexibility &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">The capacity for the body to switch adaptively between substrate sources (carbohydrates and lipids)...</p></div><div class="vocab-card" id="metabolic-syndrome">  <h3 class="vocab-title" style="font-family: var(--font-body); font-weight:700; margin:0; font-size: 1.1rem;">    <a href="vocabulary/metabolic-syndrome.html" class="vocab-card-link">metabolic syndrome &rarr;</a>  </h3>  <p class="vocab-teaser" style="margin-top:var(--space-1); margin-bottom:0; font-size:0.9rem; line-height:1.45; color:var(--text-ink-muted);">A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) t...</p></div>  </div></section></div>
       </div>
+      <footer class="global-footer">
+        <div class="footer-nav">
+          <a href="./index.html" class="footer-link">Explore</a>
+          <a href="./backlog.html" class="footer-link">Pipeline</a>
+          <a href="./vocabulary.html" class="footer-link">Lexicon</a>
+          <a href="./about.html" class="footer-link">Our Mission</a>
+          <a href="./contact.html" class="footer-link">Contact Us</a>
+          <a href="./terms.html" class="footer-link">Terms of Use</a>
+          <a href="./privacy.html" class="footer-link">Privacy Policy</a>
+        </div>
+        <p class="footer-text">The Healthstream is an independent systems biology library.</p>
+        <p class="medical-disclaimer"><strong>Medical Disclaimer:</strong> Content on The Healthstream is for informational and educational purposes only. None of the protocols, biological circuits, or summaries constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional before modifying your diet, exercise, or lifestyle routines.</p>
+      </footer>
     </main>
 
   </div>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to Top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
   <script src="./app.js"></script>
 </body>

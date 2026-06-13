@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>The Healthstream — The Healthstream</title>
-  <meta name="description" content="An open reference library mapping the systems biology of longevity.">
+  <title>The Healthstream — Systems Biology Reference</title>
+  <meta name="description" content="An open systems biology library mapping longevity pathways.">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=1.0.2">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -106,7 +106,7 @@
                 <rect x="14" y="12" width="7" height="9"></rect>
                 <rect x="3" y="16" width="7" height="5"></rect>
               </svg>
-              Unified Feed
+              Explore
             </a>
           </li>
           <li>
@@ -119,7 +119,7 @@
                 <line x1="3" y1="12" x2="3.01" y2="12"></line>
                 <line x1="3" y1="18" x2="3.01" y2="18"></line>
               </svg>
-              Proposed Backlog
+              In the Pipeline
             </a>
           </li>
           <li>
@@ -128,7 +128,7 @@
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
               </svg>
-              Jargon Glossary
+              Lexicon
             </a>
           </li>
           <li>
@@ -138,7 +138,16 @@
                 <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
               </svg>
-              About Us
+              Our Mission
+            </a>
+          </li>
+          <li>
+            <a href="./submit-proposal.html" class="nav-link " id="nav-submit-proposal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+              Submit Proposal
             </a>
           </li>
           <li>
@@ -153,69 +162,65 @@
         </ul>
       </nav>
 
-      <!-- Decoded Category Accordions -->
+      <!-- Topics: Flat Static Categories -->
       <nav class="sidebar-section">
-        <div class="sidebar-title">Decoded Networks</div>
-        
-        <!-- Biology Accordion -->
-        <div class="accordion-group collapsed" id="group-biology">
-          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="false">
-            <span>Biology & Science</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-biology">
-            <ul class="nav-list">
-              <li><a href="./ampk-activation.html" class="nav-link" data-slug="ampk-activation">AMPK Cellular Energy Switch</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Lifestyle Accordion -->
-        <div class="accordion-group collapsed" id="group-lifestyle">
-          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="false">
-            <span>Lifestyle & Behavior</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-lifestyle">
-            <ul class="nav-list">
-              <li><a href="./circadian-sleep-protocol.html" class="nav-link" data-slug="circadian-sleep-protocol">Circadian Light & Sleep Optimization</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Books Accordion -->
-        <div class="accordion-group collapsed" id="group-book">
-          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="false">
-            <span>Book Summaries</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-book">
-            <ul class="nav-list">
-              <li><a href="./outlive-longevity-summary.html" class="nav-link" data-slug="outlive-longevity-summary">Outlive: Science & Art of Longevity</a></li>
-            </ul>
-          </div>
-        </div>
+        <div class="sidebar-title">Topics</div>
+        <ul class="nav-list">
+          <li>
+            <a href="./category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
+              Biological Circuits <span class="category-count">(1)</span>
+            </a>
+          </li>
+          <li>
+            <a href="./category-lifestyle.html" class="nav-link category-link cat-lifestyle " data-category="lifestyle">
+              Lifestyle Practices <span class="category-count">(1)</span>
+            </a>
+          </li>
+          <li>
+            <a href="./category-book.html" class="nav-link category-link cat-book " data-category="book">
+              Finds <span class="category-count">(1)</span>
+            </a>
+          </li>
+        </ul>
       </nav>
 
-      <!-- Bottom spacer for visual balance -->
-      <div class="sidebar-section" style="margin-top: auto; border-bottom: none;"></div>
+
+
+      <!-- Sidebar Footer / Medical Disclaimer -->
+      <div class="sidebar-footer" style="margin-top: auto; padding: var(--space-3); font-size: 0.7rem; line-height: 1.4; color: var(--sb-text-muted); border-top: 1px solid var(--sb-border);">
+        <strong>Disclaimer:</strong> The Healthstream is a systems biology library. Content does not constitute clinical, diagnostic, or therapeutic medical advice.
+      </div>
 
     </aside>
 
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div class="content-container fade-in">
-        <header class="feed-intro">  <h1>Decoded Pathways</h1>  <p>An open reference library mapping the systems biology of longevity.</p></header><div class="feed-cards">  <a href="ampk-activation.html" class="feed-card cat-biology">  <div class="card-header">    <span class="category-tag">Biology & Science</span>  </div>  <h2 class="card-title">AMPK Cellular Energy Switch</h2>  <blockquote class="card-teaser-text">Does constant snacking permanently lock our metabolic switches in storage mode?</blockquote></a><a href="circadian-sleep-protocol.html" class="feed-card cat-lifestyle">  <div class="card-header">    <span class="category-tag">Lifestyle & Behavior</span>  </div>  <h2 class="card-title">Circadian Light & Sleep Optimization</h2>  <blockquote class="card-teaser-text">Can dim screen glow after sunset confuse our ancient biological clocks?</blockquote></a><a href="outlive-longevity-summary.html" class="feed-card cat-book">  <div class="card-header">    <span class="category-tag">Book Summaries</span>  </div>  <h2 class="card-title">Outlive: Science & Art of Longevity</h2>  <blockquote class="card-teaser-text">Are we training for the wrong metrics in our current longevity regimens?</blockquote></a></div>
+        <header class="feed-intro">  <h1>Topics</h1>  <p>An open systems biology library mapping longevity pathways.</p></header><div class="feed-cards">  <div class="feed-card cat-biology">  <div class="card-header">    <span class="category-tag">Biological Circuits</span>  </div>  <h2 class="card-title">    <a href="ampk-activation.html" class="card-title-link">AMPK Cellular Energy Switch</a>  </h2>  <blockquote class="card-teaser-text">Does constant snacking permanently lock our metabolic switches in storage mode?</blockquote>  <div class="card-tags"><a href="tags/biology.html" class="tag-pill">#biology</a><a href="tags/metabolism.html" class="tag-pill">#metabolism</a><a href="tags/longevity.html" class="tag-pill">#longevity</a></div></div><div class="feed-card cat-lifestyle">  <div class="card-header">    <span class="category-tag">Lifestyle Practices</span>  </div>  <h2 class="card-title">    <a href="circadian-sleep-protocol.html" class="card-title-link">Circadian Light & Sleep Optimization</a>  </h2>  <blockquote class="card-teaser-text">Can dim screen glow after sunset confuse our ancient biological clocks?</blockquote>  <div class="card-tags"><a href="tags/lifestyle.html" class="tag-pill">#lifestyle</a><a href="tags/circadian.html" class="tag-pill">#circadian</a><a href="tags/sleep.html" class="tag-pill">#sleep</a></div></div><div class="feed-card cat-book">  <div class="card-header">    <span class="category-tag">Finds</span>  </div>  <h2 class="card-title">    <a href="outlive-longevity-summary.html" class="card-title-link">Outlive: Science & Art of Longevity</a>  </h2>  <blockquote class="card-teaser-text">Are we training for the wrong metrics in our current longevity regimens?</blockquote>  <div class="card-tags"><a href="tags/book.html" class="tag-pill">#book</a><a href="tags/longevity.html" class="tag-pill">#longevity</a><a href="tags/exercise.html" class="tag-pill">#exercise</a></div></div></div>
       </div>
+      <footer class="global-footer">
+        <div class="footer-nav">
+          <a href="./index.html" class="footer-link">Explore</a>
+          <a href="./backlog.html" class="footer-link">Pipeline</a>
+          <a href="./vocabulary.html" class="footer-link">Lexicon</a>
+          <a href="./about.html" class="footer-link">Our Mission</a>
+          <a href="./contact.html" class="footer-link">Contact Us</a>
+          <a href="./terms.html" class="footer-link">Terms of Use</a>
+          <a href="./privacy.html" class="footer-link">Privacy Policy</a>
+        </div>
+        <p class="footer-text">The Healthstream is an independent systems biology library.</p>
+        <p class="medical-disclaimer"><strong>Medical Disclaimer:</strong> Content on The Healthstream is for informational and educational purposes only. None of the protocols, biological circuits, or summaries constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional before modifying your diet, exercise, or lifestyle routines.</p>
+      </footer>
     </main>
 
   </div>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to Top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
   <script src="./app.js"></script>
 </body>

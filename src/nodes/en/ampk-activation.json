@@ -2,14 +2,42 @@
   "type": "biology",
   "title": "AMPK Cellular Energy Switch",
   "hook_question": "Does constant snacking permanently lock our metabolic switches in storage mode?",
-  "takeaway_pill": "Activating AMPK via periodic fasting, caloric restriction, or intense exercise shifts the cellular network from growth and storage into energy clearance and self-repair.",
-  "epistemic_status": "consensus",
+  "takeaway_pill": "Activating AMPK via periodic fasting, caloric restriction, or intense exercise shifts our cellular network from growth and storage into energy clearance and self-repair.",
+  "epistemic_rating": {
+    "grade": "High",
+    "rationale": "Consensus is supported by extensive mammalian biochemical studies and human metabolic trials validating AMPK phosphorylation under energetic stress.",
+    "debate_sides": []
+  },
   "tags": [
     "biology",
     "metabolism",
     "longevity"
   ],
-  "content": "The **AMPK** (AMP-activated protein kinase) pathway is the body's metabolic energy sensor. When cellular energy (ATP) runs low, AMPK is phosphorylated. This turns on catabolic pathways to generate ATP and turns off energy-consuming anabolic pathways, like those controlled by **mTOR**. Snacking frequently keeps insulin high, which suppresses AMPK and locks the body in storage mode. **Metabolic flexibility** requires downregulating mTOR and upregulating AMPK to trigger cellular cleanup through **autophagy**.",
+  "reading_modes": {
+    "overview_3min": "The **AMPK** (AMP-activated protein kinase) pathway acts as our cell's energetic fuel gauge, continuously sensing the balance between energy stored and energy spent. When cellular energy (ATP) levels drop—whether we are fasting, exercising, or sleeping—AMPK is phosphorylated to activate a master survival switch. It pauses energy-expensive cell growth (governed by **mTOR**), triggers the breakdown of stored fats, and initiates **autophagy**—the cell's internal recycling crew. When we snack continuously, we keep insulin elevated, locking our metabolic switches in storage mode and disabling this essential self-repair system.",
+    "deep_dive": [
+      {
+        "heading": "The AMPK-mTOR Reciprocal Axis",
+        "body": "At the molecular level, active AMPK regulates the cell growth engine by directly phosphorylating the TSC2 tumor suppressor and the Raptor subunit of **mTORC1**. This dual phosphorylation shuts down mTORC1 activity, pausing protein synthesis. Simultaneously, AMPK activates **autophagy** via phosphorylation of the ULK1 complex, initiating the degradation of damaged organelles to recycle cellular components."
+      },
+      {
+        "heading": "Triggering Metabolic Flexibility",
+        "body": "Restoring **metabolic flexibility**—the ability to switch seamlessly between burning carbohydrates and burning fats—requires cycling through periods of low insulin. Up-regulating AMPK activity via exercise or fasting promotes mitochondrial biogenesis (via PGC-1alpha activation) and increases GLUT4 receptor expression, improving insulin sensitivity in skeletal muscle."
+      }
+    ]
+  },
+  "edges": [
+    {
+      "target": "circadian-sleep-protocol",
+      "type": "requires",
+      "mechanism": "AMPK phosphorylation acts as an input to peripheral clock genes, requiring aligned sleep cycles for optimal metabolic scheduling."
+    },
+    {
+      "target": "outlive-longevity-summary",
+      "type": "implements",
+      "mechanism": "AMPK activation is a key metabolic driver of the exercise protocols outlined in Attia's Outlive."
+    }
+  ],
   "evidence_table": [
     {
       "study": "Apfeld et al., 2004",

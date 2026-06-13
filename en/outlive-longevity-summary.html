@@ -6,7 +6,7 @@
   <title>Outlive: Science & Art of Longevity — The Healthstream</title>
   <meta name="description" content="Are we training for the wrong metrics in our current longevity regimens?">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./style.css?v=1.0.2">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -16,7 +16,7 @@
     "name": "What is the core takeaway for Outlive: Science & Art of Longevity?",
     "acceptedAnswer": {
       "@type": "Answer",
-      "text": "True longevity requires prioritizing healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as primary protective shields against the chronic diseases of aging."
+      "text": "True longevity requires that we prioritize healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as our primary protective shields against the chronic diseases of aging."
     }
   }]
 }
@@ -110,7 +110,7 @@
                 <rect x="14" y="12" width="7" height="9"></rect>
                 <rect x="3" y="16" width="7" height="5"></rect>
               </svg>
-              Unified Feed
+              Explore
             </a>
           </li>
           <li>
@@ -123,7 +123,7 @@
                 <line x1="3" y1="12" x2="3.01" y2="12"></line>
                 <line x1="3" y1="18" x2="3.01" y2="18"></line>
               </svg>
-              Proposed Backlog
+              In the Pipeline
             </a>
           </li>
           <li>
@@ -132,7 +132,7 @@
                 <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
                 <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
               </svg>
-              Jargon Glossary
+              Lexicon
             </a>
           </li>
           <li>
@@ -142,7 +142,16 @@
                 <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
               </svg>
-              About Us
+              Our Mission
+            </a>
+          </li>
+          <li>
+            <a href="./submit-proposal.html" class="nav-link " id="nav-submit-proposal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+              Submit Proposal
             </a>
           </li>
           <li>
@@ -157,69 +166,66 @@
         </ul>
       </nav>
 
-      <!-- Decoded Category Accordions -->
+      <!-- Topics: Flat Static Categories -->
       <nav class="sidebar-section">
-        <div class="sidebar-title">Decoded Networks</div>
-        
-        <!-- Biology Accordion -->
-        <div class="accordion-group collapsed" id="group-biology">
-          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="false">
-            <span>Biology & Science</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-biology">
-            <ul class="nav-list">
-              <li><a href="./ampk-activation.html" class="nav-link" data-slug="ampk-activation">AMPK Cellular Energy Switch</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Lifestyle Accordion -->
-        <div class="accordion-group collapsed" id="group-lifestyle">
-          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="false">
-            <span>Lifestyle & Behavior</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-lifestyle">
-            <ul class="nav-list">
-              <li><a href="./circadian-sleep-protocol.html" class="nav-link" data-slug="circadian-sleep-protocol">Circadian Light & Sleep Optimization</a></li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Books Accordion -->
-        <div class="accordion-group " id="group-book">
-          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="true">
-            <span>Book Summaries</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-book">
-            <ul class="nav-list">
-              <li><a href="./outlive-longevity-summary.html" class="nav-link" data-slug="outlive-longevity-summary" class="nav-link active">Outlive: Science & Art of Longevity</a></li>
-            </ul>
-          </div>
-        </div>
+        <div class="sidebar-title">Topics</div>
+        <ul class="nav-list">
+          <li>
+            <a href="./category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
+              Biological Circuits <span class="category-count">(1)</span>
+            </a>
+          </li>
+          <li>
+            <a href="./category-lifestyle.html" class="nav-link category-link cat-lifestyle " data-category="lifestyle">
+              Lifestyle Practices <span class="category-count">(1)</span>
+            </a>
+          </li>
+          <li>
+            <a href="./category-book.html" class="nav-link category-link cat-book " data-category="book">
+              Finds <span class="category-count">(1)</span>
+            </a>
+          </li>
+        </ul>
       </nav>
 
-      <!-- Bottom spacer for visual balance -->
-      <div class="sidebar-section" style="margin-top: auto; border-bottom: none;"></div>
+
+
+      <!-- Sidebar Footer / Medical Disclaimer -->
+      <div class="sidebar-footer" style="margin-top: auto; padding: var(--space-3); font-size: 0.7rem; line-height: 1.4; color: var(--sb-text-muted); border-top: 1px solid var(--sb-border);">
+        <strong>Disclaimer:</strong> The Healthstream is a systems biology library. Content does not constitute clinical, diagnostic, or therapeutic medical advice.
+      </div>
 
     </aside>
 
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div class="content-container fade-in">
-        <article class="article-detail">  <header class="detail-header">    <span class="category-tag" style="display:inline-block; margin-bottom:var(--space-2);">Book Summaries</span>    <h1>Outlive: Science & Art of Longevity</h1>    <div class="detail-tags"><span class="tag-pill">#book</span><span class="tag-pill">#longevity</span><span class="tag-pill">#exercise</span></div>  </header>  <section class="pill-box" aria-labelledby="pill-title">  <svg class="pill-icon" width="24" height="24" viewBox="0 0 24 24">    <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"></circle>    <line x1="12" y1="16" x2="12" y2="12" stroke="currentColor" stroke-width="2"></line>    <line x1="12" y1="8" x2="12.01" y2="8" stroke="currentColor" stroke-width="2"></line>  </svg>  <div class="pill-content">    <h2 id="pill-title" class="pill-title">1-Minute Takeaway</h2>    <p class="pill-text">True longevity requires prioritizing healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as primary protective shields against the chronic diseases of aging.</p>  </div></section>  <section class="epistemic-section" aria-label="Epistemic Consensus Scale">  <div class="epistemic-title">Epistemic Consensus Scale</div>  <div class="epistemic-bar-wrapper">    <div class="epistemic-bar">      <div class="epistemic-indicator" style="left: 50%;" aria-hidden="true"></div>    </div>  </div>  <div class="epistemic-labels">    <span class="epistemic-label ">High Controversy</span>    <span class="epistemic-label active">Developing Hypothesis</span>    <span class="active epistemic-label ">Established Consensus</span>  </div></section>  <div class="article-body-text"><p>Peter Attia's <em>Outlive</em> advocates shifting from reactive Medicine 2.0 to proactive Medicine 3.0. His core premise: modern medicine excels at postponing death but fails at extending <strong><span class="jargon-term" data-term="healthspan" data-definition="The period of life spent free from chronic disease, disability, and functional decline." data-slug="healthspan">healthspan</span></strong>. Preventing the 'four horsemen' of aging—cardiovascular disease, cancer, neurodegeneration, and <strong><span class="jargon-term" data-term="metabolic syndrome" data-definition="A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk." data-slug="metabolic-syndrome">metabolic syndrome</span></strong>—requires building <strong><span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">cardiorespiratory fitness</span></strong> and muscle mass through Zone 2 training and strength work. To stay functional in your 80s and 90s, you have to train for it decades earlier.</p></div>  <section class="evidence-section">  <button class="evidence-trigger" aria-expanded="false">    <span>Evidence & Studies</span>    <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">      <path d="M7 10l5 5 5-5z"></path>    </svg>  </button>  <div class="evidence-content">    <div class="table-wrapper">  <table class="evidence-table">    <thead>      <tr>        <th>Clinical Study / Primary Source</th>        <th>Study Design</th>        <th>Cohort / Sample Size</th>        <th>Primary Physiological Outcome</th>        <th>Link</th>      </tr>    </thead>    <tbody>      <tr>  <td>Mandsager et al., 2018</td>  <td>Retrospective cohort study</td>  <td>n=122,007 patients</td>  <td>Elite cardiorespiratory fitness associated with a 5-fold reduction in all-cause mortality vs low performers.</td>  <td><a href="https://pubmed.ncbi.nlm.nih.gov/30347268/" target="_blank" rel="noopener">Source ↗</a></td></tr>    </tbody>  </table></div>    <div class="bib-section-title" style="margin-top: var(--space-4); margin-bottom: var(--space-2); font-family: var(--font-body); font-weight: 700; font-size: var(--font-size-label); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-ink-muted);">  References & Citations</div><ul class="bib-list"><li class="bib-item" id="ref3">  Attia P. Outlive: The Science and Art of Longevity. Harmony Books; 2023. <a href="https://peterattiamd.com/outlive/" target="_blank" rel="noopener">Link ↗</a></li></ul>  </div></section></article>
+        <article class="article-detail cat-book">  <header class="detail-header">    <span class="category-tag" style="display:inline-block; margin-bottom:var(--space-2);">Finds</span>    <h1>Outlive: Science & Art of Longevity</h1>    <div class="detail-header-meta" style="display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:var(--space-2); margin-top:var(--space-2);">  <div class="detail-tags" style="margin-top:0;"><a href="tags/book.html" class="tag-pill">#book</a><a href="tags/longevity.html" class="tag-pill">#longevity</a><a href="tags/exercise.html" class="tag-pill">#exercise</a></div>  <div class="detail-grade-container">  <span class="detail-grade-label">Evidence Grade:</span>  <button class="detail-grade-badge grade-moderate" id="grade-trigger" aria-haspopup="true" aria-expanded="false">    Moderate    <svg class="info-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 3px; vertical-align: middle;">      <circle cx="12" cy="12" r="10"></circle>      <line x1="12" y1="16" x2="12" y2="12"></line>      <line x1="12" y1="8" x2="12.01" y2="8"></line>    </svg>  </button>  <div class="grade-popover-card" id="grade-popover" role="dialog" aria-label="Evidence Grade Details">    <div class="grade-popover-header" style="display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid var(--border-color); padding-bottom:var(--space-1); margin-bottom:var(--space-2);">      <strong style="color:var(--text-ink);">Evidence Grade: Moderate</strong>      <button class="grade-popover-close" aria-label="Close details" style="background:none; border:none; color:var(--text-ink-muted); font-size:1.2rem; cursor:pointer; padding:0; line-height:1;">&times;</button>    </div>    <p class="grade-popover-rationale" style="margin:0 0 var(--space-2) 0;"><strong>Rationale:</strong> Moderate grading reflects robust epidemiological association studies linking VO2 max and grip strength to reduced all-cause mortality, though causal interventional human RCTs on lifespan extension are not ethically feasible.</p>    <div class="grade-debates">  <span class="debates-title">Key Scientific Debates</span>  <ul class="debates-list">    <li>  <strong>Position:</strong> Elite cardiorespiratory fitness is the primary protective shield against mortality.<br>  <strong>Arguments:</strong> Supported by retrospective cohorts showing 5-fold reductions in all-cause mortality between low and elite performers (Mandsager et al., 2018).</li><li>  <strong>Position:</strong> Over-focusing on extreme VO2 max may lead to structural cardiac changes.<br>  <strong>Arguments:</strong> Contesting data points to a potential plateau or slight risk increase in extreme endurance athletics, suggesting a sweet spot rather than linear improvement.</li>  </ul></div>    <div class="grade-popover-note" style="font-size:0.75rem; color:var(--text-ink-muted); border-top:1px dashed var(--border-color); padding-top:var(--space-2); margin-top:var(--space-2);">      The GRADE (Grading of Recommendations, Assessment, Development, and Evaluation) system is a standardized framework for rating the quality of scientific evidence.       Ratings scale from High to Very Low quality.    </div>  </div></div></div>  </header>  <div class="qa-takeaway-card">  <div class="qa-question-row">    <span class="qa-icon">❓</span>    <div class="article-hook-question">Are we training for the wrong metrics in our current longevity regimens?</div>  </div>  <div class="qa-answer-row">    <span class="qa-icon">💡</span>    <div class="pill-text"><strong>Takeaway:</strong> True longevity requires that we prioritize healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as our primary protective shields against the chronic diseases of aging.</div>  </div></div>  <nav class="article-toc" aria-label="Table of Contents"><a href="#reading-pane-tab" class="toc-link active">Overview &amp; Deep-Dive</a><a href="#connections-section" class="toc-link">Connected Circuits</a><a href="#evidence-section" class="toc-link">Evidence</a></nav>  <section id="reading-pane-tab" class="detail-section">    <div class="reading-tabs" role="tablist">  <button class="tab-btn active" data-tab="overview" aria-selected="true" role="tab">3-Min Overview</button>  <button class="tab-btn" data-tab="deepdive" aria-selected="false" role="tab">Deep-Dive Mechanism</button></div><div class="tab-content" id="tab-overview" role="tabpanel">  <div class="article-body-text"><p>Peter Attia's <em>Outlive</em> advocates shifting our perspective from reactive Medicine 2.0 to proactive Medicine 3.0. The core premise is that modern medicine excels at postponing death but fails at extending our <strong><span class="jargon-term" data-term="healthspan" data-definition="The period of life spent free from chronic disease, disability, and functional decline." data-slug="healthspan">healthspan</span></strong>—the period of life we spend free from chronic disease. To protect our body against the slow-killing diseases of aging, we must build <strong><span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">cardiorespiratory fitness</span></strong> (VO2 max) and muscle mass through dedicated Zone 2 training, strength routines, and stability work.</p></div></div><div class="tab-content hidden" id="tab-deepdive" role="tabpanel">  <div class="article-body-text"><section class='deep-dive-section'><h3>Medicine 2.0 vs. Medicine 3.0</h3><p>Medicine 2.0 developed during the mid-20th century, focusing on treating acute infectious diseases and trauma. Today, it fails to prevent chronic slow-killers—the 'Four Horsemen': cardiovascular disease, cancer, neurodegeneration, and <strong><span class="jargon-term" data-term="metabolic syndrome" data-definition="A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk." data-slug="metabolic-syndrome">metabolic syndrome</span></strong>. Medicine 3.0 replaces this reactive treatment with proactive prevention, treating metabolic dysfunction decades before clinical symptoms appear.</p></section>
+<section class='deep-dive-section'><h3>The Centenarian Decathlon Protocol</h3><p>To ensure physical independence in the last decade of life, Attia introduces the Centenarian Decathlon. This protocol involves identifying 10 physical tasks you want to perform in your 90s (e.g., carrying groceries, getting up from the floor) and training for them in your 30s, 40s, and 50s. This requires optimizing <span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">cardiorespiratory fitness</span>, muscular strength, and stability.</p></section></div></div>  </section>  <section class="connections-section detail-section" id="connections-section" aria-labelledby="connections-title">  <h2 id="connections-title" class="connections-header">Connected Circuits</h2>  <ul class="connections-list">    <li>  <span class="connection-type">implements</span>  <a href="ampk-activation.html" class="connection-link">AMPK Cellular Energy Switch</a>:   <span class="connection-mechanism">Zone 2 exercise drives mitochondrial density, directly activating AMPK cellular switches.</span></li>  </ul></section>  <section class="evidence-section detail-section" id="evidence-section">  <button class="evidence-trigger" aria-expanded="false">    <span>Evidence & Studies</span>    <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">      <path d="M7 10l5 5 5-5z"></path>    </svg>  </button>  <div class="evidence-content">    <div class="evidence-list">  <div class="evidence-item">  <div class="evidence-meta">    <a href="https://pubmed.ncbi.nlm.nih.gov/30347268/" target="_blank" rel="noopener" class="evidence-study-link">Mandsager et al., 2018 ↗</a>    <span class="evidence-design">Retrospective cohort study, n=122,007 patients</span>  </div>  <div class="evidence-outcome">Elite <span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">cardiorespiratory fitness</span> associated with a 5-fold reduction in all-cause mortality vs low performers.</div></div></div>  </div></section>  <section class="comments-section detail-section" id="comments-section" style="margin-top: var(--space-8); border-top: 1px solid var(--border-color); padding-top: var(--space-6);">  <h2 class="comments-header" style="font-family: var(--font-heading); font-size: var(--font-size-h2); margin-bottom: var(--space-4);">Discussions</h2>  <script src="https://giscus.app/client.js"          data-repo="icvargasy/thehealthstream-site"          data-repo-id="R_kgDOS5WN7w"          data-category="General"          data-category-id=""          data-mapping="pathname"          data-strict="0"          data-reactions-enabled="1"          data-emit-metadata="0"          data-input-position="bottom"          data-theme="preferred_color_scheme"          data-lang="en"          crossorigin="anonymous"          async>  </script></section></article>
       </div>
+      <footer class="global-footer">
+        <div class="footer-nav">
+          <a href="./index.html" class="footer-link">Explore</a>
+          <a href="./backlog.html" class="footer-link">Pipeline</a>
+          <a href="./vocabulary.html" class="footer-link">Lexicon</a>
+          <a href="./about.html" class="footer-link">Our Mission</a>
+          <a href="./contact.html" class="footer-link">Contact Us</a>
+          <a href="./terms.html" class="footer-link">Terms of Use</a>
+          <a href="./privacy.html" class="footer-link">Privacy Policy</a>
+        </div>
+        <p class="footer-text">The Healthstream is an independent systems biology library.</p>
+        <p class="medical-disclaimer"><strong>Medical Disclaimer:</strong> Content on The Healthstream is for informational and educational purposes only. None of the protocols, biological circuits, or summaries constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional before modifying your diet, exercise, or lifestyle routines.</p>
+      </footer>
     </main>
 
   </div>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to Top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
   <script src="./app.js"></script>
 </body>

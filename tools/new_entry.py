@@ -1,145 +1,153 @@
 #!/usr/bin/env python3
-"""CLI tool to programmatically bootstrap new article entries for The Healthstream.
+"""CLI tool to programmatically bootstrap new article entries from the backlog pipeline.
 
-This script prompts the author for metadata, content hook, and category options,
-then outputs a formatted JSON document to the src/nodes/en/ directory.
+Reads metadata from the backlog ledger, generates a schema-compliant draft,
+and removes the activated item from the pipeline.
 """
 
 import json
 import os
-import re
 import sys
-from typing import Any, Dict
+from typing import Any, Dict, List
 
 
-def slugify(text: str) -> str:
-    """Converts a raw title string into a url-safe filename slug.
-
-    Args:
-        text: Raw text string (e.g. "AMPK Activation Pathway").
-
-    Returns:
-        A lowercase slug with non-alphanumeric characters replaced by hyphens.
-    """
-    text = text.lower().strip()
-    text = re.sub(r"[^\w\s-]", "", text)
-    return re.sub(r"[-\s]+", "-", text)
-
-
-def prompt_user(prompt_text: str, default: str = "") -> str:
-    """Prompts the user for text input with optional default fallback.
+def load_json_file(file_path: str) -> Any:
+    """Loads a JSON file safely.
 
     Args:
-        prompt_text: The instructions displayed to the user.
-        default: Fallback string value if input is empty.
+        file_path: Path to the JSON file.
 
     Returns:
-        The validated input string.
+        Parsed JSON content.
     """
-    display = f"{prompt_text} [{default}]: " if default else f"{prompt_text}: "
-    user_input = input(display).strip()
-    return user_input if user_input else default
+    if not os.path.exists(file_path):
+        return []
+    try:
+        with open(file_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        print(f"Error reading {file_path}: {e}")
+        return []
 
 
-def select_option(prompt_text: str, options: Dict[str, str]) -> str:
-    """Forces user to select from a dictionary of options.
+def save_json_file(file_path: str, data: Any) -> None:
+    """Saves data to a JSON file.
 
     Args:
-        prompt_text: Instructive title of the prompt.
-        options: Dictionary mapping character key to display text.
-
-    Returns:
-        The key selected by the user.
+        file_path: Path to write the JSON file.
+        data: Data to serialize.
     """
-    print(f"\n{prompt_text}")
-    for key, value in options.items():
-        print(f"  [{key}] {value}")
-
-    while True:
-        choice = input("Select option key: ").strip().lower()
-        if choice in options:
-            return choice
-        print("Invalid key selection. Attempt again.")
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=2, ensure_ascii=False)
+    except Exception as e:
+        print(f"Error saving to {file_path}: {e}")
 
 
 def main() -> None:
-    """Runs the interactive draft bootstrap CLI.
-
-    Raises:
-        OSError: If target save directory is unreachable.
-    """
+    """Runs the interactive draft bootstrap CLI."""
     print("==================================================")
-    print("   THE HEALTHSTREAM - New Article Bootstrapper   ")
+    print("   THE HEALTHSTREAM - Active Draft Bootstrapper  ")
     print("==================================================\n")
 
-    # 1. Type Selection
-    type_options = {
-        "b": "biology (Science/Pathway Decodings)",
-        "l": "lifestyle (Behavioral/Habit Protocols)",
-        "k": "book (Curated Longevity Literature)",
-    }
-    type_key = select_option("Select content node category:", type_options)
-    type_map = {"b": "biology", "l": "lifestyle", "k": "book"}
-    content_type = type_map[type_key]
+    src_dir = "src"
+    backlog_path = os.path.join(src_dir, "backlog.json")
+    drafts_dir = os.path.join(src_dir, "nodes", "en", "drafts")
 
-    # 2. Title & Hook inputs
-    title = prompt_user("Enter Article Title")
-    if not title:
-        print("Error: Article title is required.")
-        sys.exit(1)
+    # 1. Load active backlog items
+    backlog = load_json_file(backlog_path)
+    if not backlog:
+        print("Pipeline is empty. Add items to the backlog first using: new_entry_in_pipeline.py --add")
+        sys.exit(0)
 
-    default_slug = slugify(title)
-    slug = prompt_user("Confirm Filename Slug", default_slug)
+    print("Active Backlog Pipeline Items:")
+    for idx, item in enumerate(backlog):
+        print(f"  [{idx + 1}] {item['title']} ({item['category']}) - Votes: {item['votes']}")
 
-    hook = prompt_user("Enter Curiosity Hook / Engaging Question")
-    pill = prompt_user("Enter 1-Min Takeaway Pill (Actionable conclusion)")
+    # 2. Select entry
+    while True:
+        choice = input("\nSelect entry number to activate and write: ").strip()
+        try:
+            choice_idx = int(choice) - 1
+            if 0 <= choice_idx < len(backlog):
+                selected_item = backlog[choice_idx]
+                break
+        except ValueError:
+            pass
+        print("Invalid choice. Please input a number from the list.")
 
-    # 3. Epistemic Consensus Scale
-    status_options = {
-        "c": "consensus (Established scientific consensus)",
-        "d": "developing (Developing hypothesis / active research)",
-        "h": "high-controversy (Early theories / conflicting data)",
-    }
-    status_key = select_option("Select Epistemic Status Level:", status_options)
-    status_map = {
-        "c": "consensus",
-        "d": "developing",
-        "h": "high-controversy",
-    }
-    epistemic_status = status_map[status_key]
+    slug = selected_item["id"]
+    title = selected_item["title"]
+    category = selected_item["category"]
+    description = selected_item["description"]
 
-    content = prompt_user("Enter Article Content Body (Markdown)", "Define the systems biology feedback loops here.")
-
-    # 4. Generate JSON schema
+    # 3. Formulate compliant schema output
     node_data: Dict[str, Any] = {
-        "type": content_type,
+        "type": category,
         "title": title,
-        "hook_question": hook,
-        "takeaway_pill": pill,
-        "epistemic_status": epistemic_status,
-        "tags": [content_type],
-        "content": content,
-        "evidence_table": [],
-        "bibliography": [],
+        "hook_question": description,
+        "takeaway_pill": "1-Min takeaway summary based on evidence (Actionable and direct).",
+        "epistemic_rating": {
+            "grade": "Low",
+            "rationale": "GRADE-based evaluation summary of supporting literature.",
+            "debate_sides": [
+                {
+                    "position": "Brief statement of Hypothesis A.",
+                    "arguments": "Supporting data / trials."
+                }
+            ]
+        },
+        "tags": selected_item.get("tags", [category]),
+        "reading_modes": {
+            "overview_3min": "A 3-min narrative overview mapping the biological feedback loops. Use bold `**` tags for glossary terms.",
+            "deep_dive": [
+                {
+                    "heading": "Molecular Feedback Loops",
+                    "body": "Detailed biochemical steps (use bold `**` for vocabulary terms)."
+                }
+            ]
+        },
+        "edges": [
+            {
+                "target": "target-slug-goes-here",
+                "type": "activates",
+                "mechanism": "How this node influences the target node."
+            }
+        ],
+        "evidence_table": [
+            {
+                "study": "Author et al., Year",
+                "design": "Study design (e.g., RCT, in vivo)",
+                "sample": "Cohort description (e.g., n=40 adults)",
+                "outcome": "Specific outcome data.",
+                "link": "https://pubmed.ncbi.nlm.nih.gov/XXXXX/"
+            }
+        ],
+        "bibliography": [
+            {
+                "id": "ref1",
+                "text": "Full Vancouver-style citation.",
+                "link": "Direct DOI or publisher link."
+            }
+        ]
     }
 
-    # 5. File Management
-    target_dir = os.path.join("src", "nodes", "en")
-    target_file = os.path.join(target_dir, f"{slug}.json")
+    # 4. Save file to drafts folder
+    os.makedirs(drafts_dir, exist_ok=True)
+    target_file = os.path.join(drafts_dir, f"{slug}.json")
 
-    try:
-        os.makedirs(target_dir, exist_ok=True)
-        with open(target_file, "w", encoding="utf-8") as f:
-            json.dump(node_data, f, indent=2, ensure_ascii=False)
-        print(f"\n[Success] Draft bootstrapped successfully at: {target_file}")
-    except OSError as e:
-        print(f"\n[Error] Failed writing target file: {e}")
-        sys.exit(1)
+    save_json_file(target_file, node_data)
+    print(f"\n[Success] Draft generated successfully at: {target_file}")
+
+    # 5. Remove activated item from backlog
+    backlog.pop(choice_idx)
+    save_json_file(backlog_path, backlog)
+    print(f"[Success] Removed '{slug}' from active backlog pipeline.")
 
 
 if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nProcess interrupted by author. Exiting.")
+        print("\nProcess interrupted. Exiting.")
         sys.exit(0)

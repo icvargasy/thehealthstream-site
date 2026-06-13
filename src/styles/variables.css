@@ -33,7 +33,7 @@
   --sidebar-width: 280px;
 
   /* Accent Color Categories */
-  --accent-biology: oklch(0.42 0.15 15);
+  --accent-biology: oklch(0.55 0.18 250);
   --accent-lifestyle: oklch(0.62 0.15 140);
   --accent-book: oklch(0.70 0.16 75);
 }
@@ -45,10 +45,10 @@ body, body[data-theme="light"] {
   --text-ink: oklch(0.18 0.01 15);
   --text-ink-muted: oklch(0.45 0.01 15);
   --border-color: oklch(0.90 0.005 15);
-  --accent-synapse: oklch(0.42 0.15 15);
-  --accent-synapse-hover: oklch(0.35 0.13 15);
-  --selected-bg: oklch(0.42 0.15 15 / 0.06);
-  --selected-border: oklch(0.42 0.15 15 / 0.2);
+  --accent-synapse: oklch(0.45 0.16 18);
+  --accent-synapse-hover: oklch(0.38 0.14 18);
+  --selected-bg: oklch(0.45 0.16 18 / 0.06);
+  --selected-border: oklch(0.45 0.16 18 / 0.20);
 
   /* Sidebar Palette (Light Alabaster) */
   --sb-bg: oklch(0.96 0.006 15);
@@ -64,10 +64,10 @@ body[data-theme="dark"] {
   --text-ink: oklch(0.94 0.005 15);
   --text-ink-muted: oklch(0.65 0.005 15);
   --border-color: oklch(0.28 0.008 15);
-  --accent-synapse: oklch(0.68 0.16 15);
-  --accent-synapse-hover: oklch(0.73 0.17 15);
-  --selected-bg: oklch(0.68 0.16 15 / 0.08);
-  --selected-border: oklch(0.68 0.16 15 / 0.3);
+  --accent-synapse: oklch(0.65 0.17 18);
+  --accent-synapse-hover: oklch(0.72 0.16 18);
+  --selected-bg: oklch(0.65 0.17 18 / 0.08);
+  --selected-border: oklch(0.65 0.17 18 / 0.30);
 
   /* Sidebar Palette (Warm Charcoal) */
   --sb-bg: oklch(0.22 0.006 15);

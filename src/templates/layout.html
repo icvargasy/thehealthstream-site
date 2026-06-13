@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{title}} — The Healthstream</title>
+  <title>{{title}}</title>
   <meta name="description" content="{{meta_description}}">
   <link rel="icon" type="image/png" href="{{base_path}}assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="{{base_path}}style.css">
+  <link rel="stylesheet" href="{{base_path}}style.css?v=1.0.2">
 </head>
 <body>
   <script>
@@ -131,6 +131,15 @@
             </a>
           </li>
           <li>
+            <a href="{{base_path}}submit-proposal.html" class="nav-link {{nav_active_submit_proposal}}" id="nav-submit-proposal">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 20h9"></path>
+                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+              </svg>
+              {{label_nav_submit_proposal}}
+            </a>
+          </li>
+          <li>
             <a href="{{base_path}}contact.html" class="nav-link {{nav_active_contact}}" id="nav-contact">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
@@ -142,58 +151,34 @@
         </ul>
       </nav>
 
-      <!-- Decoded Category Accordions -->
+      <!-- Topics: Flat Static Categories -->
       <nav class="sidebar-section">
-        <div class="sidebar-title">Decoded Networks</div>
-        
-        <!-- Biology Accordion -->
-        <div class="accordion-group {{accordion_collapsed_biology}}" id="group-biology">
-          <button class="accordion-trigger" aria-controls="content-biology" aria-expanded="{{accordion_expanded_biology}}">
-            <span>{{label_category_biology}}</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-biology">
-            <ul class="nav-list">
-              {{sidebar_links_biology}}
-            </ul>
-          </div>
-        </div>
-
-        <!-- Lifestyle Accordion -->
-        <div class="accordion-group {{accordion_collapsed_lifestyle}}" id="group-lifestyle">
-          <button class="accordion-trigger" aria-controls="content-lifestyle" aria-expanded="{{accordion_expanded_lifestyle}}">
-            <span>{{label_category_lifestyle}}</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-lifestyle">
-            <ul class="nav-list">
-              {{sidebar_links_lifestyle}}
-            </ul>
-          </div>
-        </div>
-
-        <!-- Books Accordion -->
-        <div class="accordion-group {{accordion_collapsed_book}}" id="group-book">
-          <button class="accordion-trigger" aria-controls="content-book" aria-expanded="{{accordion_expanded_book}}">
-            <span>{{label_category_book}}</span>
-            <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-          </button>
-          <div class="accordion-content" id="content-book">
-            <ul class="nav-list">
-              {{sidebar_links_book}}
-            </ul>
-          </div>
-        </div>
+        <div class="sidebar-title">{{label_feed_title}}</div>
+        <ul class="nav-list">
+          <li>
+            <a href="{{base_path}}category-biology.html" class="nav-link category-link cat-biology {{nav_active_category_biology}}" data-category="biology">
+              {{label_category_biology}} <span class="category-count">({{count_biology}})</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{base_path}}category-lifestyle.html" class="nav-link category-link cat-lifestyle {{nav_active_category_lifestyle}}" data-category="lifestyle">
+              {{label_category_lifestyle}} <span class="category-count">({{count_lifestyle}})</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{base_path}}category-book.html" class="nav-link category-link cat-book {{nav_active_category_book}}" data-category="book">
+              {{label_category_book}} <span class="category-count">({{count_book}})</span>
+            </a>
+          </li>
+        </ul>
       </nav>
 
-      <!-- Bottom spacer for visual balance -->
-      <div class="sidebar-section" style="margin-top: auto; border-bottom: none;"></div>
+
+
+      <!-- Sidebar Footer / Medical Disclaimer -->
+      <div class="sidebar-footer" style="margin-top: auto; padding: var(--space-3); font-size: 0.7rem; line-height: 1.4; color: var(--sb-text-muted); border-top: 1px solid var(--sb-border);">
+        <strong>Disclaimer:</strong> The Healthstream is a systems biology library. Content does not constitute clinical, diagnostic, or therapeutic medical advice.
+      </div>
 
     </aside>
 
@@ -202,9 +187,29 @@
       <div class="content-container fade-in">
         {{content}}
       </div>
+      <footer class="global-footer">
+        <div class="footer-nav">
+          <a href="{{base_path}}index.html" class="footer-link">Explore</a>
+          <a href="{{base_path}}backlog.html" class="footer-link">Pipeline</a>
+          <a href="{{base_path}}vocabulary.html" class="footer-link">Lexicon</a>
+          <a href="{{base_path}}about.html" class="footer-link">Our Mission</a>
+          <a href="{{base_path}}contact.html" class="footer-link">Contact Us</a>
+          <a href="{{base_path}}terms.html" class="footer-link">Terms of Use</a>
+          <a href="{{base_path}}privacy.html" class="footer-link">Privacy Policy</a>
+        </div>
+        <p class="footer-text">{{label_footer_text}}</p>
+        <p class="medical-disclaimer"><strong>Medical Disclaimer:</strong> Content on The Healthstream is for informational and educational purposes only. None of the protocols, biological circuits, or summaries constitute medical advice, diagnosis, or treatment. Always consult a qualified healthcare professional before modifying your diet, exercise, or lifestyle routines.</p>
+      </footer>
     </main>
 
   </div>
+
+  <!-- Floating Back to Top Button -->
+  <button id="back-to-top" class="back-to-top-btn" aria-label="Back to Top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="18 15 12 9 6 15"></polyline>
+    </svg>
+  </button>
 
   <script src="{{base_path}}app.js"></script>
 </body>

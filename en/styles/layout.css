@@ -157,3 +157,32 @@ body.left-collapsed #sidebar,
     scroll-behavior: auto !important;
   }
 }
+
+/* Responsive Dashboard Layout for Tablet / Mobile */
+@media (max-width: 768px) {
+  #dashboard-container {
+    grid-template-columns: 1fr;
+  }
+  
+  #sidebar {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    height: calc(100vh - var(--header-height));
+    z-index: 90;
+    width: var(--sidebar-width);
+    transform: translateX(0);
+    transition: transform var(--transition-normal);
+  }
+  
+  body.left-collapsed #sidebar,
+  #dashboard-container.left-collapsed #sidebar {
+    width: var(--sidebar-width);
+    transform: translateX(-100%);
+    border-right-color: transparent;
+  }
+  
+  #reading-pane {
+    padding: var(--space-3);
+  }
+}

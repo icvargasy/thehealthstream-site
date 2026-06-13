@@ -12,6 +12,8 @@ from tools.compiler.writer import (
     compile_detail_page,
     compile_backlog_page,
     compile_static_content_page,
+    compile_tag_page,
+    compile_category_page,
     generate_search_index,
 )
 
@@ -23,9 +25,28 @@ def test_validate_node_valid() -> None:
         "title": "AMPK Energy Activation",
         "hook_question": "Does constant snacking block energy?",
         "takeaway_pill": "Fasting activates AMPK for cellular clearance.",
-        "epistemic_status": "consensus",
+        "epistemic_rating": {
+            "grade": "High",
+            "rationale": "Consensus is supported by extensive mammalian studies.",
+            "debate_sides": []
+        },
         "tags": ["biology", "metabolism"],
-        "content": "This is AMPK content.",
+        "reading_modes": {
+            "overview_3min": "Fasting activates AMPK for cellular clearance.",
+            "deep_dive": [
+                {
+                    "heading": "The AMPK-mTOR Reciprocal Axis",
+                    "body": "At the molecular level..."
+                }
+            ]
+        },
+        "edges": [
+            {
+                "target": "circadian-sleep-protocol",
+                "type": "requires",
+                "mechanism": "Details..."
+            }
+        ],
         "evidence_table": [
             {
                 "study": "Smith 2023",
@@ -48,9 +69,17 @@ def test_validate_node_missing_fields() -> None:
         "title": "AMPK Activation",
         # "hook_question" is missing!
         "takeaway_pill": "Fasting activates AMPK.",
-        "epistemic_status": "consensus",
+        "epistemic_rating": {
+            "grade": "High",
+            "rationale": "Consensus is supported.",
+            "debate_sides": []
+        },
         "tags": ["biology"],
-        "content": "Content...",
+        "reading_modes": {
+            "overview_3min": "Fasting activates AMPK.",
+            "deep_dive": []
+        },
+        "edges": [],
         "evidence_table": [],
         "bibliography": [],
     }
@@ -65,9 +94,17 @@ def test_validate_node_invalid_types() -> None:
         "title": "AMPK Activation",
         "hook_question": "Snacking?",
         "takeaway_pill": "Fasting activates AMPK.",
-        "epistemic_status": "consensus",
+        "epistemic_rating": {
+            "grade": "High",
+            "rationale": "Consensus is supported.",
+            "debate_sides": []
+        },
         "tags": ["biology"],
-        "content": "Content...",
+        "reading_modes": {
+            "overview_3min": "Fasting activates AMPK.",
+            "deep_dive": []
+        },
+        "edges": [],
         "evidence_table": [],
         "bibliography": [],
     }
@@ -112,24 +149,22 @@ def test_inject_jargon_links() -> None:
 
 
 def test_compile_base_layout() -> None:
-    """Verifies layout template slot substitutions and accordion states."""
+    """Verifies layout template slot substitutions and static feed/navigation flags."""
     template = (
-        "<html><head><title>{{title}}</title></head><body>{{label_nav_home}} {{sidebar_links_biology}} "
-        "class-bio:{{accordion_collapsed_biology}} exp-bio:{{accordion_expanded_biology}} "
-        "class-life:{{accordion_collapsed_lifestyle}} exp-life:{{accordion_expanded_lifestyle}} "
-        "{{content}}</body></html>"
+        "<html><head><title>{{title}}</title></head><body>{{label_nav_home}} count:{{count_biology}} "
+        "active-feed:{{nav_active_feed}} active-bio:{{nav_active_category_biology}} {{content}}</body></html>"
     )
     translations = {"en": {"nav_home": "Feed"}}
     nodes = [{"slug": "ampk-activation", "title": "AMPK Activation", "type": "biology"}]
     backlog = []
 
-    compiled = compile_base_layout(template, translations, nodes, backlog, "feed", "biology")
+    compiled = compile_base_layout(template, translations, nodes, backlog, "category-biology")
     assert "Feed" in compiled
-    assert 'data-slug="ampk-activation"' in compiled
-    assert "class-bio:" in compiled
-    assert "exp-bio:true" in compiled
-    assert "class-life:collapsed" in compiled
-    assert "exp-life:false" in compiled
+    assert "count:1" in compiled
+    assert "active-bio:active" in compiled
+    assert "active-feed:" in compiled
+
+
 
 
 def test_compile_vocabulary_page() -> None:
@@ -144,15 +179,44 @@ def test_compile_vocabulary_page() -> None:
             "slug": "ampk-activation",
             "title": "AMPK Activation",
             "type": "biology",
-            "content": "This activates AMPK."
+            "hook_question": "Does snacking block energy?",
+            "takeaway_pill": "Fasting activates AMPK.",
+            "epistemic_rating": {
+                "grade": "High",
+                "rationale": "Consensus is supported.",
+                "debate_sides": []
+            },
+            "tags": [],
+            "reading_modes": {
+                "overview_3min": "This activates AMPK.",
+                "deep_dive": []
+            },
+            "edges": [],
+            "evidence_table": [],
+            "bibliography": []
         }
     ]
     from tools.compiler.writer import compile_vocabulary_page
     compiled = compile_vocabulary_page(layout, vocabulary, translations, nodes)
     assert "Glossary" in compiled
+    assert "vocabulary/ampk.html" in compiled
+    assert "AMPK" in compiled
+
+def test_compile_vocabulary_detail_page() -> None:
+    """Verifies compilation of individual jargon detail page."""
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    term = "AMPK"
+    vocab_item = {"definition": "An energy sensing enzyme."}
+    mentions = [
+        {"title": "AMPK Activation", "slug": "ampk-activation.html"}
+    ]
+    translations = {"en": {"nav_vocabulary": "Glossary"}}
+    from tools.compiler.writer import compile_vocabulary_detail_page
+    compiled = compile_vocabulary_detail_page(layout, term, vocab_item, mentions, translations)
+    assert "AMPK" in compiled
     assert "An energy sensing enzyme" in compiled
     assert "Mentioned in:" in compiled
-    assert "ampk-activation.html" in compiled
+    assert "../ampk-activation.html" in compiled
     assert "AMPK Activation" in compiled
 
 
@@ -165,6 +229,20 @@ def test_compile_feed_page() -> None:
             "title": "AMPK Activation",
             "type": "biology",
             "hook_question": "Snacking switch?",
+            "takeaway_pill": "Fasting activates AMPK.",
+            "epistemic_rating": {
+                "grade": "High",
+                "rationale": "Consensus is supported.",
+                "debate_sides": []
+            },
+            "tags": [],
+            "reading_modes": {
+                "overview_3min": "Overview text",
+                "deep_dive": []
+            },
+            "edges": [],
+            "evidence_table": [],
+            "bibliography": []
         }
     ]
     translations = {"en": {"site_title": "The Healthstream", "site_tagline": "Hub", "feed_title": "Feed"}}
@@ -185,32 +263,40 @@ def test_compile_detail_page() -> None:
         "type": "biology",
         "hook_question": "Does constant snacking block energy?",
         "takeaway_pill": "Fasting pill",
-        "epistemic_status": "consensus",
+        "epistemic_rating": {
+            "grade": "High",
+            "rationale": "Consensus is supported.",
+            "debate_sides": []
+        },
         "tags": ["metabolism"],
-        "content": "Body narrative.",
+        "reading_modes": {
+            "overview_3min": "Body narrative.",
+            "deep_dive": []
+        },
+        "edges": [],
         "evidence_table": [],
         "bibliography": [],
     }
     translations = {
         "en": {
             "takeaway_pill_title": "1-Min Takeaway",
-            "consensus_level": "Consensus Scale",
+            "consensus_level": "GRADE Evidence Rating",
             "consensus_established": "Established",
         }
     }
 
-    compiled = compile_detail_page(layout, node, translations)
+    compiled = compile_detail_page(layout, node, translations, [node])
     assert "AMPK Activation" in compiled
     assert "Fasting pill" in compiled
-    assert "Consensus Scale" in compiled
-    assert "left: 80%" in compiled
+    assert "Evidence Grade:" in compiled
+    assert "High" in compiled
     # Verify Schema.org FAQPage injection
     assert 'application/ld+json' in compiled
     assert '"@type": "FAQPage"' in compiled
 
 
 def test_compile_backlog_page() -> None:
-    """Verifies that the dedicated Backlog page renders backlog cards and Google Form."""
+    """Verifies that the dedicated Backlog page renders backlog cards and redirect button."""
     layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
     backlog = [
         {
@@ -225,8 +311,6 @@ def test_compile_backlog_page() -> None:
             "nav_backlog": "Backlog List",
             "backlog_title": "Proposed Backlog",
             "backlog_desc": "Vote to decide.",
-            "form_backlog_url": "https://docs.google.com/backlog-form",
-            "form_submit_theme_title": "Submit Theme",
         }
     }
 
@@ -234,8 +318,8 @@ def test_compile_backlog_page() -> None:
     assert "Backlog List" in compiled
     assert "Autophagy Kinetics" in compiled
     assert "124" in compiled
-    assert "sandbox=" in compiled
-    assert "https://docs.google.com/backlog-form" in compiled
+    assert "submit-proposal.html" in compiled
+    assert "Submit a Proposal" in compiled
 
 
 def test_compile_static_content_page(tmp_path) -> None:
@@ -265,7 +349,26 @@ def test_compile_static_content_page(tmp_path) -> None:
 
 def test_generate_search_index(tmp_path) -> None:
     """Verifies compilation of search_index.json payload."""
-    nodes = [{"slug": "ampk-activation", "title": "AMPK Activation", "type": "biology", "hook_question": "Does snacking block energy?"}]
+    nodes = [{
+        "slug": "ampk-activation",
+        "title": "AMPK Activation",
+        "type": "biology",
+        "hook_question": "Does snacking block energy?",
+        "takeaway_pill": "Fasting activates AMPK.",
+        "epistemic_rating": {
+            "grade": "High",
+            "rationale": "Consensus is supported.",
+            "debate_sides": []
+        },
+        "tags": [],
+        "reading_modes": {
+            "overview_3min": "Overview text",
+            "deep_dive": []
+        },
+        "edges": [],
+        "evidence_table": [],
+        "bibliography": []
+    }]
     vocabulary = {"AMPK": {"definition": "An energy sensing enzyme."}}
     translations = {"en": {"category_biology": "Biology & Science", "nav_vocabulary": "Glossary"}}
     
@@ -295,4 +398,123 @@ def test_generate_search_index(tmp_path) -> None:
     assert data[1]["category"] == "Glossary"
     assert data[1]["teaser"] == "An energy sensing enzyme."
 
+
+def test_compile_tag_page() -> None:
+    """Verifies that tag filter pages render matching articles and handle empty tags."""
+    from tools.compiler.writer import compile_tag_page
+
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    nodes = [
+        {
+            "slug": "ampk-activation",
+            "title": "AMPK Activation",
+            "type": "biology",
+            "hook_question": "Does snacking block energy?",
+            "takeaway_pill": "Fasting activates AMPK.",
+            "epistemic_rating": {
+                "grade": "High",
+                "rationale": "Consensus is supported.",
+                "debate_sides": []
+            },
+            "tags": ["biology", "metabolism"],
+            "reading_modes": {
+                "overview_3min": "Overview text",
+                "deep_dive": []
+            },
+            "edges": [],
+            "evidence_table": [],
+            "bibliography": []
+        },
+        {
+            "slug": "circadian-sleep",
+            "title": "Circadian Sleep Protocol",
+            "type": "lifestyle",
+            "hook_question": "How does light reset the clock?",
+            "takeaway_pill": "Fasting activates AMPK.",
+            "epistemic_rating": {
+                "grade": "High",
+                "rationale": "Consensus is supported.",
+                "debate_sides": []
+            },
+            "tags": ["lifestyle", "sleep"],
+            "reading_modes": {
+                "overview_3min": "Overview text",
+                "deep_dive": []
+            },
+            "edges": [],
+            "evidence_table": [],
+            "bibliography": []
+        },
+    ]
+    translations = {"en": {"category_biology": "Biology & Science", "category_lifestyle": "Lifestyle"}}
+
+    # Tag with matching articles
+    compiled = compile_tag_page(layout, "biology", nodes, translations)
+    assert "#biology" in compiled
+    assert "AMPK Activation" in compiled
+    assert "Circadian Sleep Protocol" not in compiled
+    assert 'href="../ampk-activation.html"' in compiled
+
+    # Tag with no matching articles
+    compiled_empty = compile_tag_page(layout, "longevity", nodes, translations)
+    assert "No published articles tagged" in compiled_empty
+
+
+def test_compile_category_page() -> None:
+    """Verifies that category index streams compile correctly with type-based filtration."""
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    nodes = [
+        {
+            "slug": "ampk-activation",
+            "title": "AMPK Activation",
+            "type": "biology",
+            "hook_question": "Does snacking block energy?",
+            "takeaway_pill": "Fasting activates AMPK.",
+            "epistemic_rating": {
+                "grade": "High",
+                "rationale": "Consensus is supported.",
+                "debate_sides": []
+            },
+            "tags": [],
+            "reading_modes": {
+                "overview_3min": "Overview text",
+                "deep_dive": []
+            },
+            "edges": [],
+            "evidence_table": [],
+            "bibliography": []
+        },
+        {
+            "slug": "circadian-sleep",
+            "title": "Circadian Sleep Protocol",
+            "type": "lifestyle",
+            "hook_question": "How does light reset the clock?",
+            "takeaway_pill": "Fasting activates AMPK.",
+            "epistemic_rating": {
+                "grade": "High",
+                "rationale": "Consensus is supported.",
+                "debate_sides": []
+            },
+            "tags": [],
+            "reading_modes": {
+                "overview_3min": "Overview text",
+                "deep_dive": []
+            },
+            "edges": [],
+            "evidence_table": [],
+            "bibliography": []
+        },
+    ]
+    translations = {"en": {"category_biology": "Biological Circuits"}}
+
+    # Biology category
+    compiled = compile_category_page(layout, "biology", nodes, translations)
+    assert "Biological Circuits" in compiled
+    assert "AMPK Activation" in compiled
+    assert "Circadian Sleep Protocol" not in compiled
+    assert 'href="ampk-activation.html"' in compiled
+
+    # Empty category
+    compiled_empty = compile_category_page(layout, "book", nodes, translations)
+    assert "No articles in" in compiled_empty
 

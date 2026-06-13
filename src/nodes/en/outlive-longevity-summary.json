@@ -2,14 +2,46 @@
   "type": "book",
   "title": "Outlive: Science & Art of Longevity",
   "hook_question": "Are we training for the wrong metrics in our current longevity regimens?",
-  "takeaway_pill": "True longevity requires prioritizing healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as primary protective shields against the chronic diseases of aging.",
-  "epistemic_status": "developing",
+  "takeaway_pill": "True longevity requires that we prioritize healthspan alongside lifespan, focusing on cardiorespiratory fitness (VO2 max) and muscle mass as our primary protective shields against the chronic diseases of aging.",
+  "epistemic_rating": {
+    "grade": "Moderate",
+    "rationale": "Moderate grading reflects robust epidemiological association studies linking VO2 max and grip strength to reduced all-cause mortality, though causal interventional human RCTs on lifespan extension are not ethically feasible.",
+    "debate_sides": [
+      {
+        "position": "Elite cardiorespiratory fitness is the primary protective shield against mortality.",
+        "arguments": "Supported by retrospective cohorts showing 5-fold reductions in all-cause mortality between low and elite performers (Mandsager et al., 2018)."
+      },
+      {
+        "position": "Over-focusing on extreme VO2 max may lead to structural cardiac changes.",
+        "arguments": "Contesting data points to a potential plateau or slight risk increase in extreme endurance athletics, suggesting a sweet spot rather than linear improvement."
+      }
+    ]
+  },
   "tags": [
     "book",
     "longevity",
     "exercise"
   ],
-  "content": "Peter Attia's *Outlive* advocates shifting from reactive Medicine 2.0 to proactive Medicine 3.0. His core premise: modern medicine excels at postponing death but fails at extending **healthspan**. Preventing the 'four horsemen' of aging—cardiovascular disease, cancer, neurodegeneration, and **metabolic syndrome**—requires building **cardiorespiratory fitness** and muscle mass through Zone 2 training and strength work. To stay functional in your 80s and 90s, you have to train for it decades earlier.",
+  "reading_modes": {
+    "overview_3min": "Peter Attia's *Outlive* advocates shifting our perspective from reactive Medicine 2.0 to proactive Medicine 3.0. The core premise is that modern medicine excels at postponing death but fails at extending our **healthspan**—the period of life we spend free from chronic disease. To protect our body against the slow-killing diseases of aging, we must build **cardiorespiratory fitness** (VO2 max) and muscle mass through dedicated Zone 2 training, strength routines, and stability work.",
+    "deep_dive": [
+      {
+        "heading": "Medicine 2.0 vs. Medicine 3.0",
+        "body": "Medicine 2.0 developed during the mid-20th century, focusing on treating acute infectious diseases and trauma. Today, it fails to prevent chronic slow-killers—the 'Four Horsemen': cardiovascular disease, cancer, neurodegeneration, and **metabolic syndrome**. Medicine 3.0 replaces this reactive treatment with proactive prevention, treating metabolic dysfunction decades before clinical symptoms appear."
+      },
+      {
+        "heading": "The Centenarian Decathlon Protocol",
+        "body": "To ensure physical independence in the last decade of life, Attia introduces the Centenarian Decathlon. This protocol involves identifying 10 physical tasks you want to perform in your 90s (e.g., carrying groceries, getting up from the floor) and training for them in your 30s, 40s, and 50s. This requires optimizing cardiorespiratory fitness, muscular strength, and stability."
+      }
+    ]
+  },
+  "edges": [
+    {
+      "target": "ampk-activation",
+      "type": "implements",
+      "mechanism": "Zone 2 exercise drives mitochondrial density, directly activating AMPK cellular switches."
+    }
+  ],
   "evidence_table": [
     {
       "study": "Mandsager et al., 2018",

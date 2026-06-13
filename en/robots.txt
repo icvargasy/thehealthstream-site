@@ -17,4 +17,4 @@ Allow: /
 User-agent: Omgilibot
 Allow: /
 
-Sitemap: https://varga.github.io/thehealthstream/sitemap.xml
+Sitemap: https://icvargasy.github.io/thehealthstream-site/sitemap.xml

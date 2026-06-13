@@ -46,9 +46,10 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
         "title": str,
         "hook_question": str,
         "takeaway_pill": str,
-        "epistemic_status": str,
+        "epistemic_rating": dict,
         "tags": list,
-        "content": str,
+        "reading_modes": dict,
+        "edges": list,
         "evidence_table": list,
         "bibliography": list,
     }
@@ -69,13 +70,71 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
             f"Validation Error in {file_path}: Invalid type '{node_data['type']}'. Valid types: {valid_types}"
         )
 
-    # Validate epistemic status
-    valid_status = {"consensus", "developing", "high-controversy"}
-    if node_data["epistemic_status"] not in valid_status:
+    # Validate epistemic rating
+    er = node_data["epistemic_rating"]
+    for er_key, er_type in [("grade", str), ("rationale", str), ("debate_sides", list)]:
+        if er_key not in er:
+            raise ValueError(f"Validation Error in {file_path}: Missing required field 'epistemic_rating.{er_key}'")
+        if not isinstance(er[er_key], er_type):
+            raise ValueError(
+                f"Validation Error in {file_path}: Field 'epistemic_rating.{er_key}' must be of type {er_type.__name__}"
+            )
+
+    valid_grades = {"High", "Moderate", "Low", "Very Low"}
+    if er["grade"] not in valid_grades:
         raise ValueError(
-            f"Validation Error in {file_path}: Invalid status '{node_data['epistemic_status']}'. "
-            f"Valid statuses: {valid_status}"
+            f"Validation Error in {file_path}: Invalid GRADE level '{er['grade']}'. Valid levels: {valid_grades}"
         )
+
+    for idx, side in enumerate(er["debate_sides"]):
+        if not isinstance(side, dict):
+            raise ValueError(f"Validation Error in {file_path}: epistemic_rating.debate_sides[{idx}] must be an object")
+        for sub_key in ["position", "arguments"]:
+            if sub_key not in side:
+                raise ValueError(
+                    f"Validation Error in {file_path}: Missing field '{sub_key}' in epistemic_rating.debate_sides[{idx}]"
+                )
+            if not isinstance(side[sub_key], str):
+                raise ValueError(
+                    f"Validation Error in {file_path}: Field '{sub_key}' in epistemic_rating.debate_sides[{idx}] must be a string"
+                )
+
+    # Validate reading modes
+    rm = node_data["reading_modes"]
+    for rm_key, rm_type in [("overview_3min", str), ("deep_dive", list)]:
+        if rm_key not in rm:
+            raise ValueError(f"Validation Error in {file_path}: Missing required field 'reading_modes.{rm_key}'")
+        if not isinstance(rm[rm_key], rm_type):
+            raise ValueError(
+                f"Validation Error in {file_path}: Field 'reading_modes.{rm_key}' must be of type {rm_type.__name__}"
+            )
+
+    for idx, item in enumerate(rm["deep_dive"]):
+        if not isinstance(item, dict):
+            raise ValueError(f"Validation Error in {file_path}: reading_modes.deep_dive[{idx}] must be an object")
+        for sub_key in ["heading", "body"]:
+            if sub_key not in item:
+                raise ValueError(
+                    f"Validation Error in {file_path}: Missing field '{sub_key}' in reading_modes.deep_dive[{idx}]"
+                )
+            if not isinstance(item[sub_key], str):
+                raise ValueError(
+                    f"Validation Error in {file_path}: Field '{sub_key}' in reading_modes.deep_dive[{idx}] must be a string"
+                )
+
+    # Validate edges
+    for idx, edge in enumerate(node_data["edges"]):
+        if not isinstance(edge, dict):
+            raise ValueError(f"Validation Error in {file_path}: edges[{idx}] must be an object")
+        for sub_key in ["target", "type", "mechanism"]:
+            if sub_key not in edge:
+                raise ValueError(
+                    f"Validation Error in {file_path}: Missing field '{sub_key}' in edges[{idx}]"
+                )
+            if not isinstance(edge[sub_key], str):
+                raise ValueError(
+                    f"Validation Error in {file_path}: Field '{sub_key}' in edges[{idx}] must be a string"
+                )
 
     # Validate evidence table elements
     for idx, item in enumerate(node_data["evidence_table"]):
