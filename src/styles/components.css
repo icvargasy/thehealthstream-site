@@ -361,13 +361,17 @@ body.left-collapsed .header-brand-container {
 
 /* Curiosity Hook / Question */
 .card-teaser-text {
-  font-style: italic;
-  font-family: var(--font-display);
-  color: var(--text-ink-muted);
   border-left: 2px solid var(--border-color);
   padding-left: var(--space-2);
-  line-height: 1.5;
   pointer-events: none;
+  margin: 0;
+
+  /* Line clamp to 3 lines to show full hook + start of answer */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Detail Page Elements */
@@ -2134,82 +2138,7 @@ body[data-theme="dark"] .backlog-item.cat-book {
   top: -2px;
 }
 
-/* Unified Takeaway Q&A Card */
-.qa-takeaway-card {
-  animation: slideDown 0.3s ease-out;
-  background-color: var(--bg-surface-alt);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  padding: var(--space-3) var(--space-4);
-  margin-top: var(--space-3);
-  margin-bottom: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.qa-question-row,
-.qa-answer-row {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-3);
-}
-
-.qa-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.qa-icon-q {
-  background-color: oklch(0.18 0.01 15 / 0.05);
-  color: var(--text-ink-muted);
-}
-
-body[data-theme="dark"] .qa-icon-q {
-  background-color: oklch(0.98 0.01 15 / 0.08);
-  color: var(--text-ink-muted);
-}
-
-.qa-icon-a {
-  background-color: oklch(0.60 0.15 85 / 0.08);
-  color: oklch(0.60 0.15 85);
-}
-
-body[data-theme="dark"] .qa-icon-a {
-  background-color: oklch(0.60 0.15 85 / 0.12);
-  color: oklch(0.60 0.15 85);
-}
-
-.qa-icon-svg {
-  display: block;
-}
-
-.article-hook-question {
-  font-family: var(--font-body);
-  font-style: normal;
-  font-weight: 600;
-  font-size: 1.05rem;
-  line-height: 1.45;
-  color: var(--text-ink);
-  margin: 0;
-  flex-grow: 1;
-}
-
-.qa-answer-row .pill-text {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 1.05rem;
-  line-height: 1.55;
-  color: var(--text-ink);
-  margin: 0;
-  flex-grow: 1;
-}
+/* Old qa-takeaway-card styling removed */
 
 /* Compact Tabular-style Evidence Rows */
 .evidence-list {
@@ -2326,17 +2255,6 @@ body[data-theme="dark"] .qa-icon-a {
 }
 
 /* UI & Spacing Optimizations */
-.detail-teaser-hook {
-  font-family: var(--font-body);
-  font-style: italic;
-  color: var(--text-ink-muted);
-  border-left: 3px solid var(--accent-synapse);
-  padding-left: var(--space-2);
-  margin-bottom: var(--space-3);
-  font-size: 1.1rem;
-  line-height: 1.5;
-}
-
 .tag-header {
   display: flex;
   justify-content: space-between;
@@ -2364,14 +2282,48 @@ body[data-theme="dark"] .qa-icon-a {
   padding-bottom: var(--space-3);
 }
 
-/* Category-specific teaser hook left-border overrides */
-.article-detail.cat-biology .detail-teaser-hook {
+/* Continuous Q&A Block Styling */
+.qa-takeaway-block {
+  margin: 0;
+  line-height: 1.55;
+}
+
+.qa-question-text {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--text-ink);
+  display: inline;
+  margin-right: var(--space-2);
+}
+
+.qa-answer-text {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--text-ink-muted);
+  display: inline;
+}
+
+/* Detail Page Takeaway block modifier */
+.detail-takeaway-block {
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-synapse);
+  border-radius: var(--radius-card);
+  padding: var(--space-3) var(--space-4);
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-4);
+  display: block; /* Normal block flow, no line clamping */
+}
+
+/* Category-specific overrides for detail page takeaway block */
+.article-detail.cat-biology .detail-takeaway-block {
   border-left-color: var(--accent-biology);
 }
-.article-detail.cat-lifestyle .detail-teaser-hook {
+.article-detail.cat-lifestyle .detail-takeaway-block {
   border-left-color: var(--accent-lifestyle);
 }
-.article-detail.cat-book .detail-teaser-hook {
+.article-detail.cat-book .detail-takeaway-block {
   border-left-color: var(--accent-book);
 }
 

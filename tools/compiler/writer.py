@@ -106,9 +106,11 @@ def compile_category_page(
         tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
 
         hook = n["hook_question"]
+        takeaway = n["takeaway_pill"]
         if vocabulary:
             from compiler.linker import inject_jargon_links
             hook = inject_jargon_links(hook, vocabulary)
+            takeaway = inject_jargon_links(takeaway, vocabulary)
 
         card_html = (
             f'<div class="feed-card cat-{n["type"]}">'
@@ -118,7 +120,10 @@ def compile_category_page(
             f'  <h2 class="card-title">'
             f'    <a href="{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
             f'  </h2>'
-            f'  <blockquote class="card-teaser-text">{hook}</blockquote>'
+            f'  <blockquote class="card-teaser-text qa-takeaway-block">'
+            f'    <span class="qa-question-text">{hook}</span>'
+            f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
+            f'  </blockquote>'
             f'  {tags_html}'
             f'</div>'
         )
@@ -177,9 +182,11 @@ def compile_feed_page(
         tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
 
         hook = n["hook_question"]
+        takeaway = n["takeaway_pill"]
         if vocabulary:
             from compiler.linker import inject_jargon_links
             hook = inject_jargon_links(hook, vocabulary)
+            takeaway = inject_jargon_links(takeaway, vocabulary)
 
         card_html = (
             f'<div class="feed-card cat-{n["type"]}">'
@@ -189,7 +196,10 @@ def compile_feed_page(
             f'  <h2 class="card-title">'
             f'    <a href="{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
             f'  </h2>'
-            f'  <blockquote class="card-teaser-text">{hook}</blockquote>'
+            f'  <blockquote class="card-teaser-text qa-takeaway-block">'
+            f'    <span class="qa-question-text">{hook}</span>'
+            f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
+            f'  </blockquote>'
             f'  {tags_html}'
             f'</div>'
         )
@@ -245,26 +255,12 @@ def compile_detail_page(
     """
     labels = translations.get("en", {})
     
-    # 1. Takeaway Pill Box (Issue 2)
-    teaser_hook_html = (
-        f'<blockquote class="detail-teaser-hook">'
-        f'  {node["hook_question"]}'
+    # 1. Takeaway Unified Block (Issue 2 revised)
+    takeaway_block_html = (
+        f'<blockquote class="qa-takeaway-block detail-takeaway-block">'
+        f'  <span class="qa-question-text">{node["hook_question"]}</span>'
+        f'  <span class="qa-answer-text"><strong>Takeaway:</strong> {node["takeaway_pill"]}</span>'
         f'</blockquote>'
-    )
-    
-    qa_card_html = (
-        f'<div class="qa-takeaway-card">'
-        f'  <div class="qa-answer-row">'
-        f'    <span class="qa-icon qa-icon-a" aria-hidden="true">'
-        f'      <svg class="qa-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
-        f'        <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5z"></path>'
-        f'        <line x1="9" y1="18" x2="15" y2="18"></line>'
-        f'        <line x1="10" y1="22" x2="14" y2="22"></line>'
-        f'      </svg>'
-        f'    </span>'
-        f'    <div class="pill-text"><strong>Takeaway:</strong> {node["takeaway_pill"]}</div>'
-        f'  </div>'
-        f'</div>'
     )
     
     # 2. GRADE Evidence Block (Replacing compact inline strip)
@@ -475,8 +471,7 @@ def compile_detail_page(
         f'    <h1>{node["title"]}</h1>'
         f'    {meta_row_html}'
         f'  </header>'
-        f'  {teaser_hook_html}'
-        f'  {qa_card_html}'
+        f'  {takeaway_block_html}'
         f'  {toc_html}'
         f'  <section id="reading-pane-tab" class="detail-section">'
         f'    {body_html}'
@@ -708,9 +703,11 @@ def compile_tag_page(
         tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
 
         hook = n["hook_question"]
+        takeaway = n["takeaway_pill"]
         if vocabulary:
             from compiler.linker import inject_jargon_links
             hook = inject_jargon_links(hook, vocabulary)
+            takeaway = inject_jargon_links(takeaway, vocabulary)
 
         card_html = (
             f'<div class="feed-card cat-{n["type"]}">'
@@ -720,7 +717,10 @@ def compile_tag_page(
             f'  <h2 class="card-title">'
             f'    <a href="../{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
             f'  </h2>'
-            f'  <blockquote class="card-teaser-text">{hook}</blockquote>'
+            f'  <blockquote class="card-teaser-text qa-takeaway-block">'
+            f'    <span class="qa-question-text">{hook}</span>'
+            f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
+            f'  </blockquote>'
             f'  {tags_html}'
             f'</div>'
         )
