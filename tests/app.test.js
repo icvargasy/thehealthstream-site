@@ -90,9 +90,7 @@ describe("Client Interaction - app.js", () => {
               Let's test <span class="jargon-term" data-term="AMPK" data-definition="Energy enzyme" data-slug="ampk">AMPK</span>.
             </p>
             <section class="evidence-section">
-              <button class="evidence-trigger" aria-expanded="false">
-                <span>Evidence</span>
-              </button>
+              <h2 class="evidence-title">Evidence</h2>
               <div class="evidence-content">
                 <p>Deep scientific evidence.</p>
               </div>
@@ -197,23 +195,7 @@ describe("Client Interaction - app.js", () => {
     );
   });
 
-  it("should expand/collapse the scientific evidence accordion on click", () => {
-    const section = document.querySelector(".evidence-section");
-    const trigger = section.querySelector(".evidence-trigger");
 
-    expect(section.classList.contains("expanded")).toBe(false);
-    expect(trigger.getAttribute("aria-expanded")).toBe("false");
-
-    // Click trigger to expand
-    trigger.click();
-    expect(section.classList.contains("expanded")).toBe(true);
-    expect(trigger.getAttribute("aria-expanded")).toBe("true");
-
-    // Click trigger again to collapse
-    trigger.click();
-    expect(section.classList.contains("expanded")).toBe(false);
-    expect(trigger.getAttribute("aria-expanded")).toBe("false");
-  });
 
   it("should fetch search index on focus, filter results on input, and support keyboard navigation", async () => {
     const searchInput = document.getElementById("global-search");
@@ -246,51 +228,7 @@ describe("Client Interaction - app.js", () => {
     expect(searchResults.style.display).toBe("none");
   });
 
-  it("should switch reading tabs correctly on detailed pages", () => {
-    // Construct local mock DOM with reading tabs
-    document.body.innerHTML = `
-      <div class="reading-tabs">
-        <button class="tab-btn active" data-tab="overview" aria-selected="true">Overview</button>
-        <button class="tab-btn" data-tab="deepdive" aria-selected="false">Deep Dive</button>
-      </div>
-      <div id="tab-overview">Overview Content</div>
-      <div id="tab-deepdive" class="hidden">Deep Dive Content</div>
-    `;
 
-    // Re-initialize listeners
-    document.dispatchEvent(new Event("DOMContentLoaded"));
-
-    const buttons = document.querySelectorAll(".tab-btn");
-    const overviewBtn = buttons[0];
-    const deepdiveBtn = buttons[1];
-    const tabOverview = document.getElementById("tab-overview");
-    const tabDeepdive = document.getElementById("tab-deepdive");
-
-    expect(tabOverview.classList.contains("hidden")).toBe(false);
-    expect(tabDeepdive.classList.contains("hidden")).toBe(true);
-
-    // Click deep dive tab
-    deepdiveBtn.click();
-
-    expect(overviewBtn.classList.contains("active")).toBe(false);
-    expect(deepdiveBtn.classList.contains("active")).toBe(true);
-    expect(overviewBtn.getAttribute("aria-selected")).toBe("false");
-    expect(deepdiveBtn.getAttribute("aria-selected")).toBe("true");
-
-    expect(tabOverview.classList.contains("hidden")).toBe(true);
-    expect(tabDeepdive.classList.contains("hidden")).toBe(false);
-
-    // Click overview tab back
-    overviewBtn.click();
-
-    expect(overviewBtn.classList.contains("active")).toBe(true);
-    expect(deepdiveBtn.classList.contains("active")).toBe(false);
-    expect(overviewBtn.getAttribute("aria-selected")).toBe("true");
-    expect(deepdiveBtn.getAttribute("aria-selected")).toBe("false");
-
-    expect(tabOverview.classList.contains("hidden")).toBe(false);
-    expect(tabDeepdive.classList.contains("hidden")).toBe(true);
-  });
 
   it("should toggle the GRADE evidence rating popover on click and dismiss correctly", () => {
     const trigger = document.getElementById("grade-trigger");

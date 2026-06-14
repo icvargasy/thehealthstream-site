@@ -8,9 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeSidebar();
   initializeJargonPopovers();
   initializeBacklogVoting();
-  initializeEvidenceAccordion();
   initializeSearch();
-  initializeReadingTabs();
   initializeProposalSubmission();
   initializeContactSubmission();
   initializeBackToTop();
@@ -299,23 +297,7 @@ function initializeBacklogVoting() {
   });
 }
 
-/**
- * Toggles the detailed scientific evidence and bibliography accordion.
- * @returns {void}
- */
-function initializeEvidenceAccordion() {
-  const section = document.querySelector(".evidence-section");
-  if (!section) return;
 
-  const trigger = section.querySelector(".evidence-trigger");
-  if (!trigger) return;
-
-  trigger.addEventListener("click", () => {
-    section.classList.toggle("expanded");
-    const isExpanded = section.classList.contains("expanded");
-    trigger.setAttribute("aria-expanded", isExpanded ? "true" : "false");
-  });
-}
 
 /**
  * Configures and lazy-loads the client-side global autocomplete search bar.
@@ -454,40 +436,7 @@ function initializeSearch() {
   });
 }
 
-/**
- * Attaches event listeners for reading mode tabs (3-Min Overview vs. Deep-Dive).
- * Swaps visible content containers without resetting scroll position.
- * @returns {void}
- */
-function initializeReadingTabs() {
-  const tabsContainer = document.querySelector(".reading-tabs");
-  if (!tabsContainer) return;
 
-  const buttons = tabsContainer.querySelectorAll(".tab-btn");
-  const tabOverview = document.getElementById("tab-overview");
-  const tabDeepdive = document.getElementById("tab-deepdive");
-
-  if (!tabOverview || !tabDeepdive) return;
-
-  buttons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      const targetTab = btn.getAttribute("data-tab");
-
-      buttons.forEach((b) => {
-        b.classList.toggle("active", b === btn);
-        b.setAttribute("aria-selected", b === btn ? "true" : "false");
-      });
-
-      if (targetTab === "overview") {
-        tabOverview.classList.remove("hidden");
-        tabDeepdive.classList.add("hidden");
-      } else if (targetTab === "deepdive") {
-        tabOverview.classList.add("hidden");
-        tabDeepdive.classList.remove("hidden");
-      }
-    });
-  });
-}
 
 /**
  * Intercepts submission of the topic proposal form and sends it asynchronously to Google Forms.

@@ -249,11 +249,23 @@ def compile_detail_page(
     qa_card_html = (
         f'<div class="qa-takeaway-card">'
         f'  <div class="qa-question-row">'
-        f'    <span class="qa-icon">❓</span>'
+        f'    <span class="qa-icon qa-icon-q" aria-hidden="true">'
+        f'      <svg class="qa-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
+        f'        <circle cx="12" cy="12" r="10"></circle>'
+        f'        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>'
+        f'        <line x1="12" y1="17" x2="12.01" y2="17"></line>'
+        f'      </svg>'
+        f'    </span>'
         f'    <div class="article-hook-question">{node["hook_question"]}</div>'
         f'  </div>'
         f'  <div class="qa-answer-row">'
-        f'    <span class="qa-icon">💡</span>'
+        f'    <span class="qa-icon qa-icon-a" aria-hidden="true">'
+        f'      <svg class="qa-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
+        f'        <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5z"></path>'
+        f'        <line x1="9" y1="18" x2="15" y2="18"></line>'
+        f'        <line x1="10" y1="22" x2="14" y2="22"></line>'
+        f'      </svg>'
+        f'    </span>'
         f'    <div class="pill-text"><strong>Takeaway:</strong> {node["takeaway_pill"]}</div>'
         f'  </div>'
         f'</div>'
@@ -322,16 +334,14 @@ def compile_detail_page(
     deep_dive_html = "\n".join(deep_dive_parts)
 
     body_html = (
-        f'<div class="reading-tabs" role="tablist">'
-        f'  <button class="tab-btn active" data-tab="overview" aria-selected="true" role="tab">3-Min Overview</button>'
-        f'  <button class="tab-btn" data-tab="deepdive" aria-selected="false" role="tab">Deep-Dive Mechanism</button>'
-        f'</div>'
-        f'<div class="tab-content" id="tab-overview" role="tabpanel">'
+        f'<section id="overview-section" class="detail-section overview-section">'
+        f'  <h2 class="detail-section-title">Circuit Overview</h2>'
         f'  <div class="article-body-text">{overview_html}</div>'
-        f'</div>'
-        f'<div class="tab-content hidden" id="tab-deepdive" role="tabpanel">'
+        f'</section>'
+        f'<section id="deepdive-section" class="detail-section deep-dive-section">'
+        f'  <h2 class="detail-section-title">Molecular Mechanisms</h2>'
         f'  <div class="article-body-text">{deep_dive_html}</div>'
-        f'</div>'
+        f'</section>'
     )
     
     # 4. Evidence Row-List (Tabular Middle-Ground, Responsive)
@@ -369,12 +379,7 @@ def compile_detail_page(
     if evidence_list_html:
         accordion_html = (
             f'<section class="evidence-section detail-section" id="evidence-section">'
-            f'  <button class="evidence-trigger" aria-expanded="false">'
-            f'    <span>{labels.get("evidence_accordion_title", "Evidence & Studies")}</span>'
-            f'    <svg class="chevron" width="16" height="16" viewBox="0 0 24 24">'
-            f'      <path d="M7 10l5 5 5-5z"></path>'
-            f'    </svg>'
-            f'  </button>'
+            f'  <h2 class="evidence-title">{labels.get("evidence_accordion_title", "Evidence & Studies")}</h2>'
             f'  <div class="evidence-content">'
             f'    {evidence_list_html}'
             f'  </div>'
@@ -394,7 +399,7 @@ def compile_detail_page(
                 conn_item = (
                     f'<li>'
                     f'  <span class="connection-type">{edge["type"]}</span>'
-                    f'  <a href="{target_slug}.html" class="connection-link">{target_title}</a>: '
+                    f'  <a href="{target_slug}.html" class="connection-link">{target_title}</a> '
                     f'  <span class="connection-mechanism">{edge["mechanism"]}</span>'
                     f'</li>'
                 )
@@ -402,19 +407,19 @@ def compile_detail_page(
         if conn_items:
             connections_html = (
                 f'<section class="connections-section detail-section" id="connections-section" aria-labelledby="connections-title">'
-                f'  <h2 id="connections-title" class="connections-header">Connected Circuits</h2>'
+                f'  <h2 id="connections-title" class="detail-section-title">Connected Circuits</h2>'
                 f'  <ul class="connections-list">'
                 f'    {"".join(conn_items)}'
                 f'  </ul>'
                 f'</section>'
             )
 
-    # 5.5. Giscus Comment Widget
+    # 5.5. Giscus Comment Widget (Disabled globally)
     giscus_html = ""
-    giscus_repo = labels.get("giscus_repo")
-    giscus_repo_id = labels.get("giscus_repo_id", "")
-    giscus_category = labels.get("giscus_category", "")
-    giscus_category_id = labels.get("giscus_category_id", "")
+    giscus_repo = None
+    giscus_repo_id = ""
+    giscus_category = ""
+    giscus_category_id = ""
 
     if giscus_repo:
         giscus_html = (
@@ -451,11 +456,12 @@ def compile_detail_page(
     has_discussions = False
     
     toc_links = []
-    toc_links.append('<a href="#reading-pane-tab" class="toc-link active">Overview &amp; Deep-Dive</a>')
+    toc_links.append('<a href="#overview-section" class="toc-link active">Circuit Overview</a>')
+    toc_links.append('<a href="#deepdive-section" class="toc-link">Molecular Mechanisms</a>')
     if has_connections:
         toc_links.append('<a href="#connections-section" class="toc-link">Connected Circuits</a>')
     if has_evidence:
-        toc_links.append('<a href="#evidence-section" class="toc-link">Evidence</a>')
+        toc_links.append('<a href="#evidence-section" class="toc-link">Evidence &amp; Studies</a>')
         
     toc_html = f'<nav class="article-toc" aria-label="Table of Contents">{"".join(toc_links)}</nav>'
     
@@ -767,12 +773,21 @@ def compile_tag_page(
     pipeline_html = ""
     if backlog_cards:
         pipeline_html = (
-            f'<section class="pipeline-section" style="margin-top: var(--space-8);">'
-            f'  <h2 class="pipeline-section-header" style="font-family: var(--font-heading); font-size: var(--font-size-h2); margin-bottom: var(--space-4); border-bottom: 1px solid var(--border-color); padding-bottom: var(--space-2);">In the Pipeline</h2>'
+            f'<section id="pipeline-section" class="detail-section pipeline-section">'
+            f'  <h2 class="detail-section-title">In the Pipeline</h2>'
             f'  <div class="backlog-list" style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">'
             f'    {"".join(backlog_cards)}'
             f'  </div>'
             f'</section>'
+        )
+
+    toc_html = ""
+    if cards and backlog_cards:
+        toc_html = (
+            f'<nav class="article-toc" aria-label="Table of Contents">'
+            f'  <a href="#published-section" class="toc-link active">Published Articles</a>'
+            f'  <a href="#pipeline-section" class="toc-link">In the Pipeline</a>'
+            f'</nav>'
         )
 
     page_html = (
@@ -780,7 +795,11 @@ def compile_tag_page(
         f'  <h1>#{tag}</h1>'
         f'  <p>{len(matching)} article{"s" if len(matching) != 1 else ""} published</p>'
         f'</header>'
-        f'<div class="feed-cards">{"".join(cards)}{empty_note}</div>'
+        f'{toc_html}'
+        f'<section id="published-section" class="detail-section">'
+        f'  <h2 class="detail-section-title">Published Articles</h2>'
+        f'  <div class="feed-cards">{"".join(cards)}{empty_note}</div>'
+        f'</section>'
         f'{pipeline_html}'
     )
 
@@ -837,12 +856,12 @@ def compile_backlog_page(
         backlog_items.append(item_html)
         
     cta_html = (
-        f'<div style="margin-top: var(--space-3); margin-bottom: var(--space-4); display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); background-color: var(--selected-bg); border: 1px solid var(--selected-border); padding: var(--space-3); border-radius: var(--radius-card);">'
-        f'  <div style="flex-grow: 1;">'
-        f'    <strong style="display: block; font-size: 1rem; color: var(--text-ink); margin-bottom: 2px;">Have a systems biology pathway or protocol in mind?</strong>'
-        f'    <span style="font-size: 0.85rem; color: var(--text-ink-muted);">Propose a topic for our scientific backlog and citation audit.</span>'
+        f'<div class="backlog-propose-banner">'
+        f'  <div class="backlog-propose-info">'
+        f'    <strong class="backlog-propose-title">Have a systems biology pathway or protocol in mind?</strong>'
+        f'    <span class="backlog-propose-subtitle">Propose a topic for our scientific backlog and citation audit.</span>'
         f'  </div>'
-        f'  <a href="submit-proposal.html" class="vote-btn" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; height: 36px; padding: 0 16px; white-space: nowrap;">Submit a Proposal &rarr;</a>'
+        f'  <a href="submit-proposal.html" class="vote-btn backlog-propose-btn">Submit a Proposal &rarr;</a>'
         f'</div>'
     )
     
