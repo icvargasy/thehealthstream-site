@@ -366,9 +366,9 @@ body.left-collapsed .header-brand-container {
   pointer-events: none;
   margin: 0;
 
-  /* Line clamp to 3 lines to show full hook + start of answer */
+  /* Line clamp to exactly 2 lines */
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1369,21 +1369,21 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  color: var(--text-ink-muted);
+  color: var(--text-ink);
   margin-right: var(--space-1);
 }
 
 .connection-link {
   font-weight: 700;
-  color: var(--text-ink);
+  color: var(--color-citation);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
 .connection-link:hover {
-  color: var(--accent-synapse);
-  border-bottom-color: var(--accent-synapse);
+  color: var(--color-citation-hover);
+  border-bottom-color: var(--color-citation-hover);
 }
 
 .connection-mechanism {
@@ -2304,13 +2304,29 @@ body[data-theme="dark"] .backlog-item.cat-book {
   display: inline;
 }
 
+/* Explore Card sizes */
+.feed-card .qa-question-text {
+  font-size: 1rem;
+}
+.feed-card .qa-answer-text {
+  font-size: 0.9rem;
+}
+
+/* Detailed Page sizes */
+.detail-takeaway-block .qa-question-text {
+  font-size: 1.2rem;
+}
+.detail-takeaway-block .qa-answer-text {
+  font-size: 1.05rem;
+}
+
 /* Detail Page Takeaway block modifier */
 .detail-takeaway-block {
-  background-color: var(--bg-surface-alt);
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--accent-synapse);
-  border-radius: var(--radius-card);
-  padding: var(--space-3) var(--space-4);
+  background: none;
+  border: none;
+  border-left: 3px solid var(--accent-synapse);
+  border-radius: 0;
+  padding: 0 0 0 var(--space-2);
   margin-top: var(--space-3);
   margin-bottom: var(--space-4);
   display: block; /* Normal block flow, no line clamping */
