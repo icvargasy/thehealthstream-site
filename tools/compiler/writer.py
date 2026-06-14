@@ -391,7 +391,7 @@ def compile_detail_page(
                 conn_item = (
                     f'<li>'
                     f'  <span class="connection-type">{edge["type"]}</span>'
-                    f'  <a href="{target_slug}.html" class="connection-link">{target_title}</a> '
+                    f'  <a href="{target_slug}.html" class="connection-link conn-cat-{target_info["type"]}">{target_title}</a> '
                     f'  <span class="connection-mechanism">{edge["mechanism"]}</span>'
                     f'</li>'
                 )

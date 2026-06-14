@@ -625,20 +625,20 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   align-self: flex-start;
 }
 
-/* Evidence Card Section */
+/* Evidence Section (Flat/Unboxed) */
 .evidence-section {
   margin-top: var(--space-5);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  overflow: hidden;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
 }
 
 .evidence-title {
-  background-color: var(--bg-surface-alt);
+  background: none;
   margin: 0;
-  padding: var(--space-3) var(--space-4);
+  padding: 0 0 var(--space-2) 0;
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.35rem;
   font-weight: 700;
   color: var(--text-ink);
   border-bottom: 1px solid var(--border-color);
@@ -646,8 +646,8 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
 
 .evidence-content {
   display: block;
-  padding: var(--space-4);
-  background-color: var(--bg-paper);
+  padding: 0;
+  background: none;
 }
 
 /* Table styling */
@@ -1330,11 +1330,10 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
 /* Directed Connection Links */
 .connections-section {
   margin-top: var(--space-5);
-  border: 1px solid var(--sb-border);
-  border-radius: var(--radius-card);
-  padding: var(--space-4);
-  background-color: var(--sb-bg);
-  transition: border-color var(--transition-normal);
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background: none;
 }
 
 .connections-header {
@@ -1375,15 +1374,59 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
 
 .connection-link {
   font-weight: 700;
-  color: var(--color-citation);
   text-decoration: none;
   border-bottom: 1px solid transparent;
   transition: color var(--transition-fast), border-color var(--transition-fast);
 }
 
-.connection-link:hover {
-  color: var(--color-citation-hover);
-  border-bottom-color: var(--color-citation-hover);
+/* Light theme / Default category link colors */
+.connection-link.conn-cat-biology {
+  color: oklch(0.55 0.18 250);
+}
+.connection-link.conn-cat-biology:hover {
+  color: oklch(0.45 0.15 250);
+  border-bottom-color: oklch(0.45 0.15 250);
+}
+
+.connection-link.conn-cat-lifestyle {
+  color: oklch(0.45 0.13 140);
+}
+.connection-link.conn-cat-lifestyle:hover {
+  color: oklch(0.35 0.11 140);
+  border-bottom-color: oklch(0.35 0.11 140);
+}
+
+.connection-link.conn-cat-book {
+  color: oklch(0.48 0.12 75);
+}
+.connection-link.conn-cat-book:hover {
+  color: oklch(0.38 0.10 75);
+  border-bottom-color: oklch(0.38 0.10 75);
+}
+
+/* Dark theme category link colors */
+body[data-theme="dark"] .connection-link.conn-cat-biology {
+  color: oklch(0.65 0.16 250);
+}
+body[data-theme="dark"] .connection-link.conn-cat-biology:hover {
+  color: oklch(0.75 0.14 250);
+  border-bottom-color: oklch(0.75 0.14 250);
+}
+
+body[data-theme="dark"] .connection-link.conn-cat-lifestyle {
+  color: oklch(0.68 0.14 140);
+}
+body[data-theme="dark"] .connection-link.conn-cat-lifestyle:hover {
+  color: oklch(0.78 0.12 140);
+  border-bottom-color: oklch(0.78 0.12 140);
+}
+
+body[data-theme="dark"] .connection-link.conn-cat-book {
+  color: oklch(0.72 0.13 75);
+}
+body[data-theme="dark"] .connection-link.conn-cat-book:hover {
+  color: oklch(0.82 0.11 75);
+  border-bottom-color: oklch(0.82 0.11 75);
 }
 
 .connection-mechanism {
@@ -2305,19 +2348,15 @@ body[data-theme="dark"] .backlog-item.cat-book {
 }
 
 /* Explore Card sizes */
-.feed-card .qa-question-text {
-  font-size: 1rem;
-}
+.feed-card .qa-question-text,
 .feed-card .qa-answer-text {
-  font-size: 0.9rem;
+  font-size: 0.95rem;
 }
 
 /* Detailed Page sizes */
-.detail-takeaway-block .qa-question-text {
-  font-size: 1.2rem;
-}
+.detail-takeaway-block .qa-question-text,
 .detail-takeaway-block .qa-answer-text {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
 }
 
 /* Detail Page Takeaway block modifier */
