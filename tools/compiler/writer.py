@@ -245,19 +245,15 @@ def compile_detail_page(
     """
     labels = translations.get("en", {})
     
-    # 1. Takeaway Q&A Card
+    # 1. Takeaway Pill Box (Issue 2)
+    teaser_hook_html = (
+        f'<blockquote class="detail-teaser-hook">'
+        f'  {node["hook_question"]}'
+        f'</blockquote>'
+    )
+    
     qa_card_html = (
         f'<div class="qa-takeaway-card">'
-        f'  <div class="qa-question-row">'
-        f'    <span class="qa-icon qa-icon-q" aria-hidden="true">'
-        f'      <svg class="qa-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
-        f'        <circle cx="12" cy="12" r="10"></circle>'
-        f'        <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>'
-        f'        <line x1="12" y1="17" x2="12.01" y2="17"></line>'
-        f'      </svg>'
-        f'    </span>'
-        f'    <div class="article-hook-question">{node["hook_question"]}</div>'
-        f'  </div>'
         f'  <div class="qa-answer-row">'
         f'    <span class="qa-icon qa-icon-a" aria-hidden="true">'
         f'      <svg class="qa-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
@@ -479,6 +475,7 @@ def compile_detail_page(
         f'    <h1>{node["title"]}</h1>'
         f'    {meta_row_html}'
         f'  </header>'
+        f'  {teaser_hook_html}'
         f'  {qa_card_html}'
         f'  {toc_html}'
         f'  <section id="reading-pane-tab" class="detail-section">'
@@ -601,7 +598,7 @@ def compile_vocabulary_page(
         vocab_sections.append(section_html)
         
     vocab_html = (
-        f'<header class="feed-intro">'
+        f'<header class="feed-intro vocab-feed-intro">'
         f'  <h1>{labels.get("vocabulary_header", "Jargon Glossary Index")}</h1>'
         f'  <p>{labels.get("vocabulary_desc", "")}</p>'
         f'</header>'
@@ -791,9 +788,9 @@ def compile_tag_page(
         )
 
     page_html = (
-        f'<header class="feed-intro">'
+        f'<header class="feed-intro tag-header">'
         f'  <h1>#{tag}</h1>'
-        f'  <p>{len(matching)} article{"s" if len(matching) != 1 else ""} published</p>'
+        f'  <span class="published-count">{len(matching)} article{"s" if len(matching) != 1 else ""} published</span>'
         f'</header>'
         f'{toc_html}'
         f'<section id="published-section" class="detail-section">'
