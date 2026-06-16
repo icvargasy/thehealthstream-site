@@ -201,31 +201,7 @@ body.left-collapsed .header-brand-container {
   color: var(--sb-text-muted);
   line-height: 1.4;
 }
-
-.vote-btn {
-  align-self: flex-end;
-  background-color: var(--accent-synapse);
-  color: var(--bg-paper);
-  border: none;
-  border-radius: 6px;
-  padding: 4px 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  min-height: 28px;
-  transition: background-color var(--transition-fast), opacity var(--transition-fast);
-}
-
-.vote-btn:hover {
-  background-color: var(--accent-synapse-hover);
-}
-
-.vote-btn.voted {
-  background-color: var(--bg-surface-alt);
-  color: var(--text-ink-muted);
-  border: 1px solid var(--border-color);
-  cursor: not-allowed;
-}
+/* Legacy vote-btn styles removed */
 
 /* Chronological Feed & Cards */
 .feed-intro {
@@ -336,19 +312,37 @@ body.left-collapsed .header-brand-container {
   border-radius: var(--radius-pill);
 }
 
+a.category-tag {
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
 .cat-biology .category-tag {
   background-color: oklch(0.55 0.18 250 / 0.08);
   color: oklch(0.55 0.18 250);
+}
+.cat-biology a.category-tag:hover {
+  background-color: oklch(0.55 0.18 250) !important;
+  color: var(--bg-paper) !important;
 }
 
 .cat-lifestyle .category-tag {
   background-color: oklch(0.62 0.15 140 / 0.08);
   color: oklch(0.50 0.12 140);
 }
+.cat-lifestyle a.category-tag:hover {
+  background-color: oklch(0.50 0.12 140) !important;
+  color: var(--bg-paper) !important;
+}
 
 .cat-book .category-tag {
   background-color: oklch(0.70 0.16 75 / 0.08);
   color: oklch(0.55 0.12 75);
+}
+.cat-book a.category-tag:hover {
+  background-color: oklch(0.55 0.12 75) !important;
+  color: var(--bg-paper) !important;
 }
 
 .card-title {
@@ -372,6 +366,10 @@ body.left-collapsed .header-brand-container {
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.card-teaser-text .jargon-term {
+  pointer-events: auto;
 }
 
 /* Detail Page Elements */
@@ -580,6 +578,8 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   cursor: pointer;
   font-weight: 500;
   transition: color var(--transition-fast), border-color var(--transition-fast);
+  position: relative;
+  z-index: 2;
 }
 
 .jargon-term:hover {
@@ -757,6 +757,11 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   line-height: 1.45;
   color: var(--text-ink-muted);
   pointer-events: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 
@@ -980,9 +985,9 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
 }
 
 .result-category-badge.cat-glossary {
-  background-color: oklch(0.62 0.15 140 / 0.08);
-  color: oklch(0.50 0.12 140);
-  border: 1px solid oklch(0.62 0.15 140 / 0.2);
+  background-color: var(--selected-bg);
+  color: var(--accent-synapse);
+  border: 1px solid var(--selected-border);
 }
 
 .result-teaser {
@@ -1086,13 +1091,16 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: var(--radius-pill);
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
-.detail-grade-badge:hover {
+button.detail-grade-badge {
+  cursor: pointer;
+}
+
+button.detail-grade-badge:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
@@ -1543,14 +1551,43 @@ body[data-theme="dark"] .backlog-item.cat-book {
   background-color: oklch(0.72 0.13 75 / 0.03);
 }
 
+.backlog-item {
+  cursor: default;
+}
+.backlog-item.voted {
+  border-style: solid !important;
+  border-color: var(--backlog-accent, var(--accent-synapse)) !important;
+}
 .backlog-item.backlog-card-compact {
-  opacity: 0.7;
   border: 1px dashed var(--border-color) !important;
   background-color: var(--sb-bg) !important;
+  padding: 12px 16px;
+  gap: var(--space-1);
 }
-.backlog-item.backlog-card-compact:hover {
-  opacity: 1.0;
-  border-color: var(--backlog-accent, var(--accent-synapse)) !important;
+.backlog-item.backlog-card-compact .backlog-title {
+  font-size: 1.0rem;
+}
+.backlog-item .backlog-desc {
+  margin: var(--space-1) 0;
+}
+.backlog-item .qa-question-text {
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+.backlog-item.backlog-card-compact .qa-question-text {
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+.backlog-item.backlog-card-compact .card-tags {
+  margin-top: var(--space-1) !important;
+}
+.backlog-item.backlog-card-compact .vote-btn {
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  margin-top: var(--space-1);
+}
+.backlog-item.backlog-card-compact .backlog-meta-row {
+  margin-top: var(--space-1) !important;
 }
 
 .pipeline-badge {
@@ -1564,15 +1601,36 @@ body[data-theme="dark"] .backlog-item.cat-book {
   border: 1px solid var(--border-color);
   background-color: var(--bg-surface-alt);
   color: var(--text-ink-muted);
-  margin-left: var(--space-2);
   display: inline-block;
-  align-self: center;
+}
+
+a.pipeline-badge {
+  cursor: pointer;
+  text-decoration: none;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+a.pipeline-badge:hover {
+  background-color: var(--backlog-accent, var(--accent-synapse));
+  border-color: var(--backlog-accent, var(--accent-synapse));
+  color: var(--bg-paper);
 }
 
 .backlog-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.backlog-title-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  flex: 1;
+  min-width: 0;
 }
 
 .backlog-title {
@@ -1582,6 +1640,7 @@ body[data-theme="dark"] .backlog-item.cat-book {
 }
 
 .backlog-votes {
+  flex-shrink: 0;
   background-color: var(--backlog-accent-bg, var(--selected-bg));
   color: var(--backlog-accent, var(--accent-synapse));
   border: 1px solid var(--backlog-accent-border, var(--selected-border));
@@ -1589,7 +1648,34 @@ body[data-theme="dark"] .backlog-item.cat-book {
   padding: 2px 10px;
   font-weight: 700;
   font-size: 0.85rem;
-  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.backlog-votes:not(.voted):hover {
+  background-color: var(--backlog-accent, var(--accent-synapse));
+  color: var(--bg-paper);
+  border-color: var(--backlog-accent, var(--accent-synapse));
+  transform: scale(1.05) translateY(-1px);
+  box-shadow: 0 4px 12px oklch(from var(--backlog-accent, var(--accent-synapse)) l c h / 0.15);
+}
+
+.backlog-votes:not(.voted):active {
+  transform: scale(0.95);
+}
+
+.backlog-votes.voted {
+  background-color: var(--backlog-accent, var(--accent-synapse)) !important;
+  color: var(--bg-paper) !important;
+  border-color: var(--backlog-accent, var(--accent-synapse)) !important;
+  cursor: default;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
 }
 
 .backlog-desc {
@@ -1601,20 +1687,23 @@ body[data-theme="dark"] .backlog-item.cat-book {
 .vote-btn {
   align-self: flex-start;
   padding: 6px 16px;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-weight: 700;
+  font-size: 0.85rem;
   border-radius: var(--radius-button);
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-paper);
-  color: var(--text-ink-muted);
+  border: 1px solid var(--backlog-accent, var(--accent-synapse));
+  background-color: transparent;
+  color: var(--backlog-accent, var(--accent-synapse));
   cursor: pointer;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast);
 }
 
 .vote-btn:hover {
   background-color: var(--backlog-accent, var(--accent-synapse));
   border-color: var(--backlog-accent, var(--accent-synapse));
   color: var(--bg-paper);
+  transform: translateY(-1px);
 }
 
 .vote-btn.voted {
@@ -1622,6 +1711,9 @@ body[data-theme="dark"] .backlog-item.cat-book {
   border-color: var(--border-color) !important;
   color: var(--text-ink-muted) !important;
   cursor: not-allowed;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transform: none !important;
 }
 
 /* Backlog Verification Box Color Coordination */
@@ -1942,7 +2034,7 @@ body[data-theme="dark"] .backlog-item.cat-book {
 .article-toc {
   position: sticky;
   top: -16px; /* Sticks to the top of the scroll container (#reading-pane) offset by padding */
-  background-color: var(--bg-paper);
+  background-color: var(--sb-bg);
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
@@ -2048,7 +2140,7 @@ body[data-theme="dark"] .backlog-item.cat-book {
 .vocab-nav {
   position: sticky;
   top: -16px;
-  background-color: var(--bg-paper);
+  background-color: var(--sb-bg);
   z-index: 10;
   display: flex;
   flex-wrap: wrap;
@@ -2187,7 +2279,8 @@ body[data-theme="dark"] .backlog-item.cat-book {
 .evidence-list {
   display: flex;
   flex-direction: column;
-  margin: var(--space-3) 0;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 
 .evidence-item {
@@ -2284,6 +2377,18 @@ body[data-theme="dark"] .backlog-item.cat-book {
   height: 36px;
   padding: 0 var(--space-3);
   white-space: nowrap;
+  background-color: var(--accent-synapse) !important;
+  border: 1px solid var(--accent-synapse) !important;
+  color: var(--bg-paper) !important;
+  border-radius: var(--radius-button);
+}
+
+.backlog-propose-btn:hover {
+  background-color: var(--accent-synapse) !important;
+  border-color: var(--accent-synapse) !important;
+  color: var(--bg-paper) !important;
+  opacity: 0.9;
+  transform: translateY(-1px);
 }
 
 @media (max-width: 600px) {
@@ -2299,14 +2404,20 @@ body[data-theme="dark"] .backlog-item.cat-book {
 
 /* UI & Spacing Optimizations */
 .tag-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: var(--space-2);
+  display: block;
   margin-bottom: 0;
   border-bottom: 1px solid var(--border-color);
   padding-bottom: var(--space-3);
+}
+
+.tag-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  width: 100%;
 }
 
 .tag-header h1 {
@@ -2354,9 +2465,11 @@ body[data-theme="dark"] .backlog-item.cat-book {
 }
 
 /* Detailed Page sizes */
-.detail-takeaway-block .qa-question-text,
+.detail-takeaway-block .qa-question-text {
+  font-size: 1rem;
+}
 .detail-takeaway-block .qa-answer-text {
-  font-size: 1.15rem;
+  font-size: 0.95rem;
 }
 
 /* Detail Page Takeaway block modifier */
@@ -2382,3 +2495,133 @@ body[data-theme="dark"] .backlog-item.cat-book {
   border-left-color: var(--accent-book);
 }
 
+/* Global target scroll offset to clear floating headers */
+:target {
+  scroll-margin-top: 72px !important;
+}
+
+/* Tag Page custom header metadata */
+.tag-dimension-badge {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 3px 8px;
+  border-radius: var(--radius-button);
+  background-color: var(--selected-bg);
+  color: var(--accent-synapse);
+  border: 1px solid var(--border-color);
+  transition: all var(--transition-fast);
+}
+
+.tag-dimension-badge.dim-biology {
+  color: var(--accent-biology);
+  border-color: var(--accent-biology);
+}
+
+.tag-dimension-badge.dim-lifestyle {
+  color: var(--accent-lifestyle);
+  border-color: var(--accent-lifestyle);
+}
+
+.tag-dimension-badge.dim-book {
+  color: var(--accent-book);
+  border-color: var(--accent-book);
+}
+
+/* Color coordinated search results */
+.result-category-badge.cat-biology {
+  background-color: oklch(from var(--accent-biology) l c h / 0.08);
+  color: var(--accent-biology);
+  border: 1px solid oklch(from var(--accent-biology) l c h / 0.2);
+}
+
+.result-category-badge.cat-lifestyle {
+  background-color: oklch(from var(--accent-lifestyle) l c h / 0.08);
+  color: var(--accent-lifestyle);
+  border: 1px solid oklch(from var(--accent-lifestyle) l c h / 0.2);
+}
+
+.result-category-badge.cat-book {
+  background-color: oklch(from var(--accent-book) l c h / 0.08);
+  color: var(--accent-book);
+  border: 1px solid oklch(from var(--accent-book) l c h / 0.2);
+}
+
+.result-category-badge.cat-glossary,
+.result-category-badge.cat-lexicon {
+  background-color: var(--selected-bg);
+  color: var(--accent-synapse);
+  border: 1px solid var(--selected-border);
+}
+
+.search-result-item.cat-biology:hover,
+.search-result-item.cat-biology.active {
+  background-color: oklch(from var(--accent-biology) l c h / 0.06);
+}
+.search-result-item.cat-biology:hover .result-title,
+.search-result-item.cat-biology.active .result-title {
+  color: var(--accent-biology);
+}
+
+.search-result-item.cat-lifestyle:hover,
+.search-result-item.cat-lifestyle.active {
+  background-color: oklch(from var(--accent-lifestyle) l c h / 0.06);
+}
+.search-result-item.cat-lifestyle:hover .result-title,
+.search-result-item.cat-lifestyle.active .result-title {
+  color: var(--accent-lifestyle);
+}
+
+.search-result-item.cat-book:hover,
+.search-result-item.cat-book.active {
+  background-color: oklch(from var(--accent-book) l c h / 0.06);
+}
+.search-result-item.cat-book:hover .result-title,
+.search-result-item.cat-book.active .result-title {
+  color: var(--accent-book);
+}
+
+.search-result-item.cat-glossary:hover,
+.search-result-item.cat-glossary.active,
+.search-result-item.cat-lexicon:hover,
+.search-result-item.cat-lexicon.active {
+  background-color: var(--selected-bg);
+}
+.search-result-item.cat-glossary:hover .result-title,
+.search-result-item.cat-glossary.active .result-title,
+.search-result-item.cat-lexicon:hover .result-title,
+.search-result-item.cat-lexicon.active .result-title {
+  color: var(--accent-synapse);
+}
+
+
+/* Lexicon taxonomy pill */
+.vocab-taxonomy-badge {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface-alt);
+  color: var(--text-ink-muted);
+  display: inline-block;
+  align-self: center;
+}
+
+/* Always-on combined Evidence details container styling */
+.evidence-grade-details {
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+.evidence-grade-rationale {
+  color: var(--text-ink);
+}
+.evidence-grade-note {
+  font-size: 0.75rem;
+  color: var(--text-ink-muted);
+}

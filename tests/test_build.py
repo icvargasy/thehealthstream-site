@@ -171,7 +171,8 @@ def test_compile_vocabulary_page() -> None:
     """Verifies vocabulary page compiles jargon glossary and builds cross-references/mentions."""
     layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
     vocabulary = {
-        "AMPK": {"definition": "An energy sensing enzyme."}
+        "AMPK": {"definition": "An energy sensing enzyme."},
+        "SIRT1": {"definition": "A sirtuin enzyme."}
     }
     translations = {"en": {"nav_vocabulary": "Glossary"}}
     nodes = [
@@ -196,11 +197,75 @@ def test_compile_vocabulary_page() -> None:
             "bibliography": []
         }
     ]
+    backlog = [
+        {
+            "id": "ampk-booster-protocol",
+            "title": "AMPK Booster Protocol",
+            "description": "How does AMPK get boosted?",
+            "category": "lifestyle",
+            "votes": 5,
+        },
+        {
+            "id": "sirt1-activators",
+            "title": "SIRT1 Activators",
+            "description": "How does SIRT1 get boosted?",
+            "category": "lifestyle",
+            "votes": 3,
+        }
+    ]
     from tools.compiler.writer import compile_vocabulary_page
-    compiled = compile_vocabulary_page(layout, vocabulary, translations, nodes)
+    compiled = compile_vocabulary_page(layout, vocabulary, translations, nodes, backlog)
     assert "Glossary" in compiled
     assert "vocabulary/ampk.html" in compiled
     assert "AMPK" in compiled
+    assert "Mentioned in:" not in compiled
+    assert "ampk-activation.html" not in compiled
+    assert "backlog.html#ampk-booster-protocol" not in compiled
+    assert "In Pipeline" not in compiled
+
+def test_generate_search_index_in_pipeline(tmp_path) -> None:
+    """Verifies that glossary terms only in backlog receive in_pipeline: true in search index."""
+    vocabulary = {
+        "AMPK": {"definition": "An energy sensing enzyme."},
+        "EGCG": {"definition": "A polyphenol in tea."}
+    }
+    nodes = [
+        {
+            "slug": "ampk-activation",
+            "title": "AMPK Activation",
+            "type": "biology",
+            "hook_question": "Does snacking block energy?",
+            "takeaway_pill": "Fasting activates AMPK.",
+            "epistemic_rating": {"grade": "High", "rationale": "Supported.", "debate_sides": []},
+            "tags": [],
+            "reading_modes": {"overview_3min": "This activates AMPK.", "deep_dive": []},
+            "edges": [], "evidence_table": [], "bibliography": []
+        }
+    ]
+    backlog = [
+        {
+            "id": "tea-metabolic-effects",
+            "title": "Tea metabolic effects",
+            "description": "Modulation of metabolism via EGCG.",
+            "category": "biology",
+            "votes": 10
+        }
+    ]
+    translations = {"en": {"nav_vocabulary": "Glossary"}}
+    import json
+    import os
+    from tools.compiler.writer import generate_search_index
+    
+    generate_search_index(str(tmp_path), nodes, vocabulary, translations, backlog)
+    
+    with open(os.path.join(tmp_path, "search_index.json"), "r", encoding="utf-8") as f:
+        data = json.load(f)
+        
+    ampk_item = next(item for item in data if item["title"] == "AMPK")
+    egcg_item = next(item for item in data if item["title"] == "EGCG")
+    
+    assert "in_pipeline" not in ampk_item  # AMPK has a node mention, so not only in pipeline
+    assert egcg_item.get("in_pipeline") is True  # EGCG has only backlog mentions
 
 def test_compile_vocabulary_detail_page() -> None:
     """Verifies compilation of individual jargon detail page."""
@@ -218,6 +283,31 @@ def test_compile_vocabulary_detail_page() -> None:
     assert "Mentioned in:" in compiled
     assert "../ampk-activation.html" in compiled
     assert "AMPK Activation" in compiled
+
+
+def test_compile_vocabulary_detail_page_with_citations() -> None:
+    """Verifies compilation of individual jargon detail page when citations are provided."""
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    term = "SIRT1"
+    vocab_item = {
+        "definition": "A cellular maintenance sirtuin.",
+        "citations": [
+            {
+                "text": "Cantó et al., 2009",
+                "link": "https://doi.org/10.1016/j.tem.2009.03.008"
+            }
+        ]
+    }
+    mentions = []
+    translations = {"en": {"nav_vocabulary": "Glossary"}}
+    from tools.compiler.writer import compile_vocabulary_detail_page
+    compiled = compile_vocabulary_detail_page(layout, term, vocab_item, mentions, translations)
+    assert "SIRT1" in compiled
+    assert "A cellular maintenance sirtuin" in compiled
+    assert "Scientific Sources & References" in compiled
+    assert "Cantó et al., 2009" in compiled
+    assert "https://doi.org/10.1016/j.tem.2009.03.008" in compiled
+
 
 
 def test_compile_feed_page() -> None:
@@ -290,6 +380,10 @@ def test_compile_detail_page() -> None:
     assert "Fasting pill" in compiled
     assert "Evidence Grade:" in compiled
     assert "High" in compiled
+    assert "GRADE Rating Methodology &rarr;" in compiled
+    assert "popover-debate-link" not in compiled
+    assert "popover-more-link" in compiled
+    assert "more..." in compiled
     # Verify Schema.org FAQPage injection
     assert 'application/ld+json' in compiled
     assert '"@type": "FAQPage"' in compiled
@@ -393,7 +487,7 @@ def test_generate_search_index(tmp_path) -> None:
     
     # Check glossary mapping
     assert data[1]["title"] == "AMPK"
-    assert data[1]["slug"] == "vocabulary.html#ampk"
+    assert data[1]["slug"] == "vocabulary/ampk.html"
     assert data[1]["type"] == "glossary"
     assert data[1]["category"] == "Glossary"
     assert data[1]["teaser"] == "An energy sensing enzyme."
@@ -450,14 +544,26 @@ def test_compile_tag_page() -> None:
 
     # Tag with matching articles
     compiled = compile_tag_page(layout, "biology", nodes, translations)
-    assert "#biology" in compiled
+    assert "biology" in compiled.lower()
     assert "AMPK Activation" in compiled
     assert "Circadian Sleep Protocol" not in compiled
     assert 'href="../ampk-activation.html"' in compiled
 
+    # Tag with tags registry
+    tags_registry = {
+        "biology": {
+            "name": "Biological Circuits",
+            "dimension": "biology",
+            "description": "Custom description of biology circuit processes."
+        }
+    }
+    compiled_with_registry = compile_tag_page(layout, "biology", nodes, translations, tags_registry=tags_registry)
+    assert "Biological Circuits" in compiled_with_registry
+    assert "Custom description of biology" in compiled_with_registry
+
     # Tag with no matching articles
     compiled_empty = compile_tag_page(layout, "longevity", nodes, translations)
-    assert "No published articles tagged" in compiled_empty
+    assert "No decodings or pipeline proposals tagged" in compiled_empty
 
 
 def test_compile_category_page() -> None:
@@ -516,5 +622,82 @@ def test_compile_category_page() -> None:
 
     # Empty category
     compiled_empty = compile_category_page(layout, "book", nodes, translations)
-    assert "No articles in" in compiled_empty
+    assert "No articles or pipeline proposals in" in compiled_empty
+
+
+def test_card_structure_and_backlog_buttons() -> None:
+    """Verifies category badges and presence/absence of Vote button on backlog cards across pages."""
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    nodes = [
+        {
+            "slug": "ampk-activation",
+            "title": "AMPK Activation",
+            "type": "biology",
+            "hook_question": "Does snacking block energy?",
+            "takeaway_pill": "Fasting activates AMPK.",
+            "epistemic_rating": {
+                "grade": "High",
+                "rationale": "Consensus is supported.",
+                "debate_sides": []
+            },
+            "tags": ["biology"],
+            "reading_modes": {
+                "overview_3min": "Overview text",
+                "deep_dive": []
+            },
+            "edges": [],
+            "evidence_table": [],
+            "bibliography": []
+        }
+    ]
+    backlog = [
+        {
+            "id": "autophagy-kinetics",
+            "title": "Autophagy Kinetics",
+            "description": "Fasting trigger",
+            "category": "biology",
+            "tags": ["biology"],
+            "votes": 124,
+        }
+    ]
+    translations = {
+        "en": {
+            "category_biology": "Biology",
+            "nav_backlog": "Backlog",
+            "backlog_title": "Backlog Title",
+            "feed_title": "Feed Title",
+        }
+    }
+
+    # 1. Feed Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In Pipeline" badge, and "backlog-votes" button
+    compiled_feed = compile_feed_page(layout, nodes, translations, backlog=backlog)
+    assert "Autophagy Kinetics" in compiled_feed
+    assert "In Pipeline" in compiled_feed
+    assert "BIOLOGY" in compiled_feed
+    assert '<button class="vote-btn">' not in compiled_feed
+    assert "backlog-votes" in compiled_feed
+
+    # 2. Category Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In Pipeline" badge, and "backlog-votes" button
+    compiled_cat = compile_category_page(layout, "biology", nodes, translations, backlog=backlog)
+    assert "Autophagy Kinetics" in compiled_cat
+    assert "In Pipeline" in compiled_cat
+    assert "BIOLOGY" in compiled_cat
+    assert '<button class="vote-btn">' not in compiled_cat
+    assert "backlog-votes" in compiled_cat
+
+    # 3. Tag Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In Pipeline" badge, and "backlog-votes" button
+    compiled_tag = compile_tag_page(layout, "biology", nodes, translations, backlog=backlog)
+    assert "Autophagy Kinetics" in compiled_tag
+    assert "In Pipeline" in compiled_tag
+    assert "BIOLOGY" in compiled_tag
+    assert '<button class="vote-btn">' not in compiled_tag
+    assert "backlog-votes" in compiled_tag
+
+    # 4. Backlog Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In Pipeline" badge, and "backlog-votes" button
+    compiled_backlog = compile_backlog_page(layout, backlog, translations)
+    assert "Autophagy Kinetics" in compiled_backlog
+    assert "In Pipeline" in compiled_backlog
+    assert "BIOLOGY" in compiled_backlog
+    assert '<button class="vote-btn">' not in compiled_backlog
+    assert "backlog-votes" in compiled_backlog
 

@@ -38,14 +38,19 @@ def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
     if not vocabulary:
         return html_content
 
-    # Sort terms by length in descending order to match longer phrases first
-    # (e.g., "metabolic flexibility" before "metabolic")
-    sorted_terms = sorted(vocabulary.keys(), key=len, reverse=True)
+    # Build mapping from phrase to canonical term
+    phrase_to_canonical = {}
+    for term, details in vocabulary.items():
+        phrase_to_canonical[term.lower()] = term
+        for alias in details.get("aliases", []):
+            phrase_to_canonical[alias.lower()] = term
+
+    # Sort all phrases by length descending to match longer terms first
+    sorted_phrases = sorted(phrase_to_canonical.keys(), key=len, reverse=True)
     
     # Create combined regex pattern with word boundaries
-    # Using negative lookbehind/lookahead for alphanumeric word chars
-    escaped_terms = [re.escape(term) for term in sorted_terms]
-    pattern_str = r"(?<![\w-])(" + "|".join(escaped_terms) + r")(?![\w-])"
+    escaped_phrases = [re.escape(phrase) for phrase in sorted_phrases]
+    pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
     pattern = re.compile(pattern_str, re.IGNORECASE)
 
     # Tokenize the HTML by tags to isolate text nodes
@@ -73,14 +78,8 @@ def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
         # Replacement callback function
         def replace_callback(match: re.Match) -> str:
             matched_text = match.group(1)
-            # Find the original canonical key in vocabulary (case-insensitive search)
             matched_lower = matched_text.lower()
-            canonical_key = matched_text # Fallback
-            
-            for key in vocabulary.keys():
-                if key.lower() == matched_lower:
-                    canonical_key = key
-                    break
+            canonical_key = phrase_to_canonical.get(matched_lower, matched_text)
                     
             vocab_item = vocabulary[canonical_key]
             definition = vocab_item.get("definition", "").replace('"', "&quot;")

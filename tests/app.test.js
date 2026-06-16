@@ -1,6 +1,5 @@
 // @vitest-environment jsdom
-import { describe, it, expect, beforeEach, vi } from "vitest";
-import "../app.js"; // Import once to prevent listener accumulation on global document
+import { describe, it, expect, beforeEach, vi, beforeAll } from "vitest";
 
 // Mock localStorage
 const localStorageStore = {};
@@ -19,6 +18,18 @@ const localStorageMock = {
   }),
 };
 Object.defineProperty(window, "localStorage", { value: localStorageMock });
+
+// Mock scrollTo
+if (!window.Element.prototype.scrollTo) {
+  window.Element.prototype.scrollTo = vi.fn();
+}
+if (!window.scrollTo) {
+  window.scrollTo = vi.fn();
+}
+
+beforeAll(async () => {
+  await import("../app.js");
+});
 
 describe("Client Interaction - app.js", () => {
   beforeEach(() => {
@@ -68,8 +79,10 @@ describe("Client Interaction - app.js", () => {
           <div class="sidebar-section">
             <ul class="backlog-list">
               <li class="backlog-item" data-id="autophagy-kinetics">
-                <span class="backlog-votes" data-base-votes="124">124</span>
-                <button class="vote-btn">Vote</button>
+                <button class="backlog-votes" data-base-votes="124" aria-label="Upvote topic">
+                  <span class="upvote-icon">▲</span>
+                  <span class="vote-count">124</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -171,10 +184,10 @@ describe("Client Interaction - app.js", () => {
     localStorageStore["voter_email"] = "test@example.com";
 
     const item = document.querySelector(".backlog-item");
-    const badge = item.querySelector(".backlog-votes");
-    const button = item.querySelector(".vote-btn");
+    const button = item.querySelector(".backlog-votes");
+    const voteCount = button.querySelector(".vote-count");
 
-    expect(badge.textContent).toBe("124");
+    expect(voteCount.textContent).toBe("124");
     expect(button.disabled).toBe(false);
 
     // Vote
@@ -182,12 +195,11 @@ describe("Client Interaction - app.js", () => {
     
     // Wait for the async fetch to finish and update UI
     await vi.waitFor(() => {
-      if (badge.textContent !== "125") throw new Error("Badge not updated");
+      if (voteCount.textContent !== "125") throw new Error("Badge not updated");
     });
 
-    expect(badge.textContent).toBe("125");
+    expect(voteCount.textContent).toBe("125");
     expect(button.disabled).toBe(true);
-    expect(button.textContent).toBe("Topic Supported");
     expect(button.classList.contains("voted")).toBe(true);
     expect(localStorageMock.setItem).toHaveBeenCalledWith(
       "backlog_votes",
@@ -255,6 +267,130 @@ describe("Client Interaction - app.js", () => {
     // Click outside to dismiss
     document.body.click();
     expect(trigger.getAttribute("aria-expanded")).toBe("false");
+  });
+
+  it("should close the search dropdown and clear input when a search result is clicked", async () => {
+    const searchInput = document.getElementById("global-search");
+    const searchResults = document.getElementById("search-results");
+
+    // Trigger focus and fetch
+    searchInput.dispatchEvent(new Event("focus"));
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Input text
+    searchInput.value = "ampk";
+    searchInput.dispatchEvent(new Event("input"));
+    expect(searchResults.style.display).toBe("block");
+
+    // Click result item
+    const item = searchResults.querySelector(".search-result-item");
+    item.addEventListener("click", (e) => e.preventDefault());
+    item.click();
+
+    expect(searchResults.style.display).toBe("none");
+    expect(searchInput.value).toBe("");
+  });
+
+  it("should dynamically sort cards based on select change", () => {
+    // Add sorting UI to document
+    document.body.innerHTML += `
+      <select id="feed-sort-select">
+        <option value="newest">Newest</option>
+        <option value="oldest">Oldest</option>
+        <option value="alpha-asc">A-Z</option>
+        <option value="alpha-desc">Z-A</option>
+      </select>
+      <div id="feed-cards-container">
+        <div class="feed-card" data-created="2026-06-12" data-title="Beta Card">Beta</div>
+        <div class="feed-card" data-created="2026-06-14" data-title="Alpha Card">Alpha</div>
+        <div class="feed-card" data-created="2026-06-10" data-title="Gamma Card">Gamma</div>
+      </div>
+    `;
+
+    // Re-initialize theme and other features so the listener gets bound to the new elements
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+
+    const sortSelect = document.getElementById("feed-sort-select");
+    const container = document.getElementById("feed-cards-container");
+
+    const getTitles = () => Array.from(container.querySelectorAll(".feed-card")).map(c => c.textContent.trim());
+
+    // Sort newest
+    sortSelect.value = "newest";
+    sortSelect.dispatchEvent(new Event("change"));
+    expect(getTitles()).toEqual(["Alpha", "Beta", "Gamma"]); // 14, 12, 10
+
+    // Sort oldest
+    sortSelect.value = "oldest";
+    sortSelect.dispatchEvent(new Event("change"));
+    expect(getTitles()).toEqual(["Gamma", "Beta", "Alpha"]); // 10, 12, 14
+
+    // Sort A-Z
+    sortSelect.value = "alpha-asc";
+    sortSelect.dispatchEvent(new Event("change"));
+    expect(getTitles()).toEqual(["Alpha", "Beta", "Gamma"]); // Alpha, Beta, Gamma
+
+    // Sort Z-A
+    sortSelect.value = "alpha-desc";
+    sortSelect.dispatchEvent(new Event("change"));
+    expect(getTitles()).toEqual(["Gamma", "Beta", "Alpha"]); // Gamma, Beta, Alpha
+  });
+
+  it("should close popover and scroll to evidence-section when popover-more-link is clicked", () => {
+    const popover = document.getElementById("grade-popover");
+    
+    // Add more-link non-destructively
+    const p = document.createElement("p");
+    p.className = "grade-popover-rationale";
+    p.innerHTML = 'Consensus is supported. <a href="#evidence-section" class="popover-more-link">more...</a>';
+    popover.appendChild(p);
+    
+    const container = document.querySelector(".content-container");
+    const section = document.createElement("section");
+    section.id = "evidence-section";
+    section.textContent = "Evidence Section";
+    container.appendChild(section);
+
+    const trigger = document.getElementById("grade-trigger");
+    const moreLink = popover.querySelector(".popover-more-link");
+    const readingPane = document.getElementById("reading-pane");
+
+    readingPane.scrollTo = vi.fn();
+
+    // Open popover
+    trigger.click();
+    expect(popover.classList.contains("visible")).toBe(true);
+
+    // Click more... link (calling preventDefault to bypass JSDOM async navigation)
+    moreLink.addEventListener("click", (e) => e.preventDefault());
+    moreLink.click();
+
     expect(popover.classList.contains("visible")).toBe(false);
+    expect(readingPane.scrollTo).toHaveBeenCalled();
+  });
+
+  it("should intercept local hash links and scroll reading pane", () => {
+    const container = document.querySelector(".content-container");
+    
+    // Add elements non-destructively
+    const anchor = document.createElement("a");
+    anchor.href = "#test-section";
+    anchor.id = "test-anchor";
+    anchor.textContent = "Go to Test Section";
+    container.appendChild(anchor);
+    
+    const targetDiv = document.createElement("div");
+    targetDiv.id = "test-section";
+    targetDiv.textContent = "Test Section";
+    container.appendChild(targetDiv);
+
+    const readingPane = document.getElementById("reading-pane");
+    readingPane.scrollTo = vi.fn();
+
+    // Click anchor link (calling preventDefault to bypass JSDOM async navigation)
+    anchor.addEventListener("click", (e) => e.preventDefault());
+    anchor.click();
+
+    expect(readingPane.scrollTo).toHaveBeenCalled();
   });
 });

@@ -1,107 +1,186 @@
 [
   {
-    "title": "AMPK Cellular Energy Switch",
-    "slug": "ampk-activation.html",
-    "type": "article",
-    "category": "Biological Circuits",
-    "teaser": "Does constant snacking permanently lock our metabolic switches in storage mode?"
-  },
-  {
-    "title": "Circadian Light & Sleep Optimization",
-    "slug": "circadian-sleep-protocol.html",
-    "type": "article",
-    "category": "Lifestyle Practices",
-    "teaser": "Can dim screen glow after sunset confuse our ancient biological clocks?"
-  },
-  {
     "title": "Outlive: Science & Art of Longevity",
     "slug": "outlive-longevity-summary.html",
     "type": "article",
     "category": "Finds",
+    "category_type": "book",
     "teaser": "Are we training for the wrong metrics in our current longevity regimens?"
   },
   {
-    "title": "AMPK",
-    "slug": "vocabulary.html#ampk",
-    "type": "glossary",
-    "category": "Lexicon",
-    "teaser": "Adenosine monophosphate-activated protein kinase; a key enzyme regulating cellular energy homeostasis, activating cell cleanup processes."
-  },
-  {
-    "title": "mTOR",
-    "slug": "vocabulary.html#mtor",
-    "type": "glossary",
-    "category": "Lexicon",
-    "teaser": "Mechanistic target of rapamycin; a protein kinase that acts as a central regulator of cell growth, proliferation, and protein synthesis."
-  },
-  {
-    "title": "autophagy",
-    "slug": "vocabulary.html#autophagy",
-    "type": "glossary",
-    "category": "Lexicon",
-    "teaser": "The natural, regulated mechanism of the cell that removes unnecessary or dysfunctional components, recycling cellular materials."
-  },
-  {
-    "title": "metabolic flexibility",
-    "slug": "vocabulary.html#metabolic-flexibility",
-    "type": "glossary",
-    "category": "Lexicon",
-    "teaser": "The capacity for the body to switch adaptively between substrate sources (carbohydrates and lipids) depending on physiological demands."
-  },
-  {
-    "title": "circadian rhythm",
-    "slug": "vocabulary.html#circadian-rhythm",
-    "type": "glossary",
-    "category": "Lexicon",
-    "teaser": "The internal 24-hour biological clock regulating sleep, hormone release, and metabolic scheduling."
-  },
-  {
-    "title": "melatonin",
-    "slug": "vocabulary.html#melatonin",
-    "type": "glossary",
-    "category": "Lexicon",
-    "teaser": "A hormone produced by the pineal gland that plays a key role in signaling nightfall and regulating sleep-wake cycles."
-  },
-  {
-    "title": "adenosine",
-    "slug": "vocabulary.html#adenosine",
-    "type": "glossary",
-    "category": "Lexicon",
-    "teaser": "A cellular neuromodulator that accumulates during waking hours, generating homeostatic sleep pressure."
-  },
-  {
     "title": "healthspan",
-    "slug": "vocabulary.html#healthspan",
+    "slug": "vocabulary/healthspan.html",
     "type": "glossary",
     "category": "Lexicon",
+    "category_type": "glossary",
     "teaser": "The period of life spent free from chronic disease, disability, and functional decline."
   },
   {
     "title": "metabolic syndrome",
-    "slug": "vocabulary.html#metabolic-syndrome",
+    "slug": "vocabulary/metabolic-syndrome.html",
     "type": "glossary",
     "category": "Lexicon",
+    "category_type": "glossary",
     "teaser": "A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk."
   },
   {
     "title": "cardiorespiratory fitness",
-    "slug": "vocabulary.html#cardiorespiratory-fitness",
+    "slug": "vocabulary/cardiorespiratory-fitness.html",
     "type": "glossary",
     "category": "Lexicon",
+    "category_type": "glossary",
     "teaser": "The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)."
   },
   {
     "title": "GRADE",
-    "slug": "vocabulary.html#grade",
+    "slug": "vocabulary/grade.html",
     "type": "glossary",
     "category": "Lexicon",
+    "category_type": "glossary",
     "teaser": "Grading of Recommendations, Assessment, Development, and Evaluation; a standardized framework for rating the quality of scientific evidence from High to Very Low."
   },
   {
     "title": "Evidence Grade",
-    "slug": "vocabulary.html#evidence-grade",
+    "slug": "vocabulary/evidence-grade.html",
     "type": "glossary",
     "category": "Lexicon",
+    "category_type": "glossary",
     "teaser": "A standardized assessment based on the GRADE framework to rate the quality of research supporting an entry, ranging from High to Very Low."
+  },
+  {
+    "title": "Porphyromonas gingivalis",
+    "slug": "vocabulary/porphyromonas-gingivalis.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A keystone bacterial pathogen in chronic periodontitis, linked to systemic inflammation and neurodegeneration.",
+    "in_pipeline": true
+  },
+  {
+    "title": "gingipains",
+    "slug": "vocabulary/gingipains.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A group of toxic protease enzymes secreted by Porphyromonas gingivalis, found in postmortem Alzheimer's brains."
+  },
+  {
+    "title": "atuzaginstat",
+    "slug": "vocabulary/atuzaginstat.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An experimental small-molecule inhibitor of Porphyromonas gingivalis gingipains, tested for Alzheimer's treatment."
+  },
+  {
+    "title": "xenohormesis",
+    "slug": "vocabulary/xenohormesis.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The biological hypothesis that organisms have evolved to respond to stress-induced chemical signals in plants.",
+    "in_pipeline": true
+  },
+  {
+    "title": "phytochemicals",
+    "slug": "vocabulary/phytochemicals.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Biologically active compounds produced by plants, often acting as molecular defense and signaling keys.",
+    "in_pipeline": true
+  },
+  {
+    "title": "sulforaphane",
+    "slug": "vocabulary/sulforaphane.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An organosulfur compound found in cruciferous vegetables that potently activates the Nrf2 defense pathway.",
+    "in_pipeline": true
+  },
+  {
+    "title": "EGCG",
+    "slug": "vocabulary/egcg.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Epigallocatechin gallate; a major polyphenol in green tea that modulates AMPK signaling and metabolic pathways.",
+    "in_pipeline": true
+  },
+  {
+    "title": "resveratrol",
+    "slug": "vocabulary/resveratrol.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A natural polyphenol found in red grapes and berries that acts as an activator of the sirtuin pathway.",
+    "in_pipeline": true
+  },
+  {
+    "title": "quercetin",
+    "slug": "vocabulary/quercetin.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A plant flavonoid and senolytic compound found in onions, apples, and berries."
+  },
+  {
+    "title": "fisetin",
+    "slug": "vocabulary/fisetin.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A dietary senolytic flavonoid shown to reduce senescent cell burden and extend healthspan in pre-clinical models."
+  },
+  {
+    "title": "curcumin",
+    "slug": "vocabulary/curcumin.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The primary bioactive diarylheptanoid in turmeric, known for modulating NF-kB inflammatory signaling pathways."
+  },
+  {
+    "title": "Nrf2",
+    "slug": "vocabulary/nrf2.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A key transcription factor that regulates the expression of antioxidant proteins protecting against oxidative damage.",
+    "in_pipeline": true
+  },
+  {
+    "title": "SIRT1",
+    "slug": "vocabulary/sirt1.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Sirtuin 1; a NAD+-dependent deacetylase regulating chromatin structure, DNA repair, and cellular maintenance.",
+    "in_pipeline": true
+  },
+  {
+    "title": "NF-kB",
+    "slug": "vocabulary/nf-kb.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Nuclear factor kappa-light-chain-enhancer of activated B cells; a protein complex controlling cytokine production."
+  },
+  {
+    "title": "senolytics",
+    "slug": "vocabulary/senolytics.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Agents or compounds designed to selectively induce death in senescent cells to halt tissue degradation."
+  },
+  {
+    "title": "SAM cycle",
+    "slug": "vocabulary/sam-cycle.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "S-adenosylmethionine cycle; a universal metabolic pathway providing methyl groups for epigenetic DNA modification."
   }
 ]

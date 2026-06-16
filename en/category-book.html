@@ -6,11 +6,12 @@
   <title>Finds — The Healthstream</title>
   <meta name="description" content="Articles in the Finds category on The Healthstream.">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="./style.css?v=1.0.2">
+  <link rel="stylesheet" href="./style.css?v=1.0.3">
 </head>
 <body>
   <script>
     (function() {
+      window.BASE_PATH = "./";
       const savedTheme = localStorage.getItem('theme');
       const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.body.setAttribute('data-theme', theme);
@@ -157,12 +158,12 @@
         <ul class="nav-list">
           <li>
             <a href="./category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
-              Biological Circuits <span class="category-count">(1)</span>
+              Biological Circuits <span class="category-count">(0)</span>
             </a>
           </li>
           <li>
             <a href="./category-lifestyle.html" class="nav-link category-link cat-lifestyle " data-category="lifestyle">
-              Lifestyle Practices <span class="category-count">(1)</span>
+              Lifestyle Practices <span class="category-count">(0)</span>
             </a>
           </li>
           <li>
@@ -184,8 +185,8 @@
 
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
-      <div class="content-container fade-in">
-        <header class="feed-intro">  <h1>Finds</h1>  <p>1 article published</p></header><div class="feed-cards"><div class="feed-card cat-book">  <div class="card-header">    <span class="category-tag">Finds</span>  </div>  <h2 class="card-title">    <a href="outlive-longevity-summary.html" class="card-title-link">Outlive: Science & Art of Longevity</a>  </h2>  <blockquote class="card-teaser-text qa-takeaway-block">    <span class="qa-question-text">Are we training for the wrong metrics in our current longevity regimens?</span>    <span class="qa-answer-text"><strong>Takeaway:</strong> True longevity requires that we prioritize <span class="jargon-term" data-term="healthspan" data-definition="The period of life spent free from chronic disease, disability, and functional decline." data-slug="healthspan">healthspan</span> alongside lifespan, focusing on <span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">cardiorespiratory fitness</span> (VO2 max) and muscle mass as our primary protective shields against the chronic diseases of aging.</span>  </blockquote>  <div class="card-tags"><a href="tags/book.html" class="tag-pill">#book</a><a href="tags/longevity.html" class="tag-pill">#longevity</a><a href="tags/exercise.html" class="tag-pill">#exercise</a></div></div></div>
+      <div id="main-content" class="content-container fade-in">
+        <header class="feed-intro">  <h1>Finds</h1>  <p>1 article published</p></header><section id="published-section" class="detail-section">  <h2 class="detail-section-title">Published Articles</h2>  <div class="feed-cards"><div class="feed-card cat-book">  <div class="card-header">    <a href="category-book.html" class="category-tag">Finds</a>  </div>  <h2 class="card-title">    <a href="outlive-longevity-summary.html" class="card-title-link">Outlive: Science & Art of Longevity</a>  </h2>  <blockquote class="card-teaser-text qa-takeaway-block">    <span class="qa-question-text">Are we training for the wrong metrics in our current longevity regimens?</span>    <span class="qa-answer-text"><strong>Takeaway:</strong> True longevity requires that we prioritize <span class="jargon-term" data-term="healthspan" data-definition="The period of life spent free from chronic disease, disability, and functional decline." data-slug="healthspan">healthspan</span> alongside lifespan, focusing on <span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">cardiorespiratory fitness</span> (<span class="jargon-term" data-term="cardiorespiratory fitness" data-definition="The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)." data-slug="cardiorespiratory-fitness">VO2 max</span>) and muscle mass as our primary protective shields against the chronic diseases of aging.</span>  </blockquote>  <div class="card-tags"><a href="tags/book.html" class="tag-pill">#book</a><a href="tags/longevity.html" class="tag-pill">#longevity</a><a href="tags/exercise.html" class="tag-pill">#exercise</a></div></div></div></section>
       </div>
       <footer class="global-footer">
         <div class="footer-nav">

@@ -48,6 +48,7 @@ def run_build() -> None:
     vocabulary_path = os.path.join(src_dir, "vocabulary.json")
     backlog_path = os.path.join(src_dir, "backlog.json")
     translations_path = os.path.join(src_dir, "translations.json")
+    tags_path = os.path.join(src_dir, "tags.json")
 
     # 1. Load data configurations
     try:
@@ -59,6 +60,9 @@ def run_build() -> None:
 
         print("Reading jargon vocabulary...")
         vocabulary = load_json_file(vocabulary_path)
+
+        print("Reading tag registry...")
+        tags_registry = load_json_file(tags_path)
     except FileNotFoundError as e:
         print(f"Error: Required config data file missing: {e}")
         sys.exit(1)
@@ -103,6 +107,7 @@ def run_build() -> None:
         nodes=nodes,
         translations=translations,
         vocabulary=vocabulary,
+        backlog=backlog,
     )
     with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(feed_page_html)
@@ -121,6 +126,7 @@ def run_build() -> None:
         vocabulary=vocabulary,
         translations=translations,
         nodes=nodes,
+        backlog=backlog,
     )
     with open(os.path.join(output_dir, "vocabulary.html"), "w", encoding="utf-8") as f:
         f.write(vocab_page_html)
@@ -139,12 +145,37 @@ def run_build() -> None:
         overview_text = n["reading_modes"]["overview_3min"]
         deep_dive_text = " ".join([item["body"] for item in n["reading_modes"]["deep_dive"]])
         combined_text = f"{n['title']} {n['hook_question']} {n['takeaway_pill']} {overview_text} {deep_dive_text}"
-        for term in vocabulary.keys():
-            pattern = re.compile(r"(?<![\w-])" + re.escape(term) + r"(?![\w-])", re.IGNORECASE)
-            if pattern.search(combined_text):
+        for term, details in vocabulary.items():
+            phrases_to_check = [term] + details.get("aliases", [])
+            matched = False
+            for phrase in phrases_to_check:
+                pattern = re.compile(r"(?<![\w-])" + re.escape(phrase) + r"(?![\w-])", re.IGNORECASE)
+                if pattern.search(combined_text):
+                    matched = True
+                    break
+            if matched:
                 mentions[term].append({
                     "title": n["title"],
-                    "slug": f"{n['slug']}.html"
+                    "slug": f"{n['slug']}.html",
+                    "type": n["type"]
+                })
+
+    for item in (backlog or []):
+        combined_text = f"{item['title']} {item['description']}"
+        for term, details in vocabulary.items():
+            phrases_to_check = [term] + details.get("aliases", [])
+            matched = False
+            for phrase in phrases_to_check:
+                pattern = re.compile(r"(?<![\w-])" + re.escape(phrase) + r"(?![\w-])", re.IGNORECASE)
+                if pattern.search(combined_text):
+                    matched = True
+                    break
+            if matched:
+                mentions[term].append({
+                    "title": item["title"],
+                    "slug": f"backlog.html#{item['id']}",
+                    "type": item["category"],
+                    "in_pipeline": True
                 })
 
     for term, vocab_item in vocabulary.items():
@@ -300,6 +331,9 @@ def run_build() -> None:
         print(f"Linking jargon and compiling detail page: {node['slug']}.html...")
         
         node_copy = node.copy()
+        node_copy["hook_question"] = inject_jargon_links(node["hook_question"], vocabulary)
+        node_copy["takeaway_pill"] = inject_jargon_links(node["takeaway_pill"], vocabulary)
+        
         overview_linked = inject_jargon_links(node["reading_modes"]["overview_3min"], vocabulary)
         deep_dive_linked = [
             {
@@ -345,10 +379,15 @@ def run_build() -> None:
     tags_output_dir = os.path.join(output_dir, "tags")
     os.makedirs(tags_output_dir, exist_ok=True)
 
-    # Collect all unique tags across all nodes (preserve original case from first occurrence)
+    # Collect all unique tags across all nodes and backlog items (preserve original case from first occurrence)
     seen_tags: dict = {}
     for node in nodes:
         for t in node.get("tags", []):
+            key = t.lower()
+            if key not in seen_tags:
+                seen_tags[key] = t
+    for item in (backlog or []):
+        for t in item.get("tags", []):
             key = t.lower()
             if key not in seen_tags:
                 seen_tags[key] = t
@@ -369,6 +408,7 @@ def run_build() -> None:
             translations=translations,
             backlog=backlog,
             vocabulary=vocabulary,
+            tags_registry=tags_registry,
         )
         tag_out_path = os.path.join(tags_output_dir, f"{tag_slug}.html")
         with open(tag_out_path, "w", encoding="utf-8") as f:
@@ -392,6 +432,7 @@ def run_build() -> None:
             nodes=nodes,
             translations=translations,
             vocabulary=vocabulary,
+            backlog=backlog,
         )
         cat_out_path = os.path.join(output_dir, f"category-{cat}.html")
         with open(cat_out_path, "w", encoding="utf-8") as f:
@@ -413,7 +454,7 @@ def run_build() -> None:
 
     # 13. Generate Search Index
     print("Generating search_index.json...")
-    generate_search_index(output_dir, nodes, vocabulary, translations)
+    generate_search_index(output_dir, nodes, vocabulary, translations, backlog)
 
     print("\n==================================================")
     print("   [Success] Site Compiled Successfully to en/   ")

@@ -9,11 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeJargonPopovers();
   initializeBacklogVoting();
   initializeSearch();
+  initializeFeedSorting();
   initializeProposalSubmission();
   initializeContactSubmission();
   initializeBackToTop();
   initializeTocNavigation();
   initializeGradePopover();
+  initializeScrollingAndHash();
 });
 
 /**
@@ -198,24 +200,36 @@ function initializeBacklogVoting() {
     const itemId = item.getAttribute("data-id");
     const itemTitle = item.getAttribute("data-title");
     const itemCategory = item.getAttribute("data-category");
-    const voteBtn = item.querySelector(".vote-btn");
     const voteBadge = item.querySelector(".backlog-votes");
-    if (!itemId || !voteBtn || !voteBadge) return;
+    if (!itemId || !voteBadge) return;
 
     const baseVotes = parseInt(voteBadge.getAttribute("data-base-votes") || "0", 10);
+    const voteCountSpan = voteBadge.querySelector(".vote-count");
+
+    const updateVoteUI = (voted) => {
+      const displayVotes = voted ? baseVotes + 1 : baseVotes;
+      if (voteCountSpan) {
+        voteCountSpan.textContent = String(displayVotes);
+      } else {
+        voteBadge.textContent = String(displayVotes);
+      }
+      if (voted) {
+        voteBadge.classList.add("voted");
+        voteBadge.disabled = true;
+        item.classList.add("voted");
+      } else {
+        voteBadge.classList.remove("voted");
+        voteBadge.disabled = false;
+        item.classList.remove("voted");
+      }
+    };
 
     // Apply saved vote state
     if (votesMap[itemId]) {
-      voteBadge.textContent = String(baseVotes + 1);
-      voteBtn.textContent = "Topic Supported";
-      voteBtn.classList.add("voted");
-      voteBtn.disabled = true;
+      updateVoteUI(true);
     }
 
     const submitVote = (email) => {
-      voteBtn.disabled = true;
-      voteBtn.textContent = "Sending...";
-
       const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScvE2_p-3PEjrJFZZiemtzs7RJ7DGFt-i4Q2PZQgMK1mMmHrA/formResponse";
       const bodyData = new URLSearchParams({
         "emailAddress": email,
@@ -235,64 +249,91 @@ function initializeBacklogVoting() {
       .then(() => {
         votesMap[itemId] = true;
         localStorage.setItem("backlog_votes", JSON.stringify(votesMap));
-
-        voteBadge.textContent = String(baseVotes + 1);
-        voteBtn.textContent = "Topic Supported";
-        voteBtn.classList.add("voted");
-        voteBtn.disabled = true;
+        updateVoteUI(true);
       })
       .catch((err) => {
         console.error("Failed to submit vote:", err);
-        voteBtn.disabled = false;
-        voteBtn.textContent = "Support";
         alert("We could not register your support at this moment. Please check your network connection and try again.");
       });
     };
 
-    voteBtn.addEventListener("click", (e) => {
-      e.stopPropagation();
+    const triggerVoteFlow = () => {
       if (votesMap[itemId]) return;
 
       const voterEmail = localStorage.getItem("voter_email");
       if (voterEmail) {
         submitVote(voterEmail);
-      } else {
-        if (item.querySelector(".vote-email-input-wrapper")) return;
+        return;
+      }
+      
+      const showModal = () => {
+        const existing = document.querySelector(".vote-modal-overlay");
+        if (existing) existing.remove();
 
-        const wrapper = document.createElement("div");
-        wrapper.className = "vote-email-input-wrapper";
-        wrapper.innerHTML = `
-          <label for="vote-email-${itemId}">Before we count your support, we need to verify who you are. Please enter your email:</label>
-          <input type="email" id="vote-email-${itemId}" class="vote-email-input" placeholder="your.email@example.com" required>
-          <div class="vote-email-actions">
-            <button class="vote-confirm-btn">Confirm My Support</button>
-            <button class="vote-cancel-btn">Cancel</button>
+        const modal = document.createElement("div");
+        modal.className = "vote-modal-overlay";
+        modal.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 10000;";
+        
+        const itemAccent = getComputedStyle(item).getPropertyValue("--backlog-accent") || "var(--accent-synapse)";
+
+        modal.innerHTML = `
+          <div class="vote-modal-content" style="background: var(--bg-paper); border: 1px solid var(--border-color); border-radius: var(--radius-card); padding: var(--space-4); max-width: 400px; width: 90%; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: var(--space-3); animation: modalFadeIn 0.2s ease-out;">
+            <h3 style="margin: 0; font-family: var(--font-display); font-size: 1.2rem; color: var(--text-ink);">Support Topic Proposal</h3>
+            <p style="margin: 0; font-size: 0.9rem; color: var(--text-ink-muted); line-height: 1.5;">
+              Verify your identity to support <strong>"${itemTitle}"</strong>. We only use this email to validate community voting.
+            </p>
+            <div style="display: flex; flex-direction: column; gap: var(--space-1);">
+              <label for="vote-modal-email" style="font-size: 0.8rem; font-weight: 600; color: var(--text-ink-muted);">Email Address</label>
+              <input type="email" id="vote-modal-email" style="padding: 10px 12px; border: 1px solid var(--border-color); border-radius: var(--radius-button); background: var(--bg-surface-alt); color: var(--text-ink); font-family: var(--font-system); font-size: 0.95rem; outline: none; width: 100%; box-sizing: border-box;" placeholder="your.email@example.com" required>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: var(--space-2); margin-top: var(--space-1);">
+              <button class="vote-modal-cancel" style="background: transparent; border: 1px solid var(--border-color); color: var(--text-ink-muted); padding: 8px 16px; border-radius: var(--radius-button); font-weight: 600; font-size: 0.85rem; cursor: pointer; transition: background var(--transition-fast);">Cancel</button>
+              <button class="vote-modal-submit" style="background: ${itemAccent}; border: 1px solid transparent; color: var(--bg-paper); padding: 8px 20px; border-radius: var(--radius-button); font-weight: 700; font-size: 0.85rem; cursor: pointer; text-transform: uppercase; letter-spacing: 0.05em; transition: opacity var(--transition-fast);">Confirm Support</button>
+            </div>
           </div>
         `;
 
-        item.appendChild(wrapper);
+        document.body.appendChild(modal);
 
-        const confirmBtn = wrapper.querySelector(".vote-confirm-btn");
-        const cancelBtn = wrapper.querySelector(".vote-cancel-btn");
-        const emailInput = wrapper.querySelector(".vote-email-input");
+        const emailInput = modal.querySelector("#vote-modal-email");
+        const cancelBtn = modal.querySelector(".vote-modal-cancel");
+        const submitBtn = modal.querySelector(".vote-modal-submit");
 
-        cancelBtn.addEventListener("click", (evt) => {
-          evt.stopPropagation();
-          wrapper.remove();
+        setTimeout(() => emailInput.focus(), 50);
+
+        const closeModal = () => modal.remove();
+
+        cancelBtn.addEventListener("click", closeModal);
+        modal.addEventListener("click", (evt) => {
+          if (evt.target === modal) closeModal();
         });
 
-        confirmBtn.addEventListener("click", (evt) => {
-          evt.stopPropagation();
+        const performSubmit = () => {
           const emailVal = emailInput.value.trim();
           if (!emailVal || !emailVal.includes("@")) {
             emailInput.style.borderColor = "oklch(0.55 0.18 15)";
             return;
           }
           localStorage.setItem("voter_email", emailVal);
-          wrapper.remove();
+          closeModal();
           submitVote(emailVal);
+        };
+
+        submitBtn.addEventListener("click", performSubmit);
+        emailInput.addEventListener("keydown", (evt) => {
+          if (evt.key === "Enter") {
+            evt.preventDefault();
+            performSubmit();
+          }
         });
-      }
+      };
+
+      showModal();
+    };
+
+    voteBadge.addEventListener("click", (e) => {
+      e.stopPropagation();
+      triggerVoteFlow();
     });
   });
 }
@@ -317,7 +358,8 @@ function initializeSearch() {
   const loadSearchIndex = async () => {
     if (searchIndex) return;
     try {
-      const response = await fetch("search_index.json");
+      const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
+      const response = await fetch(basePath + "search_index.json");
       if (!response.ok) throw new Error("Network response error");
       searchIndex = await response.json();
     } catch (e) {
@@ -340,12 +382,24 @@ function initializeSearch() {
     }
 
     const itemsHtml = currentMatches.map((item, index) => {
-      const badgeClass = item.type === "glossary" ? "cat-glossary" : "cat-article";
+      const catType = item.category_type || (item.type === "glossary" ? "glossary" : "article");
+      const badgeClass = `cat-${catType}`;
+      const itemClass = `search-result-item cat-${catType}`;
+      const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
+      
+      let pipelineBadgeHtml = "";
+      if (item.in_pipeline || item.type === "backlog") {
+        pipelineBadgeHtml = `<span class="result-category-badge pipeline-badge-search" style="margin-right: var(--space-1);">In Pipeline</span>`;
+      }
+
       return `
-        <a href="${item.slug}" class="search-result-item" role="option" id="search-opt-${index}" data-index="${index}">
+        <a href="${basePath}${item.slug}" class="${itemClass}" role="option" id="search-opt-${index}" data-index="${index}">
           <div class="result-meta">
             <span class="result-title">${item.title}</span>
-            <span class="result-category-badge ${badgeClass}">${item.category}</span>
+            <div style="display: flex; gap: var(--space-1); align-items: center;">
+              ${pipelineBadgeHtml}
+              <span class="result-category-badge ${badgeClass}">${item.category}</span>
+            </div>
           </div>
           <p class="result-teaser">${item.teaser}</p>
         </a>
@@ -425,6 +479,15 @@ function initializeSearch() {
     } else if (e.key === "Escape") {
       e.preventDefault();
       closeDropdown();
+    }
+  });
+
+  // Close and clear when a search result link is clicked
+  searchResults.addEventListener("click", (e) => {
+    const link = e.target.closest(".search-result-item");
+    if (link) {
+      closeDropdown();
+      searchInput.value = "";
     }
   });
 
@@ -797,7 +860,8 @@ function initializeTocNavigation() {
 function initializeGradePopover() {
   const trigger = document.getElementById("grade-trigger");
   const popover = document.getElementById("grade-popover");
-  if (!trigger || !popover) return;
+  const readingPane = document.getElementById("reading-pane");
+  if (!trigger || !popover || !readingPane) return;
 
   const toggle = (show) => {
     const willShow = show !== undefined ? show : (trigger.getAttribute("aria-expanded") !== "true");
@@ -818,6 +882,25 @@ function initializeGradePopover() {
     });
   }
 
+  // Handle smooth scroll when clicking more... link inside the popover (delegated)
+  popover.addEventListener("click", (e) => {
+    const moreLink = e.target.closest(".popover-more-link");
+    if (moreLink) {
+      e.preventDefault();
+      e.stopPropagation();
+      toggle(false); // Close popover
+      const target = document.getElementById("evidence-section");
+      if (target) {
+        if (typeof readingPane.scrollTo === "function") {
+          readingPane.scrollTo({
+            top: target.offsetTop - 16,
+            behavior: "smooth"
+          });
+        }
+      }
+    }
+  });
+
   // Dismiss when clicking outside
   document.addEventListener("click", (e) => {
     if (!popover.contains(e.target) && !trigger.contains(e.target)) {
@@ -833,8 +916,176 @@ function initializeGradePopover() {
   });
 
   // Dismiss on reading pane scroll
-  const readingPane = document.getElementById("reading-pane");
-  if (readingPane) {
-    readingPane.addEventListener("scroll", () => toggle(false));
+  readingPane.addEventListener("scroll", () => toggle(false));
+}
+
+/**
+ * Handles real-time client-side sorting of feed cards (by time or lexical ordering, ascending or descending).
+ * @returns {void}
+ */
+function initializeFeedSorting() {
+  // Feed sorting (Explore / Category / Tag pages)
+  const sortSelect = document.getElementById("feed-sort-select");
+  const container = document.getElementById("feed-cards-container");
+  if (sortSelect && container) {
+    sortSelect.addEventListener("change", () => {
+      const value = sortSelect.value;
+      const cards = Array.from(container.querySelectorAll(".feed-card, .backlog-item"));
+      
+      cards.sort((a, b) => {
+        const dateA = a.getAttribute("data-created") || "";
+        const dateB = b.getAttribute("data-created") || "";
+        const titleA = (a.getAttribute("data-title") || "").toLowerCase().trim();
+        const titleB = (b.getAttribute("data-title") || "").toLowerCase().trim();
+
+        if (value === "newest") {
+          if (dateA !== dateB) return dateB.localeCompare(dateA); // newest first
+          return titleA.localeCompare(titleB);
+        } else if (value === "oldest") {
+          if (dateA !== dateB) return dateA.localeCompare(dateB); // oldest first
+          return titleA.localeCompare(titleB);
+        } else if (value === "alpha-asc") {
+          return titleA.localeCompare(titleB);
+        } else if (value === "alpha-desc") {
+          return titleB.localeCompare(titleA);
+        }
+        return 0;
+      });
+
+      // Re-append to DOM in new sorted order
+      cards.forEach((card) => {
+        container.appendChild(card);
+      });
+    });
+  }
+
+  // Backlog page sorting
+  const backlogSelect = document.getElementById("backlog-sort-select");
+  const backlogContainer = document.getElementById("backlog-list-container");
+  if (backlogSelect && backlogContainer) {
+    backlogSelect.addEventListener("change", () => {
+      const value = backlogSelect.value;
+      const items = Array.from(backlogContainer.querySelectorAll(".backlog-item"));
+
+      items.sort((a, b) => {
+        const votesA = parseInt(a.getAttribute("data-votes") || "0", 10);
+        const votesB = parseInt(b.getAttribute("data-votes") || "0", 10);
+        const dateA = a.getAttribute("data-created") || "";
+        const dateB = b.getAttribute("data-created") || "";
+        const titleA = (a.getAttribute("data-title") || "").toLowerCase().trim();
+        const titleB = (b.getAttribute("data-title") || "").toLowerCase().trim();
+
+        if (value === "votes") {
+          if (votesA !== votesB) return votesB - votesA; // highest votes first
+          return titleA.localeCompare(titleB);
+        } else if (value === "newest") {
+          if (dateA !== dateB) return dateB.localeCompare(dateA); // newest first
+          return titleA.localeCompare(titleB);
+        } else if (value === "oldest") {
+          if (dateA !== dateB) return dateA.localeCompare(dateB); // oldest first
+          return titleA.localeCompare(titleB);
+        } else if (value === "alpha-asc") {
+          return titleA.localeCompare(titleB);
+        } else if (value === "alpha-desc") {
+          return titleB.localeCompare(titleA);
+        }
+        return 0;
+      });
+
+      // Re-append to DOM in new sorted order
+      items.forEach((item) => {
+        backlogContainer.appendChild(item);
+      });
+    });
+  }
+}
+
+/**
+ * Locks main window scroll to (0, 0) and handles routing/hash navigation within #reading-pane.
+ * @returns {void}
+ */
+function initializeScrollingAndHash() {
+  try {
+    const readingPane = document.getElementById("reading-pane");
+    if (!readingPane) return;
+
+    // 1. Lock window/body scroll to (0,0) so browser's native target element focus / hash jumps
+    // don't scroll the body off-screen, cutting off the global header.
+    if (!window.__windowScrollLockRegistered) {
+      window.__windowScrollLockRegistered = true;
+      window.addEventListener("scroll", () => {
+        if (window.scrollY !== 0 || window.scrollX !== 0) {
+          if (typeof window.scrollTo === "function") {
+            window.scrollTo(0, 0);
+          }
+        }
+      });
+    }
+
+    // 2. Intercept click events on local hash anchor links (where href starts with #),
+    // smooth scroll #reading-pane to target, and update history hash without scrolling the window.
+    // Skip TOC links and popover-more links because they are handled separately or we want custom behavior.
+    if (!window.__hashClickInterceptRegistered) {
+      window.__hashClickInterceptRegistered = true;
+      document.addEventListener("click", (e) => {
+        const freshReadingPane = document.getElementById("reading-pane");
+        if (!freshReadingPane) return;
+
+        const anchor = e.target.closest("a");
+        if (!anchor) return;
+        
+        const href = anchor.getAttribute("href");
+        if (href && href.startsWith("#")) {
+          // Ignore table of contents navigation links and popover-more links
+          if (anchor.classList.contains("toc-link") || anchor.classList.contains("popover-more-link")) {
+            return;
+          }
+          
+          const targetId = href.substring(1);
+          if (!targetId) return;
+          
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            e.preventDefault();
+            if (typeof freshReadingPane.scrollTo === "function") {
+              freshReadingPane.scrollTo({
+                top: targetElement.offsetTop - 16,
+                behavior: "smooth"
+              });
+            }
+            // Update hash in address bar without scrolling window
+            history.pushState(null, null, href);
+          }
+        }
+      });
+    }
+
+    // 3. Inspect window.location.hash on page load, reset window scroll, and scroll #reading-pane to the target element.
+    if (window.location.hash) {
+      const targetId = window.location.hash.substring(1);
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        // Force scroll layout lock immediately
+        if (typeof window.scrollTo === "function") {
+          window.scrollTo(0, 0);
+        }
+        
+        // Delay slightly to allow page layout/content to settle
+        setTimeout(() => {
+          if (typeof window.scrollTo === "function") {
+            window.scrollTo(0, 0);
+          }
+          const freshReadingPane = document.getElementById("reading-pane");
+          if (freshReadingPane && typeof freshReadingPane.scrollTo === "function") {
+            freshReadingPane.scrollTo({
+              top: targetElement.offsetTop - 16,
+              behavior: "auto"
+            });
+          }
+        }, 150);
+      }
+    }
+  } catch (err) {
+    console.error("Error in initializeScrollingAndHash:", err);
   }
 }

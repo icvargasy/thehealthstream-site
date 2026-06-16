@@ -1,38 +1,119 @@
 {
-  "AMPK": {
-    "definition": "Adenosine monophosphate-activated protein kinase; a key enzyme regulating cellular energy homeostasis, activating cell cleanup processes."
-  },
-  "mTOR": {
-    "definition": "Mechanistic target of rapamycin; a protein kinase that acts as a central regulator of cell growth, proliferation, and protein synthesis."
-  },
-  "autophagy": {
-    "definition": "The natural, regulated mechanism of the cell that removes unnecessary or dysfunctional components, recycling cellular materials."
-  },
-  "metabolic flexibility": {
-    "definition": "The capacity for the body to switch adaptively between substrate sources (carbohydrates and lipids) depending on physiological demands."
-  },
-  "circadian rhythm": {
-    "definition": "The internal 24-hour biological clock regulating sleep, hormone release, and metabolic scheduling."
-  },
-  "melatonin": {
-    "definition": "A hormone produced by the pineal gland that plays a key role in signaling nightfall and regulating sleep-wake cycles."
-  },
-  "adenosine": {
-    "definition": "A cellular neuromodulator that accumulates during waking hours, generating homeostatic sleep pressure."
-  },
   "healthspan": {
-    "definition": "The period of life spent free from chronic disease, disability, and functional decline."
+    "definition": "The period of life spent free from chronic disease, disability, and functional decline.",
+    "taxonomy": "concept",
+    "aliases": ["quality of life"]
   },
   "metabolic syndrome": {
-    "definition": "A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk."
+    "definition": "A cluster of metabolic dysregulations (insulin resistance, high blood pressure, abdominal obesity) that elevate cardiovascular disease risk.",
+    "taxonomy": "condition",
+    "aliases": ["insulin resistance", "metabolic dysregulations"]
   },
   "cardiorespiratory fitness": {
-    "definition": "The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)."
+    "definition": "The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max).",
+    "taxonomy": "concept",
+    "aliases": ["VO2 max", "aerobic base training"]
   },
   "GRADE": {
-    "definition": "Grading of Recommendations, Assessment, Development, and Evaluation; a standardized framework for rating the quality of scientific evidence from High to Very Low."
+    "definition": "Grading of Recommendations, Assessment, Development, and Evaluation; a standardized framework for rating the quality of scientific evidence from High to Very Low.",
+    "taxonomy": "framework",
+    "aliases": ["GRADE system"]
   },
   "Evidence Grade": {
-    "definition": "A standardized assessment based on the GRADE framework to rate the quality of research supporting an entry, ranging from High to Very Low."
+    "definition": "A standardized assessment based on the GRADE framework to rate the quality of research supporting an entry, ranging from High to Very Low.",
+    "taxonomy": "framework",
+    "aliases": ["evidence rating", "epistemic rating"]
+  },
+  "Porphyromonas gingivalis": {
+    "definition": "A keystone bacterial pathogen in chronic periodontitis, linked to systemic inflammation and neurodegeneration.",
+    "taxonomy": "organism",
+    "aliases": ["P. gingivalis", "periodontal bacterium"],
+    "citations": [
+      {
+        "text": "Dominy SS, et al. Porphyromonas gingivalis in Alzheimer's disease brains: Evidence for disease causation and treatment with small-molecule inhibitors. Sci Adv. 2019;5(1):eaau3333.",
+        "link": "https://doi.org/10.1126/sciadv.aau3333"
+      }
+    ]
+  },
+  "gingipains": {
+    "definition": "A group of toxic protease enzymes secreted by Porphyromonas gingivalis, found in postmortem Alzheimer's brains.",
+    "taxonomy": "molecule",
+    "aliases": ["gingipain enzymes", "protease enzymes"]
+  },
+  "atuzaginstat": {
+    "definition": "An experimental small-molecule inhibitor of Porphyromonas gingivalis gingipains, tested for Alzheimer's treatment.",
+    "taxonomy": "molecule",
+    "aliases": ["COR388"],
+    "citations": [
+      {
+        "text": "ClinicalTrials.ga study. GAIN Trial: Phase 2/3 study of atuzaginstat in mild-to-moderate Alzheimer's disease. NCT03828240.",
+        "link": "https://clinicaltrials.gov/study/NCT03828240"
+      }
+    ]
+  },
+  "xenohormesis": {
+    "definition": "The biological hypothesis that organisms have evolved to respond to stress-induced chemical signals in plants.",
+    "taxonomy": "concept",
+    "aliases": ["xenohormetic signals", "plant stress signaling"]
+  },
+  "phytochemicals": {
+    "definition": "Biologically active compounds produced by plants, often acting as molecular defense and signaling keys.",
+    "taxonomy": "molecule",
+    "aliases": ["phytochemical compounds", "plant compounds"]
+  },
+  "sulforaphane": {
+    "definition": "An organosulfur compound found in cruciferous vegetables that potently activates the Nrf2 defense pathway.",
+    "taxonomy": "molecule",
+    "aliases": ["isothiocyanate"]
+  },
+  "EGCG": {
+    "definition": "Epigallocatechin gallate; a major polyphenol in green tea that modulates AMPK signaling and metabolic pathways.",
+    "taxonomy": "molecule",
+    "aliases": ["epigallocatechin gallate"]
+  },
+  "resveratrol": {
+    "definition": "A natural polyphenol found in red grapes and berries that acts as an activator of the sirtuin pathway.",
+    "taxonomy": "molecule",
+    "aliases": ["sirtuin activator"]
+  },
+  "quercetin": {
+    "definition": "A plant flavonoid and senolytic compound found in onions, apples, and berries.",
+    "taxonomy": "molecule",
+    "aliases": ["senolytic flavonoid"]
+  },
+  "fisetin": {
+    "definition": "A dietary senolytic flavonoid shown to reduce senescent cell burden and extend healthspan in pre-clinical models.",
+    "taxonomy": "molecule",
+    "aliases": ["dietary senolytic"]
+  },
+  "curcumin": {
+    "definition": "The primary bioactive diarylheptanoid in turmeric, known for modulating NF-kB inflammatory signaling pathways.",
+    "taxonomy": "molecule",
+    "aliases": ["turmeric extract"]
+  },
+  "Nrf2": {
+    "definition": "A key transcription factor that regulates the expression of antioxidant proteins protecting against oxidative damage.",
+    "taxonomy": "protein",
+    "aliases": ["nuclear factor erythroid 2-related factor 2"]
+  },
+  "SIRT1": {
+    "definition": "Sirtuin 1; a NAD+-dependent deacetylase regulating chromatin structure, DNA repair, and cellular maintenance.",
+    "taxonomy": "protein",
+    "aliases": ["sirtuin 1", "silent information regulator 1"]
+  },
+  "NF-kB": {
+    "definition": "Nuclear factor kappa-light-chain-enhancer of activated B cells; a protein complex controlling cytokine production.",
+    "taxonomy": "protein",
+    "aliases": ["nuclear factor-kB"]
+  },
+  "senolytics": {
+    "definition": "Agents or compounds designed to selectively induce death in senescent cells to halt tissue degradation.",
+    "taxonomy": "concept",
+    "aliases": ["senolytic agents"]
+  },
+  "SAM cycle": {
+    "definition": "S-adenosylmethionine cycle; a universal metabolic pathway providing methyl groups for epigenetic DNA modification.",
+    "taxonomy": "process",
+    "aliases": ["methyl cycle", "methionine cycle"]
   }
 }

@@ -6,11 +6,12 @@
   <title>Privacy Policy — The Healthstream</title>
   <meta name="description" content="Privacy Policy and data practices for The Healthstream static systems biology library.">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="./style.css?v=1.0.2">
+  <link rel="stylesheet" href="./style.css?v=1.0.3">
 </head>
 <body>
   <script>
     (function() {
+      window.BASE_PATH = "./";
       const savedTheme = localStorage.getItem('theme');
       const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.body.setAttribute('data-theme', theme);
@@ -157,12 +158,12 @@
         <ul class="nav-list">
           <li>
             <a href="./category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
-              Biological Circuits <span class="category-count">(1)</span>
+              Biological Circuits <span class="category-count">(0)</span>
             </a>
           </li>
           <li>
             <a href="./category-lifestyle.html" class="nav-link category-link cat-lifestyle " data-category="lifestyle">
-              Lifestyle Practices <span class="category-count">(1)</span>
+              Lifestyle Practices <span class="category-count">(0)</span>
             </a>
           </li>
           <li>
@@ -184,7 +185,7 @@
 
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
-      <div class="content-container fade-in">
+      <div id="main-content" class="content-container fade-in">
         <article class="static-page prose-page">  <header class="static-header">    <h1>Privacy Policy</h1>    <p class="static-desc">Privacy Policy and data practices for The Healthstream static systems biology library.</p>  </header>  <div class="static-prose-container">  <div class="article-body-text"><p>We hold a deep commitment to reader privacy and transparency. Because our website operates as a zero-runtime static site, we protect your data by design.</p>
 <h3>1. Minimal Data Collection</h3>
 <p>We do not track you, run database servers, or host user profile databases.

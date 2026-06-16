@@ -70,12 +70,71 @@ def compile_base_layout(
     return html
 
 
+def render_backlog_card(
+    item: Dict[str, Any],
+    translations: Dict[str, Any],
+    is_nested: bool = False,
+    vocabulary: Dict[str, Any] = None,
+    tag_name: str = "li",
+) -> str:
+    """Renders a backlog card HTML in unified flexbox layout format.
+
+    Args:
+        item: Backlog item dictionary.
+        translations: Translation labels dictionary.
+        is_nested: If True, uses '../' path prefix for nested files (e.g. tag pages).
+        vocabulary: Optional glossary references dictionary.
+        tag_name: HTML element tag (li or div).
+
+    Returns:
+        The rendered HTML markup string.
+    """
+    labels = translations.get("en", {})
+    cat = item.get("category", "")
+    category_class = f"cat-{cat}" if cat else ""
+    category_label = labels.get(f"category_{cat}", cat).upper()
+
+    prefix = "../" if is_nested else ""
+    category_url = f"{prefix}category-{cat}.html"
+    backlog_url = f"{prefix}backlog.html"
+
+    tag_pills = []
+    for t in item.get("tags", []):
+        tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">#{t}</a>')
+    tags_html = f'<div class="card-tags" style="margin-top: var(--space-2);">{"".join(tag_pills)}</div>' if tag_pills else ""
+
+    desc = item["description"]
+    if vocabulary:
+        from compiler.linker import inject_jargon_links
+        desc = inject_jargon_links(desc, vocabulary)
+
+    card_html = (
+        f'<{tag_name} class="backlog-item backlog-card-compact {category_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-category="{cat}">'
+        f'  <div class="backlog-header">'
+        f'    <div class="backlog-title-group">'
+        f'      <span class="backlog-title">{item["title"]}</span>'
+        f'      <a href="{category_url}" class="category-tag">{category_label}</a>'
+        f'      <a href="{backlog_url}" class="pipeline-badge">In Pipeline</a>'
+        f'    </div>'
+        f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" aria-label="Upvote topic">'
+        f'      <span class="upvote-icon">▲</span>'
+        f'      <span class="vote-count">{item["votes"]}</span>'
+        f'    </button>'
+        f'  </div>'
+        f'  <div class="backlog-desc">{desc}</div>'
+        f'  {tags_html}'
+        f'</{tag_name}>'
+    )
+    return card_html
+
+
 def compile_category_page(
     layout_html: str,
     category_type: str,
     nodes: List[Dict[str, Any]],
     translations: Dict[str, Any],
     vocabulary: Dict[str, Any] = None,
+    backlog: List[Dict[str, Any]] = None,
 ) -> str:
     """Compiles a filtered category index page listing all articles sharing a given category type.
 
@@ -85,6 +144,7 @@ def compile_category_page(
         nodes: Complete list of all article nodes.
         translations: Translations dictionary.
         vocabulary: Optional dictionary of jargon definitions.
+        backlog: Complete list of backlog items.
 
     Returns:
         The complete HTML string for the category page.
@@ -115,7 +175,7 @@ def compile_category_page(
         card_html = (
             f'<div class="feed-card cat-{n["type"]}">'
             f'  <div class="card-header">'
-            f'    <span class="category-tag">{category_label}</span>'
+            f'    <a href="category-{n["type"]}.html" class="category-tag">{category_label}</a>'
             f'  </div>'
             f'  <h2 class="card-title">'
             f'    <a href="{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
@@ -129,17 +189,51 @@ def compile_category_page(
         )
         cards.append(card_html)
 
+    # Filter matching backlog items
+    matching_backlog = [
+        item for item in (backlog or [])
+        if item.get("category") == category_type
+    ]
+    backlog_cards = []
+    for item in sorted(matching_backlog, key=lambda x: x["title"]):
+        backlog_cards.append(render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, tag_name="li"))
+
     empty_note = (
         f'<p style="color: var(--text-ink-muted); margin-top: var(--space-4);">'
-        f'No articles in <strong>{category_label}</strong> yet.</p>'
-    ) if not cards else ""
+        f'No articles or pipeline proposals in <strong>{category_label}</strong> yet.</p>'
+    ) if (not cards and not backlog_cards) else ""
+
+    pipeline_html = ""
+    if backlog_cards:
+        pipeline_html = (
+            f'<section id="pipeline-section" class="detail-section pipeline-section">'
+            f'  <h2 class="detail-section-title">In the Pipeline</h2>'
+            f'  <div class="backlog-list" style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">'
+            f'    {"".join(backlog_cards)}'
+            f'  </div>'
+            f'</section>'
+        )
+
+    toc_html = ""
+    if cards and backlog_cards:
+        toc_html = (
+            f'<nav class="article-toc" aria-label="Table of Contents">'
+            f'  <a href="#published-section" class="toc-link active">Published Articles</a>'
+            f'  <a href="#pipeline-section" class="toc-link">In the Pipeline</a>'
+            f'</nav>'
+        )
 
     page_html = (
         f'<header class="feed-intro">'
         f'  <h1>{category_label}</h1>'
         f'  <p>{len(matching)} article{"s" if len(matching) != 1 else ""} published</p>'
         f'</header>'
-        f'<div class="feed-cards">{"".join(cards)}{empty_note}</div>'
+        f'{toc_html}'
+        f'<section id="published-section" class="detail-section">'
+        f'  <h2 class="detail-section-title">Published Articles</h2>'
+        f'  <div class="feed-cards">{"".join(cards)}{empty_note}</div>'
+        f'</section>'
+        f'{pipeline_html}'
     )
 
     page_title = f"{category_label} — The Healthstream"
@@ -156,6 +250,7 @@ def compile_feed_page(
     nodes: List[Dict[str, Any]],
     translations: Dict[str, Any],
     vocabulary: Dict[str, Any] = None,
+    backlog: List[Dict[str, Any]] = None,
 ) -> str:
     """Compiles the primary feed dashboard landing page (index.html).
 
@@ -164,6 +259,7 @@ def compile_feed_page(
         nodes: List of article nodes.
         translations: Translations dictionary.
         vocabulary: Optional dictionary of jargon definitions.
+        backlog: Complete list of backlog items.
 
     Returns:
         The complete HTML string for the feed page.
@@ -191,7 +287,7 @@ def compile_feed_page(
         card_html = (
             f'<div class="feed-card cat-{n["type"]}">'
             f'  <div class="card-header">'
-            f'    <span class="category-tag">{category_label}</span>'
+            f'    <a href="category-{n["type"]}.html" class="category-tag">{category_label}</a>'
             f'  </div>'
             f'  <h2 class="card-title">'
             f'    <a href="{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
@@ -204,15 +300,42 @@ def compile_feed_page(
             f'</div>'
         )
         cards.append(card_html)
+
+    backlog_cards = []
+    for item in sorted(backlog or [], key=lambda x: x["title"]):
+        backlog_cards.append(render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, tag_name="li"))
+
+    pipeline_html = ""
+    if backlog_cards:
+        pipeline_html = (
+            f'<section id="pipeline-section" class="detail-section pipeline-section">'
+            f'  <h2 class="detail-section-title">In the Pipeline</h2>'
+            f'  <div class="backlog-list" style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">'
+            f'    {"".join(backlog_cards)}'
+            f'  </div>'
+            f'</section>'
+        )
+
+    toc_html = ""
+    if cards and backlog_cards:
+        toc_html = (
+            f'<nav class="article-toc" aria-label="Table of Contents">'
+            f'  <a href="#published-section" class="toc-link active">Published Articles</a>'
+            f'  <a href="#pipeline-section" class="toc-link">In the Pipeline</a>'
+            f'</nav>'
+        )
         
     intro_html = (
         f'<header class="feed-intro">'
         f'  <h1>{labels.get("feed_title", "Chronological Stream")}</h1>'
         f'  <p>{labels.get("site_tagline", "Systems Biology Content Hub")}</p>'
         f'</header>'
-        f'<div class="feed-cards">'
-        f'  {"".join(cards)}'
-        f'</div>'
+        f'{toc_html}'
+        f'<section id="published-section" class="detail-section">'
+        f'  <h2 class="detail-section-title">Published Articles</h2>'
+        f'  <div class="feed-cards">{"".join(cards)}</div>'
+        f'</section>'
+        f'{pipeline_html}'
     )
     
     # Fill in slots
@@ -289,6 +412,10 @@ def compile_detail_page(
             f'</div>'
         )
 
+    debate_link = ""
+    if er.get("debate_sides"):
+        debate_link = f' <a href="#evidence-section" class="popover-debate-link" style="color: var(--accent-synapse); text-decoration: none; font-weight: 600; margin-left: 4px;">debates</a>'
+
     grade_popover_html = (
         f'<div class="detail-grade-container">'
         f'  <span class="detail-grade-label">Evidence Grade:</span>'
@@ -301,15 +428,16 @@ def compile_detail_page(
         f'    </svg>'
         f'  </button>'
         f'  <div class="grade-popover-card" id="grade-popover" role="dialog" aria-label="Evidence Grade Details">'
-        f'    <div class="grade-popover-header" style="display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid var(--border-color); padding-bottom:var(--space-1); margin-bottom:var(--space-2);">'
-        f'      <strong style="color:var(--text-ink);">Evidence Grade: {grade}</strong>'
+        f'    <div class="grade-popover-header" style="display:flex; align-items:center; justify-content:flex-end; margin-bottom:var(--space-2);">'
         f'      <button class="grade-popover-close" aria-label="Close details" style="background:none; border:none; color:var(--text-ink-muted); font-size:1.2rem; cursor:pointer; padding:0; line-height:1;">&times;</button>'
         f'    </div>'
-        f'    <p class="grade-popover-rationale" style="margin:0 0 var(--space-2) 0;"><strong>Rationale:</strong> {rationale}</p>'
+        f'    <p class="grade-popover-rationale" style="margin:0 0 var(--space-2) 0; font-size:0.82rem; line-height:1.4;">'
+        f'      <strong>Rationale:</strong> {rationale}{debate_link}'
+        f'      <a href="#evidence-section" class="popover-more-link" style="color: var(--accent-synapse); text-decoration: none; font-weight: 600; margin-left: 4px;">more...</a>'
+        f'    </p>'
         f'    {debates_html}'
-        f'    <div class="grade-popover-note" style="font-size:0.75rem; color:var(--text-ink-muted); border-top:1px dashed var(--border-color); padding-top:var(--space-2); margin-top:var(--space-2);">'
-        f'      The GRADE (Grading of Recommendations, Assessment, Development, and Evaluation) system is a standardized framework for rating the quality of scientific evidence. '
-        f'      Ratings scale from High to Very Low quality.'
+        f'    <div class="grade-popover-links" style="margin-top: var(--space-2); display: flex; gap: var(--space-3); font-size: 0.8rem; margin-bottom: var(--space-2); border-top: 1px dashed var(--border-color); padding-top: var(--space-2);">'
+        f'      <a href="vocabulary/evidence-grade.html" class="popover-glossary-link" style="color: var(--accent-synapse); text-decoration: none; font-weight: 600;">GRADE Rating Methodology &rarr;</a>'
         f'    </div>'
         f'  </div>'
         f'</div>'
@@ -467,7 +595,7 @@ def compile_detail_page(
     full_content = (
         f'<article class="article-detail cat-{node["type"]}">'
         f'  <header class="detail-header">'
-        f'    <span class="category-tag" style="display:inline-block; margin-bottom:var(--space-2);">{category_label}</span>'
+        f'    <a href="category-{node["type"]}.html" class="category-tag" style="display:inline-block; margin-bottom:var(--space-2);">{category_label}</a>'
         f'    <h1>{node["title"]}</h1>'
         f'    {meta_row_html}'
         f'  </header>'
@@ -516,6 +644,7 @@ def compile_vocabulary_page(
     vocabulary: Dict[str, Any],
     translations: Dict[str, Any],
     nodes: List[Dict[str, Any]],
+    backlog: List[Dict[str, Any]] = None,
 ) -> str:
     """Compiles the Jargon Glossary index page (vocabulary.html).
 
@@ -646,6 +775,28 @@ def compile_vocabulary_detail_page(
             f'</div>'
         )
 
+    citations_html = ""
+    citations = vocab_item.get("citations", [])
+    if citations:
+        citations_links = []
+        for citation in citations:
+            text = citation.get("text", "")
+            link = citation.get("link", "")
+            if link:
+                citations_links.append(
+                    f'<li><a href="{link}" target="_blank" rel="noopener noreferrer" style="color: var(--accent-synapse); text-decoration: none;">{text}</a></li>'
+                )
+            else:
+                citations_links.append(f'<li>{text}</li>')
+        citations_html = (
+            f'<div class="vocab-detail-citations" style="margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px dashed var(--border-color);">'
+            f'  <h4 style="font-family: var(--font-body); font-size: var(--font-size-label); text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-ink-muted); margin-bottom: var(--space-2);">Scientific Sources & References</h4>'
+            f'  <ul style="padding-left: var(--space-3); line-height: 1.6; list-style-type: decimal; color: var(--text-ink-muted); font-size: 0.9rem;">'
+            f'    {"".join(citations_links)}'
+            f'  </ul>'
+            f'</div>'
+        )
+
     content_html = (
         f'<article class="vocab-detail-page" style="padding: var(--space-2) 0;">'
         f'  <header style="margin-bottom: var(--space-4);">'
@@ -656,6 +807,7 @@ def compile_vocabulary_detail_page(
         f'  </header>'
         f'  <p style="font-size: 1.1rem; line-height: 1.65; color: var(--text-ink); max-width: 68ch; margin-top: var(--space-3);">{definition}</p>'
         f'  {mentions_html}'
+        f'  {citations_html}'
         f'</article>'
     )
     
@@ -672,6 +824,7 @@ def compile_tag_page(
     translations: Dict[str, Any],
     backlog: List[Dict[str, Any]] = None,
     vocabulary: Dict[str, Any] = None,
+    tags_registry: Dict[str, Any] = None,
 ) -> str:
     """Compiles a filtered tag index page listing all articles and backlog pipeline items sharing a given tag.
 
@@ -682,11 +835,24 @@ def compile_tag_page(
         translations: Translations dictionary.
         backlog: Complete list of backlog items.
         vocabulary: Optional dictionary of jargon definitions.
+        tags_registry: Optional tag registry details mapping.
 
     Returns:
         The complete HTML string for the tag page.
     """
     labels = translations.get("en", {})
+
+    tag_name = tag
+    tag_desc = ""
+    tag_dim = ""
+    if tags_registry and tag.lower() in tags_registry:
+        reg = tags_registry[tag.lower()]
+        tag_name = reg.get("name", tag)
+        tag_desc = reg.get("description", "")
+        tag_dim = reg.get("dimension", "")
+
+    badge_html = f'<span class="tag-dimension-badge dim-{tag_dim}">{tag_dim}</span>' if tag_dim else ""
+    desc_html = f'<p class="tag-description" style="color: var(--text-ink-muted); margin-top: var(--space-2);">{tag_desc}</p>' if tag_desc else ""
 
     # Filter nodes that contain this tag (case-insensitive match)
     matching = [
@@ -712,7 +878,7 @@ def compile_tag_page(
         card_html = (
             f'<div class="feed-card cat-{n["type"]}">'
             f'  <div class="card-header">'
-            f'    <span class="category-tag">{category_label}</span>'
+            f'    <a href="../category-{n["type"]}.html" class="category-tag">{category_label}</a>'
             f'  </div>'
             f'  <h2 class="card-title">'
             f'    <a href="../{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
@@ -734,38 +900,12 @@ def compile_tag_page(
 
     backlog_cards = []
     for item in sorted(matching_backlog, key=lambda x: x["title"]):
-        category_class = f'cat-{item.get("category", "")}' if item.get("category") else ""
-        
-        tag_pills = []
-        for t in item.get("tags", []):
-            tag_pills.append(f'<a href="{t.lower()}.html" class="tag-pill">#{t}</a>')
-        tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
-
-        desc = item["description"]
-        if vocabulary:
-            from compiler.linker import inject_jargon_links
-            desc = inject_jargon_links(desc, vocabulary)
-
-        card_html = (
-            f'<div class="backlog-item backlog-card-compact {category_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-category="{item.get("category", "")}">'
-            f'  <div class="backlog-header">'
-            f'    <div style="display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;">'
-            f'      <span class="backlog-title">{item["title"]}</span>'
-            f'      <span class="pipeline-badge">In Pipeline</span>'
-            f'    </div>'
-            f'    <span class="backlog-votes" data-base-votes="{item["votes"]}">{item["votes"]}</span>'
-            f'  </div>'
-            f'  <div class="backlog-desc">{desc}</div>'
-            f'  {tags_html}'
-            f'  <button class="vote-btn">Vote</button>'
-            f'</div>'
-        )
-        backlog_cards.append(card_html)
+        backlog_cards.append(render_backlog_card(item, translations, is_nested=True, vocabulary=vocabulary, tag_name="li"))
 
     empty_note = (
         f'<p style="color: var(--text-ink-muted); margin-top: var(--space-4);">'
-        f'No published articles tagged with <strong>#{tag}</strong> yet.</p>'
-    ) if not cards else ""
+        f'No decodings or pipeline proposals tagged with <strong>#{tag}</strong> yet.</p>'
+    ) if (not cards and not backlog_cards) else ""
 
     pipeline_html = ""
     if backlog_cards:
@@ -789,7 +929,11 @@ def compile_tag_page(
 
     page_html = (
         f'<header class="feed-intro tag-header">'
-        f'  <h1>#{tag}</h1>'
+        f'  <div class="tag-title-row">'
+        f'    <h1>#{tag_name}</h1>'
+        f'    {badge_html}'
+        f'  </div>'
+        f'  {desc_html}'
         f'  <span class="published-count">{len(matching)} article{"s" if len(matching) != 1 else ""} published</span>'
         f'</header>'
         f'{toc_html}'
@@ -800,9 +944,9 @@ def compile_tag_page(
         f'{pipeline_html}'
     )
 
-    page_title = f"#{tag} — The Healthstream"
+    page_title = f"#{tag_name} — The Healthstream"
     html = layout_html.replace("{{title}}", page_title)
-    html = html.replace("{{meta_description}}", f"Articles tagged #{tag} on The Healthstream.")
+    html = html.replace("{{meta_description}}", f"Articles tagged #{tag_name} on The Healthstream.")
     html = html.replace("{{content}}", page_html)
     return html
 
@@ -828,29 +972,7 @@ def compile_backlog_page(
     
     backlog_items = []
     for item in backlog:
-        category_class = f'cat-{item.get("category", "")}' if item.get("category") else ""
-        tag_pills = []
-        for t in item.get("tags", []):
-            tag_pills.append(f'<a href="tags/{t.lower()}.html" class="tag-pill">#{t}</a>')
-        tags_html = f'<div class="card-tags" style="margin-top: var(--space-2);">{"".join(tag_pills)}</div>' if tag_pills else ""
-
-        desc = item["description"]
-        if vocabulary:
-            from compiler.linker import inject_jargon_links
-            desc = inject_jargon_links(desc, vocabulary)
-
-        item_html = (
-            f'<li class="backlog-item {category_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-category="{item.get("category", "")}">'
-            f'  <div class="backlog-header">'
-            f'    <span class="backlog-title">{item["title"]}</span>'
-            f'    <span class="backlog-votes" data-base-votes="{item["votes"]}">{item["votes"]}</span>'
-            f'  </div>'
-            f'  <div class="backlog-desc">{desc}</div>'
-            f'  {tags_html}'
-            f'  <button class="vote-btn">Vote</button>'
-            f'</li>'
-        )
-        backlog_items.append(item_html)
+        backlog_items.append(render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, tag_name="li"))
         
     cta_html = (
         f'<div class="backlog-propose-banner">'
@@ -1187,6 +1309,7 @@ def generate_search_index(
     nodes: List[Dict[str, Any]],
     vocabulary: Dict[str, Any],
     translations: Dict[str, Any],
+    backlog: List[Dict[str, Any]] = None,
 ) -> None:
     """Generates a compressed search_index.json file in the output folder.
 
@@ -1195,10 +1318,12 @@ def generate_search_index(
         nodes: Complete list of article nodes.
         vocabulary: Glossary definitions dictionary.
         translations: Mapped UI translations dictionary.
+        backlog: Optional list of proposed backlog items.
 
     Raises:
         IOError: If writing the search index file fails.
     """
+    import re
     labels = translations.get("en", {})
     index_data = []
 
@@ -1210,18 +1335,54 @@ def generate_search_index(
             "slug": f"{n['slug']}.html",
             "type": "article",
             "category": category_label,
+            "category_type": n["type"],
             "teaser": n["hook_question"],
         })
 
     # 2. Map glossary terms
     for term, details in vocabulary.items():
-        index_data.append({
+        term_slug = slugify(term)
+        phrases_to_check = [term] + details.get("aliases", [])
+        
+        # Check if mentioned in published articles
+        mentioned_in_nodes = False
+        for n in nodes:
+            overview_text = n["reading_modes"]["overview_3min"]
+            deep_dive_text = " ".join([item["body"] for item in n["reading_modes"]["deep_dive"]])
+            combined_text = f"{n['title']} {n['hook_question']} {n['takeaway_pill']} {overview_text} {deep_dive_text}"
+            for phrase in phrases_to_check:
+                pattern = re.compile(r"(?<![\w-])" + re.escape(phrase) + r"(?![\w-])", re.IGNORECASE)
+                if pattern.search(combined_text):
+                    mentioned_in_nodes = True
+                    break
+            if mentioned_in_nodes:
+                break
+                
+        # Check if mentioned in backlog items
+        mentioned_in_backlog = False
+        if not mentioned_in_nodes and backlog:
+            for item in backlog:
+                combined_text = f"{item['title']} {item['description']}"
+                for phrase in phrases_to_check:
+                    pattern = re.compile(r"(?<![\w-])" + re.escape(phrase) + r"(?![\w-])", re.IGNORECASE)
+                    if pattern.search(combined_text):
+                        mentioned_in_backlog = True
+                        break
+                if mentioned_in_backlog:
+                    break
+
+        term_item = {
             "title": term,
-            "slug": f"vocabulary.html#{slugify(term)}",
+            "slug": f"vocabulary/{term_slug}.html",
             "type": "glossary",
             "category": labels.get("nav_vocabulary", "Glossary"),
+            "category_type": "glossary",
             "teaser": details.get("definition", ""),
-        })
+        }
+        if mentioned_in_backlog and not mentioned_in_nodes:
+            term_item["in_pipeline"] = True
+            
+        index_data.append(term_item)
 
     index_path = os.path.join(output_dir, "search_index.json")
     try:

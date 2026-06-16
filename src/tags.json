@@ -1,0 +1,62 @@
+{
+  "biology": {
+    "name": "Biological Circuits",
+    "dimension": "biology",
+    "description": "Biochemical pathways, cellular feedback networks, and systems biology mechanisms governing human physiology."
+  },
+  "lifestyle": {
+    "name": "Lifestyle Practices",
+    "dimension": "lifestyle",
+    "description": "Physiological protocols, daily behaviors, and longevity habits (sleep, exercise, thermal exposure) targeting physical health."
+  },
+  "book": {
+    "name": "Finds & Book Reviews",
+    "dimension": "book",
+    "description": "Syntheses of peer-reviewed books, longevity literature, and consensus clinical guides."
+  },
+  "longevity": {
+    "name": "Healthspan & Lifespan",
+    "dimension": "longevity",
+    "description": "Scientific research, metrics, and protocols aimed at extending human healthspan and cellular vitality."
+  },
+  "metabolism": {
+    "name": "Metabolic Regulation",
+    "dimension": "metabolism",
+    "description": "Biochemical pathways regulating glucose balance, cellular energy sensor kinase cascades, and insulin sensitivity."
+  },
+  "circadian": {
+    "name": "Circadian Biology",
+    "dimension": "circadian",
+    "description": "The endogenous 24-hour clocks governing hormone scheduling, sleep-wake cycles, and peripheral organ timing."
+  },
+  "sleep": {
+    "name": "Sleep Architecture",
+    "dimension": "sleep",
+    "description": "Neurological and homeostatic sleep pressure pathways governing deep and REM sleep recovery cycles."
+  },
+  "exercise": {
+    "name": "Exercise Physiology",
+    "dimension": "exercise",
+    "description": "Cardiorespiratory adaptations, Zone 2 mitochondrial biogenesis, and strength protocols."
+  },
+  "fasting": {
+    "name": "Periodic Fasting",
+    "dimension": "fasting",
+    "description": "Nutritional stress protocols that downregulate insulin, upregulate AMPK, and trigger cellular cleanup."
+  },
+  "mitochondria": {
+    "name": "Mitochondrial Health",
+    "dimension": "mitochondria",
+    "description": "Cellular powerhouses regulating fat oxidation, respiration capacity, and oxidative stress pathways."
+  },
+  "supplements": {
+    "name": "Biomolecule Support",
+    "dimension": "supplements",
+    "description": "Oral cofactors and precursors under investigation for boosting biochemical pathway inputs."
+  },
+  "fgf21": {
+    "name": "FGF21 Signaling",
+    "dimension": "fgf21",
+    "description": "Fibroblast Growth Factor 21; liver-secreted starvation hormone mediating benefits of protein restriction."
+  }
+}

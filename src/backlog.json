@@ -1,26 +1,67 @@
 [
   {
-    "id": "autophagy-kinetics",
-    "title": "Autophagy Kinetics in Prolonged Fasting",
-    "description": "How long do you need to fast to trigger cellular self-clearing mechanisms?",
+    "id": "rise-of-early-onset-cancers",
+    "title": "Rise of Early-Onset Cancers",
+    "description": "Why is the incidence of sporadic, early-onset colorectal and metabolic cancers rising rapidly in adults under 50?",
     "category": "biology",
-    "votes": 124,
-    "tags": ["biology", "metabolism", "fasting"]
+    "votes": 0,
+    "tags": [
+      "biology",
+      "metabolism",
+      "longevity"
+    ],
+    "created_at": "2026-06-15"
   },
   {
-    "id": "nad-precursors",
-    "title": "NAD+ Bioavailability: NMN vs. NR",
-    "description": "An evaluation of metabolic pathway transport differences in oral cofactors.",
+    "id": "vitamin-microbiome-bidirectional-loop",
+    "title": "Vitamin-Microbiome Bidirectional Loop",
+    "description": "How does the gut microbiome produce and interact with dietary and supplementary vitamins to regulate systemic host metabolism?",
     "category": "biology",
-    "votes": 89,
-    "tags": ["biology", "metabolism", "supplements"]
+    "votes": 0,
+    "tags": [
+      "biology",
+      "metabolism",
+      "supplements"
+    ],
+    "created_at": "2026-06-15"
   },
   {
-    "id": "zone-2-physiology",
-    "title": "Zone 2 Mitochondrial Adaptations",
-    "description": "How aerobic base training increases mitochondrial density and fat oxidation capacity.",
+    "id": "periodontal-pathology-and-alzheimers-link",
+    "title": "Periodontal Pathology and Alzheimer's Link",
+    "description": "Does Porphyromonas gingivalis migration from the gum line to the hippocampus drive amyloid-beta, tau, and ubiquitin neurodegeneration?",
+    "category": "biology",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-06-15"
+  },
+  {
+    "id": "vo2max-retention-and-cardiorespiratory-aging",
+    "title": "VO2max Retention and Cardiorespiratory Aging",
+    "description": "How does maintaining exceptionally high cardiorespiratory fitness in multi-marathoners alter the aging trajectory of VO2max and lower all-cause mortality?",
     "category": "lifestyle",
-    "votes": 156,
-    "tags": ["lifestyle", "exercise", "mitochondria"]
+    "votes": 0,
+    "tags": [
+      "lifestyle",
+      "exercise",
+      "longevity"
+    ],
+    "created_at": "2026-06-15"
+  },
+  {
+    "id": "phytochemical-regulation-of-aging-pathways",
+    "title": "Phytochemical Regulation of Aging Pathways",
+    "description": "How do dietary plant compounds (xenohormetic signals like sulforaphane, EGCG, and resveratrol) regulate Nrf2, AMPK, and SIRT1 pathways?",
+    "category": "biology",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "metabolism",
+      "supplements",
+      "longevity"
+    ],
+    "created_at": "2026-06-15"
   }
 ]

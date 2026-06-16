@@ -6,11 +6,12 @@
   <title>{{title}}</title>
   <meta name="description" content="{{meta_description}}">
   <link rel="icon" type="image/png" href="{{base_path}}assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="{{base_path}}style.css?v=1.0.2">
+  <link rel="stylesheet" href="{{base_path}}style.css?v=1.0.3">
 </head>
 <body>
   <script>
     (function() {
+      window.BASE_PATH = "{{base_path}}";
       const savedTheme = localStorage.getItem('theme');
       const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.body.setAttribute('data-theme', theme);
@@ -184,7 +185,7 @@
 
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
-      <div class="content-container fade-in">
+      <div id="main-content" class="content-container fade-in">
         {{content}}
       </div>
       <footer class="global-footer">
