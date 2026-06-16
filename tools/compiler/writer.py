@@ -101,7 +101,11 @@ def render_backlog_card(
     tag_pills = []
     for t in item.get("tags", []):
         tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">#{t}</a>')
-    tags_html = f'<div class="card-tags" style="margin-top: var(--space-2);">{"".join(tag_pills)}</div>' if tag_pills else ""
+    tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
+
+    created_at = item.get("created_at", "2026-06-01")
+    meta_dates_html = f'<div class="card-meta-dates"><span>Proposed: {created_at}</span></div>'
+    footer_html = f'<div class="card-footer-row">{tags_html}{meta_dates_html}</div>'
 
     desc = item["description"]
     if vocabulary:
@@ -109,7 +113,7 @@ def render_backlog_card(
         desc = inject_jargon_links(desc, vocabulary)
 
     card_html = (
-        f'<{tag_name} class="backlog-item backlog-card-compact {category_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-category="{cat}">'
+        f'<{tag_name} class="backlog-item backlog-card-compact {category_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-created="{created_at}" data-category="{cat}" data-votes="{item["votes"]}">'
         f'  <div class="backlog-header">'
         f'    <div class="backlog-title-group">'
         f'      <span class="backlog-title">{item["title"]}</span>'
@@ -122,8 +126,72 @@ def render_backlog_card(
         f'    </button>'
         f'  </div>'
         f'  <div class="backlog-desc">{desc}</div>'
-        f'  {tags_html}'
+        f'  {footer_html}'
         f'</{tag_name}>'
+    )
+    return card_html
+
+
+def render_article_card(
+    node: Dict[str, Any],
+    translations: Dict[str, Any],
+    is_nested: bool = False,
+    vocabulary: Dict[str, Any] = None,
+) -> str:
+    """Renders a published article card HTML in unified flexbox layout format.
+
+    Args:
+        node: The article node dictionary.
+        translations: Translations dictionary.
+        is_nested: True if the file resides in a subdirectory (like tag pages).
+        vocabulary: Optional dictionary of jargon definitions.
+
+    Returns:
+        The rendered HTML markup string.
+    """
+    labels = translations.get("en", {})
+    cat = node.get("type", "")
+    category_label = labels.get(f"category_{cat}", cat).upper()
+    prefix = "../" if is_nested else ""
+    category_url = f"{prefix}category-{cat}.html"
+    article_url = f"{prefix}{node['slug']}.html"
+
+    tag_pills = []
+    for t in (node.get("tags") or []):
+        tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">#{t}</a>')
+    tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
+
+    created_at = node.get("metadata", {}).get("created_at", "2026-06-01")
+    last_audited = node.get("metadata", {}).get("last_audited", created_at)
+
+    meta_dates_html = (
+        f'<div class="card-meta-dates">'
+        f'  <span>Created: {created_at}</span>'
+        f'  <span>&bull;</span>'
+        f'  <span>Updated: {last_audited}</span>'
+        f'</div>'
+    )
+    footer_html = f'<div class="card-footer-row">{tags_html}{meta_dates_html}</div>'
+
+    hook = node["hook_question"]
+    takeaway = node["takeaway_pill"]
+    if vocabulary:
+        from compiler.linker import inject_jargon_links
+        hook = inject_jargon_links(hook, vocabulary)
+        takeaway = inject_jargon_links(takeaway, vocabulary)
+
+    card_html = (
+        f'<div class="feed-card cat-{cat}" data-created="{created_at}" data-title="{node["title"]}" data-category="{cat}">'
+        f'  <h2 class="card-title">'
+        f'    <a href="{article_url}" class="card-title-link">{node["title"]}</a>'
+        f'    <a href="{category_url}" class="category-tag">{category_label}</a>'
+        f'  </h2>'
+        f'  <blockquote class="card-teaser-text qa-takeaway-block">'
+        f'    <span class="qa-question-text">{hook}</span>'
+        f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
+        f'  </blockquote>'
+        f'  {footer_html}'
+        f'</div>'
     )
     return card_html
 
@@ -136,7 +204,7 @@ def compile_category_page(
     vocabulary: Dict[str, Any] = None,
     backlog: List[Dict[str, Any]] = None,
 ) -> str:
-    """Compiles a filtered category index page listing all articles sharing a given category type.
+    """Compiles a filtered category index page listing all articles and backlog pipeline items sharing a given category type.
 
     Args:
         layout_html: Pre-populated master layout HTML.
@@ -152,88 +220,64 @@ def compile_category_page(
     labels = translations.get("en", {})
     category_label = labels.get(f"category_{category_type}", category_type)
 
-    # Filter nodes by type
-    matching = [
+    matching_nodes = [
         n for n in nodes
         if n.get("type") == category_type
     ]
-
-    cards = []
-    for n in sorted(matching, key=lambda x: x["title"]):
-        tag_pills = []
-        for t in n.get("tags", []):
-            tag_pills.append(f'<a href="tags/{t.lower()}.html" class="tag-pill">#{t}</a>')
-        tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
-
-        hook = n["hook_question"]
-        takeaway = n["takeaway_pill"]
-        if vocabulary:
-            from compiler.linker import inject_jargon_links
-            hook = inject_jargon_links(hook, vocabulary)
-            takeaway = inject_jargon_links(takeaway, vocabulary)
-
-        card_html = (
-            f'<div class="feed-card cat-{n["type"]}">'
-            f'  <div class="card-header">'
-            f'    <a href="category-{n["type"]}.html" class="category-tag">{category_label}</a>'
-            f'  </div>'
-            f'  <h2 class="card-title">'
-            f'    <a href="{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
-            f'  </h2>'
-            f'  <blockquote class="card-teaser-text qa-takeaway-block">'
-            f'    <span class="qa-question-text">{hook}</span>'
-            f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
-            f'  </blockquote>'
-            f'  {tags_html}'
-            f'</div>'
-        )
-        cards.append(card_html)
-
-    # Filter matching backlog items
     matching_backlog = [
         item for item in (backlog or [])
         if item.get("category") == category_type
     ]
-    backlog_cards = []
-    for item in sorted(matching_backlog, key=lambda x: x["title"]):
-        backlog_cards.append(render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, tag_name="li"))
+
+    merged = []
+
+    # 1. Process matching article nodes
+    for n in matching_nodes:
+        card_html = render_article_card(n, translations, is_nested=False, vocabulary=vocabulary)
+        created_at = n.get("metadata", {}).get("created_at", "2026-06-01")
+        merged.append((created_at, n["title"].lower(), card_html))
+
+    # 2. Process matching backlog items
+    for item in matching_backlog:
+        card_html = render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, tag_name="div")
+        created_at = item.get("created_at", "2026-06-01")
+        merged.append((created_at, item["title"].lower(), card_html))
+
+    # Sort: alphabetical by title first, then date descending (newest first)
+    merged.sort(key=lambda x: x[1])
+    merged.sort(key=lambda x: x[0], reverse=True)
+
+    rendered_cards = [x[2] for x in merged]
 
     empty_note = (
         f'<p style="color: var(--text-ink-muted); margin-top: var(--space-4);">'
         f'No articles or pipeline proposals in <strong>{category_label}</strong> yet.</p>'
-    ) if (not cards and not backlog_cards) else ""
+    ) if not rendered_cards else ""
 
-    pipeline_html = ""
-    if backlog_cards:
-        pipeline_html = (
-            f'<section id="pipeline-section" class="detail-section pipeline-section">'
-            f'  <h2 class="detail-section-title">In the Pipeline</h2>'
-            f'  <div class="backlog-list" style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">'
-            f'    {"".join(backlog_cards)}'
-            f'  </div>'
-            f'</section>'
-        )
-
-    toc_html = ""
-    if cards and backlog_cards:
-        toc_html = (
-            f'<nav class="article-toc" aria-label="Table of Contents">'
-            f'  <a href="#published-section" class="toc-link active">Published Articles</a>'
-            f'  <a href="#pipeline-section" class="toc-link">In the Pipeline</a>'
-            f'</nav>'
-        )
+    # Count parts
+    count_parts = []
+    count_parts.append(f'{len(matching_nodes)} article{"s" if len(matching_nodes) != 1 else ""} published')
+    if len(matching_backlog):
+        count_parts.append(f'{len(matching_backlog)} in the pipeline')
+    count_text = " &bull; ".join(count_parts)
 
     page_html = (
         f'<header class="feed-intro">'
-        f'  <h1>{category_label}</h1>'
-        f'  <p>{len(matching)} article{"s" if len(matching) != 1 else ""} published</p>'
+        f'  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2);">'
+        f'    <h1 style="margin: 0;">{category_label}</h1>'
+        f'    <div class="feed-sort-container" style="display: flex; align-items: center; gap: var(--space-1); font-size: 0.85rem; color: var(--text-ink-muted);">'
+        f'      <label for="feed-sort-select">Sort by:</label>'
+        f'      <select id="feed-sort-select" style="background-color: var(--bg-surface-alt); border: 1px solid var(--border-color); color: var(--text-ink); border-radius: 6px; padding: 4px 10px; font-family: var(--font-system); font-size: 0.85rem; cursor: pointer; outline: none;">'
+        f'        <option value="newest" selected>Newest First</option>'
+        f'        <option value="oldest">Oldest First</option>'
+        f'        <option value="alpha-asc">Alphabetical (A-Z)</option>'
+        f'        <option value="alpha-desc">Alphabetical (Z-A)</option>'
+        f'      </select>'
+        f'    </div>'
+        f'  </div>'
+        f'  <p style="margin-top: 0; margin-bottom: 0; font-size: 0.95rem; color: var(--text-ink-muted);">{count_text}</p>'
         f'</header>'
-        f'{toc_html}'
-        f'<section id="published-section" class="detail-section">'
-        f'  <h2 class="detail-section-title">Published Articles</h2>'
-        f'  <div class="feed-cards">{"".join(cards)}{empty_note}</div>'
-        f'</section>'
-        f'{pipeline_html}'
+        f'<div class="feed-cards" id="feed-cards-container">{"".join(rendered_cards)}{empty_note}</div>'
     )
 
     page_title = f"{category_label} — The Healthstream"
@@ -265,84 +309,53 @@ def compile_feed_page(
         The complete HTML string for the feed page.
     """
     labels = translations.get("en", {})
-    
-    # Generate chronological cards (sorted by title/slug for determinism in MVP)
-    sorted_nodes = sorted(nodes, key=lambda x: x["title"])
-    cards = []
-    
-    for n in sorted_nodes:
-        category_label = labels.get(f"category_{n['type']}", n["type"])
-        tag_pills = []
-        for t in n.get("tags", []):
-            tag_pills.append(f'<a href="tags/{t.lower()}.html" class="tag-pill">#{t}</a>')
-        tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
+    merged = []
 
-        hook = n["hook_question"]
-        takeaway = n["takeaway_pill"]
-        if vocabulary:
-            from compiler.linker import inject_jargon_links
-            hook = inject_jargon_links(hook, vocabulary)
-            takeaway = inject_jargon_links(takeaway, vocabulary)
+    # 1. Process article nodes
+    for n in nodes:
+        card_html = render_article_card(n, translations, is_nested=False, vocabulary=vocabulary)
+        created_at = n.get("metadata", {}).get("created_at", "2026-06-01")
+        merged.append((created_at, n["title"].lower(), card_html))
 
-        card_html = (
-            f'<div class="feed-card cat-{n["type"]}">'
-            f'  <div class="card-header">'
-            f'    <a href="category-{n["type"]}.html" class="category-tag">{category_label}</a>'
-            f'  </div>'
-            f'  <h2 class="card-title">'
-            f'    <a href="{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
-            f'  </h2>'
-            f'  <blockquote class="card-teaser-text qa-takeaway-block">'
-            f'    <span class="qa-question-text">{hook}</span>'
-            f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
-            f'  </blockquote>'
-            f'  {tags_html}'
-            f'</div>'
-        )
-        cards.append(card_html)
+    # 2. Process backlog items
+    if backlog:
+        for item in backlog:
+            card_html = render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, tag_name="div")
+            created_at = item.get("created_at", "2026-06-01")
+            merged.append((created_at, item["title"].lower(), card_html))
 
-    backlog_cards = []
-    for item in sorted(backlog or [], key=lambda x: x["title"]):
-        backlog_cards.append(render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, tag_name="li"))
+    # Sort: alphabetical by title first, then date descending (newest first)
+    merged.sort(key=lambda x: x[1])
+    merged.sort(key=lambda x: x[0], reverse=True)
 
-    pipeline_html = ""
-    if backlog_cards:
-        pipeline_html = (
-            f'<section id="pipeline-section" class="detail-section pipeline-section">'
-            f'  <h2 class="detail-section-title">In the Pipeline</h2>'
-            f'  <div class="backlog-list" style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">'
-            f'    {"".join(backlog_cards)}'
-            f'  </div>'
-            f'</section>'
-        )
+    rendered_cards = [x[2] for x in merged]
 
-    toc_html = ""
-    if cards and backlog_cards:
-        toc_html = (
-            f'<nav class="article-toc" aria-label="Table of Contents">'
-            f'  <a href="#published-section" class="toc-link active">Published Articles</a>'
-            f'  <a href="#pipeline-section" class="toc-link">In the Pipeline</a>'
-            f'</nav>'
-        )
-        
     intro_html = (
         f'<header class="feed-intro">'
-        f'  <h1>{labels.get("feed_title", "Chronological Stream")}</h1>'
-        f'  <p>{labels.get("site_tagline", "Systems Biology Content Hub")}</p>'
+        f'  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2);">'
+        f'    <h1 style="margin: 0;">{labels.get("feed_title", "Topics")}</h1>'
+        f'    <div class="feed-sort-container" style="display: flex; align-items: center; gap: var(--space-1); font-size: 0.85rem; color: var(--text-ink-muted);">'
+        f'      <label for="feed-sort-select">Sort by:</label>'
+        f'      <select id="feed-sort-select" style="background-color: var(--bg-surface-alt); border: 1px solid var(--border-color); color: var(--text-ink); border-radius: 6px; padding: 4px 10px; font-family: var(--font-system); font-size: 0.85rem; cursor: pointer; outline: none;">'
+        f'        <option value="newest" selected>Newest First</option>'
+        f'        <option value="oldest">Oldest First</option>'
+        f'        <option value="alpha-asc">Alphabetical (A-Z)</option>'
+        f'        <option value="alpha-desc">Alphabetical (Z-A)</option>'
+        f'      </select>'
+        f'    </div>'
+        f'  </div>'
+        f'  <p style="margin-top: 0; margin-bottom: 0;">{labels.get("site_tagline", "Systems Biology Content Hub")}</p>'
         f'</header>'
-        f'{toc_html}'
-        f'<section id="published-section" class="detail-section">'
-        f'  <h2 class="detail-section-title">Published Articles</h2>'
-        f'  <div class="feed-cards">{"".join(cards)}</div>'
-        f'</section>'
-        f'{pipeline_html}'
+        f'<div class="feed-cards" id="feed-cards-container">'
+        f'  {"".join(rendered_cards)}'
+        f'</div>'
     )
-    
+
     # Fill in slots
     html = layout_html.replace("{{title}}", f"{labels.get('site_title', 'The Healthstream')} — Systems Biology Reference")
     html = html.replace("{{meta_description}}", labels.get("site_tagline", ""))
     html = html.replace("{{content}}", intro_html)
-    
+
     # Inject Organization JSON-LD Schema
     org_schema = """<script type="application/ld+json">
 {
@@ -392,6 +405,12 @@ def compile_detail_page(
     rationale = er["rationale"]
     grade_lower = grade.lower()
     
+    # 2. GRADE Evidence Block & Popover details
+    er = node["epistemic_rating"]
+    grade = er["grade"]
+    rationale = er["rationale"]
+    grade_lower = grade.lower()
+    
     debates_html = ""
     if er.get("debate_sides"):
         debate_items = []
@@ -405,16 +424,16 @@ def compile_detail_page(
             debate_items.append(item)
         debates_html = (
             f'<div class="grade-debates">'
-            f'  <span class="debates-title">Key Scientific Debates</span>'
+            f'  <h3 class="debates-title">Key Scientific Debates</h3>'
             f'  <ul class="debates-list">'
             f'    {"".join(debate_items)}'
             f'  </ul>'
             f'</div>'
         )
 
-    debate_link = ""
+    debate_link_html = ""
     if er.get("debate_sides"):
-        debate_link = f' <a href="#evidence-section" class="popover-debate-link" style="color: var(--accent-synapse); text-decoration: none; font-weight: 600; margin-left: 4px;">debates</a>'
+        debate_link_html = f' <a href="#evidence-section" class="popover-debate-link" style="color: var(--accent-synapse); text-decoration: none; font-weight: 600; margin-left: 4px;">debates</a>'
 
     grade_popover_html = (
         f'<div class="detail-grade-container">'
@@ -428,14 +447,14 @@ def compile_detail_page(
         f'    </svg>'
         f'  </button>'
         f'  <div class="grade-popover-card" id="grade-popover" role="dialog" aria-label="Evidence Grade Details">'
-        f'    <div class="grade-popover-header" style="display:flex; align-items:center; justify-content:flex-end; margin-bottom:var(--space-2);">'
+        f'    <div class="grade-popover-header" style="display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid var(--border-color); padding-bottom:var(--space-1); margin-bottom:var(--space-2);">'
+        f'      <strong style="color:var(--text-ink);">Evidence Grade: {grade}</strong>'
         f'      <button class="grade-popover-close" aria-label="Close details" style="background:none; border:none; color:var(--text-ink-muted); font-size:1.2rem; cursor:pointer; padding:0; line-height:1;">&times;</button>'
         f'    </div>'
-        f'    <p class="grade-popover-rationale" style="margin:0 0 var(--space-2) 0; font-size:0.82rem; line-height:1.4;">'
-        f'      <strong>Rationale:</strong> {rationale}{debate_link}'
+        f'    <p class="grade-popover-note" style="margin:0 0 var(--space-2) 0; font-size:0.82rem; line-height:1.4; color:var(--text-ink);">'
+        f'      The GRADE system is a standardized framework for rating the quality of scientific evidence from High to Very Low.{debate_link_html}'
         f'      <a href="#evidence-section" class="popover-more-link" style="color: var(--accent-synapse); text-decoration: none; font-weight: 600; margin-left: 4px;">more...</a>'
         f'    </p>'
-        f'    {debates_html}'
         f'    <div class="grade-popover-links" style="margin-top: var(--space-2); display: flex; gap: var(--space-3); font-size: 0.8rem; margin-bottom: var(--space-2); border-top: 1px dashed var(--border-color); padding-top: var(--space-2);">'
         f'      <a href="vocabulary/evidence-grade.html" class="popover-glossary-link" style="color: var(--accent-synapse); text-decoration: none; font-weight: 600;">GRADE Rating Methodology &rarr;</a>'
         f'    </div>'
@@ -465,6 +484,21 @@ def compile_detail_page(
     )
     
     # 4. Evidence Row-List (Tabular Middle-Ground, Responsive)
+    grade_details_card = (
+        f'<div class="evidence-grade-details-card grade-{grade_lower}">'
+        f'  <div class="evidence-grade-details-header" style="display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid var(--border-color); padding-bottom:var(--space-2); margin-bottom:var(--space-3);">'
+        f'    <strong style="color:var(--text-ink); font-size: 1.1rem;">GRADE Evidence Rating</strong>'
+        f'    <span class="detail-grade-badge grade-{grade_lower}">{grade}</span>'
+        f'  </div>'
+        f'  <p class="evidence-grade-rationale" style="margin:0 0 var(--space-3) 0; font-size: 0.95rem; line-height: 1.6;"><strong>Rationale:</strong> {rationale}</p>'
+        f'  {debates_html}'
+        f'  <div class="evidence-grade-note" style="font-size:0.75rem; color:var(--text-ink-muted); border-top:1px dashed var(--border-color); padding-top:var(--space-2); margin-top:var(--space-2);">'
+        f'    The GRADE (Grading of Recommendations, Assessment, Development, and Evaluation) system is a standardized framework for rating the quality of scientific evidence. '
+        f'    Ratings scale from High to Very Low quality.'
+        f'  </div>'
+        f'</div>'
+    )
+
     evidence_items = []
     for item in node.get("evidence_table", []):
         meta_parts = []
@@ -490,21 +524,21 @@ def compile_detail_page(
     evidence_list_html = ""
     if evidence_items:
         evidence_list_html = (
-            f'<div class="evidence-list">'
+            f'<div class="evidence-list" style="margin-top: var(--space-4);">'
+            f'  <h3 class="evidence-subtitle" style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--space-3);">Primary Sources &amp; Clinical Studies</h3>'
             f'  {"".join(evidence_items)}'
             f'</div>'
         )
 
-    accordion_html = ""
-    if evidence_list_html:
-        accordion_html = (
-            f'<section class="evidence-section detail-section" id="evidence-section">'
-            f'  <h2 class="evidence-title">{labels.get("evidence_accordion_title", "Evidence & Studies")}</h2>'
-            f'  <div class="evidence-content">'
-            f'    {evidence_list_html}'
-            f'  </div>'
-            f'</section>'
-        )
+    accordion_html = (
+        f'<section class="evidence-section detail-section" id="evidence-section">'
+        f'  <h2 class="evidence-title">{labels.get("evidence_accordion_title", "Evidence, Studies &amp; Debates")}</h2>'
+        f'  <div class="evidence-content">'
+        f'    {grade_details_card}'
+        f'    {evidence_list_html}'
+        f'  </div>'
+        f'</section>'
+    )
     
     # 5. Directed Connections Links Block (Systemic Circuit Integration)
     connections_html = ""
@@ -851,7 +885,6 @@ def compile_tag_page(
         tag_desc = reg.get("description", "")
         tag_dim = reg.get("dimension", "")
 
-    badge_html = f'<span class="tag-dimension-badge dim-{tag_dim}">{tag_dim}</span>' if tag_dim else ""
     desc_html = f'<p class="tag-description" style="color: var(--text-ink-muted); margin-top: var(--space-2);">{tag_desc}</p>' if tag_desc else ""
 
     # Filter nodes that contain this tag (case-insensitive match)
@@ -859,89 +892,66 @@ def compile_tag_page(
         n for n in nodes
         if any(t.lower() == tag.lower() for t in n.get("tags", []))
     ]
-
-    cards = []
-    for n in sorted(matching, key=lambda x: x["title"]):
-        category_label = labels.get(f"category_{n['type']}", n["type"])
-        tag_pills = []
-        for t in n.get("tags", []):
-            tag_pills.append(f'<a href="{t.lower()}.html" class="tag-pill">#{t}</a>')
-        tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
-
-        hook = n["hook_question"]
-        takeaway = n["takeaway_pill"]
-        if vocabulary:
-            from compiler.linker import inject_jargon_links
-            hook = inject_jargon_links(hook, vocabulary)
-            takeaway = inject_jargon_links(takeaway, vocabulary)
-
-        card_html = (
-            f'<div class="feed-card cat-{n["type"]}">'
-            f'  <div class="card-header">'
-            f'    <a href="../category-{n["type"]}.html" class="category-tag">{category_label}</a>'
-            f'  </div>'
-            f'  <h2 class="card-title">'
-            f'    <a href="../{n["slug"]}.html" class="card-title-link">{n["title"]}</a>'
-            f'  </h2>'
-            f'  <blockquote class="card-teaser-text qa-takeaway-block">'
-            f'    <span class="qa-question-text">{hook}</span>'
-            f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
-            f'  </blockquote>'
-            f'  {tags_html}'
-            f'</div>'
-        )
-        cards.append(card_html)
-
-    # Filter backlog items that contain this tag (case-insensitive match)
     matching_backlog = [
         item for item in (backlog or [])
         if any(t.lower() == tag.lower() for t in item.get("tags", []))
     ]
 
-    backlog_cards = []
-    for item in sorted(matching_backlog, key=lambda x: x["title"]):
-        backlog_cards.append(render_backlog_card(item, translations, is_nested=True, vocabulary=vocabulary, tag_name="li"))
+    merged = []
+
+    # 1. Process matching article nodes
+    for n in matching:
+        card_html = render_article_card(n, translations, is_nested=True, vocabulary=vocabulary)
+        created_at = n.get("metadata", {}).get("created_at", "2026-06-01")
+        merged.append((created_at, n["title"].lower(), card_html))
+
+    # 2. Process matching backlog items
+    for item in matching_backlog:
+        card_html = render_backlog_card(item, translations, is_nested=True, vocabulary=vocabulary, tag_name="div")
+        created_at = item.get("created_at", "2026-06-01")
+        merged.append((created_at, item["title"].lower(), card_html))
+
+    # Sort: alphabetical by title first, then date descending (newest first)
+    merged.sort(key=lambda x: x[1])
+    merged.sort(key=lambda x: x[0], reverse=True)
+
+    rendered_cards = [x[2] for x in merged]
 
     empty_note = (
         f'<p style="color: var(--text-ink-muted); margin-top: var(--space-4);">'
-        f'No decodings or pipeline proposals tagged with <strong>#{tag}</strong> yet.</p>'
-    ) if (not cards and not backlog_cards) else ""
+        f'No decodings or pipeline proposals tagged with <strong>#{tag_name}</strong> yet.</p>'
+    ) if not rendered_cards else ""
 
-    pipeline_html = ""
-    if backlog_cards:
-        pipeline_html = (
-            f'<section id="pipeline-section" class="detail-section pipeline-section">'
-            f'  <h2 class="detail-section-title">In the Pipeline</h2>'
-            f'  <div class="backlog-list" style="display: flex; flex-direction: column; gap: var(--space-3); list-style: none; padding: 0;">'
-            f'    {"".join(backlog_cards)}'
-            f'  </div>'
-            f'</section>'
-        )
+    # Count parts
+    count_parts = []
+    count_parts.append(f'{len(matching)} article{"s" if len(matching) != 1 else ""} published')
+    if len(matching_backlog):
+        count_parts.append(f'{len(matching_backlog)} in the pipeline')
+    count_text = " &bull; ".join(count_parts)
 
-    toc_html = ""
-    if cards and backlog_cards:
-        toc_html = (
-            f'<nav class="article-toc" aria-label="Table of Contents">'
-            f'  <a href="#published-section" class="toc-link active">Published Articles</a>'
-            f'  <a href="#pipeline-section" class="toc-link">In the Pipeline</a>'
-            f'</nav>'
-        )
+    # Sorting dropdown
+    sort_dropdown_html = (
+        f'<div class="feed-sort-container" style="display: flex; align-items: center; gap: var(--space-1); font-size: 0.85rem; color: var(--text-ink-muted);">'
+        f'  <label for="feed-sort-select">Sort by:</label>'
+        f'  <select id="feed-sort-select" style="background-color: var(--bg-surface-alt); border: 1px solid var(--border-color); color: var(--text-ink); border-radius: 6px; padding: 4px 10px; font-family: var(--font-system); font-size: 0.85rem; cursor: pointer; outline: none;">'
+        f'    <option value="newest" selected>Newest First</option>'
+        f'    <option value="oldest">Oldest First</option>'
+        f'    <option value="alpha-asc">Alphabetical (A-Z)</option>'
+        f'    <option value="alpha-desc">Alphabetical (Z-A)</option>'
+        f'  </select>'
+        f'</div>'
+    )
 
     page_html = (
         f'<header class="feed-intro tag-header">'
-        f'  <div class="tag-title-row">'
-        f'    <h1>#{tag_name}</h1>'
-        f'    {badge_html}'
+        f'  <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); margin-bottom: var(--space-2);">'
+        f'    <h1 style="margin: 0;">#{tag_name}</h1>'
+        f'    {sort_dropdown_html}'
         f'  </div>'
         f'  {desc_html}'
-        f'  <span class="published-count">{len(matching)} article{"s" if len(matching) != 1 else ""} published</span>'
+        f'  <span class="published-count" style="font-size: 0.95rem; color: var(--text-ink-muted);">{count_text}</span>'
         f'</header>'
-        f'{toc_html}'
-        f'<section id="published-section" class="detail-section">'
-        f'  <h2 class="detail-section-title">Published Articles</h2>'
-        f'  <div class="feed-cards">{"".join(cards)}{empty_note}</div>'
-        f'</section>'
-        f'{pipeline_html}'
+        f'<div class="feed-cards" id="feed-cards-container">{"".join(rendered_cards)}{empty_note}</div>'
     )
 
     page_title = f"#{tag_name} — The Healthstream"

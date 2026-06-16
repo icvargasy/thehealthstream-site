@@ -1,5 +1,21 @@
 [
   {
+    "title": "AMPK Cellular Energy Switch",
+    "slug": "ampk-activation.html",
+    "type": "article",
+    "category": "Biological Circuits",
+    "category_type": "biology",
+    "teaser": "Does constant snacking permanently lock our metabolic switches in storage mode?"
+  },
+  {
+    "title": "Circadian Light & Sleep Optimization",
+    "slug": "circadian-sleep-protocol.html",
+    "type": "article",
+    "category": "Lifestyle Practices",
+    "category_type": "lifestyle",
+    "teaser": "Can dim screen glow after sunset confuse our ancient biological clocks?"
+  },
+  {
     "title": "Outlive: Science & Art of Longevity",
     "slug": "outlive-longevity-summary.html",
     "type": "article",
