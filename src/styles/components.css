@@ -2657,3 +2657,276 @@ a.pipeline-badge:hover {
   font-size: 0.75rem;
   color: var(--text-ink-muted);
 }
+
+/* -----------------------------------------------------------------------
+ * Migrated Inline Styles (previously writer.py style="" attributes)
+ * ----------------------------------------------------------------------- */
+
+/* Feed + category page title (H1 inside .page-intro-row) */
+.page-title {
+  margin: 0;
+}
+
+/* Empty state notice below feed/tag/category grids */
+.page-empty-note {
+  color: var(--text-ink-muted);
+  margin-top: var(--space-4);
+}
+
+/* Feed sort dropdown row */
+.feed-sort-container {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  font-size: 0.85rem;
+  color: var(--text-ink-muted);
+}
+
+.feed-sort-select {
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-color);
+  color: var(--text-ink);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  cursor: pointer;
+  outline: none;
+}
+
+/* Feed page tagline */
+.feed-tagline {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* Grade popover card internals */
+.grade-popover-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
+}
+
+.grade-popover-header strong {
+  color: var(--text-ink);
+}
+
+.grade-popover-close {
+  background: none;
+  border: none;
+  color: var(--text-ink-muted);
+  font-size: 1.2rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.grade-popover-note {
+  margin: 0 0 var(--space-2) 0;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--text-ink);
+}
+
+.popover-debate-link,
+.popover-more-link {
+  color: var(--accent-synapse);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+}
+
+.grade-popover-links {
+  margin-top: var(--space-2);
+  display: flex;
+  gap: var(--space-3);
+  font-size: 0.8rem;
+  margin-bottom: var(--space-2);
+  border-top: 1px dashed var(--border-color);
+  padding-top: var(--space-2);
+}
+
+.popover-glossary-link {
+  color: var(--accent-synapse);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* Info icon inside grade badge */
+.info-icon {
+  margin-left: 3px;
+  vertical-align: middle;
+}
+
+/* Evidence grade details header */
+.evidence-grade-details-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.evidence-grade-details-header strong {
+  color: var(--text-ink);
+  font-size: 1.1rem;
+}
+
+/* Evidence section subtitles */
+.evidence-subtitle {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  margin-bottom: var(--space-3);
+}
+
+/* Evidence list wrapper */
+.evidence-list {
+  margin-top: var(--space-4);
+}
+
+/* Detail page header meta row (tags + grade badge) */
+.detail-header-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+}
+
+.detail-tags {
+  margin-top: 0;
+}
+
+/* Category tag link on detail page header */
+.category-tag {
+  display: inline-block;
+  margin-bottom: var(--space-2);
+}
+
+/* Vocabulary detail page */
+.vocab-detail-page {
+  padding: var(--space-2) 0;
+}
+
+.vocab-detail-page header {
+  margin-bottom: var(--space-4);
+}
+
+.vocab-back-link {
+  font-size: 0.85rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-synapse);
+  margin-bottom: var(--space-3);
+  text-decoration: none;
+}
+
+.vocab-definition {
+  font-size: 1.1rem;
+  line-height: 1.65;
+  color: var(--text-ink);
+  max-width: 68ch;
+  margin-top: var(--space-3);
+}
+
+/* Vocabulary mentions block */
+.vocab-detail-mentions {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--border-color);
+}
+
+.vocab-detail-mentions h3 {
+  font-family: var(--font-body);
+  font-size: var(--font-size-label);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.vocab-mentions-list {
+  padding-left: var(--space-3);
+  line-height: 1.6;
+  list-style-type: square;
+  color: var(--text-ink-muted);
+}
+
+.vocab-mentions-list li {
+  margin-bottom: 0;
+}
+
+.vocab-mention-link {
+  font-weight: 600;
+  color: var(--accent-synapse);
+  text-decoration: none;
+}
+
+/* Vocabulary citations block */
+.vocab-detail-citations {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px dashed var(--border-color);
+}
+
+.vocab-detail-citations h4 {
+  font-family: var(--font-body);
+  font-size: var(--font-size-label);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-ink-muted);
+  margin-bottom: var(--space-2);
+}
+
+.vocab-detail-citations ul {
+  padding-left: var(--space-3);
+  line-height: 1.6;
+  list-style-type: decimal;
+  color: var(--text-ink-muted);
+  font-size: 0.9rem;
+}
+
+.vocab-detail-citations a {
+  color: var(--accent-synapse);
+  text-decoration: none;
+}
+
+/* Vocabulary card title */
+.vocab-title {
+  font-family: var(--font-body);
+  font-weight: 700;
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+/* Vocabulary teaser text */
+.vocab-teaser {
+  margin-top: var(--space-1);
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  color: var(--text-ink-muted);
+}
+
+/* Tag page description */
+.tag-description {
+  color: var(--text-ink-muted);
+  margin-top: var(--space-2);
+}
+
+/* Contact/proposal form message visibility */
+.form-message {
+  display: none;
+}
+
+/* Article body text margin in static pages */
+.article-body-text {
+  margin-bottom: var(--space-4);
+}

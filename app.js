@@ -150,8 +150,8 @@ function initializeJargonPopovers() {
       e.stopPropagation();
       const definition = term.getAttribute("data-definition") || "";
       const slug = term.getAttribute("data-slug") || "";
-      const isSubdir = window.location.pathname.includes("/tags/") || window.location.pathname.includes("/vocabulary/");
-      const href = isSubdir ? `../vocabulary/${slug}.html` : `vocabulary/${slug}.html`;
+      const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
+      const href = `${basePath}vocabulary/${slug}.html`;
 
       popover.innerHTML = `
         <div class="popover-def">${definition}</div>
@@ -1011,23 +1011,18 @@ function initializeScrollingAndHash() {
 
     // 1. Lock window/body scroll to (0,0) so browser's native target element focus / hash jumps
     // don't scroll the body off-screen, cutting off the global header.
-    if (!window.__windowScrollLockRegistered) {
-      window.__windowScrollLockRegistered = true;
-      window.addEventListener("scroll", () => {
-        if (window.scrollY !== 0 || window.scrollX !== 0) {
-          if (typeof window.scrollTo === "function") {
-            window.scrollTo(0, 0);
-          }
+    window.addEventListener("scroll", () => {
+      if (window.scrollY !== 0 || window.scrollX !== 0) {
+        if (typeof window.scrollTo === "function") {
+          window.scrollTo(0, 0);
         }
-      });
-    }
+      }
+    });
 
     // 2. Intercept click events on local hash anchor links (where href starts with #),
     // smooth scroll #reading-pane to target, and update history hash without scrolling the window.
     // Skip TOC links and popover-more links because they are handled separately or we want custom behavior.
-    if (!window.__hashClickInterceptRegistered) {
-      window.__hashClickInterceptRegistered = true;
-      document.addEventListener("click", (e) => {
+    document.addEventListener("click", (e) => {
         const freshReadingPane = document.getElementById("reading-pane");
         if (!freshReadingPane) return;
 
@@ -1058,7 +1053,6 @@ function initializeScrollingAndHash() {
           }
         }
       });
-    }
 
     // 3. Inspect window.location.hash on page load, reset window scroll, and scroll #reading-pane to the target element.
     if (window.location.hash) {

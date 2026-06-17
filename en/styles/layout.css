@@ -186,3 +186,26 @@ body.left-collapsed #sidebar,
     padding: var(--space-3);
   }
 }
+
+/* -----------------------------------------------------------------------
+ * Layout Utility Classes
+ * Replaces repeated inline style="" attributes in compiler-generated output
+ * ----------------------------------------------------------------------- */
+
+/* Flex row used across feed, category, and tag page headers */
+.page-intro-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+
+/* Subtitle/count line below page headers */
+.page-count-text {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-size: 0.95rem;
+  color: var(--text-ink-muted);
+}
