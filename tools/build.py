@@ -5,9 +5,11 @@ jargon reference injections, HTML page generations, and asset outputs.
 """
 
 import os
+import re
 import sys
+from typing import Any, Dict, List
 from compiler.reader import load_json_file, load_and_validate_all_nodes
-from compiler.linker import inject_jargon_links
+from compiler.linker import inject_jargon_links, slugify
 from compiler.writer import (
     compile_base_layout,
     compile_feed_page,
@@ -22,6 +24,64 @@ from compiler.writer import (
     generate_robots_txt,
     generate_search_index,
 )
+
+
+def _build_mentions_map(
+    nodes: List[Dict[str, Any]],
+    backlog: List[Dict[str, Any]],
+    vocabulary: Dict[str, Any],
+) -> Dict[str, List[Dict[str, Any]]]:
+    """Builds a mapping from each vocabulary term to all articles and backlog items that mention it.
+
+    This single-pass computation replaces three separate O(N²) scans that
+    previously ran independently in compile_vocabulary_page, compile_vocabulary_detail_page,
+    and generate_search_index.
+
+    Args:
+        nodes: Validated article node list.
+        backlog: Backlog proposal list.
+        vocabulary: Jargon glossary dictionary.
+
+    Returns:
+        Dict mapping term → list of mention dicts with keys 'title', 'slug', 'type',
+        and optionally 'in_pipeline' (bool, True for backlog items).
+    """
+    mentions: Dict[str, List[Dict[str, Any]]] = {term: [] for term in vocabulary.keys()}
+
+    for n in nodes:
+        overview_text = n["reading_modes"]["overview_3min"]
+        deep_dive_text = " ".join([item["body"] for item in n["reading_modes"]["deep_dive"]])
+        combined_text = f"{n['title']} {n['hook_question']} {n['takeaway_pill']} {overview_text} {deep_dive_text}"
+        for term, details in vocabulary.items():
+            phrases_to_check = [term] + details.get("aliases", [])
+            matched = any(
+                re.search(r"(?<![-\w])" + re.escape(phrase) + r"(?![-\w])", combined_text, re.IGNORECASE)
+                for phrase in phrases_to_check
+            )
+            if matched:
+                mentions[term].append({
+                    "title": n["title"],
+                    "slug": f"{n['slug']}.html",
+                    "type": n["type"]
+                })
+
+    for item in (backlog or []):
+        combined_text = f"{item['title']} {item['description']}"
+        for term, details in vocabulary.items():
+            phrases_to_check = [term] + details.get("aliases", [])
+            matched = any(
+                re.search(r"(?<![-\w])" + re.escape(phrase) + r"(?![-\w])", combined_text, re.IGNORECASE)
+                for phrase in phrases_to_check
+            )
+            if matched:
+                mentions[term].append({
+                    "title": item["title"],
+                    "slug": f"backlog.html#{item['id']}",
+                    "type": item["category"],
+                    "in_pipeline": True
+                })
+
+    return mentions
 
 
 def run_build() -> None:
@@ -93,6 +153,10 @@ def run_build() -> None:
     # Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
 
+    # Pre-compute the vocabulary mention graph ONCE (avoids 3× redundant O(N²) scans)
+    print("Computing vocabulary mention graph...")
+    mentions = _build_mentions_map(nodes, backlog, vocabulary)
+
     # 4. Compile index.html (Feed Page)
     print("Compiling feed page (index.html)...")
     base_layout_feed = compile_base_layout(
@@ -127,6 +191,7 @@ def run_build() -> None:
         translations=translations,
         nodes=nodes,
         backlog=backlog,
+        mentions=mentions,
     )
     with open(os.path.join(output_dir, "vocabulary.html"), "w", encoding="utf-8") as f:
         f.write(vocab_page_html)
@@ -136,47 +201,7 @@ def run_build() -> None:
     vocab_dest_dir = os.path.join(output_dir, "vocabulary")
     os.makedirs(vocab_dest_dir, exist_ok=True)
     
-    # Calculate mentions map for terms
-    import re
-    from compiler.linker import slugify
     from compiler.writer import compile_vocabulary_detail_page
-    mentions = {term: [] for term in vocabulary.keys()}
-    for n in nodes:
-        overview_text = n["reading_modes"]["overview_3min"]
-        deep_dive_text = " ".join([item["body"] for item in n["reading_modes"]["deep_dive"]])
-        combined_text = f"{n['title']} {n['hook_question']} {n['takeaway_pill']} {overview_text} {deep_dive_text}"
-        for term, details in vocabulary.items():
-            phrases_to_check = [term] + details.get("aliases", [])
-            matched = False
-            for phrase in phrases_to_check:
-                pattern = re.compile(r"(?<![\w-])" + re.escape(phrase) + r"(?![\w-])", re.IGNORECASE)
-                if pattern.search(combined_text):
-                    matched = True
-                    break
-            if matched:
-                mentions[term].append({
-                    "title": n["title"],
-                    "slug": f"{n['slug']}.html",
-                    "type": n["type"]
-                })
-
-    for item in (backlog or []):
-        combined_text = f"{item['title']} {item['description']}"
-        for term, details in vocabulary.items():
-            phrases_to_check = [term] + details.get("aliases", [])
-            matched = False
-            for phrase in phrases_to_check:
-                pattern = re.compile(r"(?<![\w-])" + re.escape(phrase) + r"(?![\w-])", re.IGNORECASE)
-                if pattern.search(combined_text):
-                    matched = True
-                    break
-            if matched:
-                mentions[term].append({
-                    "title": item["title"],
-                    "slug": f"backlog.html#{item['id']}",
-                    "type": item["category"],
-                    "in_pipeline": True
-                })
 
     for term, vocab_item in vocabulary.items():
         slug = slugify(term)
@@ -443,10 +468,11 @@ def run_build() -> None:
     print("Copying script and style assets to the output folder...")
     copy_static_assets(output_dir)
 
-    # 12. Generate SEO Sitemap (includes tag pages)
+    # 12. Generate SEO Sitemap (includes tag, category, and vocabulary pages)
     print("Generating sitemap.xml...")
     site_url = translations.get("en", {}).get("site_url", "https://varga.github.io/thehealthstream").rstrip("/")
-    generate_sitemap(output_dir, nodes, list(seen_tags.keys()), site_url)
+    vocab_slugs = [slugify(term) for term in vocabulary.keys()]
+    generate_sitemap(output_dir, nodes, list(seen_tags.keys()), site_url, vocab_slugs=vocab_slugs)
     
     # 12. Generate robots.txt
     print("Generating robots.txt...")
@@ -454,7 +480,7 @@ def run_build() -> None:
 
     # 13. Generate Search Index
     print("Generating search_index.json...")
-    generate_search_index(output_dir, nodes, vocabulary, translations, backlog)
+    generate_search_index(output_dir, nodes, vocabulary, translations, backlog, mentions=mentions)
 
     print("\n==================================================")
     print("   [Success] Site Compiled Successfully to en/   ")
