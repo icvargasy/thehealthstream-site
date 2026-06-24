@@ -788,7 +788,7 @@ def compile_vocabulary_detail_page(
     if analogy:
         analogy_html = (
             f'<div class="vocab-analogy">'
-            f'  <span class="vocab-analogy-label">Mechanical Metaphor:</span>'
+            f'  <span class="vocab-analogy-label">Systems Analogy</span>'
             f'  <p>{analogy}</p>'
             f'</div>'
         )

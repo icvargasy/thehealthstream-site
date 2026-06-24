@@ -385,7 +385,7 @@ a.category-tag {
 
 /* Curiosity Hook / Question */
 .card-teaser-text {
-  border-left: 2px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
   padding-left: var(--space-2);
   pointer-events: none;
   margin: 0;
@@ -1472,7 +1472,7 @@ body[data-theme="dark"] .connection-link.conn-cat-book:hover {
   flex-basis: 100%;
   margin-top: 4px;
   padding-left: var(--space-3);
-  border-left: 2px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
 }
 
 /* Global Footer & Medical Disclaimer */
@@ -2506,25 +2506,27 @@ a.pipeline-badge:hover {
 
 /* Detail Page Takeaway block modifier */
 .detail-takeaway-block {
-  background: none;
-  border: none;
-  border-left: 3px solid var(--accent-synapse);
-  border-radius: 0;
-  padding: 0 0 0 var(--space-2);
-  margin-top: var(--space-3);
+  background-color: var(--selected-bg);
+  border: 1px solid var(--selected-border);
+  border-radius: var(--radius-button);
+  padding: var(--space-3) var(--space-4);
+  margin-top: var(--space-4);
   margin-bottom: var(--space-4);
   display: block; /* Normal block flow, no line clamping */
 }
 
 /* Category-specific overrides for detail page takeaway block */
 .article-detail.cat-biology .detail-takeaway-block {
-  border-left-color: var(--accent-biology);
+  background-color: oklch(0.55 0.18 250 / 0.06);
+  border-color: oklch(0.55 0.18 250 / 0.25);
 }
 .article-detail.cat-lifestyle .detail-takeaway-block {
-  border-left-color: var(--accent-lifestyle);
+  background-color: oklch(0.62 0.15 140 / 0.06);
+  border-color: oklch(0.62 0.15 140 / 0.25);
 }
 .article-detail.cat-book .detail-takeaway-block {
-  border-left-color: var(--accent-book);
+  background-color: oklch(0.70 0.16 75 / 0.06);
+  border-color: oklch(0.70 0.16 75 / 0.25);
 }
 
 /* Global target scroll offset to clear floating headers */
@@ -2894,8 +2896,15 @@ a.pipeline-badge:hover {
 }
 
 .vocab-detail-citations a {
-  color: var(--accent-synapse);
+  color: var(--color-citation);
   text-decoration: none;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.vocab-detail-citations a:hover {
+  color: var(--color-citation-hover);
+  text-decoration: underline;
 }
 
 /* Vocabulary card title */
@@ -2979,9 +2988,9 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   margin-top: var(--space-4);
   margin-bottom: var(--space-4);
   padding: var(--space-3) var(--space-4);
-  background-color: var(--bg-surface-alt);
-  border-left: 3px solid var(--accent-synapse);
-  border-radius: 4px;
+  background-color: var(--selected-bg);
+  border: 1px solid var(--selected-border);
+  border-radius: var(--radius-button);
   max-width: 68ch;
 }
 
@@ -2999,7 +3008,7 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 .vocab-analogy p {
   margin: 0;
   font-size: 0.95rem;
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--text-ink);
   font-style: italic;
 }
@@ -3007,9 +3016,9 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 .vocab-quote {
   margin: var(--space-2) 0 var(--space-3) var(--space-4);
   padding-left: var(--space-3);
-  border-left: 2px solid var(--border-color);
+  border-left: 1px solid var(--border-color);
   font-size: 0.9rem;
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--text-ink-muted);
   font-style: italic;
 }
@@ -3021,12 +3030,14 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 }
 
 .vocab-citation-link {
-  color: var(--accent-synapse);
+  color: var(--color-citation);
   text-decoration: none;
   font-weight: 500;
+  transition: color var(--transition-fast);
 }
 
 .vocab-citation-link:hover {
+  color: var(--color-citation-hover);
   text-decoration: underline;
 }
 

@@ -311,7 +311,7 @@ elif menu == "Lexicon / Vocabulary Builder":
         )
         
         vulgarized_analogy = st.text_area(
-            "Vulgarized Analogy (Mechanical metaphor for lay readers)", 
+            "Vulgarized Analogy (Systems analogy for lay readers)", 
             placeholder="Acts as the cellular fuel gauge, pausing cellular construction work when energy levels run low..."
         )
         

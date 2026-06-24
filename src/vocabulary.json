@@ -181,7 +181,7 @@
   },
   "resveratrol": {
     "definition": "A natural polyphenol found in red grapes and berries that acts as an activator of the sirtuin pathway.",
-    "vulgarized_analogy": "A mechanical lever that hooks onto cellular maintenance enzymes, speeding up DNA repair and maintenance cycles.",
+    "vulgarized_analogy": "An auxiliary throttle that interfaces with sirtuin controllers to accelerate DNA repair and resource-conservation routines.",
     "taxonomy": "molecule",
     "aliases": ["sirtuin activator"],
     "citations": [
