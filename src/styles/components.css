@@ -2835,7 +2835,7 @@ a.pipeline-badge:hover {
   line-height: 1.65;
   color: var(--text-ink);
   max-width: 68ch;
-  margin-top: var(--space-3);
+  margin-top: 0;
 }
 
 /* Vocabulary mentions block */
@@ -2985,7 +2985,7 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 }
 
 .vocab-analogy {
-  margin-top: var(--space-4);
+  margin-top: 0;
   margin-bottom: var(--space-4);
   padding: var(--space-3) var(--space-4);
   background-color: var(--selected-bg);
@@ -3007,8 +3007,8 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 
 .vocab-analogy p {
   margin: 0;
-  font-size: 0.95rem;
-  line-height: 1.55;
+  font-size: 0.85rem;
+  line-height: 1.5;
   color: var(--text-ink);
   font-style: italic;
 }
