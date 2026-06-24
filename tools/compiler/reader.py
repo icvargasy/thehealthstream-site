@@ -7,28 +7,7 @@ systems biology content nodes, glossary definitions, translations, and backlog i
 import json
 import os
 from typing import Any, Dict, List
-
-
-def load_json_file(file_path: str) -> Any:
-    """Loads a JSON file from the disk.
-
-    Args:
-        file_path: The absolute or relative string path to the JSON file.
-
-    Returns:
-        The parsed JSON representation (dict or list).
-
-    Raises:
-        FileNotFoundError: If the profile file is missing.
-        ValueError: If the file content is invalid JSON.
-    """
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError as e:
-        raise FileNotFoundError(f"JSON file missing at: {file_path}") from e
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON format in file: {file_path}") from e
+from .utils import load_json_file
 
 
 def validate_node(node_data: Dict[str, Any], file_path: str) -> None:

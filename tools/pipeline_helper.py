@@ -2,72 +2,20 @@
 """Helper utilities for automated content pipeline curation and validation.
 
 Supports programmatic backlog addition, non-interactive draft generation,
-jargon bolding validation, and edge referential integrity checks. Can be used
-both as a Python module and as a command-line interface (CLI).
+jargon bolding validation, vocabulary schema checks, and edge referential integrity checks.
+Can be used both as a Python module and as a command-line interface (CLI).
 """
 
 import argparse
 import datetime
-import json
 import os
 import re
 import sys
 from typing import Any, Dict, List, Set, Tuple
 
-
-def slugify(text: str) -> str:
-    """Converts a raw title string into a url-safe slug.
-
-    Args:
-        text: Raw text string.
-
-    Returns:
-        A lowercase slug with non-alphanumeric characters replaced by hyphens.
-    """
-    text = text.lower().strip()
-    text = re.sub(r"[^\w\s-]", "", text)
-    return re.sub(r"[-\s]+", "-", text)
-
-
-def load_json_file(file_path: str) -> Any:
-    """Loads a JSON file safely.
-
-    Args:
-        file_path: Path to the JSON file.
-
-    Returns:
-        Parsed JSON content.
-
-    Raises:
-        FileNotFoundError: If the file does not exist.
-        ValueError: If the file content is invalid JSON.
-    """
-    if not os.path.exists(file_path):
-        raise FileNotFoundError(f"JSON file missing at: {file_path}")
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON content in {file_path}: {e}") from e
-    except Exception as e:
-        raise RuntimeError(f"Error reading {file_path}: {e}") from e
-
-
-def save_json_file(file_path: str, data: Any) -> None:
-    """Saves data to a JSON file safely.
-
-    Args:
-        file_path: Path to write the JSON file.
-        data: Data to serialize.
-
-    Raises:
-        RuntimeError: If writing to the file fails.
-    """
-    try:
-        with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-    except Exception as e:
-        raise RuntimeError(f"Error saving to {file_path}: {e}") from e
+# Ensure tools/ is in the python path for importing compiler modules
+sys.path.insert(0, os.path.dirname(__file__))
+from compiler.utils import slugify, load_json_file, save_json_file
 
 
 def add_to_backlog(
@@ -86,7 +34,7 @@ def add_to_backlog(
         The newly created backlog item dictionary.
 
     Raises:
-        ValueError: If parameters are invalid or slug already exists.
+        ValueError: If parameters are invalid, tag taxonomy check fails, or slug already exists.
     """
     src_dir = "src"
     backlog_path = os.path.join(src_dir, "backlog.json")
@@ -98,10 +46,16 @@ def add_to_backlog(
     if category not in valid_categories:
         raise ValueError(f"Invalid category '{category}'. Valid: {valid_categories}")
 
+    # Validate tags against tags.json
+    tags_registry_path = os.path.join(src_dir, "tags.json")
+    if os.path.exists(tags_registry_path):
+        valid_tags = set(load_json_file(tags_registry_path).keys())
+        invalid_tags = [t for t in tags if t not in valid_tags]
+        if invalid_tags:
+            raise ValueError(f"Non-standard tags: {invalid_tags}. Allowed tags: {sorted(list(valid_tags))}")
+
     slug = slugify(title)
-    backlog = []
-    if os.path.exists(backlog_path):
-        backlog = load_json_file(backlog_path)
+    backlog = load_json_file(backlog_path, default_empty=[])
     
     if any(item["id"] == slug for item in backlog):
         raise ValueError(f"A proposal with ID '{slug}' already exists in the backlog.")
@@ -357,6 +311,63 @@ def validate_edge_targets(draft_path: str) -> List[str]:
     return unresolved
 
 
+def validate_vocabulary_schema(vocab_path: str) -> List[str]:
+    """Validates the schema structures of all entries in vocabulary.json.
+
+    Args:
+        vocab_path: Path to vocabulary.json.
+
+    Returns:
+        A list of string error messages detailing schema breaches.
+    """
+    errors = []
+    if not os.path.exists(vocab_path):
+        errors.append(f"Vocabulary file missing at: {vocab_path}")
+        return errors
+
+    try:
+        vocab = load_json_file(vocab_path)
+    except Exception as e:
+        errors.append(f"Failed parsing vocabulary.json: {e}")
+        return errors
+
+    valid_taxonomies = {"protein", "molecule", "process", "concept", "organism", "condition", "framework"}
+    valid_statuses = {"verified_human", "verified_agent_grounded"}
+
+    for term, item in vocab.items():
+        if not isinstance(item, dict):
+            errors.append(f"Term '{term}' must map to an object, got {type(item).__name__}")
+            continue
+
+        # Check required fields
+        if "definition" not in item or not isinstance(item["definition"], str) or not item["definition"].strip():
+            errors.append(f"Term '{term}': Missing or empty 'definition' string.")
+        
+        if "vulgarized_analogy" not in item or not isinstance(item["vulgarized_analogy"], str) or not item["vulgarized_analogy"].strip():
+            errors.append(f"Term '{term}': Missing or empty 'vulgarized_analogy' string.")
+
+        if "taxonomy" not in item or item["taxonomy"] not in valid_taxonomies:
+            errors.append(f"Term '{term}': Invalid or missing 'taxonomy'. Must be one of {valid_taxonomies}")
+
+        if "verification_status" not in item or item["verification_status"] not in valid_statuses:
+            errors.append(f"Term '{term}': Invalid or missing 'verification_status'. Must be one of {valid_statuses}")
+
+        if "citations" not in item or not isinstance(item["citations"], list):
+            errors.append(f"Term '{term}': Missing or invalid 'citations' list.")
+        else:
+            for idx, citation in enumerate(item["citations"]):
+                if not isinstance(citation, dict):
+                    errors.append(f"Term '{term}': Citation[{idx}] must be an object.")
+                    continue
+                for sub_key in ["text", "link", "defining_quote"]:
+                    if sub_key not in citation or not isinstance(citation[sub_key], str) or not citation[sub_key].strip():
+                        errors.append(f"Term '{term}': Citation[{idx}] missing or empty '{sub_key}' string.")
+                if "quote_page" in citation and not isinstance(citation["quote_page"], str):
+                    errors.append(f"Term '{term}': Citation[{idx}] field 'quote_page' must be a string.")
+
+    return errors
+
+
 def main() -> None:
     """CLI routing entry point."""
     parser = argparse.ArgumentParser(
@@ -387,7 +398,7 @@ def main() -> None:
 
     # subcommand: validate
     validate_parser = subparsers.add_parser(
-        "validate", help="Validate a draft content node's jargon and edges."
+        "validate", help="Validate a draft content node's jargon and edges, and check vocabulary.json."
     )
     validate_parser.add_argument("file_path", help="Path to the JSON draft content node.")
 
@@ -413,6 +424,11 @@ def main() -> None:
             unmapped_bolded, missing_bold = validate_jargon_bolding(args.file_path)
             unresolved_edges = validate_edge_targets(args.file_path)
             non_standard_tags = validate_node_tags(args.file_path)
+            
+            # Also run vocabulary check automatically
+            src_dir = "src"
+            vocab_path = os.path.join(src_dir, "vocabulary.json")
+            vocab_errors = validate_vocabulary_schema(vocab_path)
             
             error_found = False
             
@@ -451,9 +467,18 @@ def main() -> None:
             else:
                 print("\n[Pass] All edge targets resolved to active nodes or backlog items.")
                 
+            print("\n=== Vocabulary Schema Validation ===")
+            if vocab_errors:
+                print(f"\n[Error] Found {len(vocab_errors)} errors in vocabulary.json:")
+                for err in vocab_errors:
+                    print(f"  - {err}")
+                error_found = True
+            else:
+                print("\n[Pass] vocabulary.json schema is fully compliant.")
+                
             print("\n=========================================")
             if error_found:
-                print("Validation Status: FAILED (Unresolved edges)")
+                print("Validation Status: FAILED (Errors detected)")
                 sys.exit(1)
             else:
                 print("Validation Status: PASSED (Warnings may apply)")

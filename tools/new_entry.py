@@ -5,49 +5,13 @@ Reads metadata from the backlog ledger, generates a schema-compliant draft,
 and removes the activated item from the pipeline.
 """
 
-import json
 import os
 import sys
 from typing import Any, Dict, List
 
-
-def load_json_file(file_path: str) -> Any:
-    """Loads a JSON file safely.
-
-    Args:
-        file_path: Path to the JSON file.
-
-    Returns:
-        Parsed JSON content.
-
-    Raises:
-        FileNotFoundError: If the file does not exist.
-        ValueError: If the file contains invalid JSON.
-    """
-    try:
-        with open(file_path, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except FileNotFoundError as e:
-        raise FileNotFoundError(f"Backlog file missing at: {file_path}") from e
-    except json.JSONDecodeError as e:
-        raise ValueError(f"Invalid JSON content in: {file_path}") from e
-
-
-def save_json_file(file_path: str, data: Any) -> None:
-    """Saves data to a JSON file.
-
-    Args:
-        file_path: Path to write the JSON file.
-        data: Data to serialize.
-
-    Raises:
-        IOError: If the file cannot be written.
-    """
-    try:
-        with open(file_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2, ensure_ascii=False)
-    except IOError as e:
-        raise IOError(f"Failed writing to: {file_path}") from e
+# Ensure tools/ is in the python path for importing compiler modules
+sys.path.insert(0, os.path.dirname(__file__))
+from compiler.utils import load_json_file, save_json_file
 
 
 def main() -> None:

@@ -304,7 +304,7 @@ def test_compile_vocabulary_detail_page_with_citations() -> None:
     compiled = compile_vocabulary_detail_page(layout, term, vocab_item, mentions, translations)
     assert "SIRT1" in compiled
     assert "A cellular maintenance sirtuin" in compiled
-    assert "Scientific Sources & References" in compiled
+    assert "Scientific Sources & Verbatim Definitions" in compiled
     assert "Cantó et al., 2009" in compiled
     assert "https://doi.org/10.1016/j.tem.2009.03.008" in compiled
 
@@ -700,4 +700,79 @@ def test_card_structure_and_backlog_buttons() -> None:
     assert "BIOLOGY" in compiled_backlog
     assert '<button class="vote-btn">' not in compiled_backlog
     assert "backlog-votes" in compiled_backlog
+
+
+def test_validate_vocabulary_schema() -> None:
+    """Verifies that validate_vocabulary_schema correctly identifies valid and invalid configurations."""
+    import os
+    import json
+    from tools.pipeline_helper import validate_vocabulary_schema
+
+    # 1. Valid vocabulary dictionary
+    valid_vocab = {
+        "AMPK": {
+            "definition": "An energy-sensing cellular enzyme regulating metabolic homeostasis.",
+            "vulgarized_analogy": "Acts as the cellular fuel gauge, pausing construction when fuel is low.",
+            "taxonomy": "protein",
+            "aliases": ["AMP-activated protein kinase"],
+            "citations": [
+                {
+                    "text": "Hardie DG. AMPK. J Cell Sci. 2004;117:5479-5487.",
+                    "link": "https://doi.org/10.1242/jcs.01540",
+                    "defining_quote": "AMPK acts as a cellular energy sensor.",
+                    "quote_page": "Page 5479"
+                }
+            ],
+            "verification_status": "verified_human"
+        }
+    }
+
+    # Write temporary file
+    temp_path = "tests/temp_vocabulary.json"
+    with open(temp_path, "w", encoding="utf-8") as f:
+        json.dump(valid_vocab, f)
+
+    try:
+        errors = validate_vocabulary_schema(temp_path)
+        assert not errors, f"Expected no errors, got: {errors}"
+
+        # 2. Invalid vocabulary dictionary (missing defining_quote)
+        invalid_vocab = {
+            "AMPK": {
+                "definition": "An energy-sensing cellular enzyme.",
+                "vulgarized_analogy": "Acts as a fuel gauge.",
+                "taxonomy": "protein",
+                "aliases": [],
+                "citations": [
+                    {
+                        "text": "Hardie DG. AMPK.",
+                        "link": "https://doi.org/10.1242/jcs.01540",
+                        # "defining_quote" is missing!
+                        "quote_page": "Page 5479"
+                    }
+                ],
+                "verification_status": "verified_human"
+            }
+        }
+        with open(temp_path, "w", encoding="utf-8") as f:
+            json.dump(invalid_vocab, f)
+
+        errors = validate_vocabulary_schema(temp_path)
+        assert len(errors) == 1
+        assert "missing or empty 'defining_quote'" in errors[0]
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+
+
+def test_repo_vocabulary_compliance() -> None:
+    """Verifies that the actual repository vocabulary.json file conforms to the new strict schema."""
+    import os
+    from tools.pipeline_helper import validate_vocabulary_schema
+
+    vocab_path = "src/vocabulary.json"
+    assert os.path.exists(vocab_path)
+    errors = validate_vocabulary_schema(vocab_path)
+    assert not errors, f"Repository vocabulary.json contains schema violations: {errors}"
+
 

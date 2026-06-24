@@ -6,20 +6,7 @@ defined in the glossary to interactive popovers, avoiding tag collisions.
 
 import re
 from typing import Dict, Any
-
-
-def slugify(text: str) -> str:
-    """Converts a raw title string into a url-safe slug.
-
-    Args:
-        text: Raw text string.
-
-    Returns:
-        A lowercase slug with non-alphanumeric characters replaced by hyphens.
-    """
-    text = text.lower().strip()
-    text = re.sub(r"[^\w\s-]", "", text)
-    return re.sub(r"[-\s]+", "-", text)
+from .utils import slugify
 
 
 def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:

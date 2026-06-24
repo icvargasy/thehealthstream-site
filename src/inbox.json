@@ -1,0 +1,18 @@
+[
+  {
+    "id": "intermittent-fasting-and-autophagy",
+    "title": "Intermittent Fasting and Autophagy",
+    "description": "How does intermittent fasting influence cellular housekeeping and autophagy pathways?",
+    "category": "biology",
+    "votes": 12,
+    "tags": ["biology", "metabolism"]
+  },
+  {
+    "id": "zone-2-cardio-protocols",
+    "title": "Zone 2 Cardio Protocols",
+    "description": "What are the optimal protocols for Zone 2 cardiovascular exercise to improve mitochondrial health?",
+    "category": "lifestyle",
+    "votes": 8,
+    "tags": ["lifestyle", "exercise"]
+  }
+]

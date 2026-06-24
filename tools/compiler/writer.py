@@ -775,6 +775,24 @@ def compile_vocabulary_detail_page(
             f'</div>'
         )
 
+    # Verification Badge
+    status = vocab_item.get("verification_status", "verified_human")
+    if status == "verified_agent_grounded":
+        badge_html = '<span class="vocab-status-badge badge-agent">✓ Verified Agent</span>'
+    else:
+        badge_html = '<span class="vocab-status-badge badge-human">✓ Verified Human</span>'
+
+    # Vulgarized Analogy Callout
+    analogy = vocab_item.get("vulgarized_analogy", "")
+    analogy_html = ""
+    if analogy:
+        analogy_html = (
+            f'<div class="vocab-analogy">'
+            f'  <span class="vocab-analogy-label">Mechanical Metaphor:</span>'
+            f'  <p>{analogy}</p>'
+            f'</div>'
+        )
+
     citations_html = ""
     citations = vocab_item.get("citations", [])
     if citations:
@@ -782,15 +800,29 @@ def compile_vocabulary_detail_page(
         for citation in citations:
             text = citation.get("text", "")
             link = citation.get("link", "")
+            quote = citation.get("defining_quote", "")
+            page = citation.get("quote_page", "")
+            
+            cite_item = ""
             if link:
-                citations_links.append(
-                    f'<li><a href="{link}" target="_blank" rel="noopener noreferrer">{text}</a></li>'
-                )
+                cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="vocab-citation-link">{text}</a>'
             else:
-                citations_links.append(f'<li>{text}</li>')
+                cite_item += f'<span class="vocab-citation-text">{text}</span>'
+                
+            if page:
+                cite_item += f' <span class="vocab-quote-meta">({page})</span>'
+                
+            if quote:
+                cite_item += (
+                    f'<blockquote class="vocab-quote">'
+                    f'  "{quote}"'
+                    f'</blockquote>'
+                )
+                
+            citations_links.append(f'<li>{cite_item}</li>')
         citations_html = (
             f'<div class="vocab-detail-citations">'
-            f'  <h4>Scientific Sources & References</h4>'
+            f'  <h4>Scientific Sources & Verbatim Definitions</h4>'
             f'  <ul>'
             f'    {"".join(citations_links)}'
             f'  </ul>'
@@ -803,9 +835,13 @@ def compile_vocabulary_detail_page(
         f'    <a href="../vocabulary.html" class="vocab-back-link">'
         f'      &larr; Back to Lexicon'
         f'    </a>'
-        f'    <h1>{term}</h1>'
+        f'    <div class="vocab-title-row">'
+        f'      <h1>{term}</h1>'
+        f'      {badge_html}'
+        f'    </div>'
         f'  </header>'
         f'  <p class="vocab-definition">{definition}</p>'
+        f'  {analogy_html}'
         f'  {mentions_html}'
         f'  {citations_html}'
         f'</article>'
