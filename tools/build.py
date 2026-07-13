@@ -237,6 +237,7 @@ def run_build() -> None:
             vocab_item=vocab_item,
             mentions=mentions.get(term, []),
             translations=translations,
+            vocabulary=vocabulary,
         )
         with open(os.path.join(vocab_dest_dir, f"{slug}.html"), "w", encoding="utf-8") as f:
             f.write(term_html)

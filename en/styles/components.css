@@ -655,6 +655,17 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   align-self: flex-start;
 }
 
+.popover-nested-link {
+  color: var(--accent-synapse);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.popover-nested-link:hover {
+  color: var(--accent-synapse-hover);
+}
+
 /* Evidence Section (Flat/Unboxed) */
 .evidence-section {
   margin-top: var(--space-5);

@@ -102,7 +102,10 @@ def render_backlog_card(
 
     desc = item["description"]
     if vocabulary:
-        from compiler.linker import inject_jargon_links
+        try:
+            from compiler.linker import inject_jargon_links
+        except ModuleNotFoundError:
+            from tools.compiler.linker import inject_jargon_links
         desc = inject_jargon_links(desc, vocabulary)
 
     tag_name = "li" if as_list_item else "div"
@@ -170,7 +173,10 @@ def render_article_card(
     hook = node["hook_question"]
     takeaway = node["takeaway_pill"]
     if vocabulary:
-        from compiler.linker import inject_jargon_links
+        try:
+            from compiler.linker import inject_jargon_links
+        except ModuleNotFoundError:
+            from tools.compiler.linker import inject_jargon_links
         hook = inject_jargon_links(hook, vocabulary)
         takeaway = inject_jargon_links(takeaway, vocabulary)
 
@@ -689,9 +695,10 @@ def compile_vocabulary_page(
             
         slug = slugify(term)
         
-        # Truncate definition to 100 characters + ...
+        # Truncate definition to 100 characters + ... (stripping ** bold formatting markers)
         definition = vocabulary[term].get("definition", "")
-        short_def = definition[:100].strip() + "..." if len(definition) > 100 else definition
+        clean_def = definition.replace("**", "")
+        short_def = clean_def[:100].strip() + "..." if len(clean_def) > 100 else clean_def
             
         card_html = (
             f'<div class="vocab-card" id="{slug}">'
@@ -744,6 +751,7 @@ def compile_vocabulary_detail_page(
     vocab_item: Dict[str, Any],
     mentions: List[Dict[str, str]],
     translations: Dict[str, Any],
+    vocabulary: Dict[str, Any] = None,
 ) -> str:
     """Compiles a dedicated page for a single jargon term definition.
 
@@ -753,12 +761,26 @@ def compile_vocabulary_detail_page(
         vocab_item: Dictionary containing 'definition'.
         mentions: List of dictionaries with 'title' and 'slug' (root level slugs).
         translations: Translations dictionary.
+        vocabulary: Optional full glossary definitions dictionary for cross-linking.
 
     Returns:
         The complete HTML string for the term detail page.
     """
     labels = translations.get("en", {})
     definition = vocab_item.get("definition", "")
+    
+    # Process definition: first run markdown to parse **bold** elements,
+    # then run inject_jargon_links for interactive popovers (excluding the current term to avoid self-linking).
+    if definition:
+        definition = markdown.markdown(definition)
+        local_vocab = vocabulary.copy() if vocabulary else {}
+        if term in local_vocab:
+            del local_vocab[term]
+        try:
+            from compiler.linker import inject_jargon_links
+        except ModuleNotFoundError:
+            from tools.compiler.linker import inject_jargon_links
+        definition = inject_jargon_links(definition, local_vocab)
     
     mentions_links = []
     lexicon_links = []
@@ -901,7 +923,8 @@ def compile_vocabulary_taxonomy_page(
     for term in sorted(terms):
         slug = slugify(term)
         definition = vocabulary[term].get("definition", "")
-        short_def = definition[:100].strip() + "..." if len(definition) > 100 else definition
+        clean_def = definition.replace("**", "")
+        short_def = clean_def[:100].strip() + "..." if len(clean_def) > 100 else clean_def
         
         card_html = (
             f'<div class="vocab-card" id="{slug}">'
@@ -1124,7 +1147,10 @@ def compile_static_content_page(
 
     compiled_body = markdown.markdown(md_content)
     if vocabulary:
-        from compiler.linker import inject_jargon_links
+        try:
+            from compiler.linker import inject_jargon_links
+        except ModuleNotFoundError:
+            from tools.compiler.linker import inject_jargon_links
         compiled_body = inject_jargon_links(compiled_body, vocabulary)
     
     form_html = ""
