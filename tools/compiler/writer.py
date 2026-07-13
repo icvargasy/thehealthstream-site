@@ -790,24 +790,24 @@ def compile_vocabulary_detail_page(
         
         if m_type == "lexicon":
             tag_html = (
-                f'<a href="{slug}" class="connection-tag tag-lexicon">'
-                f'  <span class="connection-type">Lexicon</span>'
-                f'  <span class="connection-title">{title}</span>'
-                f'</a>'
+                f'<div class="connection-item">'
+                f'  <a href="../vocabulary.html" class="connection-badge badge-lexicon">Lexicon</a>'
+                f'  <a href="{slug}" class="connection-title">{title}</a>'
+                f'</div>'
             )
         elif m.get("in_pipeline"):
             tag_html = (
-                f'<a href="../{slug}" class="connection-tag tag-pipeline">'
-                f'  <span class="connection-type">Pipeline</span>'
-                f'  <span class="connection-title">{title}</span>'
-                f'</a>'
+                f'<div class="connection-item">'
+                f'  <a href="../backlog.html" class="connection-badge badge-pipeline">Pipeline</a>'
+                f'  <a href="../{slug}" class="connection-title">{title}</a>'
+                f'</div>'
             )
         else:
             tag_html = (
-                f'<a href="../{slug}" class="connection-tag tag-article cat-{m_type}">'
-                f'  <span class="connection-type">Article</span>'
-                f'  <span class="connection-title">{title}</span>'
-                f'</a>'
+                f'<div class="connection-item">'
+                f'  <a href="../index.html" class="connection-badge badge-article cat-{m_type}">Article</a>'
+                f'  <a href="../{slug}" class="connection-title">{title}</a>'
+                f'</div>'
             )
         connections_html.append(tag_html)
 

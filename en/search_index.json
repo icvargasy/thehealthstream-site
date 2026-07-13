@@ -774,5 +774,37 @@
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "Research observing the distribution, patterns, and determinants of health and disease conditions in defined populations."
+  },
+  {
+    "title": "myelin sheath",
+    "slug": "vocabulary/myelin-sheath.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An insulating layer of lipids and proteins wrapped around nerve fibers (**axons**) that accelerates action potential propagation."
+  },
+  {
+    "title": "tau",
+    "slug": "vocabulary/tau.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A microtubule-associated protein synthesized in **neurons** that stabilizes axonal structures, whose hyperphosphorylation drives **neurofibrillary** tangles."
+  },
+  {
+    "title": "phosphorylation",
+    "slug": "vocabulary/phosphorylation.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A reversible **biochemical** modification where a **phosphate** group is **covalently** attached to a **protein**, regulating its activity."
+  },
+  {
+    "title": "neurodegeneration",
+    "slug": "vocabulary/neurodegeneration.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The progressive structural and functional loss of **neurons**, culminating in **cognitive function** decline and dementia."
   }
 ]

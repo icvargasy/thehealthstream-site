@@ -3094,109 +3094,71 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   gap: var(--space-2);
 }
 
-.connection-tag {
+.connection-item {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  font-size: 0.8rem;
-  padding: var(--space-1) var(--space-2);
-  border-radius: var(--radius-button);
-  text-decoration: none;
   border: 1px solid var(--border-color);
+  border-radius: var(--radius-button);
   background-color: var(--bg-surface-alt);
-  color: var(--text-ink);
-  transition: all 0.2s ease;
+  overflow: hidden;
+  font-size: 0.8rem;
+  transition: all var(--transition-fast);
 }
 
-.connection-tag .connection-type {
+.connection-item:hover {
+  border-color: var(--accent-synapse);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.connection-badge {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  padding: 0.05rem 0.25rem;
-  border-radius: 3px;
-  background-color: var(--border-color);
-  color: var(--text-ink-muted);
+  letter-spacing: 0.05em;
+  text-decoration: none;
+  color: var(--bg-paper) !important;
+  transition: opacity var(--transition-fast);
 }
 
-.connection-tag .connection-title {
-  font-weight: 500;
+.connection-badge:hover {
+  opacity: 0.85;
 }
 
-/* Lexicon Tag Styling */
-.connection-tag.tag-lexicon {
-  border-color: var(--accent-synapse);
-  background-color: var(--selected-bg);
+.connection-title {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  font-weight: 600;
+  text-decoration: none;
   color: var(--text-ink);
+  transition: color var(--transition-fast);
 }
 
-.connection-tag.tag-lexicon .connection-type {
+.connection-title:hover {
+  color: var(--accent-synapse-hover);
+  text-decoration: underline;
+}
+
+/* Badge specific colors */
+.connection-badge.badge-lexicon {
   background-color: var(--accent-synapse);
-  color: var(--bg-paper);
 }
 
-.connection-tag.tag-lexicon:hover {
+.connection-badge.badge-pipeline {
+  background-color: oklch(0.55 0.12 60); /* Warm copper orange */
+}
+
+.connection-badge.badge-article.cat-biology {
   background-color: var(--accent-synapse);
-  color: var(--bg-paper);
 }
 
-.connection-tag.tag-lexicon:hover .connection-type {
-  background-color: var(--bg-paper);
-  color: var(--accent-synapse);
-}
-
-/* Pipeline Tag Styling */
-.connection-tag.tag-pipeline {
-  border-style: dashed;
-}
-
-.connection-tag.tag-pipeline .connection-type {
-  background-color: oklch(0.92 0.01 100);
-  color: oklch(0.4 0.05 100);
-}
-
-.connection-tag.tag-pipeline:hover {
-  background-color: oklch(0.96 0.01 100);
-  border-color: oklch(0.5 0.05 100);
-}
-
-/* Article Tag Styling */
-.connection-tag.tag-article.cat-biology {
-  border-color: var(--accent-synapse);
-}
-
-.connection-tag.tag-article.cat-biology .connection-type {
-  background-color: var(--accent-synapse);
-  color: var(--bg-paper);
-}
-
-.connection-tag.tag-article.cat-biology:hover {
-  background-color: var(--accent-synapse);
-  color: var(--bg-paper);
-}
-
-.connection-tag.tag-article.cat-biology:hover .connection-type {
-  background-color: var(--bg-paper);
-  color: var(--accent-synapse);
-}
-
-.connection-tag.tag-article.cat-lifestyle {
-  border-color: var(--accent-lifestyle);
-}
-
-.connection-tag.tag-article.cat-lifestyle .connection-type {
+.connection-badge.badge-article.cat-lifestyle {
   background-color: var(--accent-lifestyle);
-  color: var(--bg-paper);
 }
 
-.connection-tag.tag-article.cat-lifestyle:hover {
-  background-color: var(--accent-lifestyle);
-  color: var(--bg-paper);
-}
-
-.connection-tag.tag-article.cat-lifestyle:hover .connection-type {
-  background-color: var(--bg-paper);
-  color: var(--accent-lifestyle);
+.connection-badge.badge-article.cat-book {
+  background-color: oklch(0.60 0.08 120); /* Warm green/olive */
 }
 
 
