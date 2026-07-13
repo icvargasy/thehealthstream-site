@@ -3041,3 +3041,25 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   text-decoration: underline;
 }
 
+.vocab-taxonomy-badge {
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  text-decoration: none;
+  background-color: var(--selected-bg);
+  color: var(--accent-synapse);
+  border: 1px solid var(--selected-border);
+  transition: all 0.2s ease;
+}
+
+.vocab-taxonomy-badge:hover {
+  background-color: var(--accent-synapse);
+  color: var(--bg-paper);
+}
+
+

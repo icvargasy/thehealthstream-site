@@ -31,7 +31,7 @@ def _build_mentions_map(
     backlog: List[Dict[str, Any]],
     vocabulary: Dict[str, Any],
 ) -> Dict[str, List[Dict[str, Any]]]:
-    """Builds a mapping from each vocabulary term to all articles and backlog items that mention it.
+    """Builds a mapping from each vocabulary term to all articles, backlog items, and other lexicon definitions that mention it.
 
     This single-pass computation replaces three separate O(N²) scans that
     previously ran independently in compile_vocabulary_page, compile_vocabulary_detail_page,
@@ -79,6 +79,24 @@ def _build_mentions_map(
                     "slug": f"backlog.html#{item['id']}",
                     "type": item["category"],
                     "in_pipeline": True
+                })
+
+    # Lexicon-to-lexicon mentions
+    for other_term, other_details in vocabulary.items():
+        combined_text = f"{other_details.get('definition', '')} {other_details.get('vulgarized_analogy', '')}"
+        for term, details in vocabulary.items():
+            if term == other_term:
+                continue
+            phrases_to_check = [term] + details.get("aliases", [])
+            matched = any(
+                re.search(r"(?<![-\w])" + re.escape(phrase) + r"(?![-\w])", combined_text, re.IGNORECASE)
+                for phrase in phrases_to_check
+            )
+            if matched:
+                mentions[term].append({
+                    "title": other_term,
+                    "slug": f"{slugify(other_term)}.html",
+                    "type": "lexicon"
                 })
 
     return mentions
@@ -222,6 +240,38 @@ def run_build() -> None:
         )
         with open(os.path.join(vocab_dest_dir, f"{slug}.html"), "w", encoding="utf-8") as f:
             f.write(term_html)
+
+    # 5.6 Compile vocabulary taxonomy filter pages
+    print("Compiling vocabulary taxonomy pages under vocabulary/...")
+    from compiler.writer import compile_vocabulary_taxonomy_page
+
+    taxonomies = {}
+    for term, vocab_item in vocabulary.items():
+        tax = vocab_item.get("taxonomy", "")
+        if tax:
+            if tax not in taxonomies:
+                taxonomies[tax] = []
+            taxonomies[tax].append(term)
+            
+    for tax_name, tax_terms in taxonomies.items():
+        tax_slug = slugify(tax_name)
+        base_layout_tax = compile_base_layout(
+            template_content=template_content,
+            translations=translations,
+            nodes=nodes,
+            backlog=backlog,
+            active_nav="vocab",
+            base_path="../",
+        )
+        tax_html = compile_vocabulary_taxonomy_page(
+            layout_html=base_layout_tax,
+            taxonomy_name=tax_name,
+            terms=tax_terms,
+            vocabulary=vocabulary,
+            translations=translations,
+        )
+        with open(os.path.join(vocab_dest_dir, f"taxonomy-{tax_slug}.html"), "w", encoding="utf-8") as f:
+            f.write(tax_html)
 
     # 6. Compile backlog.html (Backlog Proposals Page)
     print("Compiling backlog page (backlog.html)...")

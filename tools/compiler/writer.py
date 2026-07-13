@@ -761,8 +761,12 @@ def compile_vocabulary_detail_page(
     definition = vocab_item.get("definition", "")
     
     mentions_links = []
+    lexicon_links = []
     for m in sorted(mentions, key=lambda x: x["title"]):
-        mentions_links.append(f'<li><a href="../{m["slug"]}" class="vocab-mention-link">{m["title"]}</a></li>')
+        if m.get("type") == "lexicon":
+            lexicon_links.append(f'<li><a href="{m["slug"]}" class="vocab-mention-link">{m["title"]}</a></li>')
+        else:
+            mentions_links.append(f'<li><a href="../{m["slug"]}" class="vocab-mention-link">{m["title"]}</a></li>')
         
     mentions_html = ""
     if mentions_links:
@@ -775,12 +779,29 @@ def compile_vocabulary_detail_page(
             f'</div>'
         )
 
+    lexicon_mentions_html = ""
+    if lexicon_links:
+        lexicon_mentions_html = (
+            f'<div class="vocab-detail-lexicon-mentions" style="margin-top: var(--space-4);">'
+            f'  <h3>Defined using this term:</h3>'
+            f'  <ul class="vocab-mentions-list">'
+            f'    {"".join(lexicon_links)}'
+            f'  </ul>'
+            f'</div>'
+        )
+
     # Verification Badge
     status = vocab_item.get("verification_status", "verified_human")
     if status == "verified_agent_grounded":
         badge_html = '<span class="vocab-status-badge badge-agent">✓ Verified Agent</span>'
     else:
         badge_html = '<span class="vocab-status-badge badge-human">✓ Verified Human</span>'
+
+    # Taxonomy Badge
+    taxonomy = vocab_item.get("taxonomy", "")
+    taxonomy_badge_html = ""
+    if taxonomy:
+        taxonomy_badge_html = f'<a href="taxonomy-{slugify(taxonomy)}.html" class="vocab-taxonomy-badge">Type: {taxonomy}</a>'
 
     # Vulgarized Analogy Callout
     analogy = vocab_item.get("vulgarized_analogy", "")
@@ -837,18 +858,80 @@ def compile_vocabulary_detail_page(
         f'    </a>'
         f'    <div class="vocab-title-row">'
         f'      <h1>{term}</h1>'
-        f'      {badge_html}'
+        f'      <div class="vocab-badges-row" style="display: flex; gap: var(--space-2);">{badge_html}{taxonomy_badge_html}</div>'
         f'    </div>'
         f'  </header>'
         f'  {analogy_html}'
         f'  <p class="vocab-definition">{definition}</p>'
         f'  {mentions_html}'
+        f'  {lexicon_mentions_html}'
         f'  {citations_html}'
         f'</article>'
     )
     
     html = layout_html.replace("{{title}}", f"{term} — Lexicon Glossary")
     html = html.replace("{{meta_description}}", f"Definition and details for {term} on The Healthstream.")
+    html = html.replace("{{content}}", content_html)
+    return html
+
+
+def compile_vocabulary_taxonomy_page(
+    layout_html: str,
+    taxonomy_name: str,
+    terms: List[str],
+    vocabulary: Dict[str, Any],
+    translations: Dict[str, Any],
+) -> str:
+    """Compiles a page listing all jargon terms for a specific taxonomy classification.
+
+    Args:
+        layout_html: Pre-populated layout HTML (base_path="../").
+        taxonomy_name: The taxonomy classification string (e.g. 'protein', 'molecule').
+        terms: List of term names belonging to this taxonomy.
+        vocabulary: Complete glossary definitions dictionary.
+        translations: Translations dictionary.
+
+    Returns:
+        The complete HTML string for the taxonomy page.
+    """
+    labels = translations.get("en", {})
+    taxonomy_capitalized = taxonomy_name.capitalize()
+    
+    cards_html = []
+    for term in sorted(terms):
+        slug = slugify(term)
+        definition = vocabulary[term].get("definition", "")
+        short_def = definition[:100].strip() + "..." if len(definition) > 100 else definition
+        
+        card_html = (
+            f'<div class="vocab-card" id="{slug}">'
+            f'  <h3 class="vocab-title">'
+            f'    <a href="{slug}.html" class="vocab-card-link">{term} &rarr;</a>'
+            f'  </h3>'
+            f'  <p class="vocab-teaser">{short_def}</p>'
+            f'</div>'
+        )
+        cards_html.append(card_html)
+        
+    content_html = (
+        f'<article class="vocab-taxonomy-page">'
+        f'  <header class="feed-intro">'
+        f'    <a href="../vocabulary.html" class="vocab-back-link">'
+        f'      &larr; Back to Lexicon'
+        f'    </a>'
+        f'    <h1 class="page-title">Lexicon Taxonomy: {taxonomy_capitalized}</h1>'
+        f'    <p class="tag-description">All glossary entries classified as metabolic or biological {taxonomy_name}s.</p>'
+        f'  </header>'
+        f'  <div class="vocab-container">'
+        f'    <div class="vocab-grid">'
+        f'      {"".join(cards_html)}'
+        f'    </div>'
+        f'  </div>'
+        f'</article>'
+    )
+    
+    html = layout_html.replace("{{title}}", f"Taxonomy: {taxonomy_capitalized} — Lexicon Glossary")
+    html = html.replace("{{meta_description}}", f"Index of all terms classified as {taxonomy_name} in The Healthstream.")
     html = html.replace("{{content}}", content_html)
     return html
 

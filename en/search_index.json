@@ -62,7 +62,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Docosahexaenoic acid; a long-chain omega-3 polyunsaturated fatty acid essential for brain structure, synaptic transmission, and blood-brain barrier integrity."
+    "teaser": "Docosahexaenoic acid; a long-chain omega-3 polyunsaturated fatty acid essential for brain structure, synaptic transmission, and **blood-brain barrier** integrity."
   },
   {
     "title": "microglia",
@@ -70,7 +70,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The resident macrophage-like immune cells of the central nervous system, responsible for clearing debris, pruning synapses, and mediating neuroinflammation."
+    "teaser": "The resident macrophage-like immune cells of the central nervous system, responsible for clearing debris, pruning synapses, and mediating **neuroinflammation**."
   },
   {
     "title": "neuroinflammation",
@@ -78,7 +78,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An inflammatory response within the brain or spinal cord, characterized by the activation of microglia, release of pro-inflammatory cytokines, and potential synaptic degradation."
+    "teaser": "An inflammatory response within the brain or spinal cord, characterized by the activation of **microglia**, release of pro-inflammatory cytokines, and potential synaptic degradation."
   },
   {
     "title": "APOE4",
@@ -86,7 +86,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Apolipoprotein E4; the strongest genetic risk factor allele for sporadic Alzheimer's disease, linked to impaired lipid transport and blood-brain barrier dysfunction."
+    "teaser": "Apolipoprotein E4; the strongest genetic risk factor allele for sporadic Alzheimer's disease, linked to impaired lipid transport and **blood-brain barrier** dysfunction."
   },
   {
     "title": "Alternate Day Fasting",
@@ -94,7 +94,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete fasting or severe caloric restriction."
+    "teaser": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete **fasting** or severe caloric restriction."
   },
   {
     "title": "FMT",
@@ -102,7 +102,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Fecal Microbiota Transplant; the transfer of a processed microbial ecosystem from a healthy donor into the gastrointestinal tract of a recipient to restore metabolic and immunological homeostasis."
+    "teaser": "Fecal Microbiota Transplant; the transfer of a processed **microbiota** ecosystem from a healthy donor into the gastrointestinal tract of a recipient to restore metabolic and immunological homeostasis."
   },
   {
     "title": "cognitive function",
@@ -118,7 +118,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A sulfur-containing amino acid intermediary in folate and methionine metabolism, whose accumulation (hyperhomocysteinemia) is associated with neurotoxicity, blood-brain barrier leakage, and cognitive decline."
+    "teaser": "A sulfur-containing **amino acid** intermediary in folate and methionine **metabolism**, whose accumulation is associated with neurotoxicity, **blood-brain barrier** leakage, and cognitive decline."
   },
   {
     "title": "gut-brain axis",
@@ -126,6 +126,501 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The bidirectional biochemical communication network linking the gastrointestinal tract and its resident microbiota with the central nervous system."
+    "teaser": "The bidirectional **biochemical** communication network linking the gastrointestinal tract and its resident **microbiota** with the central nervous system."
+  },
+  {
+    "title": "blood-brain barrier",
+    "slug": "vocabulary/blood-brain-barrier.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A highly selective semipermeable **membrane** border of endothelial cells that prevents solutes in the circulating blood from non-selectively crossing into the extracellular fluid of the central nervous system."
+  },
+  {
+    "title": "microbiota",
+    "slug": "vocabulary/microbiota.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The collective community of microorganisms (bacteria, fungi, archaea, and viruses) residing within a specific ecological niche, such as the human gastrointestinal tract. *Note: While 'microbiota' refers to the physical population of microbes and 'microbiome' refers to their collective genomes and habitat, they are functionally used interchangeably in clinical literature.*"
+  },
+  {
+    "title": "colorectal cancer",
+    "slug": "vocabulary/colorectal-cancer.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts and **microbiota** mutations.",
+    "in_pipeline": true
+  },
+  {
+    "title": "colibactin",
+    "slug": "vocabulary/colibactin.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A genotoxic chemical **metabolite** produced by Escherichia coli strains carrying the *pks* **pathogenicity** island, which induces double-strand **DNA** breaks and mutational signatures in host mucosal cells."
+  },
+  {
+    "title": "gut dysbiosis",
+    "slug": "vocabulary/gut-dysbiosis.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An imbalance or maladaptive alteration in the composition, diversity, or functional activity of the gastrointestinal **microbiota**, leading to mucosal barrier degradation and systemic inflammation."
+  },
+  {
+    "title": "folate",
+    "slug": "vocabulary/folate.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Vitamin B9; an essential **coenzyme** cofactor in one-carbon **metabolism** synthesized by gut bacteria, critical for **DNA** synthesis, repair, and methylation."
+  },
+  {
+    "title": "Vitamin B12",
+    "slug": "vocabulary/vitamin-b12.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Cobalamin; a complex water-soluble vitamin synthesized exclusively by bacteria, acting as a **coenzyme** in **methionine** synthesis and **myelin sheath** maintenance."
+  },
+  {
+    "title": "Porphyromonas gingivalis",
+    "slug": "vocabulary/porphyromonas-gingivalis.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A gram-negative, **anaerobic** oral **pathogen** and keystone species in chronic **periodontitis**, linked to systemic inflammation and postmortem brain **pathology**."
+  },
+  {
+    "title": "gingipains",
+    "slug": "vocabulary/gingipains.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Toxic **cysteine** protease **enzymes** secreted by **Porphyromonas gingivalis** that degrade neuronal **proteins**, trigger **microglia** activation, and drive **tau** **phosphorylation**."
+  },
+  {
+    "title": "atuzaginstat",
+    "slug": "vocabulary/atuzaginstat.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "COR388; an experimental, brain-penetrant small-molecule inhibitor of **Porphyromonas gingivalis** Lys-**gingipains**, developed to block **neurodegeneration** in Alzheimer's."
+  },
+  {
+    "title": "all-cause mortality",
+    "slug": "vocabulary/all-cause-mortality.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The death rate from any cause in a specified population over a defined period, used as a primary validation metric in longevity and **epidemiological studies**.",
+    "in_pipeline": true
+  },
+  {
+    "title": "xenohormesis",
+    "slug": "vocabulary/xenohormesis.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The hypothesis that animals have evolved to respond to stress-induced chemical signals synthesized by plants, using them as early warnings to **upregulate** endogenous defense mechanisms.",
+    "in_pipeline": true
+  },
+  {
+    "title": "sulforaphane",
+    "slug": "vocabulary/sulforaphane.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An **organosulfur** compound found in cruciferous vegetables that acts as a potent indirect **antioxidant** by inducing the **Nrf2** cellular defense **pathway**.",
+    "in_pipeline": true
+  },
+  {
+    "title": "resveratrol",
+    "slug": "vocabulary/resveratrol.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A dietary **polyphenol** found in red grape skins that acts as an activator of the **SIRT1** deacetylase, mimicking some **physiological** aspects of caloric restriction.",
+    "in_pipeline": true
+  },
+  {
+    "title": "EGCG",
+    "slug": "vocabulary/egcg.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Epigallocatechin gallate; the primary green tea **polyphenol** under investigation for modulating **AMPK** signaling and reducing **oxidative** stress.",
+    "in_pipeline": true
+  },
+  {
+    "title": "SIRT1",
+    "slug": "vocabulary/sirt1.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Sirtuin 1; an NAD+-dependent **protein** deacetylase that acts as a key metabolic sensor regulating chromatin silencing, DNA repair, and mitochondrial biogenesis."
+  },
+  {
+    "title": "AMPK",
+    "slug": "vocabulary/ampk.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "AMP-activated **protein** kinase; a conserved master energy sensor that regulates glucose and lipid **metabolism**, and triggers **autophagy** under low energy status."
+  },
+  {
+    "title": "autophagy",
+    "slug": "vocabulary/autophagy.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An evolutionary conserved lysosomal **degradation pathway** that recycles damaged **organelles**, **misfolded proteins**, and **intracellular** pathogens to maintain cellular quality control."
+  },
+  {
+    "title": "Nrf2",
+    "slug": "vocabulary/nrf2.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**."
+  },
+  {
+    "title": "amino acid",
+    "slug": "vocabulary/amino-acid.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A small organic compound containing both an amino and a carboxyl group, acting as the fundamental monomeric building block of **proteins**."
+  },
+  {
+    "title": "protein folding",
+    "slug": "vocabulary/protein-folding.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The physical process by which a polypeptide chain folds into its functional 3D conformation from its linear **amino acid** sequence."
+  },
+  {
+    "title": "misfolded proteins",
+    "slug": "vocabulary/misfolded-proteins.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Proteins that have failed to fold into their correct 3D shape, rendering them non-functional and prone to aggregating into toxic clumps that disrupt **cell viability**."
+  },
+  {
+    "title": "RNA",
+    "slug": "vocabulary/rna.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Ribonucleic acid; a single-stranded nucleic acid molecule synthesized from **DNA** that acts as a template for **protein** translation."
+  },
+  {
+    "title": "biochemical",
+    "slug": "vocabulary/biochemical.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Relating to the chemical processes, compounds, and pathways occurring within living organisms."
+  },
+  {
+    "title": "synthesized",
+    "slug": "vocabulary/synthesized.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The biological or chemical production of complex compounds (such as **proteins** or **metabolites**) from simpler precursors."
+  },
+  {
+    "title": "metabolism",
+    "slug": "vocabulary/metabolism.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The complete set of life-sustaining chemical reactions in cells, including catabolism (energy release) and anabolism (molecular synthesis)."
+  },
+  {
+    "title": "physiological",
+    "slug": "vocabulary/physiological.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Relating to the normal, healthy functioning of living organisms and their organs, tissues, or cells."
+  },
+  {
+    "title": "gene",
+    "slug": "vocabulary/gene.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A specific sequence of **DNA** nucleotides containing the genetic instructions required to synthesize a single functional **protein** or **RNA** molecule."
+  },
+  {
+    "title": "oligodendrocytes",
+    "slug": "vocabulary/oligodendrocytes.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Specialized glial cells of the central nervous system that wrap around **axons** to form the insulating **myelin sheath**."
+  },
+  {
+    "title": "axons",
+    "slug": "vocabulary/axons.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The long, slender projection of a **neuron** that conducts electrical impulses (action potentials) away from the cell body to target cells."
+  },
+  {
+    "title": "microtubule",
+    "slug": "vocabulary/microtubule.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Tubular cytoskeletal structures composed of tubulin dimers, essential for maintaining cell shape, enabling **intracellular** transport, and anchoring **tau**."
+  },
+  {
+    "title": "cytoskeleton",
+    "slug": "vocabulary/cytoskeleton.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A dynamic network of protein filaments (including **microtubules**) that provides structural support, shapes the cell, and facilitates movement."
+  },
+  {
+    "title": "neurons",
+    "slug": "vocabulary/neurons.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Electrically excitable cells of the nervous system specialized for receiving, processing, and transmitting information via chemical and electrical signals."
+  },
+  {
+    "title": "neurofibrillary",
+    "slug": "vocabulary/neurofibrillary.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Relating to neurofibrillary tangles; pathological aggregates of hyperphosphorylated **tau** **protein** found inside **neurons** in Alzheimer's disease."
+  },
+  {
+    "title": "phosphate",
+    "slug": "vocabulary/phosphate.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An inorganic chemical group ($PO_4^{3-}$) consisting of a phosphorus atom bonded to four oxygen atoms, utilized to store energy and toggle protein activity."
+  },
+  {
+    "title": "covalent",
+    "slug": "vocabulary/covalent.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A strong chemical bond formed by the sharing of one or more pairs of electrons between atoms."
+  },
+  {
+    "title": "chronic",
+    "slug": "vocabulary/chronic.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A condition or pathological state that persists over a long period (typically months or years) and is slow to resolve."
+  },
+  {
+    "title": "dysbiotic oral plaque",
+    "slug": "vocabulary/dysbiotic-oral-plaque.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A pathological oral biofilm where pathogenic bacteria like **Porphyromonas gingivalis** dominate, triggering periodontal inflammation and tissue destruction."
+  },
+  {
+    "title": "alveolar bone resorption",
+    "slug": "vocabulary/alveolar-bone-resorption.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The pathological osteoclast-mediated breakdown and loss of the alveolar jawbone surrounding teeth, driven by **chronic** periodontitis."
+  },
+  {
+    "title": "catalytic",
+    "slug": "vocabulary/catalytic.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Relating to catalysis; the process of accelerating a chemical reaction rate by lowering the activation energy barrier."
+  },
+  {
+    "title": "sulfur",
+    "slug": "vocabulary/sulfur.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A chemical element (S) essential for life, acting as a crucial component of **amino acids** (cysteine and methionine) and cofactor structures."
+  },
+  {
+    "title": "phenol rings",
+    "slug": "vocabulary/phenol-rings.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A chemical structure consisting of a hydroxyl group (-OH) bonded directly to an aromatic benzene ring, found in antioxidants and plant **polyphenols**."
+  },
+  {
+    "title": "reactive oxygen species",
+    "slug": "vocabulary/reactive-oxygen-species.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Highly reactive oxygen-containing chemicals (such as hydrogen peroxide and superoxide) that can damage DNA, lipids, and **proteins**."
+  },
+  {
+    "title": "lipid peroxidation",
+    "slug": "vocabulary/lipid-peroxidation.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The oxidative degradation of lipids in **membranes**, where free radicals abstract electrons from lipids, leading to cell membrane damage."
+  },
+  {
+    "title": "free radicals",
+    "slug": "vocabulary/free-radicals.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Atoms or molecules with an unpaired valence electron, making them highly reactive and capable of inducing oxidative damage."
+  },
+  {
+    "title": "membrane",
+    "slug": "vocabulary/membrane.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A selective lipid bilayer boundary wrapping cells and **organelles**, maintaining homeostasis and regulating resource traffic."
+  },
+  {
+    "title": "cell viability",
+    "slug": "vocabulary/cell-viability.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A measure of the proportion of live, healthy, and functionally active cells within a given population."
+  },
+  {
+    "title": "nucleus",
+    "slug": "vocabulary/nucleus.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The membrane-bound organelle within eukaryotic cells hosting the **DNA** chromosomes and coordinating **gene expression**."
+  },
+  {
+    "title": "noxious",
+    "slug": "vocabulary/noxious.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Physiologically harmful, destructive, or toxic to living cells and tissues."
+  },
+  {
+    "title": "apoptotic",
+    "slug": "vocabulary/apoptotic.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Relating to apoptosis; the programmed cell death pathway that safely eliminates damaged or obsolete cells without causing inflammation."
+  },
+  {
+    "title": "xenobiotic",
+    "slug": "vocabulary/xenobiotic.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A chemical compound (such as a drug, toxin, or pesticide) that is foreign to a biological system and must be neutralized."
+  },
+  {
+    "title": "degradation pathway",
+    "slug": "vocabulary/degradation-pathway.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A regulated biochemical pipeline (such as **autophagy** or proteasomal clearance) designed to break down damaged **proteins** and **organelles**."
+  },
+  {
+    "title": "organelles",
+    "slug": "vocabulary/organelles.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Specialized, membrane-bound cellular structures (e.g. mitochondria, lysosomes) that perform distinct metabolic or structural duties."
+  },
+  {
+    "title": "intracellular",
+    "slug": "vocabulary/intracellular.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Occurring, located, or operating entirely within the boundary of a cell membrane."
+  },
+  {
+    "title": "Nuclear factor",
+    "slug": "vocabulary/nuclear-factor.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A DNA-binding transcription factor protein that translocates to the cell nucleus to control transcription and coordinate physiological adaptations."
+  },
+  {
+    "title": "cytoprotective",
+    "slug": "vocabulary/cytoprotective.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Physiological processes or compounds that shield cells from noxious agents, oxidative stress, or apoptotic triggers."
+  },
+  {
+    "title": "detoxification",
+    "slug": "vocabulary/detoxification.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The physiological conversion and elimination of toxic endogenous metabolites or xenobiotic compounds from cells and tissues."
+  },
+  {
+    "title": "gene expression",
+    "slug": "vocabulary/gene-expression.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The multi-step process by which information encoded in a gene is synthesized into functional proteins or RNA products."
+  },
+  {
+    "title": "epidemiological studies",
+    "slug": "vocabulary/epidemiological-studies.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Research observing the distribution, patterns, and determinants of health and disease conditions in defined populations."
+  },
+  {
+    "title": "upregulate",
+    "slug": "vocabulary/upregulate.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The process by which a cell increases the response, rate, or expression of a gene, protein, or metabolic pathway in response to external signals."
+  },
+  {
+    "title": "downregulate",
+    "slug": "vocabulary/downregulate.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The process by which a cell decreases the response, rate, or expression of a gene, protein, or metabolic pathway.",
+    "in_pipeline": true
   }
 ]
