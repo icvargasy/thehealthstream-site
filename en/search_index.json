@@ -94,7 +94,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete **fasting** or severe caloric restriction."
+    "teaser": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete fasting or severe caloric restriction."
   },
   {
     "title": "FMT",
@@ -251,7 +251,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Epigallocatechin gallate; the primary green tea **polyphenol** under investigation for modulating **AMPK** signaling and reducing **oxidative** stress.",
+    "teaser": "Epigallocatechin gallate; the primary green tea **polyphenol** under investigation for modulating **AMPK** signaling and reducing **oxidative stress**.",
     "in_pipeline": true
   },
   {
@@ -287,6 +287,247 @@
     "teaser": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**."
   },
   {
+    "title": "protein",
+    "slug": "vocabulary/protein.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A large biomolecule composed of one or more **amino acid** chains **folded** into a specific 3D structure that dictates its biological activity."
+  },
+  {
+    "title": "DNA",
+    "slug": "vocabulary/dna.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Deoxyribonucleic acid; the double-stranded helical molecule containing the genetic instructions governing growth, development, and cellular function."
+  },
+  {
+    "title": "gene expression",
+    "slug": "vocabulary/gene-expression.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The multi-step process by which information encoded in a **gene** is synthesized into functional **proteins** or **RNA** products."
+  },
+  {
+    "title": "pathway",
+    "slug": "vocabulary/pathway.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A linked series of **biochemical** reactions occurring within a cell, activated by specific triggers to achieve a **physiological** endpoint."
+  },
+  {
+    "title": "enzymes",
+    "slug": "vocabulary/enzymes.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Biological catalysts (usually **proteins**) that significantly accelerate the rate of specific **biochemical** reactions without being consumed."
+  },
+  {
+    "title": "metabolite",
+    "slug": "vocabulary/metabolite.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Any small-molecule intermediate or end-product **synthesized** during cellular **metabolism**, acting as energy currency or signaling cofactors."
+  },
+  {
+    "title": "physiological",
+    "slug": "vocabulary/physiological.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Relating to the normal, healthy functioning of living organisms and their organs, tissues, or cells."
+  },
+  {
+    "title": "pathology",
+    "slug": "vocabulary/pathology.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The structural and functional deviations from the normal **physiological** state, characterizing diseases or **chronic** degeneration."
+  },
+  {
+    "title": "endogenous",
+    "slug": "vocabulary/endogenous.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Originating or **synthesized** internally within an organism, tissue, or cell rather than introduced from an external source."
+  },
+  {
+    "title": "upregulate",
+    "slug": "vocabulary/upregulate.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The process by which a cell increases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals."
+  },
+  {
+    "title": "downregulate",
+    "slug": "vocabulary/downregulate.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The process by which a cell decreases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway**.",
+    "in_pipeline": true
+  },
+  {
+    "title": "pathogen",
+    "slug": "vocabulary/pathogen.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Any microorganism (bacteria, virus, fungus, or parasite) capable of causing disease or **chronic** inflammatory damage in a host organism."
+  },
+  {
+    "title": "pathogenicity",
+    "slug": "vocabulary/pathogenicity.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The qualitative ability of a **pathogen** to infect a host, evade immunological defenses, and cause structural or metabolic damage."
+  },
+  {
+    "title": "anaerobic",
+    "slug": "vocabulary/anaerobic.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Relating to, requiring, or living in an environment that is entirely free of oxygen."
+  },
+  {
+    "title": "periodontitis",
+    "slug": "vocabulary/periodontitis.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A **chronic** inflammatory gum disease driven by dysbiotic oral plaque, resulting in **alveolar bone resorption** and systemic bacterial leakage."
+  },
+  {
+    "title": "coenzyme",
+    "slug": "vocabulary/coenzyme.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A non-**protein** organic cofactor required by specific **enzymes** to carry out **catalytic** activities, often acting as transport shuttles."
+  },
+  {
+    "title": "methionine",
+    "slug": "vocabulary/methionine.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An essential **sulfur**-containing **amino acid** that acts as a fundamental initiator of **protein** translation and a precursor to the universal methyl donor SAM."
+  },
+  {
+    "title": "cysteine",
+    "slug": "vocabulary/cysteine.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A **sulfur**-containing semi-essential **amino acid** critical for **protein folding** via disulfide bonds and a key precursor to the **antioxidant** glutathione."
+  },
+  {
+    "title": "polyphenol",
+    "slug": "vocabulary/polyphenol.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A structurally diverse class of natural plant compounds characterized by multiple **phenol rings**, widely investigated for modulating cellular survival pathways."
+  },
+  {
+    "title": "oxidative stress",
+    "slug": "vocabulary/oxidative-stress.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An imbalance between the production of **reactive oxygen species** (ROS) and cellular **antioxidant** defenses, leading to **DNA** damage and **lipid peroxidation**."
+  },
+  {
+    "title": "antioxidant",
+    "slug": "vocabulary/antioxidant.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A molecule capable of neutralizing **reactive oxygen species** (ROS) and **free radicals**, thereby protecting cellular structures from oxidative degradation."
+  },
+  {
+    "title": "organosulfur",
+    "slug": "vocabulary/organosulfur.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Organic chemical compounds containing **sulfur** atoms, found in foods like garlic and broccoli, known for inducing cellular defense genes."
+  },
+  {
+    "title": "lysosomal",
+    "slug": "vocabulary/lysosomal.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Relating to lysosomes; acidic cellular **organelles** containing digestive **enzymes** responsible for degrading and recycling cellular waste."
+  },
+  {
+    "title": "degradation pathway",
+    "slug": "vocabulary/degradation-pathway.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A regulated biochemical pipeline (such as **autophagy** or proteasomal clearance) designed to break down damaged **proteins** and **organelles**."
+  },
+  {
+    "title": "organelles",
+    "slug": "vocabulary/organelles.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Specialized, **membrane**-bound cellular structures (e.g. mitochondria, lysosomes) that perform distinct **metabolism** or structural duties."
+  },
+  {
+    "title": "misfolded proteins",
+    "slug": "vocabulary/misfolded-proteins.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Proteins that have failed to fold into their correct 3D shape, rendering them non-functional and prone to aggregating into toxic clumps that disrupt **cell viability**."
+  },
+  {
+    "title": "intracellular",
+    "slug": "vocabulary/intracellular.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Occurring, located, or operating entirely within the boundary of a cell **membrane**."
+  },
+  {
+    "title": "Nuclear factor",
+    "slug": "vocabulary/nuclear-factor.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A **DNA**-binding transcription factor **protein** that translocates to the cell **nucleus** to control transcription and coordinate **physiological** adaptations."
+  },
+  {
+    "title": "cytoprotective",
+    "slug": "vocabulary/cytoprotective.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Physiological processes or compounds that shield cells from **noxious** agents, **oxidative stress**, or **apoptotic** triggers."
+  },
+  {
+    "title": "detoxification",
+    "slug": "vocabulary/detoxification.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The **physiological** conversion and elimination of toxic **endogenous** **metabolites** or **xenobiotic** compounds from cells and tissues."
+  },
+  {
     "title": "amino acid",
     "slug": "vocabulary/amino-acid.html",
     "type": "glossary",
@@ -301,14 +542,6 @@
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "The physical process by which a polypeptide chain folds into its functional 3D conformation from its linear **amino acid** sequence."
-  },
-  {
-    "title": "misfolded proteins",
-    "slug": "vocabulary/misfolded-proteins.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "Proteins that have failed to fold into their correct 3D shape, rendering them non-functional and prone to aggregating into toxic clumps that disrupt **cell viability**."
   },
   {
     "title": "RNA",
@@ -341,14 +574,6 @@
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "The complete set of life-sustaining chemical reactions in cells, including catabolism (energy release) and anabolism (molecular synthesis)."
-  },
-  {
-    "title": "physiological",
-    "slug": "vocabulary/physiological.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "Relating to the normal, healthy functioning of living organisms and their organs, tissues, or cells."
   },
   {
     "title": "gene",
@@ -388,7 +613,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A dynamic network of protein filaments (including **microtubules**) that provides structural support, shapes the cell, and facilitates movement."
+    "teaser": "A dynamic network of **protein** filaments (including **microtubules**) that provides structural support, shapes the cell, and facilitates movement."
   },
   {
     "title": "neurons",
@@ -412,7 +637,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An inorganic chemical group ($PO_4^{3-}$) consisting of a phosphorus atom bonded to four oxygen atoms, utilized to store energy and toggle protein activity."
+    "teaser": "An inorganic chemical group consisting of a phosphorus atom bonded to four oxygen atoms, utilized to store energy and toggle **protein** activity."
   },
   {
     "title": "covalent",
@@ -468,7 +693,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A chemical structure consisting of a hydroxyl group (-OH) bonded directly to an aromatic benzene ring, found in antioxidants and plant **polyphenols**."
+    "teaser": "A chemical structure consisting of a hydroxyl group bonded directly to an aromatic benzene ring, found in antioxidants and plant **polyphenols**."
   },
   {
     "title": "reactive oxygen species",
@@ -484,7 +709,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The oxidative degradation of lipids in **membranes**, where free radicals abstract electrons from lipids, leading to cell membrane damage."
+    "teaser": "The oxidative degradation of lipids in **membranes**, where **free radicals** abstract electrons from lipids, leading to cell membrane damage."
   },
   {
     "title": "free radicals",
@@ -543,84 +768,11 @@
     "teaser": "A chemical compound (such as a drug, toxin, or pesticide) that is foreign to a biological system and must be neutralized."
   },
   {
-    "title": "degradation pathway",
-    "slug": "vocabulary/degradation-pathway.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "A regulated biochemical pipeline (such as **autophagy** or proteasomal clearance) designed to break down damaged **proteins** and **organelles**."
-  },
-  {
-    "title": "organelles",
-    "slug": "vocabulary/organelles.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "Specialized, membrane-bound cellular structures (e.g. mitochondria, lysosomes) that perform distinct metabolic or structural duties."
-  },
-  {
-    "title": "intracellular",
-    "slug": "vocabulary/intracellular.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "Occurring, located, or operating entirely within the boundary of a cell membrane."
-  },
-  {
-    "title": "Nuclear factor",
-    "slug": "vocabulary/nuclear-factor.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "A DNA-binding transcription factor protein that translocates to the cell nucleus to control transcription and coordinate physiological adaptations."
-  },
-  {
-    "title": "cytoprotective",
-    "slug": "vocabulary/cytoprotective.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "Physiological processes or compounds that shield cells from noxious agents, oxidative stress, or apoptotic triggers."
-  },
-  {
-    "title": "detoxification",
-    "slug": "vocabulary/detoxification.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "The physiological conversion and elimination of toxic endogenous metabolites or xenobiotic compounds from cells and tissues."
-  },
-  {
-    "title": "gene expression",
-    "slug": "vocabulary/gene-expression.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "The multi-step process by which information encoded in a gene is synthesized into functional proteins or RNA products."
-  },
-  {
     "title": "epidemiological studies",
     "slug": "vocabulary/epidemiological-studies.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "Research observing the distribution, patterns, and determinants of health and disease conditions in defined populations."
-  },
-  {
-    "title": "upregulate",
-    "slug": "vocabulary/upregulate.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "The process by which a cell increases the response, rate, or expression of a gene, protein, or metabolic pathway in response to external signals."
-  },
-  {
-    "title": "downregulate",
-    "slug": "vocabulary/downregulate.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "The process by which a cell decreases the response, rate, or expression of a gene, protein, or metabolic pathway.",
-    "in_pipeline": true
   }
 ]

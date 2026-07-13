@@ -782,33 +782,43 @@ def compile_vocabulary_detail_page(
             from tools.compiler.linker import inject_jargon_links
         definition = inject_jargon_links(definition, local_vocab)
     
-    mentions_links = []
-    lexicon_links = []
+    connections_html = []
     for m in sorted(mentions, key=lambda x: x["title"]):
-        if m.get("type") == "lexicon":
-            lexicon_links.append(f'<li><a href="{m["slug"]}" class="vocab-mention-link">{m["title"]}</a></li>')
-        else:
-            mentions_links.append(f'<li><a href="../{m["slug"]}" class="vocab-mention-link">{m["title"]}</a></li>')
+        title = m["title"]
+        slug = m["slug"]
+        m_type = m.get("type", "biology")
         
-    mentions_html = ""
-    if mentions_links:
-        mentions_html = (
-            f'<div class="vocab-detail-mentions">'
-            f'  <h3>Mentioned in:</h3>'
-            f'  <ul class="vocab-mentions-list">'
-            f'    {"".join(mentions_links)}'
-            f'  </ul>'
-            f'</div>'
-        )
+        if m_type == "lexicon":
+            tag_html = (
+                f'<a href="{slug}" class="connection-tag tag-lexicon">'
+                f'  <span class="connection-type">Lexicon</span>'
+                f'  <span class="connection-title">{title}</span>'
+                f'</a>'
+            )
+        elif m.get("in_pipeline"):
+            tag_html = (
+                f'<a href="../{slug}" class="connection-tag tag-pipeline">'
+                f'  <span class="connection-type">Pipeline</span>'
+                f'  <span class="connection-title">{title}</span>'
+                f'</a>'
+            )
+        else:
+            tag_html = (
+                f'<a href="../{slug}" class="connection-tag tag-article cat-{m_type}">'
+                f'  <span class="connection-type">Article</span>'
+                f'  <span class="connection-title">{title}</span>'
+                f'</a>'
+            )
+        connections_html.append(tag_html)
 
-    lexicon_mentions_html = ""
-    if lexicon_links:
-        lexicon_mentions_html = (
-            f'<div class="vocab-detail-lexicon-mentions" style="margin-top: var(--space-4);">'
-            f'  <h3>Defined using this term:</h3>'
-            f'  <ul class="vocab-mentions-list">'
-            f'    {"".join(lexicon_links)}'
-            f'  </ul>'
+    connections_html_section = ""
+    if connections_html:
+        connections_html_section = (
+            f'<div class="vocab-connections-section">'
+            f'  <h3>Connections</h3>'
+            f'  <div class="vocab-connections-list">'
+            f'    {"".join(connections_html)}'
+            f'  </div>'
             f'</div>'
         )
 
@@ -885,8 +895,7 @@ def compile_vocabulary_detail_page(
         f'  </header>'
         f'  {analogy_html}'
         f'  <p class="vocab-definition">{definition}</p>'
-        f'  {mentions_html}'
-        f'  {lexicon_mentions_html}'
+        f'  {connections_html_section}'
         f'  {citations_html}'
         f'</article>'
     )
@@ -919,6 +928,18 @@ def compile_vocabulary_taxonomy_page(
     labels = translations.get("en", {})
     taxonomy_capitalized = taxonomy_name.capitalize()
     
+    taxonomy_descriptions = {
+        "organism": "A living biological entity, including bacteria, host cells, or specialized cell types that actively participate in systemic pathways.",
+        "process": "A series of biochemical reactions, transport cascades, or physiological cycles that dynamically alter metabolic state variables.",
+        "molecule": "A chemical compound, lipid, cofactor, or molecular component that acts as a signaling carrier or building block in biological circuits.",
+        "protein": "A folded chain of amino acids serving as a structural component, cellular sensor, or biological catalyst within pathways.",
+        "condition": "A pathological deviation, disease state, or clinical syndrome characterizing tissue wear, structural damage, or system breakdown.",
+        "concept": "A baseline biological parameter, physiological metric, or abstract longevity state defining metabolic health.",
+        "framework": "A standardized clinical evaluation system, grading methodology, or validation protocol used to measure study quality."
+    }
+    
+    tax_desc = taxonomy_descriptions.get(taxonomy_name.lower(), f"All glossary entries classified as metabolic or biological {taxonomy_name}s.")
+    
     cards_html = []
     for term in sorted(terms):
         slug = slugify(term)
@@ -943,7 +964,7 @@ def compile_vocabulary_taxonomy_page(
         f'      &larr; Back to Lexicon'
         f'    </a>'
         f'    <h1 class="page-title">Lexicon Taxonomy: {taxonomy_capitalized}</h1>'
-        f'    <p class="tag-description">All glossary entries classified as metabolic or biological {taxonomy_name}s.</p>'
+        f'    <p class="tag-description"><strong>Definition:</strong> {tax_desc}</p>'
         f'  </header>'
         f'  <div class="vocab-container">'
         f'    <div class="vocab-grid">'

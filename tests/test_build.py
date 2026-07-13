@@ -280,7 +280,7 @@ def test_compile_vocabulary_detail_page() -> None:
     compiled = compile_vocabulary_detail_page(layout, term, vocab_item, mentions, translations)
     assert "AMPK" in compiled
     assert "An energy sensing enzyme" in compiled
-    assert "Mentioned in:" in compiled
+    assert "Connections" in compiled
     assert "../ampk-activation.html" in compiled
     assert "AMPK Activation" in compiled
 

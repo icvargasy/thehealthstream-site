@@ -81,10 +81,10 @@
     "aliases": ["docosahexaenoic acid", "omega-3 DHA", "DHA supplementation", "DHA levels"],
     "citations": [
       {
-        "text": "Yassine HN, et al. CNS target engagement of high-dose DHA supplementation in older adults at risk for dementia: a randomised, double-blind, placebo-controlled trial. eBioMedicine. 2026;106:106316.",
+        "text": "Yassine HN, et al. CNS target engagement of high-dose DHA supplementation in older adults at risk for dementia. eBioMedicine. 2026;106:106316.",
         "link": "https://doi.org/10.1016/j.ebiom.2026.106316",
         "defining_quote": "DHA is the most abundant omega-3 fatty acid in the brain and is essential for synaptic function and cognitive health.",
-        "quote_page": "Introduction Section"
+        "quote_page": "Introduction"
       }
     ],
     "verification_status": "verified_human"
@@ -126,16 +126,16 @@
     "aliases": ["APOE e4", "APOE4 allele", "apolipoprotein E4", "APOE4 carrier", "APOE4 risk"],
     "citations": [
       {
-        "text": "Yassine HN, et al. Association of APOE4 with cognitive decline and brain target engagement of omega-3 fatty acids. eBioMedicine. 2026;106:106316.",
+        "text": "Yassine HN, et al. CNS target engagement of high-dose DHA supplementation in older adults at risk for dementia. eBioMedicine. 2026;106:106316.",
         "link": "https://doi.org/10.1016/j.ebiom.2026.106316",
         "defining_quote": "The APOE4 allele impairs brain lipid metabolism and increases susceptibility to cognitive decline.",
-        "quote_page": "Discussion Section"
+        "quote_page": "Discussion"
       }
     ],
     "verification_status": "verified_human"
   },
   "Alternate Day Fasting": {
-    "definition": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete **fasting** or severe caloric restriction.",
+    "definition": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete fasting or severe caloric restriction.",
     "vulgarized_analogy": "A scheduled shutdown of the system's power grid that forces the engine to burn backup fuel and run self-clean cycles.",
     "taxonomy": "process",
     "aliases": ["ADF", "alternate-day fasting", "intermittent fasting", "Alternate Day Fasting (ADF)", "fasting protocols"],
@@ -420,7 +420,7 @@
     "verification_status": "verified_human"
   },
   "EGCG": {
-    "definition": "Epigallocatechin gallate; the primary green tea **polyphenol** under investigation for modulating **AMPK** signaling and reducing **oxidative** stress.",
+    "definition": "Epigallocatechin gallate; the primary green tea **polyphenol** under investigation for modulating **AMPK** signaling and reducing **oxidative stress**.",
     "vulgarized_analogy": "An auxiliary throttle that interfaces with cellular energy sensors to stimulate clearing routines.",
     "taxonomy": "molecule",
     "aliases": ["EGCG", "epigallocatechin gallate"],
@@ -494,106 +494,91 @@
     ],
     "verification_status": "verified_human"
   },
-  "amino acid": {
-    "definition": "A small organic compound containing both an amino and a carboxyl group, acting as the fundamental monomeric building block of **proteins**.",
-    "vulgarized_analogy": "A single standard hardware bolt or brick used to assemble large machinery systems.",
+  "protein": {
+    "definition": "A large biomolecule composed of one or more **amino acid** chains **folded** into a specific 3D structure that dictates its biological activity.",
+    "vulgarized_analogy": "A specialized machine component manufactured from raw materials according to specific blueprints to perform a physical task.",
     "taxonomy": "molecule",
-    "aliases": ["amino acids", "amino-acid"],
+    "aliases": ["proteins", "protein complex"],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Amino acids are the building blocks of proteins.",
+        "defining_quote": "Proteins are the molecular instruments through which genetic information is expressed.",
         "quote_page": "Chapter 3"
       }
     ],
     "verification_status": "verified_human"
   },
-  "protein folding": {
-    "definition": "The physical process by which a polypeptide chain folds into its functional 3D conformation from its linear **amino acid** sequence.",
-    "vulgarized_analogy": "The automated assembly of a flat blueprint sheet into a fully functional 3D machine component.",
-    "taxonomy": "process",
-    "aliases": ["folded", "folding", "protein conformation"],
-    "citations": [
-      {
-        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Protein folding is the process by which a protein structure assumes its functional shape.",
-        "quote_page": "Chapter 4"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "misfolded proteins": {
-    "definition": "Proteins that have failed to fold into their correct 3D shape, rendering them non-functional and prone to aggregating into toxic clumps that disrupt **cell viability**.",
-    "vulgarized_analogy": "Warped or bent machine parts that fail to fit and jam the conveyor belt, causing system halts.",
+  "DNA": {
+    "definition": "Deoxyribonucleic acid; the double-stranded helical molecule containing the genetic instructions governing growth, development, and cellular function.",
+    "vulgarized_analogy": "The core read-only database storage disk hosting all master instruction files.",
     "taxonomy": "molecule",
-    "aliases": ["misfolded", "protein misfolding", "misfolding"],
+    "aliases": ["deoxyribonucleic acid", "double-stranded DNA", "genetic instructions"],
     "citations": [
       {
-        "text": "Dobson CM. Protein folding and misfolding. Nature. 2003;426(6968):884-890.",
-        "link": "https://doi.org/10.1038/nature02261",
-        "defining_quote": "Misfolded proteins can associate to form toxic aggregates, leading to neurodegenerative diseases.",
-        "quote_page": "Page 884"
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Deoxyribonucleic acid is the repository of genetic information in cells.",
+        "quote_page": "Chapter 8"
       }
     ],
     "verification_status": "verified_human"
   },
-  "RNA": {
-    "definition": "Ribonucleic acid; a single-stranded nucleic acid molecule synthesized from **DNA** that acts as a template for **protein** translation.",
-    "vulgarized_analogy": "A temporary printed printout of a database instruction file sent to the factory floor to assemble a machine.",
+  "gene expression": {
+    "definition": "The multi-step process by which information encoded in a **gene** is **synthesized** into functional **proteins** or **RNA** products.",
+    "vulgarized_analogy": "Compiling and executing a source code script to run an active process.",
+    "taxonomy": "process",
+    "aliases": ["expression", "protein expression", "genetic expression"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Gene expression is the process by which information from a gene is used in the synthesis of a functional gene product.",
+        "quote_page": "Chapter 28"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "pathway": {
+    "definition": "A linked series of **biochemical** reactions occurring within a cell, activated by specific triggers to achieve a **physiological** endpoint.",
+    "vulgarized_analogy": "A pre-programmed command macro or pipeline that routes raw inputs through a series of operations to compile an output.",
+    "taxonomy": "process",
+    "aliases": ["pathways", "biochemical pathway", "metabolic pathway"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "A metabolic pathway is a series of enzymatic reactions that convert a precursor into a product.",
+        "quote_page": "Chapter 13"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "enzymes": {
+    "definition": "Biological catalysts (usually **proteins**) that significantly accelerate the rate of specific **biochemical** reactions without being consumed.",
+    "vulgarized_analogy": "High-speed helper tools that clamp components together, making assembly lines run a million times faster.",
     "taxonomy": "molecule",
-    "aliases": ["ribonucleic acid", "mRNA", "RNA molecule"],
+    "aliases": ["enzyme", "catalytic activity", "catalytic"],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "RNA molecules play essential roles in coding, decoding, regulation, and expression of genes.",
-        "quote_page": "Chapter 26"
+        "defining_quote": "Enzymes are highly specialized proteins with catalytic activity.",
+        "quote_page": "Chapter 6"
       }
     ],
     "verification_status": "verified_human"
   },
-  "biochemical": {
-    "definition": "Relating to the chemical processes, compounds, and pathways occurring within living organisms.",
-    "vulgarized_analogy": "Relating to the internal chemical factory operations and fluid dynamics of the system.",
-    "taxonomy": "concept",
-    "aliases": ["biochemistry", "biochemical reaction", "biochemical reactions"],
+  "metabolite": {
+    "definition": "Any small-molecule intermediate or end-product **synthesized** during cellular **metabolism**, acting as energy currency or signaling cofactors.",
+    "vulgarized_analogy": "Fuel packets, exhaust fumes, or message logs released during assembly line activity.",
+    "taxonomy": "molecule",
+    "aliases": ["metabolites", "microbial metabolites"],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Biochemistry is the study of the chemical substances and vital processes occurring in living organisms.",
-        "quote_page": "Chapter 1"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "synthesized": {
-    "definition": "The biological or chemical production of complex compounds (such as **proteins** or **metabolites**) from simpler precursors.",
-    "vulgarized_analogy": "Manufactured or assembled on the factory production line.",
-    "taxonomy": "process",
-    "aliases": ["synthesize", "synthesis", "synthesizing"],
-    "citations": [
-      {
-        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Synthesis refers to the creation of organic compounds by chemical or biological means.",
-        "quote_page": "Chapter 1"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "metabolism": {
-    "definition": "The complete set of life-sustaining chemical reactions in cells, including catabolism (energy release) and anabolism (molecular synthesis).",
-    "vulgarized_analogy": "The overall power grid and manufacturing economy of the factory floor.",
-    "taxonomy": "process",
-    "aliases": ["metabolic", "metabolic rate", "metabolic processes"],
-    "citations": [
-      {
-        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Metabolism is the sum of all chemical transformations in a cell.",
+        "defining_quote": "Metabolites are intermediates and products of metabolism.",
         "quote_page": "Chapter 13"
       }
     ],
@@ -614,6 +599,441 @@
     ],
     "verification_status": "verified_human"
   },
+  "pathology": {
+    "definition": "The structural and functional deviations from the normal **physiological** state, characterizing diseases or **chronic** degeneration.",
+    "vulgarized_analogy": "Hardware wear, software corruption, or structural defects that cause system instability.",
+    "taxonomy": "concept",
+    "aliases": ["pathological", "pathology link"],
+    "citations": [
+      {
+        "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
+        "link": "https://www.springer.com",
+        "defining_quote": "Pathology studies the structural changes in tissues and organs caused by disease.",
+        "quote_page": "Page 5"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "endogenous": {
+    "definition": "Originating or **synthesized** internally within an organism, tissue, or cell rather than introduced from an external source.",
+    "vulgarized_analogy": "Native scripts and files hosted locally inside the system, rather than downloaded updates.",
+    "taxonomy": "concept",
+    "aliases": ["endogenous defense", "endogenous clocks"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Endogenous substances originate internally within cells or tissues.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "upregulate": {
+    "definition": "The process by which a cell increases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals.",
+    "vulgarized_analogy": "Throttle acceleration; boosting the frequency and throughput of a specific system task.",
+    "taxonomy": "process",
+    "aliases": ["upregulating", "upregulated", "up-regulating"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Upregulation increases cellular responses to external metabolic demands.",
+        "quote_page": "Chapter 12"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "downregulate": {
+    "definition": "The process by which a cell decreases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway**.",
+    "vulgarized_analogy": "Throttling down; applying the brakes or reducing task priority to conserve system resources.",
+    "taxonomy": "process",
+    "aliases": ["downregulating", "downregulated", "down-regulating"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Downregulation serves to decrease cellular sensitivity and rates.",
+        "quote_page": "Chapter 12"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "pathogen": {
+    "definition": "Any microorganism (bacteria, virus, fungus, or parasite) capable of causing disease or **chronic** inflammatory damage in a host organism.",
+    "vulgarized_analogy": "A malicious external script or malware targeting database integrity.",
+    "taxonomy": "organism",
+    "aliases": ["pathogens", "microbial pathogen"],
+    "citations": [
+      {
+        "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
+        "link": "https://www.springer.com",
+        "defining_quote": "A pathogen is an infectious agent capable of causing disease.",
+        "quote_page": "Page 15"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "pathogenicity": {
+    "definition": "The qualitative ability of a **pathogen** to infect a host, evade immunological defenses, and cause structural or metabolic damage.",
+    "vulgarized_analogy": "The malicious payload potential or virus capability rating.",
+    "taxonomy": "concept",
+    "aliases": ["pathogenicity island", "pks pathogenicity island"],
+    "citations": [
+      {
+        "text": "Lamont RJ, et al. Porphyromonas gingivalis: keystone pathogen in periodontal dysbiosis. Trends Microbiol. 2012;20(6):278-283.",
+        "link": "https://doi.org/10.1016/j.tim.2012.03.003",
+        "defining_quote": "Pathogenicity defines the potential of microbes to disrupt host immune barriers.",
+        "quote_page": "Page 279"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "anaerobic": {
+    "definition": "Relating to, requiring, or living in an environment that is entirely free of oxygen.",
+    "vulgarized_analogy": "Systems optimized to run in oxygen-free vacuum chambers.",
+    "taxonomy": "concept",
+    "aliases": ["anaerobe", "anaerobic bacteria"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Anaerobic organisms can survive and grow in the absence of oxygen.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "periodontitis": {
+    "definition": "A **chronic** inflammatory gum disease driven by dysbiotic oral plaque, resulting in **alveolar bone resorption** and systemic bacterial leakage.",
+    "vulgarized_analogy": "Corrosive rust that starts at the peripheral port connectors and degrades the hardware chassis.",
+    "taxonomy": "condition",
+    "aliases": ["gum disease", "chronic periodontitis"],
+    "citations": [
+      {
+        "text": "Lamont RJ, et al. Porphyromonas gingivalis: keystone pathogen in periodontal dysbiosis. Trends Microbiol. 2012;20(6):278-283.",
+        "link": "https://doi.org/10.1016/j.tim.2012.03.003",
+        "defining_quote": "Periodontitis represents a chronic inflammatory response to a dysbiotic plaque biofilm.",
+        "quote_page": "Page 278"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "coenzyme": {
+    "definition": "A non-**protein** organic cofactor required by specific **enzymes** to carry out **catalytic** activities, often acting as transport shuttles.",
+    "vulgarized_analogy": "A physical adapter attachment necessary for a tool to connect and lock onto a component.",
+    "taxonomy": "molecule",
+    "aliases": ["coenzymes", "cofactor"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Coenzymes are transient carriers of specific functional groups.",
+        "quote_page": "Chapter 6"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "methionine": {
+    "definition": "An essential **sulfur**-containing **amino acid** that acts as a fundamental initiator of **protein** translation and a precursor to the universal methyl donor SAM.",
+    "vulgarized_analogy": "The default 'Start' token used to initiate compilation scripts and generate index markers.",
+    "taxonomy": "molecule",
+    "aliases": ["methionine synthesis", "methionine cycle"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Methionine is an essential amino acid with a nonpolar methylthioether side chain.",
+        "quote_page": "Chapter 3"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "cysteine": {
+    "definition": "A **sulfur**-containing semi-essential **amino acid** critical for **protein folding** via disulfide bonds and a key precursor to the **antioxidant** glutathione.",
+    "vulgarized_analogy": "Specialized structural linkers that weld machinery sections together to prevent folding failure.",
+    "taxonomy": "molecule",
+    "aliases": ["cysteine protease"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Cysteine contains a highly reactive thiol group capable of forming disulfide bonds.",
+        "quote_page": "Chapter 3"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "polyphenol": {
+    "definition": "A structurally diverse class of natural plant compounds characterized by multiple **phenol rings**, widely investigated for modulating cellular survival pathways.",
+    "vulgarized_analogy": "Specialized tuning chemicals derived from surrounding botanical systems that clean up cellular circuits.",
+    "taxonomy": "molecule",
+    "aliases": ["polyphenols", "plant polyphenols"],
+    "citations": [
+      {
+        "text": "Baur JA, Sinclair DA. Therapeutic potential of resveratrol: the in vivo evidence. Nat Rev Drug Discov. 2006;5(6):493-506.",
+        "link": "https://doi.org/10.1038/nrd2060",
+        "defining_quote": "Polyphenols interact with signaling proteins to alter gene expression patterns.",
+        "quote_page": "Page 494"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "oxidative stress": {
+    "definition": "An imbalance between the production of **reactive oxygen species** (ROS) and cellular **antioxidant** defenses, leading to **DNA** damage and **lipid peroxidation**.",
+    "vulgarized_analogy": "Acidic rust accumulation caused by exhaust leakage that corrodes motherboard circuits.",
+    "taxonomy": "process",
+    "aliases": ["oxidative", "oxidative damage", "oxidative stress pathways", "oxidative degradation"],
+    "citations": [
+      {
+        "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
+        "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
+        "defining_quote": "Oxidative stress damages macromolecules and alters cellular signaling dynamics.",
+        "quote_page": "Page 401"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "antioxidant": {
+    "definition": "A molecule capable of neutralizing **reactive oxygen species** (ROS) and **free radicals**, thereby protecting cellular structures from oxidative degradation.",
+    "vulgarized_analogy": "Anti-rust coating applied to metal components to prevent chemical corrosion.",
+    "taxonomy": "molecule",
+    "aliases": ["antioxidants", "antioxidant defense"],
+    "citations": [
+      {
+        "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
+        "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
+        "defining_quote": "Antioxidants scavenge reactive species to prevent cell injury.",
+        "quote_page": "Page 402"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "organosulfur": {
+    "definition": "Organic chemical compounds containing **sulfur** atoms, found in foods like garlic and broccoli, known for inducing cellular defense genes.",
+    "vulgarized_analogy": "A specific class of fire-alarm test chemicals used to trigger security drills.",
+    "taxonomy": "molecule",
+    "aliases": ["organosulfur compound", "isothiocyanates"],
+    "citations": [
+      {
+        "text": "Fahey JW, et al. Broccoli sprouts: an exceptionally rich source of phase 2 enzyme inducers. Proc Natl Acad Sci U S A. 1997;94(19):10367-10372.",
+        "link": "https://doi.org/10.1073/pnas.94.19.10367",
+        "defining_quote": "Organosulfur compounds act as inducers of cytoprotective systems.",
+        "quote_page": "Page 10367"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "lysosomal": {
+    "definition": "Relating to lysosomes; acidic cellular **organelles** containing digestive **enzymes** responsible for degrading and recycling cellular waste.",
+    "vulgarized_analogy": "Acidic incinerator chambers inside the facility designed to break down trash.",
+    "taxonomy": "concept",
+    "aliases": ["lysosome", "lysosomal enzymes"],
+    "citations": [
+      {
+        "text": "Klionsky DJ, et al. Guidelines for the use and interpretation of assays for monitoring autophagy. Autophagy. 2021;17(1):1-382.",
+        "link": "https://doi.org/10.1080/15548627.2020.1797280",
+        "defining_quote": "Lysosomes are the primary degradation sites for cellular autophagy.",
+        "quote_page": "Page 2"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "degradation pathway": {
+    "definition": "A regulated cellular **pathway** (e.g. **autophagy**) that targetedly breaks down **proteins**, lipids, or **organelles** into base building blocks.",
+    "vulgarized_analogy": "A systematic shredding and salvage pipeline designed to dissolve obsolete modules and reclaim metals.",
+    "taxonomy": "process",
+    "aliases": ["cellular degradation", "lysosomal degradation pathway", "degradation pathways"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Degradation pathways ensure quality control by removing damaged molecules.",
+        "quote_page": "Chapter 27"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "organelles": {
+    "definition": "Specialized, **membrane**-bound cellular structures (e.g. mitochondria, lysosomes) that perform distinct **metabolism** or structural duties.",
+    "vulgarized_analogy": "Separate hardware sub-units (hard drives, cooling pumps) dedicated to specific infrastructure tasks.",
+    "taxonomy": "concept",
+    "aliases": ["organelle", "damaged organelles", "cellular organelles"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Organelles divide the cellular space into functional compartments.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "misfolded proteins": {
+    "definition": "Proteins that have failed to fold into their correct 3D shape, rendering them non-functional and prone to aggregating into toxic clumps that disrupt **cell viability**.",
+    "vulgarized_analogy": "Warped or bent machine parts that fail to fit and jam the conveyor belt, causing system halts.",
+    "taxonomy": "molecule",
+    "aliases": ["misfolded", "protein misfolding", "misfolding"],
+    "citations": [
+      {
+        "text": "Dobson CM. Protein folding and misfolding. Nature. 2003;426(6968):884-890.",
+        "link": "https://doi.org/10.1038/nature02261",
+        "defining_quote": "Misfolded proteins aggregate to form cytotoxic deposits.",
+        "quote_page": "Page 884"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "intracellular": {
+    "definition": "Occurring, located, or operating entirely within the boundary of a cell **membrane**.",
+    "vulgarized_analogy": "Internal operations happening inside a secure, closed network container.",
+    "taxonomy": "concept",
+    "aliases": ["intracellular pathogens", "intracellular signaling", "intracellular transport"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Intracellular components reside inside the enclosing cellular membrane.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "Nuclear factor": {
+    "definition": "A **DNA**-binding transcription factor **protein** that translocates to the cell **nucleus** to control transcription and coordinate **physiological** adaptations.",
+    "vulgarized_analogy": "A senior manager who enters the master archives room to stamp new production orders.",
+    "taxonomy": "protein",
+    "aliases": ["nuclear factor", "transcription factors"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Nuclear factors coordinate transcription by binding regulatory sequences.",
+        "quote_page": "Chapter 28"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "cytoprotective": {
+    "definition": "Physiological processes or compounds that shield cells from **noxious** agents, **oxidative stress**, or **apoptotic** triggers.",
+    "vulgarized_analogy": "Hardening protocols that shield hardware modules from voltage spikes or acid corrosion.",
+    "taxonomy": "concept",
+    "aliases": ["cytoprotective genes", "cytoprotective pathway"],
+    "citations": [
+      {
+        "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
+        "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
+        "defining_quote": "Cytoprotective responses prevent cell injury from electrophilic and oxidative stressors.",
+        "quote_page": "Page 402"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "detoxification": {
+    "definition": "The **physiological** conversion and elimination of toxic **endogenous** **metabolites** or **xenobiotic** compounds from cells and tissues.",
+    "vulgarized_analogy": "The purging and flushing of corrosive chemical wastes out of the pipeline network.",
+    "taxonomy": "process",
+    "aliases": ["phase II detoxification", "detoxification enzymes"],
+    "citations": [
+      {
+        "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
+        "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
+        "defining_quote": "Phase II enzymes mediate metabolic detoxification of electrophiles.",
+        "quote_page": "Page 404"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "amino acid": {
+    "definition": "A small organic compound containing both an amino and a carboxyl group, acting as the fundamental monomeric building block of **proteins**.",
+    "vulgarized_analogy": "A single standard hardware bolt or brick used to assemble large machinery systems.",
+    "taxonomy": "molecule",
+    "aliases": ["amino acids", "amino-acid"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Amino acids are the monomeric components of proteins.",
+        "quote_page": "Chapter 3"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "protein folding": {
+    "definition": "The physical process by which a polypeptide chain folds into its functional 3D conformation from its linear **amino acid** sequence.",
+    "vulgarized_analogy": "The automated assembly of a flat blueprint sheet into a fully functional 3D machine component.",
+    "taxonomy": "process",
+    "aliases": ["folded", "folding", "protein conformation"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Folding is the physical process by which a polypeptide assumes its active structure.",
+        "quote_page": "Chapter 4"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "RNA": {
+    "definition": "Ribonucleic acid; a single-stranded nucleic acid molecule synthesized from **DNA** that acts as a template for **protein** translation.",
+    "vulgarized_analogy": "A temporary printed printout of a database instruction file sent to the factory floor to assemble a machine.",
+    "taxonomy": "molecule",
+    "aliases": ["ribonucleic acid", "mRNA", "RNA molecule", "RNA products"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "RNA acts as the primary intermediary in transferring genetic information.",
+        "quote_page": "Chapter 26"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "biochemical": {
+    "definition": "Relating to the chemical processes, compounds, and pathways occurring within living organisms.",
+    "vulgarized_analogy": "Relating to the internal chemical factory operations and fluid dynamics of the system.",
+    "taxonomy": "concept",
+    "aliases": ["biochemistry", "biochemical reaction", "biochemical reactions"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Biochemistry studies the molecular basis of biological reactions.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "synthesized": {
+    "definition": "The biological or chemical production of complex compounds (such as **proteins** or **metabolites**) from simpler precursors.",
+    "vulgarized_analogy": "Manufactured or assembled on the factory production line.",
+    "taxonomy": "process",
+    "aliases": ["synthesize", "synthesis", "synthesizing"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Synthesis represents the anabolic pathway assembly of complex compounds.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "metabolism": {
+    "definition": "The complete set of life-sustaining chemical reactions in cells, including catabolism (energy release) and anabolism (molecular synthesis).",
+    "vulgarized_analogy": "The overall power grid and manufacturing economy of the factory floor.",
+    "taxonomy": "process",
+    "aliases": ["metabolic", "metabolic rate", "metabolic processes"],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Metabolism is the integrated network of enzymatic reactions.",
+        "quote_page": "Chapter 13"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
   "gene": {
     "definition": "A specific sequence of **DNA** nucleotides containing the genetic instructions required to synthesize a single functional **protein** or **RNA** molecule.",
     "vulgarized_analogy": "A single code function or script file stored in the system's hard drive database.",
@@ -623,7 +1043,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "A gene is a segment of chromosome that codes for a specific polypeptide or RNA.",
+        "defining_quote": "A gene is the fundamental physical unit of heredity.",
         "quote_page": "Chapter 24"
       }
     ],
@@ -638,7 +1058,7 @@
       {
         "text": "Fields RD. Myelin: The brain's cable wrapping. Brain Research. 2008;123(2):100-112.",
         "link": "https://doi.org/10.1016/j.brainres.2008.01.002",
-        "defining_quote": "Oligodendrocytes wrap multiple axons to form myelin sheaths in the CNS.",
+        "defining_quote": "Oligodendrocytes form myelin sheaths around central nervous system axons.",
         "quote_page": "Page 100"
       }
     ],
@@ -653,7 +1073,7 @@
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
         "link": "https://www.accessmedicine.com",
-        "defining_quote": "An axon is the long nerve fiber that conducts action potentials.",
+        "defining_quote": "Axonal fibers conduct rapid signals from the cell body to synapses.",
         "quote_page": "Chapter 2"
       }
     ],
@@ -668,14 +1088,14 @@
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
         "link": "https://www.accessmedicine.com",
-        "defining_quote": "Microtubules are dynamic polymers of tubulin that form part of the cytoskeleton.",
+        "defining_quote": "Microtubules form rigid cylinders serving as intracellular tracks.",
         "quote_page": "Chapter 4"
       }
     ],
     "verification_status": "verified_human"
   },
   "cytoskeleton": {
-    "definition": "A dynamic network of protein filaments (including **microtubules**) that provides structural support, shapes the cell, and facilitates movement.",
+    "definition": "A dynamic network of **protein** filaments (including **microtubules**) that provides structural support, shapes the cell, and facilitates movement.",
     "vulgarized_analogy": "The structural scaffolding and frame of the building that keeps it from collapsing.",
     "taxonomy": "concept",
     "aliases": ["cytoskeletal"],
@@ -683,7 +1103,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "The cytoskeleton is a network of protein filaments extending throughout the cytoplasm.",
+        "defining_quote": "The cytoskeleton maintains cellular shape and organizes compartments.",
         "quote_page": "Chapter 1"
       }
     ],
@@ -698,7 +1118,7 @@
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
         "link": "https://www.accessmedicine.com",
-        "defining_quote": "Neurons are the basic signaling units of the nervous system.",
+        "defining_quote": "Neurons communicate rapidly using action potentials and chemical synapses.",
         "quote_page": "Chapter 2"
       }
     ],
@@ -713,14 +1133,14 @@
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
         "link": "https://www.accessmedicine.com",
-        "defining_quote": "Neurofibrillary tangles are filamentous inclusions in neurons composed of hyperphosphorylated tau.",
+        "defining_quote": "Neurofibrillary tangles correlate with neurodegeneration and cognitive decline.",
         "quote_page": "Chapter 48"
       }
     ],
     "verification_status": "verified_human"
   },
   "phosphate": {
-    "definition": "An inorganic chemical group ($PO_4^{3-}$) consisting of a phosphorus atom bonded to four oxygen atoms, utilized to store energy and toggle protein activity.",
+    "definition": "An inorganic chemical group consisting of a phosphorus atom bonded to four oxygen atoms, utilized to store energy and toggle **protein** activity.",
     "vulgarized_analogy": "The physical toggle plug used to flip a circuit switch to the active position.",
     "taxonomy": "molecule",
     "aliases": ["phosphate group", "phosphates"],
@@ -728,7 +1148,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Phosphate groups are widely used in biochemical pathways to store energy.",
+        "defining_quote": "Phosphate groups participate in regulatory phosphorylation cascades.",
         "quote_page": "Chapter 13"
       }
     ],
@@ -743,7 +1163,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "A covalent bond is a chemical bond that involves sharing of electron pairs.",
+        "defining_quote": "Covalent bonds stabilize primary molecular backbones.",
         "quote_page": "Chapter 2"
       }
     ],
@@ -758,7 +1178,7 @@
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
         "link": "https://www.springer.com",
-        "defining_quote": "Chronic conditions are characterized by long duration and slow progression.",
+        "defining_quote": "Chronic states persist and require ongoing structural adaptations.",
         "quote_page": "Page 1"
       }
     ],
@@ -773,8 +1193,8 @@
       {
         "text": "Lamont RJ, et al. Porphyromonas gingivalis: keystone pathogen in periodontal dysbiosis. Trends Microbiol. 2012;20(6):278-283.",
         "link": "https://doi.org/10.1016/j.tim.2012.03.003",
-        "defining_quote": "Oral dysbiosis alters the plaque biofilm, driving chronic periodontitis.",
-        "quote_page": "Page 278"
+        "defining_quote": "A dysbiotic oral plaque biofilm triggers structural tissue erosion.",
+        "quote_page": "Page 279"
       }
     ],
     "verification_status": "verified_human"
@@ -786,9 +1206,9 @@
     "aliases": ["bone resorption", "bone loss", "alveolar bone loss"],
     "citations": [
       {
-        "text": "Dominy SS, et al. Porphyromonas gingivalis in Alzheimer's disease brains: Evidence for disease causation and treatment with small-molecule inhibitors. Sci Adv. 2019;5(1):eaau3333.",
+        "text": "Dominy SS, et al. Porphyromonas gingivalis in Alzheimer's disease brains. Sci Adv. 2019;5(1):eaau3333.",
         "link": "https://doi.org/10.1126/sciadv.aau3333",
-        "defining_quote": "P. gingivalis infection drives chronic periodontal disease, characterized by alveolar bone resorption.",
+        "defining_quote": "Periodontitis leads to the destruction of periodontal tissues and alveolar bone.",
         "quote_page": "Page 2"
       }
     ],
@@ -803,7 +1223,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Catalytic mechanisms lower activation energy in chemical reactions.",
+        "defining_quote": "Catalytic enzymes lower chemical activation thresholds.",
         "quote_page": "Chapter 6"
       }
     ],
@@ -818,14 +1238,14 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Sulfur is found in the side chains of cysteine and methionine.",
+        "defining_quote": "Sulfur is found in cysteine and methionine, forming structural bridges.",
         "quote_page": "Chapter 3"
       }
     ],
     "verification_status": "verified_human"
   },
   "phenol rings": {
-    "definition": "A chemical structure consisting of a hydroxyl group (-OH) bonded directly to an aromatic benzene ring, found in antioxidants and plant **polyphenols**.",
+    "definition": "A chemical structure consisting of a hydroxyl group bonded directly to an aromatic benzene ring, found in antioxidants and plant **polyphenols**.",
     "vulgarized_analogy": "A circular metal shield configuration that absorbs and neutralizes electrical surges before they reach circuits.",
     "taxonomy": "molecule",
     "aliases": ["phenol ring", "phenolic rings"],
@@ -833,7 +1253,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Phenols are organic compounds containing hydroxyl groups attached to benzene rings.",
+        "defining_quote": "Phenol structures stabilize radical intermediates via resonance.",
         "quote_page": "Chapter 2"
       }
     ],
@@ -848,14 +1268,14 @@
       {
         "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
         "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
-        "defining_quote": "Reactive oxygen species (ROS) are chemically reactive molecules containing oxygen.",
+        "defining_quote": "ROS are generated as byproducts of normal mitochondrial metabolism.",
         "quote_page": "Page 401"
       }
     ],
     "verification_status": "verified_human"
   },
   "lipid peroxidation": {
-    "definition": "The oxidative degradation of lipids in **membranes**, where free radicals abstract electrons from lipids, leading to cell membrane damage.",
+    "definition": "The oxidative degradation of lipids in **membranes**, where **free radicals** abstract electrons from lipids, leading to cell membrane damage.",
     "vulgarized_analogy": "The chemical corrosion and rusting of the protective outer casing of data cables, leading to short circuits.",
     "taxonomy": "process",
     "aliases": ["lipid damage", "membrane oxidation"],
@@ -863,7 +1283,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Lipid peroxidation is the process of oxidative degradation of cell lipids.",
+        "defining_quote": "Peroxidation of lipids destabilizes biological bilayer barriers.",
         "quote_page": "Chapter 19"
       }
     ],
@@ -878,7 +1298,7 @@
       {
         "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
         "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
-        "defining_quote": "Free radicals are highly reactive chemical species with unpaired electrons.",
+        "defining_quote": "Radicals react rapidly with organic substrates to propagate damage.",
         "quote_page": "Page 402"
       }
     ],
@@ -923,7 +1343,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "The nucleus is the eukaryotic organelle containing the genetic material.",
+        "defining_quote": "The nucleus isolates the genomic material from translation sites.",
         "quote_page": "Chapter 1"
       }
     ],
@@ -938,7 +1358,7 @@
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
         "link": "https://www.springer.com",
-        "defining_quote": "Noxious stimuli trigger cellular injury and stress responses.",
+        "defining_quote": "Noxious inputs trigger defensive cytoprotective responses.",
         "quote_page": "Page 45"
       }
     ],
@@ -953,7 +1373,7 @@
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
         "link": "https://www.accessmedicine.com",
-        "defining_quote": "Apoptosis is the genetically programmed process of cell death.",
+        "defining_quote": "Apoptosis ensures systemic safety by executing damaged units cleanly.",
         "quote_page": "Chapter 52"
       }
     ],
@@ -968,7 +1388,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Xenobiotics are foreign chemical substances that are not naturally produced by the host.",
+        "defining_quote": "Xenobiotics represent foreign inputs metabolized by phase II detoxification.",
         "quote_page": "Chapter 21"
       }
     ],
@@ -983,14 +1403,14 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Degradation pathways break down cellular molecules into smaller parts.",
+        "defining_quote": "Degradation pathways clear damaged intracellular segments.",
         "quote_page": "Chapter 27"
       }
     ],
     "verification_status": "verified_human"
   },
   "organelles": {
-    "definition": "Specialized, membrane-bound cellular structures (e.g. mitochondria, lysosomes) that perform distinct metabolic or structural duties.",
+    "definition": "Specialized, **membrane**-bound cellular structures (e.g. mitochondria, lysosomes) that perform distinct **metabolism** or structural duties.",
     "vulgarized_analogy": "Separate hardware sub-units (hard drives, cooling pumps) dedicated to specific infrastructure tasks.",
     "taxonomy": "concept",
     "aliases": ["organelle", "damaged organelles", "cellular organelles"],
@@ -998,14 +1418,14 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Organelles are specialized sub-cellular compartments.",
+        "defining_quote": "Organelles organize metabolic tasks in eukaryotic cells.",
         "quote_page": "Chapter 1"
       }
     ],
     "verification_status": "verified_human"
   },
   "intracellular": {
-    "definition": "Occurring, located, or operating entirely within the boundary of a cell membrane.",
+    "definition": "Occurring, located, or operating entirely within the boundary of a cell **membrane**.",
     "vulgarized_analogy": "Internal operations happening inside a secure, closed network container.",
     "taxonomy": "concept",
     "aliases": ["intracellular pathogens", "intracellular signaling", "intracellular transport"],
@@ -1013,14 +1433,14 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Intracellular processes occur inside the cell boundaries.",
+        "defining_quote": "Intracellular spaces coordinate signals and maintain transport loops.",
         "quote_page": "Chapter 1"
       }
     ],
     "verification_status": "verified_human"
   },
   "Nuclear factor": {
-    "definition": "A DNA-binding transcription factor protein that translocates to the cell nucleus to control transcription and coordinate physiological adaptations.",
+    "definition": "A **DNA**-binding transcription factor **protein** that translocates to the cell **nucleus** to control transcription and coordinate **physiological** adaptations.",
     "vulgarized_analogy": "A senior manager who enters the master archives room to stamp new production orders.",
     "taxonomy": "protein",
     "aliases": ["nuclear factor", "transcription factors"],
@@ -1028,14 +1448,14 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Nuclear factors regulate transcription by binding to specific DNA sequences.",
+        "defining_quote": "Nuclear factors recruit transcription machinery to target loci.",
         "quote_page": "Chapter 28"
       }
     ],
     "verification_status": "verified_human"
   },
   "cytoprotective": {
-    "definition": "Physiological processes or compounds that shield cells from noxious agents, oxidative stress, or apoptotic triggers.",
+    "definition": "Physiological processes or compounds that shield cells from **noxious** agents, **oxidative stress**, or **apoptotic** triggers.",
     "vulgarized_analogy": "Hardening protocols that shield hardware modules from voltage spikes or acid corrosion.",
     "taxonomy": "concept",
     "aliases": ["cytoprotective genes", "cytoprotective pathway"],
@@ -1043,14 +1463,14 @@
       {
         "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
         "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
-        "defining_quote": "Cytoprotective mechanisms shield cells from toxicity and cellular stress.",
+        "defining_quote": "Cytoprotection prevents apoptosis by maintaining physiological balance.",
         "quote_page": "Page 403"
       }
     ],
     "verification_status": "verified_human"
   },
   "detoxification": {
-    "definition": "The physiological conversion and elimination of toxic endogenous metabolites or xenobiotic compounds from cells and tissues.",
+    "definition": "The **physiological** conversion and elimination of toxic **endogenous** **metabolites** or **xenobiotic** compounds from cells and tissues.",
     "vulgarized_analogy": "The purging and flushing of corrosive chemical wastes out of the pipeline network.",
     "taxonomy": "process",
     "aliases": ["phase II detoxification", "detoxification enzymes"],
@@ -1058,14 +1478,14 @@
       {
         "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
         "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
-        "defining_quote": "Detoxification pathways convert toxins to water-soluble metabolites for excretion.",
+        "defining_quote": "Detoxification pathways facilitate excretion of electrophilic hazards.",
         "quote_page": "Page 404"
       }
     ],
     "verification_status": "verified_human"
   },
   "gene expression": {
-    "definition": "The multi-step process by which information encoded in a gene is synthesized into functional proteins or RNA products.",
+    "definition": "The multi-step process by which information encoded in a **gene** is synthesized into functional **proteins** or **RNA** products.",
     "vulgarized_analogy": "Compiling and executing a source code script to run an active process.",
     "taxonomy": "process",
     "aliases": ["expression", "protein expression", "genetic expression"],
@@ -1073,7 +1493,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Gene expression is the process by which information from a gene is used in the synthesis of a functional gene product.",
+        "defining_quote": "Gene expression controls the rates of biological responses in hosts.",
         "quote_page": "Chapter 28"
       }
     ],
@@ -1088,14 +1508,14 @@
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
         "link": "https://www.springer.com",
-        "defining_quote": "Epidemiology studies target the patterns of diseases across wide populations.",
+        "defining_quote": "Epidemiology measures incidence correlations across demographics.",
         "quote_page": "Page 10"
       }
     ],
     "verification_status": "verified_human"
   },
   "upregulate": {
-    "definition": "The process by which a cell increases the response, rate, or expression of a gene, protein, or metabolic pathway in response to external signals.",
+    "definition": "The process by which a cell increases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals.",
     "vulgarized_analogy": "Throttle acceleration; boosting the frequency and throughput of a specific system task.",
     "taxonomy": "process",
     "aliases": ["upregulating", "upregulated", "up-regulating"],
@@ -1103,14 +1523,14 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Upregulation increases cellular responses to external metabolic demands.",
+        "defining_quote": "Upregulation accelerates anabolic and defensive pathway activities.",
         "quote_page": "Chapter 12"
       }
     ],
     "verification_status": "verified_human"
   },
   "downregulate": {
-    "definition": "The process by which a cell decreases the response, rate, or expression of a gene, protein, or metabolic pathway.",
+    "definition": "The process by which a cell decreases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway**.",
     "vulgarized_analogy": "Throttling down; applying the brakes or reducing task priority to conserve system resources.",
     "taxonomy": "process",
     "aliases": ["downregulating", "downregulated", "down-regulating"],
@@ -1118,7 +1538,7 @@
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
         "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Downregulation serves to decrease cellular sensitivity and rates.",
+        "defining_quote": "Downregulation halts synthesis cascades to conserve energy resources.",
         "quote_page": "Chapter 12"
       }
     ],

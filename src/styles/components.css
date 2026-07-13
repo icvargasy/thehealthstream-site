@@ -3073,4 +3073,130 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   color: var(--bg-paper);
 }
 
+.vocab-connections-section {
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--border-color);
+}
+
+.vocab-connections-section h3 {
+  font-size: 0.9rem;
+  font-family: var(--font-display);
+  color: var(--text-ink-muted);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.vocab-connections-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.connection-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 0.8rem;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-button);
+  text-decoration: none;
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-surface-alt);
+  color: var(--text-ink);
+  transition: all 0.2s ease;
+}
+
+.connection-tag .connection-type {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.05rem 0.25rem;
+  border-radius: 3px;
+  background-color: var(--border-color);
+  color: var(--text-ink-muted);
+}
+
+.connection-tag .connection-title {
+  font-weight: 500;
+}
+
+/* Lexicon Tag Styling */
+.connection-tag.tag-lexicon {
+  border-color: var(--accent-synapse);
+  background-color: var(--selected-bg);
+  color: var(--text-ink);
+}
+
+.connection-tag.tag-lexicon .connection-type {
+  background-color: var(--accent-synapse);
+  color: var(--bg-paper);
+}
+
+.connection-tag.tag-lexicon:hover {
+  background-color: var(--accent-synapse);
+  color: var(--bg-paper);
+}
+
+.connection-tag.tag-lexicon:hover .connection-type {
+  background-color: var(--bg-paper);
+  color: var(--accent-synapse);
+}
+
+/* Pipeline Tag Styling */
+.connection-tag.tag-pipeline {
+  border-style: dashed;
+}
+
+.connection-tag.tag-pipeline .connection-type {
+  background-color: oklch(0.92 0.01 100);
+  color: oklch(0.4 0.05 100);
+}
+
+.connection-tag.tag-pipeline:hover {
+  background-color: oklch(0.96 0.01 100);
+  border-color: oklch(0.5 0.05 100);
+}
+
+/* Article Tag Styling */
+.connection-tag.tag-article.cat-biology {
+  border-color: var(--accent-synapse);
+}
+
+.connection-tag.tag-article.cat-biology .connection-type {
+  background-color: var(--accent-synapse);
+  color: var(--bg-paper);
+}
+
+.connection-tag.tag-article.cat-biology:hover {
+  background-color: var(--accent-synapse);
+  color: var(--bg-paper);
+}
+
+.connection-tag.tag-article.cat-biology:hover .connection-type {
+  background-color: var(--bg-paper);
+  color: var(--accent-synapse);
+}
+
+.connection-tag.tag-article.cat-lifestyle {
+  border-color: var(--accent-lifestyle);
+}
+
+.connection-tag.tag-article.cat-lifestyle .connection-type {
+  background-color: var(--accent-lifestyle);
+  color: var(--bg-paper);
+}
+
+.connection-tag.tag-article.cat-lifestyle:hover {
+  background-color: var(--accent-lifestyle);
+  color: var(--bg-paper);
+}
+
+.connection-tag.tag-article.cat-lifestyle:hover .connection-type {
+  background-color: var(--bg-paper);
+  color: var(--accent-lifestyle);
+}
+
 

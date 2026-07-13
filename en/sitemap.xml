@@ -154,13 +154,100 @@
     <loc>https://thehealthstream.com/vocabulary/nrf2.html</loc>
   </url>
   <url>
+    <loc>https://thehealthstream.com/vocabulary/protein.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/dna.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/gene-expression.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/pathway.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/enzymes.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/metabolite.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/physiological.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/pathology.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/endogenous.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/upregulate.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/downregulate.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/pathogen.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/pathogenicity.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/anaerobic.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/periodontitis.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/coenzyme.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/methionine.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/cysteine.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/polyphenol.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/oxidative-stress.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/antioxidant.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/organosulfur.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/lysosomal.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/degradation-pathway.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/organelles.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/misfolded-proteins.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/intracellular.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/nuclear-factor.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/cytoprotective.html</loc>
+  </url>
+  <url>
+    <loc>https://thehealthstream.com/vocabulary/detoxification.html</loc>
+  </url>
+  <url>
     <loc>https://thehealthstream.com/vocabulary/amino-acid.html</loc>
   </url>
   <url>
     <loc>https://thehealthstream.com/vocabulary/protein-folding.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/misfolded-proteins.html</loc>
   </url>
   <url>
     <loc>https://thehealthstream.com/vocabulary/rna.html</loc>
@@ -173,9 +260,6 @@
   </url>
   <url>
     <loc>https://thehealthstream.com/vocabulary/metabolism.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/physiological.html</loc>
   </url>
   <url>
     <loc>https://thehealthstream.com/vocabulary/gene.html</loc>
@@ -250,33 +334,6 @@
     <loc>https://thehealthstream.com/vocabulary/xenobiotic.html</loc>
   </url>
   <url>
-    <loc>https://thehealthstream.com/vocabulary/degradation-pathway.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/organelles.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/intracellular.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/nuclear-factor.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/cytoprotective.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/detoxification.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/gene-expression.html</loc>
-  </url>
-  <url>
     <loc>https://thehealthstream.com/vocabulary/epidemiological-studies.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/upregulate.html</loc>
-  </url>
-  <url>
-    <loc>https://thehealthstream.com/vocabulary/downregulate.html</loc>
   </url>
 </urlset>
