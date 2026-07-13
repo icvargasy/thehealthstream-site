@@ -3141,24 +3141,37 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 }
 
 /* Badge specific colors */
-.connection-badge.badge-lexicon {
-  background-color: var(--accent-synapse);
+.connection-badge.badge-general {
+  background-color: var(--text-ink-muted);
 }
 
-.connection-badge.badge-pipeline {
-  background-color: oklch(0.55 0.12 60); /* Warm copper orange */
+.connection-badge.badge-general:hover {
+  background-color: var(--text-ink);
 }
 
-.connection-badge.badge-article.cat-biology {
-  background-color: var(--accent-synapse);
+/* Topic specific colors for connection titles */
+.connection-title.topic-biology {
+  color: var(--accent-synapse) !important;
 }
 
-.connection-badge.badge-article.cat-lifestyle {
-  background-color: var(--accent-lifestyle);
+.connection-title.topic-biology:hover {
+  color: var(--accent-synapse-hover) !important;
 }
 
-.connection-badge.badge-article.cat-book {
-  background-color: oklch(0.60 0.08 120); /* Warm green/olive */
+.connection-title.topic-lifestyle {
+  color: var(--accent-lifestyle) !important;
+}
+
+.connection-title.topic-lifestyle:hover {
+  color: var(--accent-lifestyle-hover) !important;
+}
+
+.connection-title.topic-book {
+  color: oklch(0.60 0.08 120) !important; /* Warm olive green */
+}
+
+.connection-title.topic-book:hover {
+  color: oklch(0.50 0.08 120) !important;
 }
 
 

@@ -153,23 +153,10 @@ function initializeJargonPopovers() {
       const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
       const href = `${basePath}vocabulary/${slug}.html`;
 
-      // Convert nested jargon spans into direct glossary links inside the popup window
-      const tempDiv = document.createElement("div");
-      tempDiv.innerHTML = definition;
-      const nestedTerms = tempDiv.querySelectorAll(".jargon-term");
-      nestedTerms.forEach((nested) => {
-        const nestedSlug = nested.getAttribute("data-slug") || "";
-        const text = nested.textContent;
-        const link = document.createElement("a");
-        link.href = `${basePath}vocabulary/${nestedSlug}.html`;
-        link.className = "popover-nested-link";
-        link.textContent = text;
-        nested.parentNode.replaceChild(link, nested);
-      });
-      const cleanDefinitionHtml = tempDiv.innerHTML;
+      const parsedDefinition = definition.replace(/\{\{BASE_PATH\}\}/g, basePath);
 
       popover.innerHTML = `
-        <div class="popover-def">${cleanDefinitionHtml}</div>
+        <div class="popover-def">${parsedDefinition}</div>
         <a href="${href}" class="popover-link">View in Glossary &rarr;</a>
       `;
 
