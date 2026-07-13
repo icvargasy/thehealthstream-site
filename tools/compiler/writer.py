@@ -793,6 +793,32 @@ def compile_vocabulary_detail_page(
             from tools.compiler.linker import inject_jargon_links
         definition = inject_jargon_links(definition, local_vocab)
     
+    lexicon_icon = (
+        '<svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">'
+        '  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>'
+        '  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>'
+        '</svg>'
+    )
+    pipeline_icon = (
+        '<svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">'
+        '  <line x1="8" y1="6" x2="21" y2="6"></line>'
+        '  <line x1="8" y1="12" x2="21" y2="12"></line>'
+        '  <line x1="8" y1="18" x2="21" y2="18"></line>'
+        '  <line x1="3" y1="6" x2="3.01" y2="6"></line>'
+        '  <line x1="3" y1="12" x2="3.01" y2="12"></line>'
+        '  <line x1="3" y1="18" x2="3.01" y2="18"></line>'
+        '</svg>'
+    )
+    article_icon = (
+        '<svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">'
+        '  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>'
+        '  <polyline points="14 2 14 8 20 8"></polyline>'
+        '  <line x1="16" y1="13" x2="8" y2="13"></line>'
+        '  <line x1="16" y1="17" x2="8" y2="17"></line>'
+        '  <polyline points="10 9 9 9 8 9"></polyline>'
+        '</svg>'
+    )
+
     connections_html = []
     for m in sorted(mentions, key=lambda x: x["title"]):
         title = m["title"]
@@ -801,25 +827,27 @@ def compile_vocabulary_detail_page(
         
         if m_type == "lexicon":
             tag_html = (
-                f'<a href="{slug}" class="connection-item-link topic-biology">'
-                f'  <span class="connection-icon">📖</span>'
+                f'<a href="{slug}" class="connection-item-link topic-biology cat-biology">'
+                f'  {lexicon_icon}'
                 f'  <span class="connection-title">{title}</span>'
                 f'</a>'
             )
         elif m.get("in_pipeline"):
+            category_label = labels.get(f"category_{m_type}", m_type).upper()
             tag_html = (
-                f'<a href="../{slug}" class="connection-item-link topic-{m_type}">'
-                f'  <span class="connection-icon">🧪</span>'
+                f'<a href="../{slug}" class="connection-item-link topic-{m_type} cat-{m_type}">'
+                f'  {pipeline_icon}'
                 f'  <span class="connection-title">{title}</span>'
-                f'  <span class="connection-tag-label">#{m_type}</span>'
+                f'  <span class="category-tag">{category_label}</span>'
                 f'</a>'
             )
         else:
+            category_label = labels.get(f"category_{m_type}", m_type).upper()
             tag_html = (
-                f'<a href="../{slug}" class="connection-item-link topic-{m_type}">'
-                f'  <span class="connection-icon">📄</span>'
+                f'<a href="../{slug}" class="connection-item-link topic-{m_type} cat-{m_type}">'
+                f'  {article_icon}'
                 f'  <span class="connection-title">{title}</span>'
-                f'  <span class="connection-tag-label">#{m_type}</span>'
+                f'  <span class="category-tag">{category_label}</span>'
                 f'</a>'
             )
         connections_html.append(tag_html)

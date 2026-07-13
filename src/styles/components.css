@@ -3114,51 +3114,27 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   text-decoration: underline;
 }
 
-.connection-icon {
-  font-size: 0.9rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  background-color: var(--bg-surface-alt);
-  border-radius: var(--radius-button);
+.connection-icon-svg {
+  flex-shrink: 0;
+  vertical-align: middle;
 }
 
 .connection-title {
   font-weight: 600;
-}
-
-.connection-tag-label {
-  font-size: 0.8rem;
-  opacity: 0.75;
-  font-weight: 500;
-  margin-left: var(--space-2);
+  margin-right: var(--space-2);
 }
 
 /* Topic specific colors for the entire link */
 .connection-item-link.topic-biology {
   color: var(--accent-synapse) !important;
 }
-.connection-item-link.topic-biology .connection-icon {
-  background-color: oklch(0.97 0.01 20);
-  border: 1px solid oklch(0.92 0.02 20);
-}
 
 .connection-item-link.topic-lifestyle {
   color: var(--accent-lifestyle) !important;
 }
-.connection-item-link.topic-lifestyle .connection-icon {
-  background-color: oklch(0.98 0.01 80);
-  border: 1px solid oklch(0.93 0.02 80);
-}
 
 .connection-item-link.topic-book {
   color: oklch(0.60 0.08 120) !important;
-}
-.connection-item-link.topic-book .connection-icon {
-  background-color: oklch(0.98 0.01 120);
-  border: 1px solid oklch(0.93 0.02 120);
 }
 
 /* Feed Card Header & CTA elements */
