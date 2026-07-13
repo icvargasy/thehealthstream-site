@@ -1834,5 +1834,39 @@
       }
     ],
     "verification_status": "verified_human"
+  },
+  "catabolism": {
+    "definition": "The metabolic breakdown of complex molecules into simpler ones, releasing chemical energy (ATP).",
+    "vulgarized_analogy": "Dismantling a complex machine to salvage individual parts and raw energy.",
+    "taxonomy": "process",
+    "aliases": [
+      "catabolic"
+    ],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Catabolism is the degradative phase of metabolism in which organic nutrient molecules are converted into simpler end products.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "anabolism": {
+    "definition": "The metabolic synthesis of complex molecules from simpler precursors, requiring chemical energy input.",
+    "vulgarized_analogy": "Using structural plans and electrical energy to assemble a custom high-tech terminal.",
+    "taxonomy": "process",
+    "aliases": [
+      "anabolic"
+    ],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com",
+        "defining_quote": "Anabolism, also called biosynthesis, is the phase of metabolism in which simple precursors are built up into larger, more complex molecules.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
   }
 }

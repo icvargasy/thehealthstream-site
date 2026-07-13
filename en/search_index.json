@@ -806,5 +806,21 @@
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "The progressive structural and functional loss of **neurons**, culminating in **cognitive function** decline and dementia."
+  },
+  {
+    "title": "catabolism",
+    "slug": "vocabulary/catabolism.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The metabolic breakdown of complex molecules into simpler ones, releasing chemical energy (ATP)."
+  },
+  {
+    "title": "anabolism",
+    "slug": "vocabulary/anabolism.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The metabolic synthesis of complex molecules from simpler precursors, requiring chemical energy input."
   }
 ]

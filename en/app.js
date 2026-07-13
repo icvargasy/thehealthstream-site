@@ -153,7 +153,7 @@ function initializeJargonPopovers() {
       const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
       const href = `${basePath}vocabulary/${slug}.html`;
 
-      const parsedDefinition = definition.replace(/\{\{BASE_PATH\}\}/g, basePath);
+      const parsedDefinition = definition.replace(/\{\{BASE_PATH\}\}|%7B%7BBASE_PATH%7D%7D/gi, basePath);
 
       popover.innerHTML = `
         <div class="popover-def">${parsedDefinition}</div>

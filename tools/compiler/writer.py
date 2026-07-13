@@ -182,10 +182,21 @@ def render_article_card(
 
     card_html = (
         f'<div class="feed-card cat-{cat}" data-created="{created_at}" data-title="{node["title"]}" data-category="{cat}">'
-        f'  <h2 class="card-title">'
-        f'    <a href="{article_url}" class="card-title-link">{node["title"]}</a>'
-        f'    <a href="{category_url}" class="category-tag">{category_label}</a>'
-        f'  </h2>'
+        f'  <div class="feed-card-header">'
+        f'    <div class="feed-card-title-group">'
+        f'      <h2 class="card-title">'
+        f'        <a href="{article_url}" class="card-title-link">{node["title"]}</a>'
+        f'      </h2>'
+        f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px;">'
+        f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
+        f'        <span class="published-badge">Published</span>'
+        f'      </div>'
+        f'    </div>'
+        f'    <a href="{article_url}" class="read-article-btn">'
+        f'      <span>Read Article</span>'
+        f'      <span>&rarr;</span>'
+        f'    </a>'
+        f'  </div>'
         f'  <blockquote class="card-teaser-text qa-takeaway-block">'
         f'    <span class="qa-question-text">{hook}</span>'
         f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
@@ -790,24 +801,26 @@ def compile_vocabulary_detail_page(
         
         if m_type == "lexicon":
             tag_html = (
-                f'<div class="connection-item">'
-                f'  <a href="../vocabulary.html" class="connection-badge badge-general">Lexicon</a>'
-                f'  <a href="{slug}" class="connection-title topic-biology">{title}</a>'
-                f'</div>'
+                f'<a href="{slug}" class="connection-item-link topic-biology">'
+                f'  <span class="connection-icon">📖</span>'
+                f'  <span class="connection-title">{title}</span>'
+                f'</a>'
             )
         elif m.get("in_pipeline"):
             tag_html = (
-                f'<div class="connection-item">'
-                f'  <a href="../backlog.html" class="connection-badge badge-general">Pipeline</a>'
-                f'  <a href="../{slug}" class="connection-title topic-{m_type}">{title}</a>'
-                f'</div>'
+                f'<a href="../{slug}" class="connection-item-link topic-{m_type}">'
+                f'  <span class="connection-icon">🧪</span>'
+                f'  <span class="connection-title">{title}</span>'
+                f'  <span class="connection-tag-label">#{m_type}</span>'
+                f'</a>'
             )
         else:
             tag_html = (
-                f'<div class="connection-item">'
-                f'  <a href="../index.html" class="connection-badge badge-general">Article</a>'
-                f'  <a href="../{slug}" class="connection-title topic-{m_type}">{title}</a>'
-                f'</div>'
+                f'<a href="../{slug}" class="connection-item-link topic-{m_type}">'
+                f'  <span class="connection-icon">📄</span>'
+                f'  <span class="connection-title">{title}</span>'
+                f'  <span class="connection-tag-label">#{m_type}</span>'
+                f'</a>'
             )
         connections_html.append(tag_html)
 
