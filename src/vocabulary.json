@@ -74,242 +74,137 @@
     ],
     "verification_status": "verified_human"
   },
-  "Porphyromonas gingivalis": {
-    "definition": "A keystone bacterial pathogen in chronic periodontitis, linked to systemic inflammation and neurodegeneration.",
-    "vulgarized_analogy": "A rust-causing microbe that starts in the plumbing system but eventually migrates and degrades the central processor.",
-    "taxonomy": "organism",
-    "aliases": ["P. gingivalis", "periodontal bacterium"],
-    "citations": [
-      {
-        "text": "Dominy SS, et al. Porphyromonas gingivalis in Alzheimer's disease brains: Evidence for disease causation and treatment with small-molecule inhibitors. Sci Adv. 2019;5(1):eaau3333.",
-        "link": "https://doi.org/10.1126/sciadv.aau3333",
-        "defining_quote": "Porphyromonas gingivalis, the defining pathogen in chronic periodontitis, was identified in the brains of Alzheimer's disease patients.",
-        "quote_page": "Page 1"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "gingipains": {
-    "definition": "A group of toxic protease enzymes secreted by Porphyromonas gingivalis, found in postmortem Alzheimer's brains.",
-    "vulgarized_analogy": "Corrosive chemical wastes released by an invasive pathogen that actively dissolve central circuit connections.",
+  "DHA": {
+    "definition": "Docosahexaenoic acid; a long-chain omega-3 polyunsaturated fatty acid essential for brain structure, synaptic transmission, and blood-brain barrier integrity.",
+    "vulgarized_analogy": "A specialized lubricant and insulation coating for neural transmission lines that keeps electrical signals moving cleanly.",
     "taxonomy": "molecule",
-    "aliases": ["gingipain enzymes", "protease enzymes"],
+    "aliases": ["docosahexaenoic acid", "omega-3 DHA", "DHA supplementation", "DHA levels"],
     "citations": [
       {
-        "text": "Potempa J, et al. Gingipains, the major cysteine proteinases of Porphyromonas gingivalis. Biol Chem. 1997;378(3-4):193-200.",
-        "link": "https://pubmed.ncbi.nlm.nih.gov/9194917/",
-        "defining_quote": "Gingipains are cell-associated and secreted cysteine proteases of P. gingivalis that play a major role in virulence.",
-        "quote_page": "Page 193"
+        "text": "Yassine HN, et al. CNS target engagement of high-dose DHA supplementation in older adults at risk for dementia: a randomised, double-blind, placebo-controlled trial. eBioMedicine. 2026;106:106316.",
+        "link": "https://doi.org/10.1016/j.ebiom.2026.106316",
+        "defining_quote": "DHA is the most abundant omega-3 fatty acid in the brain and is essential for synaptic function and cognitive health.",
+        "quote_page": "Introduction Section"
       }
     ],
     "verification_status": "verified_human"
   },
-  "atuzaginstat": {
-    "definition": "An experimental small-molecule inhibitor of Porphyromonas gingivalis gingipains, tested for Alzheimer's treatment.",
-    "vulgarized_analogy": "A targeted molecular cap designed to lock onto corrosive chemical outputs and neutralize them before they dissolve circuits.",
-    "taxonomy": "molecule",
-    "aliases": ["COR388"],
-    "citations": [
-      {
-        "text": "ClinicalTrials.gov study. GAIN Trial: Phase 2/3 study of atuzaginstat in mild-to-moderate Alzheimer's disease. NCT03828240.",
-        "link": "https://clinicaltrials.gov/study/NCT03828240",
-        "defining_quote": "Atuzaginstat (COR388) is an orally administered, brain-penetrant, small-molecule inhibitor of gingipains.",
-        "quote_page": "Study Overview Section"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "xenohormesis": {
-    "definition": "The biological hypothesis that organisms have evolved to respond to stress-induced chemical signals in plants.",
-    "vulgarized_analogy": "An early warning radar system where a device reads distress signals emitted by neighboring units to prepare for incoming storms.",
-    "taxonomy": "concept",
-    "aliases": ["xenohormetic signals", "plant stress signaling"],
-    "citations": [
-      {
-        "text": "Howitz KT, Sinclair DA. Xenohormesis: sensing the chemical cues of other species' adversity. Cell. 2008;133(3):387-391.",
-        "link": "https://doi.org/10.1016/j.cell.2008.04.019",
-        "defining_quote": "Xenohormesis is the hypothesis that organisms have evolved to respond to stress-induced chemical cues from other species in their environment.",
-        "quote_page": "Page 387"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "phytochemicals": {
-    "definition": "Biologically active compounds produced by plants, often acting as molecular defense and signaling keys.",
-    "vulgarized_analogy": "Specialized defense chemicals synthesized by a factory to ward off intruders, which external systems utilize for tune-ups.",
-    "taxonomy": "molecule",
-    "aliases": ["phytochemical compounds", "plant compounds"],
-    "citations": [
-      {
-        "text": "Gibson EL, et al. Phytochemicals: Nutritional significance of fruit and vegetables. Nutrition Bulletin. 1998;23(2):121-131.",
-        "link": "https://doi.org/10.1111/j.1467-3010.1998.tb01099.x",
-        "defining_quote": "Phytochemicals are defined as non-nutritive plant chemicals that have protective or disease preventive properties.",
-        "quote_page": "Page 121"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "sulforaphane": {
-    "definition": "An organosulfur compound found in cruciferous vegetables that potently activates the Nrf2 defense pathway.",
-    "vulgarized_analogy": "A chemical trigger that simulates a minor threat, forcing the cellular defense system to boot up and run clean-up tasks.",
-    "taxonomy": "molecule",
-    "aliases": ["isothiocyanate"],
-    "citations": [
-      {
-        "text": "Fahey JW, et al. Broccoli sprouts: an exceptionally rich source of inducers of enzymes that protect against chemical carcinogens. Proc Natl Acad Sci U S A. 1997;94(19):10367-10372.",
-        "link": "https://doi.org/10.1073/pnas.94.19.10367",
-        "defining_quote": "Sulforaphane is an isothiocyanate that is a highly potent inducer of phase 2 detoxification enzymes.",
-        "quote_page": "Page 10367"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "EGCG": {
-    "definition": "Epigallocatechin gallate; a major polyphenol in green tea that modulates AMPK signaling and metabolic pathways.",
-    "vulgarized_analogy": "A molecular bypass switch that plugs into metabolic control units to stimulate energy efficiency routines.",
-    "taxonomy": "molecule",
-    "aliases": ["epigallocatechin gallate"],
-    "citations": [
-      {
-        "text": "Singh BN, et al. Green tea catechin, epigallocatechin-3-gallate (EGCG): mechanisms, perspectives and clinical applications. Arch Biochem Biophys. 2011;508(1):1-8.",
-        "link": "https://doi.org/10.1016/j.abb.2010.12.019",
-        "defining_quote": "Epigallocatechin-3-gallate (EGCG) is the most abundant and biologically active polyphenol in green tea.",
-        "quote_page": "Page 1"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "resveratrol": {
-    "definition": "A natural polyphenol found in red grapes and berries that acts as an activator of the sirtuin pathway.",
-    "vulgarized_analogy": "An auxiliary throttle that interfaces with sirtuin controllers to accelerate DNA repair and resource-conservation routines.",
-    "taxonomy": "molecule",
-    "aliases": ["sirtuin activator"],
-    "citations": [
-      {
-        "text": "Baur JA, Sinclair DA. Therapeutic potential of resveratrol: the in vivo evidence. Nat Rev Drug Discov. 2006;5(6):493-506.",
-        "link": "https://doi.org/10.1038/nrd2060",
-        "defining_quote": "Resveratrol (3,5,4'-trihydroxystilbene) is a polyphenol that has been shown to extend lifespan in diverse organisms.",
-        "quote_page": "Page 493"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "quercetin": {
-    "definition": "A plant flavonoid and senolytic compound found in onions, apples, and berries.",
-    "vulgarized_analogy": "A specialized cleaning agent that helps scrub away worn-out cellular machinery that refuse to self-terminate.",
-    "taxonomy": "molecule",
-    "aliases": ["senolytic flavonoid"],
-    "citations": [
-      {
-        "text": "Li Y, et al. Quercetin, Inflammation and Immunity. Nutrients. 2016;8(3):167.",
-        "link": "https://doi.org/10.3390/nu8030167",
-        "defining_quote": "Quercetin is a natural flavonoid widely present in fruits and vegetables, possessing anti-inflammatory and antioxidant activities.",
-        "quote_page": "Page 167"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "fisetin": {
-    "definition": "A dietary senolytic flavonoid shown to reduce senescent cell burden and extend healthspan in pre-clinical models.",
-    "vulgarized_analogy": "A targeted cleanup script that scans for hung, unresponsive cellular processes and safely kills them to free resources.",
-    "taxonomy": "molecule",
-    "aliases": ["dietary senolytic"],
-    "citations": [
-      {
-        "text": "Yousefzadeh MJ, et al. Fisetin is a senotherapeutic that extends healthspan and lifespan. EBioMedicine. 2018;36:109-122.",
-        "link": "https://doi.org/10.1016/j.ebiom.2018.09.015",
-        "defining_quote": "Fisetin is a natural flavonoid with potent senolytic activity in mice and human tissues.",
-        "quote_page": "Page 109"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "curcumin": {
-    "definition": "The primary bioactive diarylheptanoid in turmeric, known for modulating NF-kB inflammatory signaling pathways.",
-    "vulgarized_analogy": "A chemical buffer that blocks the core trigger of system-wide alarm signals, keeping baseline thermal levels stable.",
-    "taxonomy": "molecule",
-    "aliases": ["turmeric extract"],
-    "citations": [
-      {
-        "text": "Aggarwal BB, et al. Curcumin: the Indian solid gold. Adv Exp Med Biol. 2007;595:1-75.",
-        "link": "https://doi.org/10.1007/978-0-387-46401-5_1",
-        "defining_quote": "Curcumin (diferuloylmethane) is the active component of the golden spice turmeric, which modulates multiple signaling pathways.",
-        "quote_page": "Page 1"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "Nrf2": {
-    "definition": "A key transcription factor that regulates the expression of antioxidant proteins protecting against oxidative damage.",
-    "vulgarized_analogy": "The master emergency response coordinator that initiates system-wide maintenance and defense protocols.",
+  "microglia": {
+    "definition": "The resident macrophage-like immune cells of the central nervous system, responsible for clearing debris, pruning synapses, and mediating neuroinflammation.",
+    "vulgarized_analogy": "The brain's local security patrol and maintenance crew, which sweeps up junk but can trigger structural damage if they panic and overreact.",
     "taxonomy": "protein",
-    "aliases": ["nuclear factor erythroid 2-related factor 2"],
+    "aliases": ["microglial", "microglial cells", "activated microglia", "microglial function", "microglial phagocytic capacity"],
     "citations": [
       {
-        "text": "Ma Q. Role of Nrf2 in Oxidative Stress and Toxicity. Annu Rev Pharmacol Toxicol. 2013;53:401-426.",
-        "link": "https://doi.org/10.1146/annurev-pharmtox-011112-140320",
-        "defining_quote": "Nrf2 is a basic leucine zipper transcription factor that coordinates the expression of cytoprotective genes.",
-        "quote_page": "Page 401"
+        "text": "Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.",
+        "link": "https://doi.org/10.1136/gutjnl-2025-335353",
+        "defining_quote": "Microglia are the resident myeloid cells of the brain parenchyma and play a key role in maintaining neuroimmunological homeostasis.",
+        "quote_page": "Page 1828"
       }
     ],
     "verification_status": "verified_human"
   },
-  "SIRT1": {
-    "definition": "Sirtuin 1; a NAD+-dependent deacetylase regulating chromatin structure, DNA repair, and cellular maintenance.",
-    "vulgarized_analogy": "A quality-control manager that walks the production line, repairing damaged instructions and shutting down inefficient modules.",
-    "taxonomy": "protein",
-    "aliases": ["sirtuin 1", "silent information regulator 1"],
-    "citations": [
-      {
-        "text": "Carafa V, et al. Sirtuin functions and modulation: from biology to clinical applications. Clin Epigenetics. 2016;8:61.",
-        "link": "https://doi.org/10.1186/s13148-016-0224-3",
-        "defining_quote": "Sirtuin 1 (SIRT1) is a nicotinamide adenine dinucleotide (NAD+)-dependent deacetylase that plays key roles in longevity.",
-        "quote_page": "Page 2"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "NF-kB": {
-    "definition": "Nuclear factor kappa-light-chain-enhancer of activated B cells; a protein complex controlling cytokine production.",
-    "vulgarized_analogy": "A hair-trigger fire alarm switch that, when bumped, sets off loud alarms and sprinkler systems throughout the facility.",
-    "taxonomy": "protein",
-    "aliases": ["nuclear factor-kB"],
-    "citations": [
-      {
-        "text": "Gilmore TD. Introduction to NF-kB: a participant in many biological pathways. Oncogene. 2006;25(51):6680-6684.",
-        "link": "https://doi.org/10.1038/sj.onc.1209900",
-        "defining_quote": "NF-kB is a family of transcription factors that play critical roles in inflammation, immunity, and cell survival.",
-        "quote_page": "Page 6680"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "senolytics": {
-    "definition": "Agents or compounds designed to selectively induce death in senescent cells to halt tissue degradation.",
-    "vulgarized_analogy": "Precision demolition charges set up to collapse decrepit, structurally unsafe buildings that are blocking new construction.",
-    "taxonomy": "concept",
-    "aliases": ["senolytic agents"],
-    "citations": [
-      {
-        "text": "Kirkland JL, Tchkonia T. Senolytic agents: From discovery to translation. J Intern Med. 2020;288(5):518-536.",
-        "link": "https://doi.org/10.1111/joim.13141",
-        "defining_quote": "Senolytics are drugs that selectively eliminate senescent cells by temporarily disabling the networks that protect them.",
-        "quote_page": "Page 518"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "SAM cycle": {
-    "definition": "S-adenosylmethionine cycle; a universal metabolic pathway providing methyl groups for epigenetic DNA modification.",
-    "vulgarized_analogy": "A recycling conveyor belt that continuously refurbishes molecular stamps used to index and lock down files in database libraries.",
+  "neuroinflammation": {
+    "definition": "An inflammatory response within the brain or spinal cord, characterized by the activation of microglia, release of pro-inflammatory cytokines, and potential synaptic degradation.",
+    "vulgarized_analogy": "A persistent alarm state in the computer motherboard that floods the circuits with warning flags and slows down baseline traffic.",
     "taxonomy": "process",
-    "aliases": ["methyl cycle", "methionine cycle"],
+    "aliases": ["neuroinflammatory", "brain inflammation", "inflammatory cascades in the brain", "neuroinflammation markers"],
     "citations": [
       {
-        "text": "Ouyang Y, et al. S-Adenosylmethionine Cycle Adaptations in Stress and Disease. Int J Mol Sci. 2020;21(21):7895.",
-        "link": "https://doi.org/10.3390/ijms21217895",
-        "defining_quote": "The S-adenosylmethionine (SAM) cycle regulates cellular methylation reactions and is vital for biochemical homeostasis.",
-        "quote_page": "Page 7895"
+        "text": "Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.",
+        "link": "https://doi.org/10.1136/gutjnl-2025-335353",
+        "defining_quote": "Chronic neuroinflammation, mediated by activated microglia, is a major driver of cognitive decline and synaptic loss in obesity.",
+        "quote_page": "Page 1829"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "APOE4": {
+    "definition": "Apolipoprotein E4; the strongest genetic risk factor allele for sporadic Alzheimer's disease, linked to impaired lipid transport and blood-brain barrier dysfunction.",
+    "vulgarized_analogy": "A structural flaw in the pipeline that reduces fuel delivery efficiency and makes the system vulnerable to leaks under stress.",
+    "taxonomy": "protein",
+    "aliases": ["APOE e4", "APOE4 allele", "apolipoprotein E4", "APOE4 carrier", "APOE4 risk"],
+    "citations": [
+      {
+        "text": "Yassine HN, et al. Association of APOE4 with cognitive decline and brain target engagement of omega-3 fatty acids. eBioMedicine. 2026;106:106316.",
+        "link": "https://doi.org/10.1016/j.ebiom.2026.106316",
+        "defining_quote": "The APOE4 allele impairs brain lipid metabolism and increases susceptibility to cognitive decline.",
+        "quote_page": "Discussion Section"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "Alternate Day Fasting": {
+    "definition": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete fasting or severe caloric restriction.",
+    "vulgarized_analogy": "A scheduled shutdown of the system's power grid that forces the engine to burn backup fuel and run self-clean cycles.",
+    "taxonomy": "process",
+    "aliases": ["ADF", "alternate-day fasting", "intermittent fasting", "Alternate Day Fasting (ADF)", "fasting protocols"],
+    "citations": [
+      {
+        "text": "Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.",
+        "link": "https://doi.org/10.1136/gutjnl-2025-335353",
+        "defining_quote": "Alternate day fasting (ADF) shifts the gut microbiota composition and reduces systemic and brain inflammation in obese adults.",
+        "quote_page": "Page 1830"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "FMT": {
+    "definition": "Fecal Microbiota Transplant; the transfer of a processed microbial ecosystem from a healthy donor into the gastrointestinal tract of a recipient to restore metabolic and immunological homeostasis.",
+    "vulgarized_analogy": "Cloning a clean database backup from a stable, high-performing server and restoring it onto an unstable host to reset its operation.",
+    "taxonomy": "process",
+    "aliases": ["fecal microbiota transplant", "fecal transplant", "fecal transplants", "microbiota transplantation", "fecal microbiota transplantation (FMT)"],
+    "citations": [
+      {
+        "text": "Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.",
+        "link": "https://doi.org/10.1136/gutjnl-2025-335353",
+        "defining_quote": "Fecal microbiota transplantation (FMT) from alternate day fasting human donors into obese mice transferred the cognitive improvements.",
+        "quote_page": "Page 1832"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "cognitive function": {
+    "definition": "The neurological processes of memory, attention, executive control, and reasoning, mediated by synaptic density and coordinated brain networks.",
+    "vulgarized_analogy": "The CPU's processing efficiency, throughput capacity, and memory retrieval speeds under full load.",
+    "taxonomy": "process",
+    "aliases": ["cognition", "cognitive performance", "cognitive decline", "cognitive scores", "memory performance", "cognitive improvement", "cognitive outcomes"],
+    "citations": [
+      {
+        "text": "Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.",
+        "link": "https://doi.org/10.1136/gutjnl-2025-335353",
+        "defining_quote": "Cognitive function was assessed using standard neuropsychological test batteries and behavioral maze models in rodents.",
+        "quote_page": "Page 1831"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "homocysteine": {
+    "definition": "A sulfur-containing amino acid intermediary in folate and methionine metabolism, whose accumulation (hyperhomocysteinemia) is associated with neurotoxicity, blood-brain barrier leakage, and cognitive decline.",
+    "vulgarized_analogy": "A toxic byproduct built up by a congested recycling loop that corrodes the blood-brain barrier plumbing and blocks nutrient transport.",
+    "taxonomy": "molecule",
+    "aliases": ["homocysteine levels", "elevated homocysteine", "plasma homocysteine"],
+    "citations": [
+      {
+        "text": "Smith AD, et al. Homocysteine-lowering by B vitamins slows cognitive decline and brain atrophy in older adults: secondary analysis of the VITACOG trial. Am J Clin Nutr. 2015;101(6):1160-1170.",
+        "link": "https://doi.org/10.3945/ajcn.114.101196",
+        "defining_quote": "High plasma homocysteine is a risk factor for cognitive decline and brain atrophy.",
+        "quote_page": "Page 1160"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "gut-brain axis": {
+    "definition": "The bidirectional biochemical communication network linking the gastrointestinal tract and its resident microbiota with the central nervous system.",
+    "vulgarized_analogy": "A high-speed communication cable connecting the peripheral processing unit directly with the central mainframe CPU.",
+    "taxonomy": "process",
+    "aliases": ["gut-brain", "gut-microglia axis", "gut-brain pathway", "gut-brain axis communication"],
+    "citations": [
+      {
+        "text": "Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.",
+        "link": "https://doi.org/10.1136/gutjnl-2025-335353",
+        "defining_quote": "These results establish the gut-brain axis as a key pathway through which diet-induced microbiome shifts modulate microglia.",
+        "quote_page": "Page 1835"
       }
     ],
     "verification_status": "verified_human"

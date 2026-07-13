@@ -10,7 +10,7 @@
     "description": "Physiological protocols, daily behaviors, and longevity habits (sleep, exercise, thermal exposure) targeting physical health."
   },
   "book": {
-    "name": "Finds & Book Reviews",
+    "name": "Finds",
     "dimension": "book",
     "description": "Syntheses of peer-reviewed books, longevity literature, and consensus clinical guides."
   },

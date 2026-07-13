@@ -1,27 +1,19 @@
 [
   {
-    "title": "AMPK Cellular Energy Switch",
-    "slug": "ampk-activation.html",
+    "title": "Fasting, Microbiome Shifts, and Neuroinflammation",
+    "slug": "fasting-microbiome-neuroinflammation.html",
     "type": "article",
     "category": "Biological Circuits",
     "category_type": "biology",
-    "teaser": "Does constant snacking permanently lock our metabolic switches in storage mode?"
+    "teaser": "Can alternate-day fasting rewire our cognitive function via the gut microbiome?"
   },
   {
-    "title": "Circadian Light & Sleep Optimization",
-    "slug": "circadian-sleep-protocol.html",
+    "title": "DHA Target Engagement & Cognition in Dementia Risk",
+    "slug": "omega3-dha-dementia-trial.html",
     "type": "article",
-    "category": "Lifestyle Practices",
-    "category_type": "lifestyle",
-    "teaser": "Can dim screen glow after sunset confuse our ancient biological clocks?"
-  },
-  {
-    "title": "Outlive: Science & Art of Longevity",
-    "slug": "outlive-longevity-summary.html",
-    "type": "article",
-    "category": "Finds",
-    "category_type": "book",
-    "teaser": "Are we training for the wrong metrics in our current longevity regimens?"
+    "category": "Biological Circuits",
+    "category_type": "biology",
+    "teaser": "Does raising brain DHA levels actually slow down cognitive decline?"
   },
   {
     "title": "healthspan",
@@ -45,7 +37,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max)."
+    "teaser": "The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max).",
+    "in_pipeline": true
   },
   {
     "title": "GRADE",
@@ -64,139 +57,75 @@
     "teaser": "A standardized assessment based on the GRADE framework to rate the quality of research supporting an entry, ranging from High to Very Low."
   },
   {
-    "title": "Porphyromonas gingivalis",
-    "slug": "vocabulary/porphyromonas-gingivalis.html",
+    "title": "DHA",
+    "slug": "vocabulary/dha.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A keystone bacterial pathogen in chronic periodontitis, linked to systemic inflammation and neurodegeneration.",
-    "in_pipeline": true
+    "teaser": "Docosahexaenoic acid; a long-chain omega-3 polyunsaturated fatty acid essential for brain structure, synaptic transmission, and blood-brain barrier integrity."
   },
   {
-    "title": "gingipains",
-    "slug": "vocabulary/gingipains.html",
+    "title": "microglia",
+    "slug": "vocabulary/microglia.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A group of toxic protease enzymes secreted by Porphyromonas gingivalis, found in postmortem Alzheimer's brains."
+    "teaser": "The resident macrophage-like immune cells of the central nervous system, responsible for clearing debris, pruning synapses, and mediating neuroinflammation."
   },
   {
-    "title": "atuzaginstat",
-    "slug": "vocabulary/atuzaginstat.html",
+    "title": "neuroinflammation",
+    "slug": "vocabulary/neuroinflammation.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An experimental small-molecule inhibitor of Porphyromonas gingivalis gingipains, tested for Alzheimer's treatment."
+    "teaser": "An inflammatory response within the brain or spinal cord, characterized by the activation of microglia, release of pro-inflammatory cytokines, and potential synaptic degradation."
   },
   {
-    "title": "xenohormesis",
-    "slug": "vocabulary/xenohormesis.html",
+    "title": "APOE4",
+    "slug": "vocabulary/apoe4.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The biological hypothesis that organisms have evolved to respond to stress-induced chemical signals in plants.",
-    "in_pipeline": true
+    "teaser": "Apolipoprotein E4; the strongest genetic risk factor allele for sporadic Alzheimer's disease, linked to impaired lipid transport and blood-brain barrier dysfunction."
   },
   {
-    "title": "phytochemicals",
-    "slug": "vocabulary/phytochemicals.html",
+    "title": "Alternate Day Fasting",
+    "slug": "vocabulary/alternate-day-fasting.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Biologically active compounds produced by plants, often acting as molecular defense and signaling keys.",
-    "in_pipeline": true
+    "teaser": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete fasting or severe caloric restriction."
   },
   {
-    "title": "sulforaphane",
-    "slug": "vocabulary/sulforaphane.html",
+    "title": "FMT",
+    "slug": "vocabulary/fmt.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An organosulfur compound found in cruciferous vegetables that potently activates the Nrf2 defense pathway.",
-    "in_pipeline": true
+    "teaser": "Fecal Microbiota Transplant; the transfer of a processed microbial ecosystem from a healthy donor into the gastrointestinal tract of a recipient to restore metabolic and immunological homeostasis."
   },
   {
-    "title": "EGCG",
-    "slug": "vocabulary/egcg.html",
+    "title": "cognitive function",
+    "slug": "vocabulary/cognitive-function.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Epigallocatechin gallate; a major polyphenol in green tea that modulates AMPK signaling and metabolic pathways.",
-    "in_pipeline": true
+    "teaser": "The neurological processes of memory, attention, executive control, and reasoning, mediated by synaptic density and coordinated brain networks."
   },
   {
-    "title": "resveratrol",
-    "slug": "vocabulary/resveratrol.html",
+    "title": "homocysteine",
+    "slug": "vocabulary/homocysteine.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A natural polyphenol found in red grapes and berries that acts as an activator of the sirtuin pathway.",
-    "in_pipeline": true
+    "teaser": "A sulfur-containing amino acid intermediary in folate and methionine metabolism, whose accumulation (hyperhomocysteinemia) is associated with neurotoxicity, blood-brain barrier leakage, and cognitive decline."
   },
   {
-    "title": "quercetin",
-    "slug": "vocabulary/quercetin.html",
+    "title": "gut-brain axis",
+    "slug": "vocabulary/gut-brain-axis.html",
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A plant flavonoid and senolytic compound found in onions, apples, and berries."
-  },
-  {
-    "title": "fisetin",
-    "slug": "vocabulary/fisetin.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "A dietary senolytic flavonoid shown to reduce senescent cell burden and extend healthspan in pre-clinical models."
-  },
-  {
-    "title": "curcumin",
-    "slug": "vocabulary/curcumin.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "The primary bioactive diarylheptanoid in turmeric, known for modulating NF-kB inflammatory signaling pathways."
-  },
-  {
-    "title": "Nrf2",
-    "slug": "vocabulary/nrf2.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "A key transcription factor that regulates the expression of antioxidant proteins protecting against oxidative damage.",
-    "in_pipeline": true
-  },
-  {
-    "title": "SIRT1",
-    "slug": "vocabulary/sirt1.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "Sirtuin 1; a NAD+-dependent deacetylase regulating chromatin structure, DNA repair, and cellular maintenance.",
-    "in_pipeline": true
-  },
-  {
-    "title": "NF-kB",
-    "slug": "vocabulary/nf-kb.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "Nuclear factor kappa-light-chain-enhancer of activated B cells; a protein complex controlling cytokine production."
-  },
-  {
-    "title": "senolytics",
-    "slug": "vocabulary/senolytics.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "Agents or compounds designed to selectively induce death in senescent cells to halt tissue degradation."
-  },
-  {
-    "title": "SAM cycle",
-    "slug": "vocabulary/sam-cycle.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "S-adenosylmethionine cycle; a universal metabolic pathway providing methyl groups for epigenetic DNA modification."
+    "teaser": "The bidirectional biochemical communication network linking the gastrointestinal tract and its resident microbiota with the central nervous system."
   }
 ]

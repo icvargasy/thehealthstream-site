@@ -63,5 +63,14 @@
       "longevity"
     ],
     "created_at": "2026-06-15"
+  },
+  {
+    "id": "when-the-body-says-no-summary",
+    "title": "When the Body Says No (Gabor Maté)",
+    "description": "How does chronic, hidden stress and emotional suppression downregulate immune function and trigger autoimmune and cardiovascular pathologies?",
+    "category": "book",
+    "votes": 0,
+    "tags": ["book", "longevity"],
+    "created_at": "2026-07-13"
   }
 ]
