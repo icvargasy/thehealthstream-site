@@ -1253,7 +1253,7 @@ def compile_tag_page(
 
     empty_note = (
         f'<p class="page-empty-note">'
-        f'No decodings or pipeline proposals tagged with <strong>#{tag_name}</strong> yet.</p>'
+        f'No decodings or pipeline proposals tagged with <strong>{tag_name}</strong> yet.</p>'
     ) if not rendered_cards else ""
 
     # Count parts
@@ -1295,7 +1295,7 @@ def compile_tag_page(
     page_html = (
         f'<header class="feed-intro tag-header">'
         f'  <div class="page-intro-row">'
-        f'    <h1 class="page-title">{tag_icon}<span>#{tag_name}</span></h1>'
+        f'    <h1 class="page-title">{tag_icon}<span>{tag_name}</span></h1>'
         f'    {sort_dropdown_html}'
         f'  </div>'
         f'  {desc_html}'
@@ -1305,9 +1305,9 @@ def compile_tag_page(
         f'<div class="feed-cards" id="feed-cards-container">{" ".join(rendered_cards)}{empty_note}</div>'
     )
 
-    page_title = f"#{tag_name} — The Healthstream"
+    page_title = f"{tag_name} — The Healthstream"
     html = layout_html.replace("{{title}}", page_title)
-    html = html.replace("{{meta_description}}", f"Articles tagged #{tag_name} on The Healthstream.")
+    html = html.replace("{{meta_description}}", f"Articles tagged {tag_name} on The Healthstream.")
     html = html.replace("{{content}}", page_html)
     return html
 
