@@ -121,6 +121,20 @@ def render_backlog_card(
     tag_name = "li" if as_list_item else "div"
     card_class = f"backlog-item backlog-card-compact {category_class}" if as_list_item else f"feed-card pipeline-card-merged {category_class}"
     
+    git_branch_svg = (
+        '<svg class="pipeline-icon-svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 4px; flex-shrink: 0; vertical-align: middle; display: inline-block;">'
+        '  <line x1="6" y1="3" x2="6" y2="15"></line>'
+        '  <circle cx="18" cy="6" r="3"></circle>'
+        '  <circle cx="6" cy="18" r="3"></circle>'
+        '  <path d="M18 9a9 9 0 0 1-9 9"></path>'
+        '</svg>'
+    )
+    pipeline_badge_html = (
+        f'<a href="{backlog_url}" class="pipeline-badge pipeline-badge-link">'
+        f'  {git_branch_svg}In the Pipeline'
+        f'</a>'
+    )
+
     if as_list_item:
         card_html = (
             f'<{tag_name} class="{card_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-created="{created_at}" data-category="{cat}" data-votes="{item["votes"]}">'
@@ -128,7 +142,7 @@ def render_backlog_card(
             f'    <div class="backlog-title-group">'
             f'      <span class="backlog-title">{item["title"]}</span>'
             f'      <a href="{category_url}" class="category-tag">{category_label}</a>'
-            f'      <a href="{backlog_url}" class="pipeline-badge">In Pipeline</a>'
+            f'      {pipeline_badge_html}'
             f'    </div>'
             f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" aria-label="Upvote topic">'
             f'      <span class="upvote-icon">▲</span>'
@@ -149,7 +163,7 @@ def render_backlog_card(
             f'      </h2>'
             f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px;">'
             f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
-            f'        <a href="{backlog_url}" class="published-badge pipeline-badge-link">In the Pipeline</a>'
+            f'        {pipeline_badge_html}'
             f'      </div>'
             f'    </div>'
             f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic">'
@@ -226,7 +240,6 @@ def render_article_card(
         f'      </h2>'
         f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px;">'
         f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
-        f'        <span class="published-badge">Published</span>'
         f'      </div>'
         f'    </div>'
         f'    <a href="{article_url}" class="read-article-btn">'
@@ -322,10 +335,49 @@ def compile_category_page(
         count_parts.append(f'{len(matching_backlog)} in the pipeline')
     count_text = " &bull; ".join(count_parts)
 
+    category_icon = ""
+    if category_type == "biology":
+        category_icon = (
+            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-biology);">'
+            '  <path d="M4.5 10.5C7.8 7.2 11.2 4.2 15 3.5c1.8-.3 3.5.3 4.5 1.5s1.2 2.7.9 4.5c-.7 3.8-3.7 7.2-7 10.5"></path>'
+            '  <path d="M19.5 13.5c-3.3 3.3-6.7 6.3-10.5 7-1.8.3-3.5-.3-4.5-1.5s-1.2-2.7-.9-4.5c.7-3.8 3.7-7.2 7-10.5"></path>'
+            '  <path d="M6 9l4 4"></path>'
+            '  <path d="M14 11l4 4"></path>'
+            '</svg>'
+        )
+    elif category_type == "lifestyle":
+        category_icon = (
+            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-lifestyle);">'
+            '  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>'
+            '</svg>'
+        )
+    elif category_type == "book":
+        category_icon = (
+            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-book);">'
+            '  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>'
+            '  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>'
+            '</svg>'
+        )
+
+    articles_count = len(matching_nodes)
+    pipeline_count = len(matching_backlog)
+    total_count = articles_count + pipeline_count
+
+    toggle_row_html = (
+        f'  <div class="feed-toggle-row">'
+        f'    <div class="feed-toggle-container">'
+        f'      <button class="feed-toggle-btn active" data-filter="all">All <span class="toggle-badge">({total_count})</span></button>'
+        f'      <button class="feed-toggle-btn" data-filter="decoded">Articles <span class="toggle-badge">({articles_count})</span></button>'
+        f'      <button class="feed-toggle-btn" data-filter="pipeline">Pipeline <span class="toggle-badge">({pipeline_count})</span></button>'
+        f'    </div>'
+        f'    <a href="submit-proposal.html" class="explore-proposal-btn">+ Submit Topic Proposal</a>'
+        f'  </div>'
+    )
+
     page_html = (
         f'<header class="feed-intro">'
         f'  <div class="page-intro-row">'
-        f'    <h1 class="page-title">{category_label}</h1>'
+        f'    <h1 class="page-title">{category_icon}<span>{category_label}</span></h1>'
         f'    <div class="feed-sort-container">'
         f'      <label for="feed-sort-select">Sort by:</label>'
         f'      <select id="feed-sort-select" class="feed-sort-select">'
@@ -337,6 +389,7 @@ def compile_category_page(
         f'    </div>'
         f'  </div>'
         f'  <p class="page-count-text">{count_text}</p>'
+        f'  {toggle_row_html}'
         f'</header>'
         f'<div class="feed-cards" id="feed-cards-container">{" ".join(rendered_cards)}{empty_note}</div>'
     )
@@ -386,10 +439,32 @@ def compile_feed_page(
     # Sort: alphabetical by title first, then date descending (newest first)
     rendered_cards = _sort_merged_cards(merged)
 
+    compass_svg = (
+        '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
+        '  <circle cx="12" cy="12" r="10"></circle>'
+        '  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>'
+        '</svg>'
+    )
+    
+    articles_count = len(nodes)
+    pipeline_count = len(backlog) if backlog else 0
+    total_count = articles_count + pipeline_count
+
+    toggle_row_html = (
+        f'  <div class="feed-toggle-row">'
+        f'    <div class="feed-toggle-container">'
+        f'      <button class="feed-toggle-btn active" data-filter="all">All <span class="toggle-badge">({total_count})</span></button>'
+        f'      <button class="feed-toggle-btn" data-filter="decoded">Articles <span class="toggle-badge">({articles_count})</span></button>'
+        f'      <button class="feed-toggle-btn" data-filter="pipeline">Pipeline <span class="toggle-badge">({pipeline_count})</span></button>'
+        f'    </div>'
+        f'    <a href="submit-proposal.html" class="explore-proposal-btn">+ Submit Topic Proposal</a>'
+        f'  </div>'
+    )
+
     intro_html = (
         f'<header class="feed-intro">'
         f'  <div class="page-intro-row">'
-        f'    <h1 class="page-title">{labels.get("feed_title", "Topics")}</h1>'
+        f'    <h1 class="page-title">{compass_svg}<span>{labels.get("nav_home", "Explore")}</span></h1>'
         f'    <div class="feed-sort-container">'
         f'      <label for="feed-sort-select">Sort by:</label>'
         f'      <select id="feed-sort-select" class="feed-sort-select">'
@@ -401,6 +476,7 @@ def compile_feed_page(
         f'    </div>'
         f'  </div>'
         f'  <p class="feed-tagline">{labels.get("site_tagline", "Systems Biology Content Hub")}</p>'
+        f'  {toggle_row_html}'
         f'</header>'
         f'<div class="feed-cards" id="feed-cards-container">'
         f'  {" ".join(rendered_cards)}'
@@ -800,9 +876,15 @@ def compile_vocabulary_page(
         )
         vocab_sections.append(section_html)
         
+    book_open_svg = (
+        '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
+        '  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>'
+        '  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>'
+        '</svg>'
+    )
     vocab_html = (
         f'<header class="feed-intro vocab-feed-intro">'
-        f'  <h1 class="page-title">{labels.get("vocabulary_header", "Jargon Glossary Index")}</h1>'
+        f'  <h1 class="page-title">{book_open_svg}<span>{labels.get("vocabulary_header", "Jargon Glossary Index")}</span></h1>'
         f'  <p>{labels.get("vocabulary_desc", "")}</p>'
         f'</header>'
         f'{vocab_nav_html}'
@@ -1218,9 +1300,17 @@ def compile_backlog_page(
         f'</div>'
     )
     
+    git_branch_svg = (
+        '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
+        '  <line x1="6" y1="3" x2="6" y2="15"></line>'
+        '  <circle cx="18" cy="6" r="3"></circle>'
+        '  <circle cx="6" cy="18" r="3"></circle>'
+        '  <path d="M18 9a9 9 0 0 1-9 9"></path>'
+        '</svg>'
+    )
     content_html = (
         f'<header class="feed-intro">'
-        f'  <h1 class="page-title">{labels.get("backlog_title", "Proposed Backlog")}</h1>'
+        f'  <h1 class="page-title">{git_branch_svg}<span>{labels.get("backlog_title", "Proposed Backlog")}</span></h1>'
         f'  <p>{labels.get("backlog_desc", "")}</p>'
         f'</header>'
         f'{cta_html}'
@@ -1405,19 +1495,47 @@ def compile_static_content_page(
         )
         page_class = "prose-page"
 
+    header_icon = ""
+    flag_svg = (
+        '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
+        '  <path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path>'
+        '  <line x1="4" y1="22" x2="4" y2="15"></line>'
+        '</svg>'
+    )
+    pen_svg = (
+        '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
+        '  <path d="M12 20h9"></path>'
+        '  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>'
+        '</svg>'
+    )
+    envelope_svg = (
+        '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
+        '  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>'
+        '  <polyline points="22,6 12,13 2,6"></polyline>'
+        '</svg>'
+    )
+
+    t_key_lower = title_key.lower()
+    if "about" in t_key_lower:
+        header_icon = flag_svg
+    elif "contact" in t_key_lower:
+        header_icon = envelope_svg
+    elif "submit" in t_key_lower or "proposal" in t_key_lower or form_type == "proposal":
+        header_icon = pen_svg
+
     page_html = (
         f'<article class="static-page {page_class}">'
         f'  <header class="static-header">'
-        f'    <h1>{labels.get(title_key, "Info")}</h1>'
+        f'    <h1>{header_icon}<span>{labels.get(title_key, "Info")}</span></h1>'
         f'    {f"<p class=\"static-desc\">{labels.get(desc_key)}</p>" if labels.get(desc_key) else ""}'
         f'  </header>'
         f'  {content_layout}'
         f'</article>'
     )
     
-    html = layout_html.replace("{{title}}", f"{labels.get(title_key, 'Info')} — The Healthstream")
+    html = layout_html.replace("{{content}}", page_html)
+    html = html.replace("{{title}}", f"{labels.get(title_key, 'Info')} — The Healthstream")
     html = html.replace("{{meta_description}}", labels.get(desc_key, ""))
-    html = html.replace("{{content}}", page_html)
     return html
 
 

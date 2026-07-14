@@ -693,10 +693,10 @@ def test_card_structure_and_backlog_buttons() -> None:
     assert '<button class="vote-btn">' not in compiled_tag
     assert "backlog-votes" in compiled_tag
 
-    # 4. Backlog Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In Pipeline" badge, and "backlog-votes" button
+    # 4. Backlog Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In the Pipeline" badge, and "backlog-votes" button
     compiled_backlog = compile_backlog_page(layout, backlog, translations)
     assert "Autophagy Kinetics" in compiled_backlog
-    assert "In Pipeline" in compiled_backlog
+    assert "In the Pipeline" in compiled_backlog
     assert "BIOLOGY" in compiled_backlog
     assert '<button class="vote-btn">' not in compiled_backlog
     assert "backlog-votes" in compiled_backlog
