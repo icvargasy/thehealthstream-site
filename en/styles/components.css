@@ -3270,7 +3270,17 @@ h4 .jargon-term:hover {
 }
 
 /* Feed filtering toggle styling (Issue 10) */
-/* Feed filtering toggle styling (Issue 10) */
+.feed-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: var(--space-4);
+  margin-bottom: var(--space-4);
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  width: 100%;
+}
+
 .feed-toggle-container {
   display: inline-flex;
   background-color: var(--bg-surface-alt);
@@ -3278,8 +3288,6 @@ h4 .jargon-term:hover {
   border-radius: 30px;
   padding: 4px;
   gap: 4px;
-  margin-bottom: var(--space-4);
-  align-self: flex-start;
 }
 
 .feed-toggle-btn {
@@ -3328,7 +3336,8 @@ h4 .jargon-term:hover {
   box-shadow: none !important;
   transform: none !important;
   cursor: default !important;
-  opacity: 0.85;
+  opacity: 0.74 !important; /* Lowered opacity for draft visual state */
+  transition: none !important;
 }
 
 .feed-card.pipeline-card-merged:hover {
@@ -3338,13 +3347,31 @@ h4 .jargon-term:hover {
 }
 
 .feed-card.pipeline-card-merged .card-title-link {
-  color: var(--text-ink) !important;
+  color: var(--text-ink-muted) !important; /* Muted title color for pipeline cards */
+  font-family: var(--font-serif);
+  font-weight: 700;
   cursor: default !important;
   pointer-events: none;
 }
 
 .feed-card.pipeline-card-merged .card-teaser-text {
   color: var(--text-ink-muted) !important;
+  opacity: 0.9;
+}
+
+.feed-card.pipeline-card-merged .category-tag,
+.feed-card.pipeline-card-merged .published-badge {
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.feed-card.pipeline-card-merged .category-tag {
+  opacity: 0.8;
+}
+
+.feed-card.pipeline-card-merged .tag-pill {
+  opacity: 0.8;
 }
 
 .feed-card.pipeline-card-merged .published-badge {
@@ -3356,14 +3383,24 @@ h4 .jargon-term:hover {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
 }
 
-.feed-card.pipeline-card-merged.cat-lifestyle .published-badge {
-  border: none !important;
-  color: var(--text-ink-muted) !important;
+a.published-badge.pipeline-badge-link {
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+a.published-badge.pipeline-badge-link:hover {
+  text-decoration: underline;
+  color: var(--accent-synapse) !important;
 }
 
+.feed-card.pipeline-card-merged.cat-lifestyle .published-badge,
 .feed-card.pipeline-card-merged.cat-book .published-badge {
+  background-color: transparent !important;
   border: none !important;
   color: var(--text-ink-muted) !important;
 }
@@ -3499,6 +3536,15 @@ h4 .jargon-term:hover {
 .nav-link:hover .sidebar-stat-badge-total,
 .category-link:hover .sidebar-stat-badge-total {
   color: var(--sb-text);
+}
+
+/* Explicit lexicon category coloring for connection lists */
+.connection-item-link.topic-lexicon,
+.connection-item-link.cat-lexicon,
+.connection-item-link.topic-lexicon .connection-title,
+.connection-item-link.topic-lexicon svg {
+  color: var(--accent-synapse) !important;
+  stroke: var(--accent-synapse) !important;
 }
 
 

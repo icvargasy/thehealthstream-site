@@ -54,9 +54,19 @@ def compile_base_layout(
     replacements["{{nav_active_category_biology}}"] = "active" if active_nav == "category-biology" else ""
     replacements["{{nav_active_category_lifestyle}}"] = "active" if active_nav == "category-lifestyle" else ""
     replacements["{{nav_active_category_book}}"] = "active" if active_nav == "category-book" else ""
-    replacements["{{count_biology}}"] = str(sum(1 for n in nodes if n.get("type") == "biology"))
-    replacements["{{count_lifestyle}}"] = str(sum(1 for n in nodes if n.get("type") == "lifestyle"))
-    replacements["{{count_book}}"] = str(sum(1 for n in nodes if n.get("type") == "book"))
+    # Calculate category total counts (articles + pipeline)
+    backlog_list = backlog if backlog else []
+    bio_art = sum(1 for n in nodes if n.get("type") == "biology")
+    bio_pipe = sum(1 for item in backlog_list if item.get("category") == "biology")
+    replacements["{{count_biology_total}}"] = str(bio_art + bio_pipe)
+
+    life_art = sum(1 for n in nodes if n.get("type") == "lifestyle")
+    life_pipe = sum(1 for item in backlog_list if item.get("category") == "lifestyle")
+    replacements["{{count_lifestyle_total}}"] = str(life_art + life_pipe)
+
+    book_art = sum(1 for n in nodes if n.get("type") == "book")
+    book_pipe = sum(1 for item in backlog_list if item.get("category") == "book")
+    replacements["{{count_book_total}}"] = str(book_art + book_pipe)
 
     pattern = re.compile("|".join(re.escape(k) for k in replacements))
     html = pattern.sub(lambda m: replacements[m.group(0)], template_content)
@@ -109,23 +119,50 @@ def render_backlog_card(
         desc = inject_jargon_links(desc, vocabulary)
 
     tag_name = "li" if as_list_item else "div"
-    card_html = (
-        f'<{tag_name} class="backlog-item backlog-card-compact {category_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-created="{created_at}" data-category="{cat}" data-votes="{item["votes"]}">'
-        f'  <div class="backlog-header">'
-        f'    <div class="backlog-title-group">'
-        f'      <span class="backlog-title">{item["title"]}</span>'
-        f'      <a href="{category_url}" class="category-tag">{category_label}</a>'
-        f'      <a href="{backlog_url}" class="pipeline-badge">In Pipeline</a>'
-        f'    </div>'
-        f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" aria-label="Upvote topic">'
-        f'      <span class="upvote-icon">▲</span>'
-        f'      <span class="vote-count">{item["votes"]}</span>'
-        f'    </button>'
-        f'  </div>'
-        f'  <div class="backlog-desc">{desc}</div>'
-        f'  {footer_html}'
-        f'</{tag_name}>'
-    )
+    card_class = f"backlog-item backlog-card-compact {category_class}" if as_list_item else f"feed-card pipeline-card-merged {category_class}"
+    
+    if as_list_item:
+        card_html = (
+            f'<{tag_name} class="{card_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-created="{created_at}" data-category="{cat}" data-votes="{item["votes"]}">'
+            f'  <div class="backlog-header">'
+            f'    <div class="backlog-title-group">'
+            f'      <span class="backlog-title">{item["title"]}</span>'
+            f'      <a href="{category_url}" class="category-tag">{category_label}</a>'
+            f'      <a href="{backlog_url}" class="pipeline-badge">In Pipeline</a>'
+            f'    </div>'
+            f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" aria-label="Upvote topic">'
+            f'      <span class="upvote-icon">▲</span>'
+            f'      <span class="vote-count">{item["votes"]}</span>'
+            f'    </button>'
+            f'  </div>'
+            f'  <div class="backlog-desc">{desc}</div>'
+            f'  {footer_html}'
+            f'</{tag_name}>'
+        )
+    else:
+        card_html = (
+            f'<{tag_name} class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}">'
+            f'  <div class="feed-card-header">'
+            f'    <div class="feed-card-title-group">'
+            f'      <h2 class="card-title">'
+            f'        <span class="card-title-link">{item["title"]}</span>'
+            f'      </h2>'
+            f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px;">'
+            f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
+            f'        <a href="{backlog_url}" class="published-badge pipeline-badge-link">In the Pipeline</a>'
+            f'      </div>'
+            f'    </div>'
+            f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic">'
+            f'      <span class="upvote-icon">▲</span>'
+            f'      <span class="vote-count">{item["votes"]}</span>'
+            f'    </button>'
+            f'  </div>'
+            f'  <blockquote class="card-teaser-text qa-takeaway-block">'
+            f'    <span class="qa-answer-text">{desc}</span>'
+            f'  </blockquote>'
+            f'  {footer_html}'
+            f'</{tag_name}>'
+        )
     return card_html
 
 
@@ -396,6 +433,7 @@ def compile_detail_page(
     node: Dict[str, Any],
     translations: Dict[str, Any],
     nodes: List[Dict[str, Any]] = None,
+    vocabulary: Dict[str, Any] = None,
 ) -> str:
     """Compiles a specific detailed article node page (e.g. ampk-activation.html).
 
@@ -404,17 +442,28 @@ def compile_detail_page(
         node: The specific article node data dictionary.
         translations: Translations dictionary.
         nodes: Complete list of all article nodes for resolving directed edge titles.
+        vocabulary: Optional dictionary of jargon definitions.
 
     Returns:
         The complete HTML string for the article detail page.
     """
     labels = translations.get("en", {})
     
+    hook = node["hook_question"]
+    takeaway = node["takeaway_pill"]
+    if vocabulary:
+        try:
+            from compiler.linker import inject_jargon_links
+        except ModuleNotFoundError:
+            from tools.compiler.linker import inject_jargon_links
+        hook = inject_jargon_links(hook, vocabulary)
+        takeaway = inject_jargon_links(takeaway, vocabulary)
+
     # 1. Takeaway Unified Block (Issue 2 revised)
     takeaway_block_html = (
         f'<blockquote class="qa-takeaway-block detail-takeaway-block">'
-        f'  <span class="qa-question-text">{node["hook_question"]}</span>'
-        f'  <span class="qa-answer-text"><strong>Takeaway:</strong> {node["takeaway_pill"]}</span>'
+        f'  <span class="qa-question-text">{hook}</span>'
+        f'  <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
         f'</blockquote>'
     )
     
@@ -477,11 +526,23 @@ def compile_detail_page(
 
     # 3. Compile markdown content for Tabbed Reading Pane
     overview_html = markdown.markdown(node["reading_modes"]["overview_3min"])
+    if vocabulary:
+        try:
+            from compiler.linker import inject_jargon_links
+        except ModuleNotFoundError:
+            from tools.compiler.linker import inject_jargon_links
+        overview_html = inject_jargon_links(overview_html, vocabulary)
     
     deep_dive_parts = []
     for item in node["reading_modes"]["deep_dive"]:
         heading_html = f"<h3>{item['heading']}</h3>"
         body_html = markdown.markdown(item["body"])
+        if vocabulary:
+            try:
+                from compiler.linker import inject_jargon_links
+            except ModuleNotFoundError:
+                from tools.compiler.linker import inject_jargon_links
+            body_html = inject_jargon_links(body_html, vocabulary)
         deep_dive_parts.append(f"<section class='deep-dive-section'>{heading_html}{body_html}</section>")
     deep_dive_html = "\n".join(deep_dive_parts)
 
@@ -795,18 +856,16 @@ def compile_vocabulary_detail_page(
     
     lexicon_icon = (
         '<svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">'
-        '  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>'
-        '  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>'
+        '  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>'
+        '  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>'
         '</svg>'
     )
     pipeline_icon = (
         '<svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">'
-        '  <line x1="8" y1="6" x2="21" y2="6"></line>'
-        '  <line x1="8" y1="12" x2="21" y2="12"></line>'
-        '  <line x1="8" y1="18" x2="21" y2="18"></line>'
-        '  <line x1="3" y1="6" x2="3.01" y2="6"></line>'
-        '  <line x1="3" y1="12" x2="3.01" y2="12"></line>'
-        '  <line x1="3" y1="18" x2="3.01" y2="18"></line>'
+        '  <line x1="6" y1="3" x2="6" y2="15"></line>'
+        '  <circle cx="18" cy="6" r="3"></circle>'
+        '  <circle cx="6" cy="18" r="3"></circle>'
+        '  <path d="M18 9a9 9 0 0 1-9 9"></path>'
         '</svg>'
     )
     article_icon = (
@@ -827,7 +886,7 @@ def compile_vocabulary_detail_page(
         
         if m_type == "lexicon":
             tag_html = (
-                f'<a href="{slug}" class="connection-item-link topic-biology cat-biology">'
+                f'<a href="{slug}" class="connection-item-link topic-lexicon cat-lexicon">'
                 f'  {lexicon_icon}'
                 f'  <span class="connection-title">{title}</span>'
                 f'</a>'
@@ -856,7 +915,7 @@ def compile_vocabulary_detail_page(
     if connections_html:
         connections_html_section = (
             f'<div class="vocab-connections-section">'
-            f'  <h3>Connections</h3>'
+            f'  <h3>Mentioned In</h3>'
             f'  <div class="vocab-connections-list">'
             f'    {"".join(connections_html)}'
             f'  </div>'
