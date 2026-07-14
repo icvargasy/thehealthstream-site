@@ -49,14 +49,6 @@
     "teaser": "Grading of Recommendations, Assessment, Development, and Evaluation; a standardized framework for rating the quality of scientific evidence from High to Very Low."
   },
   {
-    "title": "Evidence Grade",
-    "slug": "vocabulary/evidence-grade.html",
-    "type": "glossary",
-    "category": "Lexicon",
-    "category_type": "glossary",
-    "teaser": "A standardized assessment based on the GRADE framework to rate the quality of research supporting an entry, ranging from High to Very Low."
-  },
-  {
     "title": "DHA",
     "slug": "vocabulary/dha.html",
     "type": "glossary",

@@ -553,10 +553,22 @@ def compile_detail_page(
     if er.get("debate_sides"):
         debate_items = []
         for side in er["debate_sides"]:
+            pos_text = side["position"]
+            args_text = side["arguments"]
+            
+            # Linkify author names using bibliography links
+            for bib in node.get("bibliography", []):
+                names_to_check = ["Amine Zorgani", "Frank Bernier", "Dilpriya K. Mangat"]
+                for name in names_to_check:
+                    if name.lower() in bib.get("text", "").lower() and name.lower() in pos_text.lower():
+                        pattern = re.compile(re.escape(name), re.IGNORECASE)
+                        linked_name = f'<a href="{bib["link"]}" target="_blank" class="debate-author-link">{name}</a>'
+                        pos_text = pattern.sub(linked_name, pos_text)
+            
             item = (
                 f'<li>'
-                f'  <strong>Position:</strong> {side["position"]}<br>'
-                f'  <strong>Arguments:</strong> {side["arguments"]}'
+                f'  <strong>Position:</strong> {pos_text}<br>'
+                f'  <strong>Arguments:</strong> {args_text}'
                 f'</li>'
             )
             debate_items.append(item)
@@ -594,7 +606,7 @@ def compile_detail_page(
         f'      <a href="#evidence-section" class="popover-more-link">more...</a>'
         f'    </p>'
         f'    <div class="grade-popover-links">'
-        f'      <a href="vocabulary/evidence-grade.html" class="popover-glossary-link">GRADE Rating Methodology &rarr;</a>'
+        f'      <a href="vocabulary/grade.html" class="popover-glossary-link">GRADE Rating Methodology &rarr;</a>'
         f'    </div>'
         f'  </div>'
         f'</div>'
@@ -1139,13 +1151,20 @@ def compile_vocabulary_taxonomy_page(
         )
         cards_html.append(card_html)
         
+    book_open_svg = (
+        '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
+        '  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>'
+        '  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>'
+        '</svg>'
+    )
+    
     content_html = (
         f'<article class="vocab-taxonomy-page">'
         f'  <header class="feed-intro">'
         f'    <a href="../vocabulary.html" class="vocab-back-link">'
         f'      &larr; Back to Lexicon'
         f'    </a>'
-        f'    <h1 class="page-title">Lexicon Taxonomy: {taxonomy_capitalized}</h1>'
+        f'    <h1 class="page-title">{book_open_svg}<span>Lexicon Taxonomy: {taxonomy_capitalized}</span></h1>'
         f'    <p class="tag-description"><strong>Definition:</strong> {tax_desc}</p>'
         f'  </header>'
         f'  <div class="vocab-container">'
@@ -1164,111 +1183,12 @@ def compile_vocabulary_taxonomy_page(
 
 def get_tag_icon_svg(tag: str) -> str:
     """Returns the SVG markup for a given tag, or a fallback tag icon."""
-    tag_lower = tag.lower()
-    if tag_lower == "biology":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-biology);">'
-            '  <path d="M4.5 10.5C7.8 7.2 11.2 4.2 15 3.5c1.8-.3 3.5.3 4.5 1.5s1.2 2.7.9 4.5c-.7 3.8-3.7 7.2-7 10.5"></path>'
-            '  <path d="M19.5 13.5c-3.3 3.3-6.7 6.3-10.5 7-1.8.3-3.5-.3-4.5-1.5s-1.2-2.7-.9-4.5c.7-3.8 3.7-7.2 7-10.5"></path>'
-            '  <path d="M6 9l4 4"></path>'
-            '  <path d="M14 11l4 4"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "lifestyle":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-lifestyle);">'
-            '  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>'
-            '</svg>'
-        )
-    elif tag_lower == "book":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-book);">'
-            '  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>'
-            '  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "longevity":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.60 0.15 130);">'
-            '  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.5 1 8a7 7 0 0 1-9 10z"></path>'
-            '  <path d="M9 22v-6"></path>'
-            '  <path d="M11 15c2.5-1 4.5-3.5 5.5-6.5"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "metabolism":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.65 0.20 40);">'
-            '  <path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "circadian":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.75 0.15 80);">'
-            '  <circle cx="12" cy="12" r="5"></circle>'
-            '  <line x1="12" y1="1" x2="12" y2="3"></line>'
-            '  <line x1="12" y1="21" x2="12" y2="23"></line>'
-            '  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>'
-            '  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>'
-            '  <line x1="1" y1="12" x2="3" y2="12"></line>'
-            '  <line x1="21" y1="12" x2="23" y2="12"></line>'
-            '  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>'
-            '  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>'
-            '</svg>'
-        )
-    elif tag_lower == "sleep":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.55 0.15 260);">'
-            '  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "exercise":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.55 0.15 180);">'
-            '  <path d="M6.5 6.5h11"></path>'
-            '  <path d="M6.5 17.5h11"></path>'
-            '  <path d="M3 10h3v4H3z"></path>'
-            '  <path d="M18 10h3v4h-3z"></path>'
-            '  <path d="M12 4v16"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "fasting":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.60 0.15 20);">'
-            '  <path d="M5 2h14"></path>'
-            '  <path d="M5 22h14"></path>'
-            '  <path d="M19 2v4c0 1.38-.5 2-1 3-1.072 2.143-.224 4.054 2 6 .5 2.5 2 4.9 4 6.5v4"></path>'
-            '  <path d="M5 2v4c0 1.38.5 2 1 3 1.072 2.143.224 4.054-2 6-.5 2.5-2 4.9-4 6.5v4"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "mitochondria":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.55 0.18 300);">'
-            '  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "supplements":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.50 0.15 220);">'
-            '  <path d="M10.5 3a5.5 5.5 0 0 0 0 11H13.5a5.5 5.5 0 0 0 0-11zM12 3v11"></path>'
-            '</svg>'
-        )
-    elif tag_lower == "fgf21":
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: oklch(0.55 0.18 200);">'
-            '  <circle cx="12" cy="5" r="3"></circle>'
-            '  <circle cx="5" cy="19" r="3"></circle>'
-            '  <circle cx="19" cy="19" r="3"></circle>'
-            '  <line x1="12" y1="8" x2="6.8" y2="16.5"></line>'
-            '  <line x1="12" y1="8" x2="17.2" y2="16.5"></line>'
-            '</svg>'
-        )
-    else:
-        return (
-            '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
-            '  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>'
-            '  <line x1="7" y1="7" x2="7.01" y2="7"></line>'
-            '</svg>'
-        )
+    return (
+        '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
+        '  <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>'
+        '  <line x1="7" y1="7" x2="7.01" y2="7"></line>'
+        '</svg>'
+    )
 
 
 def compile_tag_page(

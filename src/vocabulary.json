@@ -57,7 +57,11 @@
     "vulgarized_analogy": "An industry inspection framework that rates build quality from precision-certified down to unvetted home assembly.",
     "taxonomy": "framework",
     "aliases": [
-      "GRADE system"
+      "GRADE system",
+      "Evidence Grade",
+      "evidence rating",
+      "epistemic rating",
+      "GRADE framework"
     ],
     "citations": [
       {
@@ -65,24 +69,6 @@
         "link": "https://doi.org/10.1136/bmj.39489.470347.AD",
         "defining_quote": "The GRADE system classifies the quality of evidence into one of four grades—high, moderate, low, or very low.",
         "quote_page": "Page 924"
-      }
-    ],
-    "verification_status": "verified_human"
-  },
-  "Evidence Grade": {
-    "definition": "A standardized assessment based on the GRADE framework to rate the quality of research supporting an entry, ranging from High to Very Low.",
-    "vulgarized_analogy": "A safety certification rating stamped on a structural beam based on the rigor of its stress tests.",
-    "taxonomy": "framework",
-    "aliases": [
-      "evidence rating",
-      "epistemic rating"
-    ],
-    "citations": [
-      {
-        "text": "Balshem H, et al. GRADE guidelines: 3. Rating the quality of evidence. J Clin Epidemiol. 2011;64(4):401-406.",
-        "link": "https://doi.org/10.1016/j.jclinepi.2010.07.015",
-        "defining_quote": "The quality of evidence reflects the extent to which our confidence in an estimate of the effect is sufficient to support a particular recommendation.",
-        "quote_page": "Page 401"
       }
     ],
     "verification_status": "verified_human"

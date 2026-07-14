@@ -1325,14 +1325,14 @@ button.detail-grade-badge:hover {
 }
 
 .debates-title {
-  font-family: var(--font-body);
-  font-size: var(--font-size-label);
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
   font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--text-ink-muted);
+  color: var(--text-ink);
   display: block;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-3);
+  text-transform: none;
+  letter-spacing: normal;
 }
 
 .debates-list {
@@ -1355,6 +1355,17 @@ button.detail-grade-badge:hover {
   position: absolute;
   left: 0;
   color: var(--page-accent);
+}
+
+.debate-author-link {
+  color: var(--accent-synapse);
+  text-decoration: underline;
+  font-weight: 600;
+}
+
+.debate-author-link:hover {
+  color: var(--accent-synapse-hover, var(--accent-synapse));
+  opacity: 0.8;
 }
 
 .grade-methodology-details {
@@ -2708,7 +2719,7 @@ a.pipeline-badge:hover {
 /* Feed + category page title (H1 inside .page-intro-row) */
 .page-title {
   margin: 0;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: var(--space-2);
 }
@@ -2829,6 +2840,8 @@ a.pipeline-badge:hover {
 .evidence-subtitle {
   font-family: var(--font-display);
   font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--text-ink);
   margin-bottom: var(--space-3);
 }
 
@@ -2870,7 +2883,8 @@ a.pipeline-badge:hover {
 .vocab-back-link {
   font-size: 0.85rem;
   font-weight: 600;
-  display: inline-flex;
+  display: flex;
+  width: fit-content;
   align-items: center;
   gap: 4px;
   color: var(--accent-synapse);
