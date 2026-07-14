@@ -33,54 +33,60 @@
   --header-height: 56px;
   --sidebar-width: 280px;
 
-  /* Accent Color Categories */
-  --accent-biology: oklch(0.55 0.18 250);
-  --accent-lifestyle: oklch(0.62 0.15 140);
-  --accent-book: oklch(0.70 0.16 75);
 }
 
 /* Light Theme Variables */
 body, body[data-theme="light"] {
-  --bg-paper: oklch(0.985 0.005 15);
-  --bg-surface-alt: oklch(0.95 0.008 15);
-  --text-ink: oklch(0.18 0.01 15);
-  --text-ink-muted: oklch(0.45 0.01 15);
-  --border-color: oklch(0.90 0.005 15);
-  --accent-synapse: oklch(0.45 0.16 18);
-  --accent-synapse-hover: oklch(0.38 0.14 18);
-  --selected-bg: oklch(0.45 0.16 18 / 0.06);
-  --selected-border: oklch(0.45 0.16 18 / 0.20);
+  --bg-paper: oklch(0.99 0.003 20);
+  --bg-surface-alt: oklch(0.955 0.006 20);
+  --text-ink: oklch(0.16 0.008 20);
+  --text-ink-muted: oklch(0.42 0.008 20);
+  --border-color: oklch(0.90 0.005 20);
+  --accent-synapse: oklch(0.43 0.16 18);
+  --accent-synapse-hover: oklch(0.53 0.17 18);
+  --selected-bg: oklch(0.43 0.16 18 / 0.06);
+  --selected-border: oklch(0.43 0.16 18 / 0.20);
 
   /* Sidebar Palette (Light Alabaster) */
-  --sb-bg: oklch(0.96 0.006 15);
-  --sb-text: oklch(0.18 0.01 15);
-  --sb-text-muted: oklch(0.45 0.01 15);
-  --sb-border: oklch(0.90 0.005 15);
+  --sb-bg: oklch(0.975 0.003 20);
+  --sb-text: oklch(0.16 0.008 20);
+  --sb-text-muted: oklch(0.42 0.008 20);
+  --sb-border: oklch(0.90 0.005 20);
 
   /* Academic Citation Link Colors */
   --color-citation: oklch(0.42 0.08 220);
   --color-citation-hover: oklch(0.32 0.07 220);
+
+  /* Theme-specific Accent Color Categories */
+  --accent-biology: oklch(0.48 0.18 250);
+  --accent-lifestyle: oklch(0.38 0.14 140);
+  --accent-book: oklch(0.48 0.15 75);
 }
 
 /* Dark Theme Variables */
 body[data-theme="dark"] {
-  --bg-paper: oklch(0.10 0.004 15);
-  --bg-surface-alt: oklch(0.18 0.006 15);
-  --text-ink: oklch(0.94 0.005 15);
-  --text-ink-muted: oklch(0.65 0.005 15);
-  --border-color: oklch(0.28 0.008 15);
-  --accent-synapse: oklch(0.65 0.17 18);
-  --accent-synapse-hover: oklch(0.72 0.16 18);
-  --selected-bg: oklch(0.65 0.17 18 / 0.08);
-  --selected-border: oklch(0.65 0.17 18 / 0.30);
+  --bg-paper: oklch(0.13 0.006 20);
+  --bg-surface-alt: oklch(0.19 0.008 20);
+  --text-ink: oklch(0.92 0.004 20);
+  --text-ink-muted: oklch(0.62 0.004 20);
+  --border-color: oklch(0.25 0.008 20);
+  --accent-synapse: oklch(0.66 0.16 18);
+  --accent-synapse-hover: oklch(0.56 0.17 18);
+  --selected-bg: oklch(0.66 0.16 18 / 0.08);
+  --selected-border: oklch(0.66 0.16 18 / 0.30);
 
   /* Sidebar Palette (Warm Charcoal) */
-  --sb-bg: oklch(0.22 0.006 15);
-  --sb-text: oklch(0.94 0.005 15);
-  --sb-text-muted: oklch(0.65 0.005 15);
-  --sb-border: oklch(0.30 0.008 15);
+  --sb-bg: oklch(0.16 0.006 20);
+  --sb-text: oklch(0.92 0.004 20);
+  --sb-text-muted: oklch(0.62 0.004 20);
+  --sb-border: oklch(0.25 0.008 20);
 
   /* Academic Citation Link Colors */
   --color-citation: oklch(0.70 0.06 220);
   --color-citation-hover: oklch(0.78 0.05 220);
+
+  /* Theme-specific Accent Color Categories */
+  --accent-biology: oklch(0.68 0.16 250);
+  --accent-lifestyle: oklch(0.68 0.14 140);
+  --accent-book: oklch(0.75 0.15 75);
 }

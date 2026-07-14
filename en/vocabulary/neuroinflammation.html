@@ -6,13 +6,16 @@
   <title>neuroinflammation — Lexicon Glossary</title>
   <meta name="description" content="Definition and details for neuroinflammation on The Healthstream.">
   <link rel="icon" type="image/png" href="../assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="../style.css?v=1.0.3">
+  <link rel="stylesheet" href="../style.css?v=1.0.4">
 </head>
 <body>
   <script>
     (function() {
       window.BASE_PATH = "../";
-      const savedTheme = localStorage.getItem('theme');
+      let savedTheme = null;
+      try {
+        savedTheme = localStorage.getItem('theme');
+      } catch (e) {}
       const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.body.setAttribute('data-theme', theme);
       
@@ -91,32 +94,17 @@
           <li>
             <a href="../index.html" class="nav-link " id="nav-feed">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="7" height="9"></rect>
-                <rect x="14" y="3" width="7" height="5"></rect>
-                <rect x="14" y="12" width="7" height="9"></rect>
-                <rect x="3" y="16" width="7" height="5"></rect>
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
               </svg>
               Explore
             </a>
           </li>
           <li>
-            <a href="../backlog.html" class="nav-link " id="nav-backlog">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="8" y1="6" x2="21" y2="6"></line>
-                <line x1="8" y1="12" x2="21" y2="12"></line>
-                <line x1="8" y1="18" x2="21" y2="18"></line>
-                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                <line x1="3" y1="18" x2="3.01" y2="18"></line>
-              </svg>
-              In the Pipeline
-            </a>
-          </li>
-          <li>
             <a href="../vocabulary.html" class="nav-link active" id="nav-vocab">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
               </svg>
               Lexicon
             </a>
@@ -158,17 +146,20 @@
         <ul class="nav-list">
           <li>
             <a href="../category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
-              Biological Circuits <span class="category-count">(2)</span>
+              <span class="category-name">Biological Circuits</span>
+              <span class="sidebar-stat-badge-total">(6)</span>
             </a>
           </li>
           <li>
             <a href="../category-lifestyle.html" class="nav-link category-link cat-lifestyle " data-category="lifestyle">
-              Lifestyle Practices <span class="category-count">(0)</span>
+              <span class="category-name">Lifestyle Practices</span>
+              <span class="sidebar-stat-badge-total">(1)</span>
             </a>
           </li>
           <li>
             <a href="../category-book.html" class="nav-link category-link cat-book " data-category="book">
-              Finds <span class="category-count">(0)</span>
+              <span class="category-name">Finds</span>
+              <span class="sidebar-stat-badge-total">(1)</span>
             </a>
           </li>
         </ul>
@@ -186,12 +177,11 @@
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div id="main-content" class="content-container fade-in">
-        <article class="vocab-detail-page">  <header>    <a href="../vocabulary.html" class="vocab-back-link">      &larr; Back to Lexicon    </a>    <div class="vocab-title-row">      <h1>neuroinflammation</h1>      <div class="vocab-badges-row" style="display: flex; gap: var(--space-2);"><span class="vocab-status-badge badge-human">✓ Verified Human</span><a href="taxonomy-process.html" class="vocab-taxonomy-badge">Type: process</a></div>    </div>  </header>  <div class="vocab-analogy">  <span class="vocab-analogy-label">Systems Analogy</span>  <p>A persistent alarm state in the computer motherboard that floods the circuits with warning flags and slows down baseline traffic.</p></div>  <p class="vocab-definition"><p>An inflammatory response within the brain or spinal cord, characterized by the activation of <strong><span class="jargon-term" data-term="microglia" data-definition="The resident macrophage-like immune cells of the central nervous system, responsible for clearing debris, pruning synapses, and mediating <strong>neuroinflammation</strong>." data-slug="microglia">microglia</span></strong>, release of pro-inflammatory cytokines, and potential synaptic degradation.</p></p>  <div class="vocab-connections-section">  <h3>Connections</h3>  <div class="vocab-connections-list">    <a href="../omega3-dha-dementia-trial.html" class="connection-item-link topic-biology cat-biology">  <svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>  <polyline points="14 2 14 8 20 8"></polyline>  <line x1="16" y1="13" x2="8" y2="13"></line>  <line x1="16" y1="17" x2="8" y2="17"></line>  <polyline points="10 9 9 9 8 9"></polyline></svg>  <span class="connection-title">DHA Target Engagement & Cognition in Dementia Risk</span>  <span class="category-tag">BIOLOGICAL CIRCUITS</span></a><a href="../fasting-microbiome-neuroinflammation.html" class="connection-item-link topic-biology cat-biology">  <svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>  <polyline points="14 2 14 8 20 8"></polyline>  <line x1="16" y1="13" x2="8" y2="13"></line>  <line x1="16" y1="17" x2="8" y2="17"></line>  <polyline points="10 9 9 9 8 9"></polyline></svg>  <span class="connection-title">Fasting, Microbiome Shifts, and Neuroinflammation</span>  <span class="category-tag">BIOLOGICAL CIRCUITS</span></a><a href="microglia.html" class="connection-item-link topic-biology cat-biology">  <svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>  <span class="connection-title">microglia</span></a>  </div></div>  <div class="vocab-detail-citations">  <h4>Scientific Sources & Verbatim Definitions</h4>  <ul>    <li><a href="https://doi.org/10.1136/gutjnl-2025-335353" target="_blank" rel="noopener noreferrer" class="vocab-citation-link">Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.</a> <span class="vocab-quote-meta">(Page 1829)</span><blockquote class="vocab-quote">  "Chronic neuroinflammation, mediated by activated microglia, is a major driver of cognitive decline and synaptic loss in obesity."</blockquote></li>  </ul></div></article>
+        <article class="vocab-detail-page">  <header>    <a href="../vocabulary.html" class="vocab-back-link">      &larr; Back to Lexicon    </a>    <div class="vocab-title-row">      <h1>neuroinflammation</h1>      <div class="vocab-badges-row" style="display: flex; gap: var(--space-2);"><span class="vocab-status-badge badge-human">✓ Verified Human</span><a href="taxonomy-process.html" class="vocab-taxonomy-badge">Type: process</a></div>    </div>  </header>  <div class="vocab-analogy">  <span class="vocab-analogy-label">Systems Analogy</span>  <p>A persistent alarm state in the computer motherboard that floods the circuits with warning flags and slows down baseline traffic.</p></div>  <p class="vocab-definition"><p>An inflammatory response within the brain or spinal cord, characterized by the activation of <strong><a href="../vocabulary/microglia.html" class="vocab-nested-link">microglia</a></strong>, release of pro-inflammatory cytokines, and potential synaptic degradation.</p></p>  <div class="vocab-connections-section">  <h3>Mentioned In</h3>  <div class="vocab-connections-list">    <a href="../omega3-dha-dementia-trial.html" class="connection-item-link topic-biology cat-biology">  <svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>  <polyline points="14 2 14 8 20 8"></polyline>  <line x1="16" y1="13" x2="8" y2="13"></line>  <line x1="16" y1="17" x2="8" y2="17"></line>  <polyline points="10 9 9 9 8 9"></polyline></svg>  <span class="connection-title">DHA Target Engagement & Cognition in Dementia Risk</span>  <span class="category-tag">BIOLOGICAL CIRCUITS</span></a><a href="../fasting-microbiome-neuroinflammation.html" class="connection-item-link topic-biology cat-biology">  <svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>  <polyline points="14 2 14 8 20 8"></polyline>  <line x1="16" y1="13" x2="8" y2="13"></line>  <line x1="16" y1="17" x2="8" y2="17"></line>  <polyline points="10 9 9 9 8 9"></polyline></svg>  <span class="connection-title">Fasting, Microbiome Shifts, and Neuroinflammation</span>  <span class="category-tag">BIOLOGICAL CIRCUITS</span></a><a href="microglia.html" class="connection-item-link topic-biology cat-biology">  <svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>  <span class="connection-title">microglia</span></a>  </div></div>  <div class="vocab-detail-citations">  <h4>Scientific Sources & Verbatim Definitions</h4>  <ul>    <li><a href="https://doi.org/10.1136/gutjnl-2025-335353" target="_blank" rel="noopener noreferrer" class="vocab-citation-link">Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.</a> <span class="vocab-quote-meta">(Page 1829)</span><blockquote class="vocab-quote">  "Chronic neuroinflammation, mediated by activated microglia, is a major driver of cognitive decline and synaptic loss in obesity."</blockquote></li>  </ul></div></article>
       </div>
       <footer class="global-footer">
         <div class="footer-nav">
           <a href="../index.html" class="footer-link">Explore</a>
-          <a href="../backlog.html" class="footer-link">Pipeline</a>
           <a href="../vocabulary.html" class="footer-link">Lexicon</a>
           <a href="../about.html" class="footer-link">Our Mission</a>
           <a href="../contact.html" class="footer-link">Contact Us</a>
@@ -212,6 +202,6 @@
     </svg>
   </button>
 
-  <script src="../app.js?v=1.0.3"></script>
+  <script src="../app.js?v=1.0.4"></script>
 </body>
 </html>

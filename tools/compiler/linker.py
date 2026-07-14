@@ -163,3 +163,75 @@ def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
         tokens[i] = pattern.sub(replace_callback, token)
 
     return "".join(tokens)
+
+
+def inject_direct_links(html_content: str, vocabulary: Dict[str, Any], current_term: str, base_path: str = "./") -> str:
+    """Wraps jargon terms inside Lexicon definitions in direct relative hyperlinks.
+
+    These links navigate in the same tab and are styled specifically for Lexicon pages.
+    """
+    if not vocabulary:
+        return html_content
+
+    # Build mapping from phrase to canonical term, excluding current_term and its aliases
+    current_term_lower = current_term.lower()
+    current_aliases = set()
+    if current_term in vocabulary:
+        current_aliases = {alias.lower() for alias in vocabulary[current_term].get("aliases", [])}
+    
+    phrase_to_canonical = {}
+    for term, details in vocabulary.items():
+        term_lower = term.lower()
+        if term_lower == current_term_lower or term_lower in current_aliases:
+            continue
+        phrase_to_canonical[term_lower] = term
+        for alias in details.get("aliases", []):
+            alias_lower = alias.lower()
+            if alias_lower == current_term_lower or alias_lower in current_aliases:
+                continue
+            phrase_to_canonical[alias_lower] = term
+
+    sorted_phrases = sorted(phrase_to_canonical.keys(), key=len, reverse=True)
+    if not sorted_phrases:
+        return html_content
+
+    # Create combined regex pattern with word boundaries
+    escaped_phrases = [re.escape(phrase) for phrase in sorted_phrases]
+    pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
+    pattern = re.compile(pattern_str, re.IGNORECASE)
+
+    # Tokenize by HTML tags to isolate raw text nodes
+    tokens = re.split(r"(<[^>]+>)", html_content)
+    in_link = False
+    
+    for i in range(len(tokens)):
+        token = tokens[i]
+        
+        # Check if the token is a tag
+        if token.startswith("<"):
+            tag_lower = token.lower()
+            if tag_lower.startswith("<a ") or tag_lower == "<a>":
+                in_link = True
+            elif tag_lower == "</a>":
+                in_link = False
+            continue
+
+        # Skip replacing terms if already inside a link
+        if in_link:
+            continue
+
+        def replace_callback(match: re.Match) -> str:
+            matched_text = match.group(1)
+            matched_lower = matched_text.lower()
+            canonical_key = phrase_to_canonical.get(matched_lower, matched_text)
+            slug = slugify(canonical_key)
+            
+            # Direct link to another jargon page in the same tab
+            return (
+                f'<a href="{base_path}vocabulary/{slug}.html" '
+                f'class="vocab-nested-link">{matched_text}</a>'
+            )
+
+        tokens[i] = pattern.sub(replace_callback, token)
+
+    return "".join(tokens)

@@ -1,5 +1,24 @@
 "use strict";
 
+const safeStorage = {
+  getItem: (key) => {
+    try {
+      return window.localStorage ? window.localStorage.getItem(key) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+  setItem: (key, value) => {
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem(key, value);
+      }
+    } catch (e) {
+      // Ignore
+    }
+  }
+};
+
 /**
  * Initializes and manages all interactive frontend states for The Healthstream.
  */
@@ -16,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeTocNavigation();
   initializeGradePopover();
   initializeScrollingAndHash();
+  initializeFeedToggle();
 });
 
 /**
@@ -51,7 +71,7 @@ function initializeTheme() {
   themeToggle.addEventListener("click", () => {
     const activeTheme = document.body.getAttribute("data-theme") === "dark" ? "light" : "dark";
     document.body.setAttribute("data-theme", activeTheme);
-    localStorage.setItem("theme", activeTheme);
+    safeStorage.setItem("theme", activeTheme);
     
     // Update favicon
     const favicon = document.getElementById("favicon");
@@ -75,7 +95,7 @@ function initializeSidebar() {
 
   // Restore collapsed state (default to collapsed on mobile <= 768px if no preference stored)
   const isMobile = window.innerWidth <= 768;
-  const storedState = localStorage.getItem("left_sidebar_collapsed");
+  const storedState = safeStorage.getItem("left_sidebar_collapsed");
   const isCollapsed = storedState !== null ? storedState === "true" : isMobile;
   
   if (isCollapsed) {
@@ -91,7 +111,7 @@ function initializeSidebar() {
     dashboardContainer.classList.toggle("left-collapsed", willCollapse);
     sidebarToggle.setAttribute("aria-expanded", willCollapse ? "false" : "true");
     
-    localStorage.setItem("left_sidebar_collapsed", willCollapse ? "true" : "false");
+    safeStorage.setItem("left_sidebar_collapsed", willCollapse ? "true" : "false");
   });
 }
 
@@ -131,8 +151,23 @@ function initializeJargonPopovers() {
     popover.style.visibility = "visible";
     popover.classList.remove("visible");
 
-    const left = rect.left + window.scrollX + (rect.width / 2) - (popoverWidth / 2);
-    const top = rect.top + window.scrollY - popoverHeight - 8;
+    const left = rect.left + (rect.width / 2) - (popoverWidth / 2);
+    
+    const headerHeight = 56;
+    const spaceAbove = rect.top - headerHeight;
+    let top;
+    
+    if (spaceAbove < popoverHeight + 10) {
+      // Position below the target word
+      top = rect.bottom + 8;
+      popover.classList.remove("popover-above");
+      popover.classList.add("popover-below");
+    } else {
+      // Position above the target word
+      top = rect.top - popoverHeight - 8;
+      popover.classList.remove("popover-below");
+      popover.classList.add("popover-above");
+    }
 
     popover.style.left = `${Math.max(10, Math.min(left, window.innerWidth - popoverWidth - 10))}px`;
     popover.style.top = `${top}px`;
@@ -184,13 +219,13 @@ function initializeJargonPopovers() {
  * @returns {void}
  */
 function initializeBacklogVoting() {
-  const backlogItems = document.querySelectorAll(".backlog-item");
+  const backlogItems = document.querySelectorAll(".backlog-item, .pipeline-card-merged");
   if (backlogItems.length === 0) return;
 
   // Retrieve votes map from local storage
   let votesMap = {};
   try {
-    const stored = localStorage.getItem("backlog_votes");
+    const stored = safeStorage.getItem("backlog_votes");
     if (stored) {
       votesMap = JSON.parse(stored);
     }
@@ -250,7 +285,7 @@ function initializeBacklogVoting() {
       })
       .then(() => {
         votesMap[itemId] = true;
-        localStorage.setItem("backlog_votes", JSON.stringify(votesMap));
+        safeStorage.setItem("backlog_votes", JSON.stringify(votesMap));
         updateVoteUI(true);
       })
       .catch((err) => {
@@ -262,7 +297,7 @@ function initializeBacklogVoting() {
     const triggerVoteFlow = () => {
       if (votesMap[itemId]) return;
 
-      const voterEmail = localStorage.getItem("voter_email");
+      const voterEmail = safeStorage.getItem("voter_email");
       if (voterEmail) {
         submitVote(voterEmail);
         return;
@@ -316,7 +351,7 @@ function initializeBacklogVoting() {
             emailInput.style.borderColor = "oklch(0.55 0.18 15)";
             return;
           }
-          localStorage.setItem("voter_email", emailVal);
+          safeStorage.setItem("voter_email", emailVal);
           closeModal();
           submitVote(emailVal);
         };
@@ -513,7 +548,7 @@ function initializeProposalSubmission() {
   if (!form) return;
 
   // Pre-fill email if already saved
-  const savedEmail = localStorage.getItem("voter_email");
+  const savedEmail = safeStorage.getItem("voter_email");
   if (savedEmail) {
     const emailInput = form.querySelector("#form-email");
     if (emailInput) emailInput.value = savedEmail;
@@ -579,7 +614,7 @@ function initializeProposalSubmission() {
     const impact = form.querySelector("#form-impact").value.trim();
 
     // Cache email locally
-    localStorage.setItem("voter_email", email);
+    safeStorage.setItem("voter_email", email);
 
     const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLSemSavDnZAVNnZ321Mpnhyc99eVLBqvlQVSrVs745qL7jfx9w/formResponse";
     const bodyData = new URLSearchParams({
@@ -637,7 +672,7 @@ function initializeContactSubmission() {
   if (!form) return;
 
   // Pre-fill cached email if exists
-  const cachedEmail = localStorage.getItem("voter_email");
+  const cachedEmail = safeStorage.getItem("voter_email");
   const emailInput = form.querySelector("#form-email");
   if (cachedEmail && emailInput) {
     emailInput.value = cachedEmail;
@@ -728,7 +763,7 @@ function initializeContactSubmission() {
     }
 
     // Cache email locally
-    localStorage.setItem("voter_email", email);
+    safeStorage.setItem("voter_email", email);
 
     const formUrl = "https://docs.google.com/forms/d/e/1FAIpQLScnY0-A9rXKikkqJOqWRFgC32kns-ShE56xZ8lW9WMSBvnMHw/formResponse";
     const bodyData = new URLSearchParams({
@@ -1084,4 +1119,55 @@ function initializeScrollingAndHash() {
   } catch (err) {
     console.error("Error in initializeScrollingAndHash:", err);
   }
+}
+
+
+/**
+ * Handles client-side filtering toggle buttons for Explore and Category feeds.
+ * @returns {void}
+ */
+function initializeFeedToggle() {
+  const toggleButtons = document.querySelectorAll(".feed-toggle-btn");
+  const feedCards = document.querySelectorAll(".feed-card");
+  
+  if (toggleButtons.length === 0) return;
+  
+  const filterFeed = (filterValue) => {
+    feedCards.forEach((card) => {
+      const isPipeline = card.classList.contains("pipeline-card-merged");
+      
+      if (filterValue === "all") {
+        card.style.display = "";
+      } else if (filterValue === "decoded") {
+        card.style.display = isPipeline ? "none" : "";
+      } else if (filterValue === "pipeline") {
+        card.style.display = isPipeline ? "" : "none";
+      }
+    });
+  };
+
+  // Restore saved filter preference from localStorage
+  const savedFilter = safeStorage.getItem("feed_filter") || "all";
+  
+  toggleButtons.forEach((btn) => {
+    const filterValue = btn.getAttribute("data-filter");
+    if (filterValue === savedFilter) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+  
+  filterFeed(savedFilter);
+
+  toggleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      toggleButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+      
+      const filterValue = button.getAttribute("data-filter");
+      safeStorage.setItem("feed_filter", filterValue);
+      filterFeed(filterValue);
+    });
+  });
 }

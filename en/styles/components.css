@@ -237,26 +237,31 @@ body.left-collapsed .header-brand-container {
   text-decoration: none;
 }
 
-.feed-card:hover {
+.feed-card:not(.pipeline-card-merged) {
+  cursor: pointer;
+}
+
+.feed-card:not(.pipeline-card-merged):hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  border-color: var(--accent-synapse);
+}
+
+.feed-card.cat-biology:not(.pipeline-card-merged):hover {
+  border-color: var(--accent-biology);
+}
+
+.feed-card.cat-lifestyle:not(.pipeline-card-merged):hover {
+  border-color: var(--accent-lifestyle);
+}
+
+.feed-card.cat-book:not(.pipeline-card-merged):hover {
+  border-color: var(--accent-book);
 }
 
 .card-title-link {
   color: var(--text-ink);
   text-decoration: none;
   transition: color var(--transition-fast);
-}
-
-.card-title-link::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1;
 }
 
 .card-tags {
@@ -632,14 +637,21 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   flex-direction: column;
   gap: var(--space-2);
   opacity: 0;
-  transform: translateY(8px);
   transition: opacity var(--transition-fast), transform var(--transition-fast);
   pointer-events: none;
 }
 
+.hs-popover.popover-above {
+  transform: translateY(8px);
+}
+
+.hs-popover.popover-below {
+  transform: translateY(-8px);
+}
+
 .hs-popover.visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) !important;
   pointer-events: auto;
 }
 
@@ -3125,16 +3137,19 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 }
 
 /* Topic specific colors for the entire link */
-.connection-item-link.topic-biology {
-  color: var(--accent-synapse) !important;
+.connection-item-link.topic-biology,
+.connection-item-link.cat-biology {
+  color: var(--accent-biology) !important;
 }
 
-.connection-item-link.topic-lifestyle {
+.connection-item-link.topic-lifestyle,
+.connection-item-link.cat-lifestyle {
   color: var(--accent-lifestyle) !important;
 }
 
-.connection-item-link.topic-book {
-  color: oklch(0.60 0.08 120) !important;
+.connection-item-link.topic-book,
+.connection-item-link.cat-book {
+  color: var(--accent-book) !important;
 }
 
 /* Feed Card Header & CTA elements */
@@ -3195,12 +3210,295 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 }
 
 .feed-card.cat-book .published-badge {
-  background-color: oklch(0.60 0.08 120);
+  background-color: var(--accent-book);
 }
 .feed-card.cat-book .read-article-btn:hover {
-  background-color: oklch(0.60 0.08 120);
-  border-color: oklch(0.60 0.08 120);
+  background-color: var(--accent-book);
+  border-color: var(--accent-book);
+  color: var(--text-ink);
+}
+
+/* --------------------------------------------------------
+   NEW OPTIMIZED STYLES
+   -------------------------------------------------------- */
+
+/* Heading jargon terms dotted underline (Issue 4) */
+h1 .jargon-term,
+h2 .jargon-term,
+h3 .jargon-term,
+h4 .jargon-term {
+  color: inherit !important;
+  border-bottom: 1px dotted currentColor !important;
+}
+h1 .jargon-term:hover,
+h2 .jargon-term:hover,
+h3 .jargon-term:hover,
+h4 .jargon-term:hover {
+  color: inherit !important;
+  border-bottom-style: solid !important;
+}
+
+/* Flexbox connection item formatting (Issue 5 - prevents SVG wrap isolation) */
+.connection-item-link {
+  display: inline-flex !important;
+  align-items: flex-start !important;
+  flex-wrap: wrap !important;
+  gap: var(--space-2) !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+.connection-icon-svg {
+  flex-shrink: 0 !important;
+  margin-top: 3px !important; /* aligns icon with first line of wrapped text */
+}
+.connection-title {
+  flex-grow: 1 !important;
+  flex-shrink: 1 !important;
+  word-break: break-word !important;
+  margin-right: 0 !important;
+}
+
+/* Direct relative wiki-style Lexicon links (Issue 1) */
+.vocab-nested-link {
+  color: var(--accent-synapse);
+  font-weight: 700;
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+.vocab-nested-link:hover {
+  color: var(--accent-synapse-hover);
+}
+
+/* Feed filtering toggle styling (Issue 10) */
+/* Feed filtering toggle styling (Issue 10) */
+.feed-toggle-container {
+  display: inline-flex;
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-color);
+  border-radius: 30px;
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: var(--space-4);
+  align-self: flex-start;
+}
+
+.feed-toggle-btn {
+  background: transparent;
+  border: 1px solid transparent;
+  color: var(--text-ink-muted);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 6px 16px;
+  border-radius: 30px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.feed-toggle-btn:hover:not(.active) {
+  color: var(--text-ink);
+  background-color: var(--bg-paper);
+  border-color: var(--border-color);
+}
+
+.feed-toggle-btn.active {
+  background-color: var(--accent-synapse);
+  border-color: var(--accent-synapse);
+  color: white !important;
+}
+
+.feed-toggle-btn .toggle-badge {
+  font-size: 0.7rem;
+  opacity: 0.85;
+}
+
+.feed-toggle-btn.active .toggle-badge {
+  opacity: 1;
+}
+
+/* Merged Backlog Cards inside main feed (Issue 7 & 10) */
+.feed-card.pipeline-card-merged {
+  border: 1px dashed var(--border-color) !important;
+  background-color: var(--bg-surface-alt) !important;
+  box-shadow: none !important;
+  transform: none !important;
+  cursor: default !important;
+  opacity: 0.85;
+}
+
+.feed-card.pipeline-card-merged:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: var(--border-color) !important;
+}
+
+.feed-card.pipeline-card-merged .card-title-link {
+  color: var(--text-ink) !important;
+  cursor: default !important;
+  pointer-events: none;
+}
+
+.feed-card.pipeline-card-merged .card-teaser-text {
+  color: var(--text-ink-muted) !important;
+}
+
+.feed-card.pipeline-card-merged .published-badge {
+  background-color: transparent !important;
+  border: none !important;
+  color: var(--text-ink-muted) !important;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: 0 !important;
+}
+
+.feed-card.pipeline-card-merged.cat-lifestyle .published-badge {
+  border: none !important;
+  color: var(--text-ink-muted) !important;
+}
+
+.feed-card.pipeline-card-merged.cat-book .published-badge {
+  border: none !important;
+  color: var(--text-ink-muted) !important;
+}
+
+.feed-card.pipeline-card-merged .backlog-votes {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--bg-paper);
+  border: 1px solid var(--border-color);
+  color: var(--text-ink);
+  padding: 6px 12px;
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  position: relative;
+  z-index: 2;
+  transition: all var(--transition-fast);
+}
+
+.feed-card.pipeline-card-merged .backlog-votes:hover:not(:disabled) {
+  border-color: var(--accent-synapse);
+  background-color: var(--selected-bg);
+}
+
+.feed-card.pipeline-card-merged .backlog-votes.voted {
+  background-color: var(--accent-synapse);
   color: white;
+  border-color: var(--accent-synapse);
+  cursor: default;
+}
+
+.feed-card.pipeline-card-merged.cat-lifestyle .backlog-votes.voted {
+  background-color: var(--accent-lifestyle);
+  border-color: var(--accent-lifestyle);
+  color: var(--text-ink);
+}
+
+.feed-card.pipeline-card-merged.cat-book .backlog-votes.voted {
+  background-color: var(--accent-book);
+  border-color: var(--accent-book);
+  color: var(--text-ink);
+}
+
+/* Sidebar Differentiated Category Count Badges (Issue 9) */
+.category-stats-sidebar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.sidebar-stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sb-text-muted);
+}
+
+.sidebar-stat-badge svg {
+  opacity: 0.7;
+}
+
+.nav-link:hover .sidebar-stat-badge,
+.category-link:hover .sidebar-stat-badge {
+  color: var(--sb-text);
+}
+
+/* Explore submit proposal header button placement (Issue 10) */
+.explore-proposal-btn {
+  background-color: var(--accent-synapse);
+  border: 1px solid var(--accent-synapse);
+  color: white !important;
+  padding: 7px 18px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transition: all var(--transition-fast);
+}
+
+.explore-proposal-btn:hover {
+  background-color: var(--accent-synapse-hover);
+  border-color: var(--accent-synapse-hover);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1.5px);
+}
+
+/* Explicit topic category coloring for connection lists */
+.connection-item-link.topic-biology,
+.connection-item-link.cat-biology,
+.connection-item-link.topic-biology .connection-title,
+.connection-item-link.topic-biology svg {
+  color: var(--accent-biology) !important;
+  stroke: var(--accent-biology) !important;
+}
+
+.connection-item-link.topic-lifestyle,
+.connection-item-link.cat-lifestyle,
+.connection-item-link.topic-lifestyle .connection-title,
+.connection-item-link.topic-lifestyle svg {
+  color: var(--accent-lifestyle) !important;
+  stroke: var(--accent-lifestyle) !important;
+}
+
+.connection-item-link.topic-book,
+.connection-item-link.cat-book,
+.connection-item-link.topic-book .connection-title,
+.connection-item-link.topic-book svg {
+  color: var(--accent-book) !important;
+  stroke: var(--accent-book) !important;
+}
+
+.sidebar-stat-badge-total {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--sb-text-muted);
+  margin-left: auto;
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover .sidebar-stat-badge-total,
+.category-link:hover .sidebar-stat-badge-total {
+  color: var(--sb-text);
 }
 
 

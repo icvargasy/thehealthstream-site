@@ -6,13 +6,16 @@
   <title>lipid peroxidation — Lexicon Glossary</title>
   <meta name="description" content="Definition and details for lipid peroxidation on The Healthstream.">
   <link rel="icon" type="image/png" href="../assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="../style.css?v=1.0.3">
+  <link rel="stylesheet" href="../style.css?v=1.0.4">
 </head>
 <body>
   <script>
     (function() {
       window.BASE_PATH = "../";
-      const savedTheme = localStorage.getItem('theme');
+      let savedTheme = null;
+      try {
+        savedTheme = localStorage.getItem('theme');
+      } catch (e) {}
       const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.body.setAttribute('data-theme', theme);
       
@@ -91,32 +94,17 @@
           <li>
             <a href="../index.html" class="nav-link " id="nav-feed">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="7" height="9"></rect>
-                <rect x="14" y="3" width="7" height="5"></rect>
-                <rect x="14" y="12" width="7" height="9"></rect>
-                <rect x="3" y="16" width="7" height="5"></rect>
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
               </svg>
               Explore
             </a>
           </li>
           <li>
-            <a href="../backlog.html" class="nav-link " id="nav-backlog">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="8" y1="6" x2="21" y2="6"></line>
-                <line x1="8" y1="12" x2="21" y2="12"></line>
-                <line x1="8" y1="18" x2="21" y2="18"></line>
-                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                <line x1="3" y1="18" x2="3.01" y2="18"></line>
-              </svg>
-              In the Pipeline
-            </a>
-          </li>
-          <li>
             <a href="../vocabulary.html" class="nav-link active" id="nav-vocab">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
               </svg>
               Lexicon
             </a>
@@ -158,17 +146,20 @@
         <ul class="nav-list">
           <li>
             <a href="../category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
-              Biological Circuits <span class="category-count">(2)</span>
+              <span class="category-name">Biological Circuits</span>
+              <span class="sidebar-stat-badge-total">(6)</span>
             </a>
           </li>
           <li>
             <a href="../category-lifestyle.html" class="nav-link category-link cat-lifestyle " data-category="lifestyle">
-              Lifestyle Practices <span class="category-count">(0)</span>
+              <span class="category-name">Lifestyle Practices</span>
+              <span class="sidebar-stat-badge-total">(1)</span>
             </a>
           </li>
           <li>
             <a href="../category-book.html" class="nav-link category-link cat-book " data-category="book">
-              Finds <span class="category-count">(0)</span>
+              <span class="category-name">Finds</span>
+              <span class="sidebar-stat-badge-total">(1)</span>
             </a>
           </li>
         </ul>
@@ -186,12 +177,11 @@
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div id="main-content" class="content-container fade-in">
-        <article class="vocab-detail-page">  <header>    <a href="../vocabulary.html" class="vocab-back-link">      &larr; Back to Lexicon    </a>    <div class="vocab-title-row">      <h1>lipid peroxidation</h1>      <div class="vocab-badges-row" style="display: flex; gap: var(--space-2);"><span class="vocab-status-badge badge-human">✓ Verified Human</span><a href="taxonomy-process.html" class="vocab-taxonomy-badge">Type: process</a></div>    </div>  </header>  <div class="vocab-analogy">  <span class="vocab-analogy-label">Systems Analogy</span>  <p>The chemical corrosion and rusting of the protective outer casing of data cables, leading to short circuits.</p></div>  <p class="vocab-definition"><p>The <span class="jargon-term" data-term="oxidative stress" data-definition="An imbalance between the production of <strong><a href=&quot;{{BASE_PATH}}vocabulary/reactive-oxygen-species.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>reactive oxygen species&nbsp;↗</a></strong> (<a href=&quot;{{BASE_PATH}}vocabulary/reactive-oxygen-species.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>ROS&nbsp;↗</a>) and cellular <strong><a href=&quot;{{BASE_PATH}}vocabulary/antioxidant.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>antioxidant&nbsp;↗</a></strong> defenses, leading to <strong><a href=&quot;{{BASE_PATH}}vocabulary/dna.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>DNA&nbsp;↗</a></strong> damage and <strong>lipid peroxidation</strong>." data-slug="oxidative-stress">oxidative degradation</span> of lipids in <strong><span class="jargon-term" data-term="membrane" data-definition="A selective lipid bilayer boundary wrapping cells and <strong><a href=&quot;{{BASE_PATH}}vocabulary/organelles.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>organelles&nbsp;↗</a></strong>, maintaining homeostasis and regulating resource traffic." data-slug="membrane">membranes</span></strong>, where <strong><span class="jargon-term" data-term="free radicals" data-definition="Atoms or molecules with an unpaired valence electron, making them highly reactive and capable of inducing <a href=&quot;{{BASE_PATH}}vocabulary/oxidative-stress.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>oxidative damage&nbsp;↗</a>." data-slug="free-radicals">free radicals</span></strong> abstract electrons from lipids, leading to <span class="jargon-term" data-term="membrane" data-definition="A selective lipid bilayer boundary wrapping cells and <strong><a href=&quot;{{BASE_PATH}}vocabulary/organelles.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>organelles&nbsp;↗</a></strong>, maintaining homeostasis and regulating resource traffic." data-slug="membrane">cell membrane</span> damage.</p></p>  <div class="vocab-connections-section">  <h3>Connections</h3>  <div class="vocab-connections-list">    <a href="oxidative-stress.html" class="connection-item-link topic-biology cat-biology">  <svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>  <span class="connection-title">oxidative stress</span></a>  </div></div>  <div class="vocab-detail-citations">  <h4>Scientific Sources & Verbatim Definitions</h4>  <ul>    <li><a href="https://www.macmillanlearning.com" target="_blank" rel="noopener noreferrer" class="vocab-citation-link">Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.</a> <span class="vocab-quote-meta">(Chapter 19)</span><blockquote class="vocab-quote">  "Peroxidation of lipids destabilizes biological bilayer barriers."</blockquote></li>  </ul></div></article>
+        <article class="vocab-detail-page">  <header>    <a href="../vocabulary.html" class="vocab-back-link">      &larr; Back to Lexicon    </a>    <div class="vocab-title-row">      <h1>lipid peroxidation</h1>      <div class="vocab-badges-row" style="display: flex; gap: var(--space-2);"><span class="vocab-status-badge badge-human">✓ Verified Human</span><a href="taxonomy-process.html" class="vocab-taxonomy-badge">Type: process</a></div>    </div>  </header>  <div class="vocab-analogy">  <span class="vocab-analogy-label">Systems Analogy</span>  <p>The chemical corrosion and rusting of the protective outer casing of data cables, leading to short circuits.</p></div>  <p class="vocab-definition"><p>The <a href="../vocabulary/oxidative-stress.html" class="vocab-nested-link">oxidative degradation</a> of lipids in <strong><a href="../vocabulary/membrane.html" class="vocab-nested-link">membranes</a></strong>, where <strong><a href="../vocabulary/free-radicals.html" class="vocab-nested-link">free radicals</a></strong> abstract electrons from lipids, leading to <a href="../vocabulary/membrane.html" class="vocab-nested-link">cell membrane</a> damage.</p></p>  <div class="vocab-connections-section">  <h3>Mentioned In</h3>  <div class="vocab-connections-list">    <a href="oxidative-stress.html" class="connection-item-link topic-biology cat-biology">  <svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>  <span class="connection-title">oxidative stress</span></a>  </div></div>  <div class="vocab-detail-citations">  <h4>Scientific Sources & Verbatim Definitions</h4>  <ul>    <li><a href="https://www.macmillanlearning.com" target="_blank" rel="noopener noreferrer" class="vocab-citation-link">Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.</a> <span class="vocab-quote-meta">(Chapter 19)</span><blockquote class="vocab-quote">  "Peroxidation of lipids destabilizes biological bilayer barriers."</blockquote></li>  </ul></div></article>
       </div>
       <footer class="global-footer">
         <div class="footer-nav">
           <a href="../index.html" class="footer-link">Explore</a>
-          <a href="../backlog.html" class="footer-link">Pipeline</a>
           <a href="../vocabulary.html" class="footer-link">Lexicon</a>
           <a href="../about.html" class="footer-link">Our Mission</a>
           <a href="../contact.html" class="footer-link">Contact Us</a>
@@ -212,6 +202,6 @@
     </svg>
   </button>
 
-  <script src="../app.js?v=1.0.3"></script>
+  <script src="../app.js?v=1.0.4"></script>
 </body>
 </html>

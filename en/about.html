@@ -6,13 +6,16 @@
   <title>Our Mission — The Healthstream</title>
   <meta name="description" content="An open systems biology library mapping longevity pathways.">
   <link rel="icon" type="image/png" href="./assets/favicon_light.png" id="favicon">
-  <link rel="stylesheet" href="./style.css?v=1.0.3">
+  <link rel="stylesheet" href="./style.css?v=1.0.4">
 </head>
 <body>
   <script>
     (function() {
       window.BASE_PATH = "./";
-      const savedTheme = localStorage.getItem('theme');
+      let savedTheme = null;
+      try {
+        savedTheme = localStorage.getItem('theme');
+      } catch (e) {}
       const theme = savedTheme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
       document.body.setAttribute('data-theme', theme);
       
@@ -91,32 +94,17 @@
           <li>
             <a href="./index.html" class="nav-link " id="nav-feed">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="3" y="3" width="7" height="9"></rect>
-                <rect x="14" y="3" width="7" height="5"></rect>
-                <rect x="14" y="12" width="7" height="9"></rect>
-                <rect x="3" y="16" width="7" height="5"></rect>
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
               </svg>
               Explore
             </a>
           </li>
           <li>
-            <a href="./backlog.html" class="nav-link " id="nav-backlog">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="8" y1="6" x2="21" y2="6"></line>
-                <line x1="8" y1="12" x2="21" y2="12"></line>
-                <line x1="8" y1="18" x2="21" y2="18"></line>
-                <line x1="3" y1="6" x2="3.01" y2="6"></line>
-                <line x1="3" y1="12" x2="3.01" y2="12"></line>
-                <line x1="3" y1="18" x2="3.01" y2="18"></line>
-              </svg>
-              In the Pipeline
-            </a>
-          </li>
-          <li>
             <a href="./vocabulary.html" class="nav-link " id="nav-vocab">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
               </svg>
               Lexicon
             </a>
@@ -158,17 +146,20 @@
         <ul class="nav-list">
           <li>
             <a href="./category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
-              Biological Circuits <span class="category-count">(2)</span>
+              <span class="category-name">Biological Circuits</span>
+              <span class="sidebar-stat-badge-total">(6)</span>
             </a>
           </li>
           <li>
             <a href="./category-lifestyle.html" class="nav-link category-link cat-lifestyle " data-category="lifestyle">
-              Lifestyle Practices <span class="category-count">(0)</span>
+              <span class="category-name">Lifestyle Practices</span>
+              <span class="sidebar-stat-badge-total">(1)</span>
             </a>
           </li>
           <li>
             <a href="./category-book.html" class="nav-link category-link cat-book " data-category="book">
-              Finds <span class="category-count">(0)</span>
+              <span class="category-name">Finds</span>
+              <span class="sidebar-stat-badge-total">(1)</span>
             </a>
           </li>
         </ul>
@@ -186,20 +177,19 @@
     <!-- Reading Pane -->
     <main id="reading-pane" tabindex="-1">
       <div id="main-content" class="content-container fade-in">
-        <article class="static-page prose-page">  <header class="static-header">    <h1>Our Mission</h1>    <p class="static-desc">An open systems biology library mapping longevity pathways.</p>  </header>  <div class="static-prose-container">  <div class="article-body-text"><p>We map <span class="jargon-term" data-term="physiological" data-definition="Relating to the normal, healthy functioning of living organisms and their organs, tissues, or cells." data-slug="physiological">physiological</span> networks, <span class="jargon-term" data-term="metabolism" data-definition="The complete set of life-sustaining chemical reactions in cells, including <a href=&quot;{{BASE_PATH}}vocabulary/catabolism.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>catabolism&nbsp;↗</a> (energy release) and <a href=&quot;{{BASE_PATH}}vocabulary/anabolism.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>anabolism&nbsp;↗</a> (molecular <a href=&quot;{{BASE_PATH}}vocabulary/synthesized.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>synthesis&nbsp;↗</a>)." data-slug="metabolism">metabolic</span> circuits, and behavioral protocols. Our objective is to make complex biology accessible, understandable, and actionable at every level—from the molecular interactions of cellular <span class="jargon-term" data-term="pathway" data-definition="A linked series of <strong><a href=&quot;{{BASE_PATH}}vocabulary/biochemical.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>biochemical&nbsp;↗</a></strong> reactions occurring within a cell, activated by specific triggers to achieve a <strong><a href=&quot;{{BASE_PATH}}vocabulary/physiological.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>physiological&nbsp;↗</a></strong> endpoint." data-slug="pathway">pathways</span> up to daily lifestyle habits.</p>
-<h3>Core Tenet: Systems Biology</h3>
-<p>We view the human body not as a collection of isolated symptoms, but as an interconnected circuit board of biological feedback loops. Every decoding on this site maps these <span class="jargon-term" data-term="pathway" data-definition="A linked series of <strong><a href=&quot;{{BASE_PATH}}vocabulary/biochemical.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>biochemical&nbsp;↗</a></strong> reactions occurring within a cell, activated by specific triggers to achieve a <strong><a href=&quot;{{BASE_PATH}}vocabulary/physiological.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>physiological&nbsp;↗</a></strong> endpoint." data-slug="pathway">pathways</span> upstream and downstream. By understanding the chemical signals that govern our cellular networks, we can make informed, deliberate choices about our daily habits, our longevity protocols, and our long-term health.</p>
-<h3>Independent &amp; Transparent</h3>
-<p>To protect our independence and serve our readers objectively, we follow these tenets:
-- <strong>Product Reviews &amp; Sponsorships</strong>: We will only recommend commercial products if we believe the value of the benefits is genuine. Any such recommendations, sponsorships, or partnerships will always be explicitly declared. We maintain independent opinions and cannot be swayed by corporate sponsors.
-- <strong><span class="jargon-term" data-term="Evidence Grade" data-definition="A standardized assessment based on the <a href=&quot;{{BASE_PATH}}vocabulary/grade.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>GRADE&nbsp;↗</a> framework to rate the quality of research supporting an entry, ranging from High to Very Low." data-slug="evidence-grade">Evidence Grade</span></strong>: An <strong><span class="jargon-term" data-term="Evidence Grade" data-definition="A standardized assessment based on the <a href=&quot;{{BASE_PATH}}vocabulary/grade.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>GRADE&nbsp;↗</a> framework to rate the quality of research supporting an entry, ranging from High to Very Low." data-slug="evidence-grade">Evidence Grade</span></strong> framework rating the quality of research supporting an entry, ranging from High to Very Low.
-- <strong>Evidence &amp; Studies</strong>: An <strong>Evidence &amp; Studies</strong> section summarizing supporting trials, cohort sizes, and key outcomes.
-- <strong>Jargon Popovers</strong>: Interactive jargon popovers injecting precise molecular definitions directly into the text.</p></div></div></article>
+        <article class="static-page prose-page">  <header class="static-header">    <h1>Our Mission</h1>    <p class="static-desc">An open systems biology library mapping longevity pathways.</p>  </header>  <div class="static-prose-container">  <div class="article-body-text"><p>We map <span class="jargon-term" data-term="physiological" data-definition="Relating to the normal, healthy functioning of living organisms and their organs, tissues, or cells." data-slug="physiological">physiological</span> networks, <span class="jargon-term" data-term="metabolism" data-definition="The complete set of life-sustaining chemical reactions in cells, including <a href=&quot;{{BASE_PATH}}vocabulary/catabolism.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>catabolism&nbsp;↗</a> (energy release) and <a href=&quot;{{BASE_PATH}}vocabulary/anabolism.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>anabolism&nbsp;↗</a> (molecular <a href=&quot;{{BASE_PATH}}vocabulary/synthesized.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>synthesis&nbsp;↗</a>)." data-slug="metabolism">metabolic</span> circuits, and behavioral protocols. Our objective is to make complex systems biology accessible, understandable, and actionable—bridging the gap between molecular <span class="jargon-term" data-term="pathway" data-definition="A linked series of <strong><a href=&quot;{{BASE_PATH}}vocabulary/biochemical.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>biochemical&nbsp;↗</a></strong> reactions occurring within a cell, activated by specific triggers to achieve a <strong><a href=&quot;{{BASE_PATH}}vocabulary/physiological.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>physiological&nbsp;↗</a></strong> endpoint." data-slug="pathway">pathways</span> and daily lifestyle habits.</p>
+<h3>1. The Systems Biology Lens</h3>
+<p>We view the human body not as a collection of isolated symptoms, but as an interconnected circuit board of biological feedback loops. Every article on this registry maps these <span class="jargon-term" data-term="pathway" data-definition="A linked series of <strong><a href=&quot;{{BASE_PATH}}vocabulary/biochemical.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>biochemical&nbsp;↗</a></strong> reactions occurring within a cell, activated by specific triggers to achieve a <strong><a href=&quot;{{BASE_PATH}}vocabulary/physiological.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>physiological&nbsp;↗</a></strong> endpoint." data-slug="pathway">pathways</span> upstream and downstream. By understanding the chemical signaling networks that govern our cells, we can make deliberate, evidence-informed decisions about our health span and longevity.</p>
+<h3>2. Epistemic Transparency</h3>
+<p>Longevity and health research sits at the frontier of science. To navigate this space responsibly, we employ a structured grading framework (adapted from the clinical <span class="jargon-term" data-term="GRADE" data-definition="Grading of Recommendations, Assessment, Development, and Evaluation; a standardized framework for rating the quality of scientific evidence from High to Very Low." data-slug="grade">GRADE system</span>) to rate the quality of research supporting every entry. We map both consensus facts and frontier quests, making the distinction in data confidence immediately visible to the reader.</p>
+<h3>3. Absolute Independence</h3>
+<p>To preserve objectivity and serve our readers:
+- <strong>No Paid Endorsements</strong>: We do not accept sponsorships to promote commercial health products or supplements. If a specific compound or product is mentioned, it is solely due to therapeutic or clinical relevance in peer-reviewed literature.
+- <strong>Open Access</strong>: All compiled <span class="jargon-term" data-term="pathway" data-definition="A linked series of <strong><a href=&quot;{{BASE_PATH}}vocabulary/biochemical.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>biochemical&nbsp;↗</a></strong> reactions occurring within a cell, activated by specific triggers to achieve a <strong><a href=&quot;{{BASE_PATH}}vocabulary/physiological.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>physiological&nbsp;↗</a></strong> endpoint." data-slug="pathway">pathway</span> decodings, jargon definitions, and clinical evidence reviews are entirely open-access and free of paywalls.</p></div></div></article>
       </div>
       <footer class="global-footer">
         <div class="footer-nav">
           <a href="./index.html" class="footer-link">Explore</a>
-          <a href="./backlog.html" class="footer-link">Pipeline</a>
           <a href="./vocabulary.html" class="footer-link">Lexicon</a>
           <a href="./about.html" class="footer-link">Our Mission</a>
           <a href="./contact.html" class="footer-link">Contact Us</a>
@@ -220,6 +210,6 @@
     </svg>
   </button>
 
-  <script src="./app.js?v=1.0.3"></script>
+  <script src="./app.js?v=1.0.4"></script>
 </body>
 </html>

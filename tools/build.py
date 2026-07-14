@@ -402,37 +402,9 @@ def run_build() -> None:
     with open(os.path.join(output_dir, "privacy.html"), "w", encoding="utf-8") as f:
         f.write(privacy_page_html)
 
-    # 9. Compile individual detail pages (with Jargon linking)
+    # 9. Compile individual detail pages (with Jargon linking handled internally during HTML construction)
     for node in nodes:
-        print(f"Linking jargon and compiling detail page: {node['slug']}.html...")
-        
-        node_copy = node.copy()
-        node_copy["hook_question"] = inject_jargon_links(node["hook_question"], vocabulary)
-        node_copy["takeaway_pill"] = inject_jargon_links(node["takeaway_pill"], vocabulary)
-        
-        overview_linked = inject_jargon_links(node["reading_modes"]["overview_3min"], vocabulary)
-        deep_dive_linked = [
-            {
-                "heading": item["heading"],
-                "body": inject_jargon_links(item["body"], vocabulary)
-            }
-            for item in node["reading_modes"]["deep_dive"]
-        ]
-        evidence_table_linked = [
-            {
-                "study": item["study"],
-                "design": item.get("design", ""),
-                "sample": item.get("sample", ""),
-                "outcome": inject_jargon_links(item["outcome"], vocabulary),
-                "link": item["link"]
-            }
-            for item in node.get("evidence_table", [])
-        ]
-        node_copy["reading_modes"] = {
-            "overview_3min": overview_linked,
-            "deep_dive": deep_dive_linked
-        }
-        node_copy["evidence_table"] = evidence_table_linked
+        print(f"Compiling detail page: {node['slug']}.html...")
         
         base_layout_detail = compile_base_layout(
             template_content=template_content,
@@ -443,9 +415,10 @@ def run_build() -> None:
         )
         detail_page_html = compile_detail_page(
             layout_html=base_layout_detail,
-            node=node_copy,
+            node=node,
             translations=translations,
             nodes=nodes,
+            vocabulary=vocabulary,
         )
         with open(os.path.join(output_dir, f"{node['slug']}.html"), "w", encoding="utf-8") as f:
             f.write(detail_page_html)

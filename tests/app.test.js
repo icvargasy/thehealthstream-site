@@ -393,4 +393,50 @@ describe("Client Interaction - app.js", () => {
 
     expect(readingPane.scrollTo).toHaveBeenCalled();
   });
+
+  it("should toggle visibility of feed cards when filter buttons are clicked", () => {
+    const container = document.querySelector(".content-container");
+    const toggleRow = document.createElement("div");
+    toggleRow.innerHTML = `
+      <div class="feed-toggle-container">
+        <button class="feed-toggle-btn active" data-filter="all">All</button>
+        <button class="feed-toggle-btn" data-filter="decoded">Articles</button>
+        <button class="feed-toggle-btn" data-filter="pipeline">Pipeline</button>
+      </div>
+      <div id="feed-cards-container">
+        <div class="feed-card cat-biology" id="card-article">Article Content</div>
+        <div class="feed-card pipeline-card-merged cat-biology" id="card-pipeline">Pipeline Content</div>
+      </div>
+    `;
+    container.appendChild(toggleRow);
+
+    // Trigger DOMContentLoaded initialization
+    document.dispatchEvent(new window.Event("DOMContentLoaded"));
+
+    const btnAll = document.querySelector('.feed-toggle-btn[data-filter="all"]');
+    const btnDecoded = document.querySelector('.feed-toggle-btn[data-filter="decoded"]');
+    const btnPipeline = document.querySelector('.feed-toggle-btn[data-filter="pipeline"]');
+    const cardArticle = document.getElementById("card-article");
+    const cardPipeline = document.getElementById("card-pipeline");
+
+    // Click "decoded" filter
+    btnDecoded.click();
+    expect(btnDecoded.classList.contains("active")).toBe(true);
+    expect(btnAll.classList.contains("active")).toBe(false);
+    expect(cardArticle.style.display).toBe("");
+    expect(cardPipeline.style.display).toBe("none");
+
+    // Click "pipeline" filter
+    btnPipeline.click();
+    expect(btnPipeline.classList.contains("active")).toBe(true);
+    expect(btnDecoded.classList.contains("active")).toBe(false);
+    expect(cardArticle.style.display).toBe("none");
+    expect(cardPipeline.style.display).toBe("");
+
+    // Click "all" filter
+    btnAll.click();
+    expect(btnAll.classList.contains("active")).toBe(true);
+    expect(cardArticle.style.display).toBe("");
+    expect(cardPipeline.style.display).toBe("");
+  });
 });

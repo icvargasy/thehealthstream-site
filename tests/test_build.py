@@ -151,7 +151,7 @@ def test_inject_jargon_links() -> None:
 def test_compile_base_layout() -> None:
     """Verifies layout template slot substitutions and static feed/navigation flags."""
     template = (
-        "<html><head><title>{{title}}</title></head><body>{{label_nav_home}} count:{{count_biology}} "
+        "<html><head><title>{{title}}</title></head><body>{{label_nav_home}} count:{{count_biology_total}} "
         "active-feed:{{nav_active_feed}} active-bio:{{nav_active_category_biology}} {{content}}</body></html>"
     )
     translations = {"en": {"nav_home": "Feed"}}
@@ -280,7 +280,7 @@ def test_compile_vocabulary_detail_page() -> None:
     compiled = compile_vocabulary_detail_page(layout, term, vocab_item, mentions, translations)
     assert "AMPK" in compiled
     assert "An energy sensing enzyme" in compiled
-    assert "Connections" in compiled
+    assert "Mentioned In" in compiled
     assert "../ampk-activation.html" in compiled
     assert "AMPK Activation" in compiled
 
@@ -672,7 +672,7 @@ def test_card_structure_and_backlog_buttons() -> None:
     # 1. Feed Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In Pipeline" badge, and "backlog-votes" button
     compiled_feed = compile_feed_page(layout, nodes, translations, backlog=backlog)
     assert "Autophagy Kinetics" in compiled_feed
-    assert "In Pipeline" in compiled_feed
+    assert "Proposed" in compiled_feed
     assert "BIOLOGY" in compiled_feed
     assert '<button class="vote-btn">' not in compiled_feed
     assert "backlog-votes" in compiled_feed
@@ -680,7 +680,7 @@ def test_card_structure_and_backlog_buttons() -> None:
     # 2. Category Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In Pipeline" badge, and "backlog-votes" button
     compiled_cat = compile_category_page(layout, "biology", nodes, translations, backlog=backlog)
     assert "Autophagy Kinetics" in compiled_cat
-    assert "In Pipeline" in compiled_cat
+    assert "Proposed" in compiled_cat
     assert "BIOLOGY" in compiled_cat
     assert '<button class="vote-btn">' not in compiled_cat
     assert "backlog-votes" in compiled_cat
@@ -688,7 +688,7 @@ def test_card_structure_and_backlog_buttons() -> None:
     # 3. Tag Page: Backlog card should NOT contain a separate "Vote" button, but should have the category tag, "In Pipeline" badge, and "backlog-votes" button
     compiled_tag = compile_tag_page(layout, "biology", nodes, translations, backlog=backlog)
     assert "Autophagy Kinetics" in compiled_tag
-    assert "In Pipeline" in compiled_tag
+    assert "Proposed" in compiled_tag
     assert "BIOLOGY" in compiled_tag
     assert '<button class="vote-btn">' not in compiled_tag
     assert "backlog-votes" in compiled_tag
