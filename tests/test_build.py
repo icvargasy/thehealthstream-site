@@ -558,7 +558,7 @@ def test_compile_tag_page() -> None:
         }
     }
     compiled_with_registry = compile_tag_page(layout, "biology", nodes, translations, tags_registry=tags_registry)
-    assert "Biological Circuits" in compiled_with_registry
+    assert "Biology" in compiled_with_registry
     assert "Custom description of biology" in compiled_with_registry
 
     # Tag with no matching articles

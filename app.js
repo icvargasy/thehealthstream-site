@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeGradePopover();
   initializeScrollingAndHash();
   initializeFeedToggle();
+  initializeCardClicks();
 });
 
 /**
@@ -1169,5 +1170,34 @@ function initializeFeedToggle() {
       safeStorage.setItem("feed_filter", filterValue);
       filterFeed(filterValue);
     });
+  });
+}
+
+
+/**
+ * Makes the entire .feed-card clickable for published articles,
+ * directing navigation to the article link if click is not on other interactive elements.
+ * @returns {void}
+ */
+function initializeCardClicks() {
+  document.addEventListener("click", (e) => {
+    const card = e.target.closest(".feed-card");
+    if (!card) return;
+
+    // Pipeline cards don't lead to a page, so they shouldn't trigger redirection
+    if (card.classList.contains("pipeline-card-merged")) return;
+
+    // Do not redirect if clicking on interactive elements (links, buttons, popovers, upvote, jargon definitions)
+    if (e.target.closest("a, button, input, select, label, .jargon-term, .backlog-votes")) {
+      return;
+    }
+
+    const titleLink = card.querySelector(".card-title-link");
+    if (titleLink) {
+      const href = titleLink.getAttribute("href");
+      if (href) {
+        window.location.href = href;
+      }
+    }
   });
 }
