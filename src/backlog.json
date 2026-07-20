@@ -10,7 +10,8 @@
       "metabolism",
       "longevity"
     ],
-    "created_at": "2026-06-15"
+    "created_at": "2026-06-15",
+    "systems_analogy": "Rogue building crews ignoring architectural boundaries and multiplying uncontrollably in early-stage tissue construction."
   },
   {
     "id": "vitamin-microbiome-bidirectional-loop",
@@ -23,7 +24,8 @@
       "metabolism",
       "supplements"
     ],
-    "created_at": "2026-06-15"
+    "created_at": "2026-06-15",
+    "systems_analogy": "A local farming cooperative exchanging raw harvests for specialized municipal energy supplies."
   },
   {
     "id": "periodontal-pathology-and-alzheimers-link",
@@ -35,7 +37,8 @@
       "biology",
       "longevity"
     ],
-    "created_at": "2026-06-15"
+    "created_at": "2026-06-15",
+    "systems_analogy": "Pests nesting in peripheral water mains (the gum line) and traveling upstream into the central water reservoir (the brain)."
   },
   {
     "id": "vo2max-retention-and-cardiorespiratory-aging",
@@ -48,7 +51,8 @@
       "exercise",
       "longevity"
     ],
-    "created_at": "2026-06-15"
+    "created_at": "2026-06-15",
+    "systems_analogy": "Maintaining high-displacement airflow and peak pump capacity across long-term engine operating life."
   },
   {
     "id": "phytochemical-regulation-of-aging-pathways",
@@ -62,7 +66,8 @@
       "supplements",
       "longevity"
     ],
-    "created_at": "2026-06-15"
+    "created_at": "2026-06-15",
+    "systems_analogy": "Plant distress signals acting as cellular fire drills to activate emergency defense crews."
   },
   {
     "id": "when-the-body-says-no-summary",
@@ -70,7 +75,11 @@
     "description": "How does chronic, hidden stress and emotional suppression downregulate immune function and trigger autoimmune and cardiovascular pathologies?",
     "category": "book",
     "votes": 0,
-    "tags": ["book", "longevity"],
-    "created_at": "2026-07-13"
+    "tags": [
+      "book",
+      "longevity"
+    ],
+    "created_at": "2026-07-13",
+    "systems_analogy": "Chronic hidden stress triggering false sirens that cause municipal security crews to attack local infrastructure."
   }
 ]

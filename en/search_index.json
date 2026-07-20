@@ -142,8 +142,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts and **microbiota** mutations.",
-    "in_pipeline": true
+    "teaser": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts and **microbiota** mutations."
   },
   {
     "title": "colibactin",
@@ -216,8 +215,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The hypothesis that animals have evolved to respond to stress-induced chemical signals synthesized by plants, using them as early warnings to **upregulate** endogenous defense mechanisms.",
-    "in_pipeline": true
+    "teaser": "The hypothesis that animals have evolved to respond to stress-induced chemical signals synthesized by plants, using them as early warnings to **upregulate** endogenous defense mechanisms."
   },
   {
     "title": "sulforaphane",
@@ -814,5 +812,127 @@
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "The metabolic synthesis of complex molecules from simpler precursors, requiring chemical energy input."
+  },
+  {
+    "title": "randomized controlled trial",
+    "slug": "vocabulary/randomized-controlled-trial.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Randomized Controlled Trial; a gold-standard clinical study design where participants are randomly assigned to either an experimental group or a **placebo**/control group to measure treatment efficacy."
+  },
+  {
+    "title": "omega-3 fatty acids",
+    "slug": "vocabulary/omega-3-fatty-acids.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A family of polyunsaturated fatty acids (including **DHA** and EPA) essential for structural integrity, **membrane** fluidity, and inflammatory modulation."
+  },
+  {
+    "title": "placebo",
+    "slug": "vocabulary/placebo.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An inactive substance or procedure designed to mimic the experimental treatment, used as a control in clinical trials to isolate psychological expectation from physical effect."
+  },
+  {
+    "title": "ATP",
+    "slug": "vocabulary/atp.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Adenosine triphosphate; the primary chemical energy currency within cells, synthesized by **mitochondria** to power physiological operations."
+  },
+  {
+    "title": "statistical difference",
+    "slug": "vocabulary/statistical-difference.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A mathematical determination that a measured difference between experimental groups is unlikely to have occurred by random chance, typically denoted by a p-value < 0.05."
+  },
+  {
+    "title": "MRI",
+    "slug": "vocabulary/mri.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Magnetic Resonance Imaging; a non-invasive medical imaging technique that uses strong magnetic fields and radio waves to generate detailed structural scans of tissues and organs."
+  },
+  {
+    "title": "phosphatidylcholine",
+    "slug": "vocabulary/phosphatidylcholine.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A class of phospholipids incorporating choline, forming a major structural component of cell **membranes** and facilitating lipid transport."
+  },
+  {
+    "title": "cerebrospinal fluid",
+    "slug": "vocabulary/cerebrospinal-fluid.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Cerebrospinal fluid; the clear fluid surrounding the brain and spinal cord, acting as a physical cushion, waste-clearance medium, and biomarker registry."
+  },
+  {
+    "title": "autoimmune pathology",
+    "slug": "vocabulary/autoimmune-pathology.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A state of disease where the immune system mistakenly targets and destroys the body's own healthy cells and tissues.",
+    "in_pipeline": true
+  },
+  {
+    "title": "amyloid-beta",
+    "slug": "vocabulary/amyloid-beta.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A protein peptide that can accumulate in the brain, forming sticky plaques associated with **neurodegeneration** and Alzheimer's disease progression.",
+    "in_pipeline": true
+  },
+  {
+    "title": "NAD+",
+    "slug": "vocabulary/nad.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Nicotinamide adenine dinucleotide; an essential coenzyme present in all living cells, acting as a critical electron carrier in metabolic redox reactions and sirtuin activation."
+  },
+  {
+    "title": "kinase",
+    "slug": "vocabulary/kinase.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "An enzyme that catalyzes the transfer of a phosphate group from **ATP** to a specific substrate molecule, acting as a crucial regulator of cellular signaling cascades."
+  },
+  {
+    "title": "VO2 max",
+    "slug": "vocabulary/vo2-max.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The maximal rate of oxygen consumption measured during incremental exercise, reflecting aerobic physical fitness and cardiovascular efficiency."
+  },
+  {
+    "title": "insulin resistance",
+    "slug": "vocabulary/insulin-resistance.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A physiological condition where cells fail to respond effectively to the hormone insulin, impairing glucose uptake and forcing the pancreas to overproduce insulin to maintain normal blood glucose levels."
+  },
+  {
+    "title": "dementia",
+    "slug": "vocabulary/dementia.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A clinical syndrome characterized by a progressive decline in **cognitive function**, memory, and daily reasoning ability, typically caused by underlying **neurodegeneration**."
   }
 ]

@@ -156,6 +156,7 @@ def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
                 f'<span class="jargon-term" '
                 f'data-term="{canonical_key}" '
                 f'data-definition="{definition}" '
+                f'data-matched-text="{matched_text}" '
                 f'data-slug="{slug}">{matched_text}</span>'
             )
 

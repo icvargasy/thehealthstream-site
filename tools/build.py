@@ -96,7 +96,8 @@ def _build_mentions_map(
                 mentions[term].append({
                     "title": other_term,
                     "slug": f"{slugify(other_term)}.html",
-                    "type": "lexicon"
+                    "type": "lexicon",
+                    "taxonomy": other_details.get("taxonomy", "concept")
                 })
 
     return mentions
@@ -135,6 +136,12 @@ def run_build() -> None:
 
         print("Reading backlog data...")
         backlog = load_json_file(backlog_path)
+        try:
+            from compiler.reader import validate_backlog_item
+        except ModuleNotFoundError:
+            from tools.compiler.reader import validate_backlog_item
+        for item in backlog:
+            validate_backlog_item(item, item.get("id", ""))
 
         print("Reading jargon vocabulary...")
         vocabulary = load_json_file(vocabulary_path)

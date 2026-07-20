@@ -186,12 +186,25 @@ function initializeJargonPopovers() {
       e.stopPropagation();
       const definition = term.getAttribute("data-definition") || "";
       const slug = term.getAttribute("data-slug") || "";
+      const canonicalKey = term.getAttribute("data-term") || "";
+      const matchedText = term.getAttribute("data-matched-text") || term.innerText || "";
       const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
       const href = `${basePath}vocabulary/${slug}.html`;
 
       const parsedDefinition = definition.replace(/\{\{BASE_PATH\}\}|%7B%7BBASE_PATH%7D%7D/gi, basePath);
 
+      let aliasHtml = "";
+      if (canonicalKey && matchedText && matchedText.trim().toLowerCase() !== canonicalKey.trim().toLowerCase()) {
+        aliasHtml = `
+          <div class="popover-alias-badge" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: var(--selected-bg); color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 6px; border-radius: var(--radius-pill); align-self: flex-start; margin-top: calc(-1 * var(--space-1)); margin-bottom: var(--space-1);">
+            Alias: ${matchedText}
+          </div>
+        `;
+      }
+
       popover.innerHTML = `
+        <div class="popover-term-title" style="font-weight: 700; color: var(--accent-synapse); font-size: 0.95rem; margin-bottom: var(--space-1);">${canonicalKey}</div>
+        ${aliasHtml}
         <div class="popover-def">${parsedDefinition}</div>
         <a href="${href}" class="popover-link">View in Glossary &rarr;</a>
       `;

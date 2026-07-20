@@ -28,3 +28,5 @@ implementation_plan.md
 task.md
 walkthrough.md
 *.log
+tools/link_cache.json
+audit_raw_data.json

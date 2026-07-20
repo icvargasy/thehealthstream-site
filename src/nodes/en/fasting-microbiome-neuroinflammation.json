@@ -9,11 +9,11 @@
     "debate_sides": [
       {
         "position": "Microbiota-Mediated Cognitive Pathway (Dr. Amine Zorgani's Perspective)",
-        "arguments": "The cognitive improvements of fasting are not solely direct metabolic actions (e.g. ketone bodies), but are actively mediated through the gut-brain axis. Shifts in gut microbiota trigger microglial activation, suppressing neuroinflammation and increasing phagocytic capacity."
+        "arguments": "The cognitive improvements of fasting are not solely direct metabolic actions (e.g. ketone bodies), but are actively mediated through the gut-brain axis, as demonstrated in clinical and rodent cohorts <a href=\"#ref1\" class=\"citation-link\">[ref1]</a>. Shifts in gut microbiota trigger microglial activation, suppressing neuroinflammation and increasing phagocytic capacity."
       },
       {
         "position": "The Prevention Battlefield (Frank Bernier's Perspective)",
-        "arguments": "Brain health nutrition must target prevention and systemic resilience (microbiome modulation, inflammation control) rather than late-stage drug targets like amyloid beta, which often fail in phase 3 clinical trials despite successful biomarker lowering."
+        "arguments": "Brain health nutrition must target prevention and systemic resilience (microbiome modulation, inflammation control) <a href=\"#ref_post_bernier_probiotic\" class=\"citation-link\">[ref_post_bernier_probiotic]</a> rather than late-stage drug targets like amyloid beta, which often fail in phase 3 clinical trials despite successful biomarker lowering."
       }
     ]
   },
@@ -64,12 +64,13 @@
     {
       "id": "ref_post_zorgani",
       "text": "Dr. Amine Zorgani. Fasting May Rewire the Brain, Better than Diet ...Through the Microbiome. LinkedIn Commentary.",
-      "link": "https://www.linkedin.com/posts/dr-amine-zorgani-swipebiome-activity-7333333333333333333-zzzz"
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7479090063021215744/"
     },
     {
       "id": "ref_post_bernier_probiotic",
       "text": "Frank Bernier, PhD. Alzheimer's research: drug targets vs brain-health nutrition prevention. LinkedIn Commentary.",
-      "link": "https://www.linkedin.com/posts/frank-bernier-phd-msc-cip-00a400_alzheimersresearch-probiotics-microbiomescience-activity-7444444444444444444-aaaa"
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7473900162503954432/"
     }
-  ]
+  ],
+  "systems_analogy_hook": "Restructures the peripheral gut database to reprogram resident microglial security patrols."
 }

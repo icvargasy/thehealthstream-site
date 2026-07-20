@@ -378,6 +378,15 @@ a.category-tag {
   color: var(--bg-paper) !important;
 }
 
+.cat-lexicon .category-tag {
+  background-color: oklch(0.60 0.18 15 / 0.08);
+  color: oklch(0.55 0.18 15);
+}
+.cat-lexicon a.category-tag:hover {
+  background-color: oklch(0.55 0.18 15) !important;
+  color: var(--bg-paper) !important;
+}
+
 .card-title {
   display: flex;
   flex-wrap: wrap;
@@ -429,8 +438,15 @@ a.category-tag {
   border-radius: var(--radius-pill);
   color: var(--accent-synapse);
   text-decoration: none;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.tag-pill-icon {
+  margin-right: 2px;
+  flex-shrink: 0;
 }
 
 a.tag-pill {
@@ -1624,28 +1640,37 @@ body[data-theme="dark"] .backlog-item.cat-book {
   border-style: solid !important;
   border-color: var(--backlog-accent, var(--accent-synapse)) !important;
 }
+.pipeline-card-merged,
 .backlog-item.backlog-card-compact {
-  border: 1px dashed var(--border-color) !important;
+  border: 1px solid var(--border-color) !important;
   background-color: var(--sb-bg) !important;
-  padding: 12px 16px;
-  gap: var(--space-1);
+  border-radius: var(--radius-card) !important;
+  padding: 16px 20px !important;
+  gap: 8px !important;
+  list-style: none;
+  cursor: default !important;
 }
-.backlog-item.backlog-card-compact .backlog-title {
-  font-size: 1.0rem;
+
+.pipeline-card-merged:hover,
+.backlog-item.backlog-card-compact:hover {
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: var(--border-color) !important;
 }
-.backlog-item .backlog-desc {
-  margin: var(--space-1) 0;
+
+.pipeline-card-merged .card-title-link,
+.backlog-item.backlog-card-compact .card-title-link {
+  font-family: var(--font-display) !important;
+  font-size: 1.25rem !important;
+  font-weight: 700 !important;
+  cursor: default !important;
+  pointer-events: none !important;
+  color: var(--text-ink) !important;
+  text-decoration: none !important;
 }
 .backlog-item .qa-question-text {
   font-size: 0.9rem;
-  line-height: 1.4;
-}
-.backlog-item.backlog-card-compact .qa-question-text {
-  font-size: 0.8rem;
-  line-height: 1.35;
-}
-.backlog-item.backlog-card-compact .card-tags {
-  margin-top: var(--space-1) !important;
+  line-height: 1.45;
 }
 .backlog-item.backlog-card-compact .vote-btn {
   padding: 4px 10px;
@@ -2562,6 +2587,91 @@ a.pipeline-badge:hover {
   border: 1px solid var(--selected-border);
   border-radius: var(--radius-button);
   padding: var(--space-3) var(--space-4);
+}
+
+.card-analogy-hook,
+.card-takeaway-hook {
+  margin-top: 8px;
+  font-size: 0.88rem;
+  line-height: 1.45;
+}
+
+.analogy-badge-label {
+  color: var(--accent-synapse);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-right: 4px;
+}
+
+.takeaway-badge-label {
+  color: var(--accent-biology);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-right: 4px;
+}
+
+.analogy-text,
+.takeaway-text {
+  color: var(--text-ink);
+}
+
+.detail-hero-takeaway {
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.detail-hero-analogy-box {
+  background-color: oklch(0.60 0.18 18 / 0.06);
+  border-left: 3px solid var(--accent-synapse);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.detail-hero-clinical-box {
+  background-color: oklch(0.55 0.18 250 / 0.06);
+  border-left: 3px solid var(--accent-biology);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  margin-top: 10px;
+}
+
+.hero-badge-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  margin-bottom: 4px;
+}
+
+.detail-hero-analogy-box .hero-badge-label {
+  color: var(--accent-synapse);
+}
+
+.detail-hero-clinical-box .hero-badge-label {
+  color: var(--accent-biology);
+}
+
+.hero-analogy-text,
+.hero-clinical-text {
+  margin: 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--text-ink);
+}
+.detail-takeaway-block {
   margin-top: var(--space-4);
   margin-bottom: var(--space-4);
   display: block; /* Normal block flow, no line clamping */
@@ -2708,8 +2818,43 @@ a.pipeline-badge:hover {
   color: var(--text-ink);
 }
 .evidence-grade-note {
+  margin-top: var(--space-1);
+  margin-bottom: var(--space-3);
+  padding: 0;
+  background-color: transparent;
+  border-left: none;
   font-size: 0.75rem;
+  line-height: 1.35;
   color: var(--text-ink-muted);
+}
+
+.citation-link {
+  color: var(--color-citation);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+.citation-link:hover {
+  color: var(--color-citation-hover);
+}
+
+.evidence-bib-link {
+  color: var(--color-citation);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+.evidence-bib-link:hover {
+  color: var(--color-citation-hover);
+}
+
+.bib-item:target {
+  background-color: var(--selected-bg);
+  border-left: 3px solid var(--accent-synapse);
+  padding-left: var(--space-2);
+  border-radius: var(--radius-button);
+  transition: background-color var(--transition-normal);
 }
 
 /* -----------------------------------------------------------------------
@@ -3291,10 +3436,16 @@ h4 .jargon-term:hover {
   margin-top: 3px !important; /* aligns icon with first line of wrapped text */
 }
 .connection-title {
-  flex-grow: 1 !important;
+  flex-grow: 0 !important;
   flex-shrink: 1 !important;
   word-break: break-word !important;
   margin-right: 0 !important;
+}
+
+.connection-item-link .category-tag {
+  margin-left: 0 !important;
+  flex-shrink: 0 !important;
+  align-self: center !important;
 }
 
 /* Direct relative wiki-style Lexicon links (Issue 1) */

@@ -14,6 +14,43 @@ from typing import Dict, List, Any
 import markdown
 from .linker import slugify
 
+TAG_PILL_ICON_SVG = (
+    '<svg class="tag-pill-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block;">'
+    '<path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>'
+    '<line x1="7" y1="7" x2="7.01" y2="7"></line>'
+    '</svg>'
+)
+
+SYNAPSE_LOGO_SVG = (
+    '<svg class="systems-analogy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 4px; display: inline-block;">'
+    '<circle cx="12" cy="12" r="3"></circle>'
+    '<path d="M12 3v6M12 15v6M3 12h6M15 12h6"></path>'
+    '</svg>'
+)
+
+CLINICAL_MECHANISM_SVG = (
+    '<svg class="clinical-mechanism-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 4px; display: inline-block;">'
+    '<path d="M2 15c6.667-6 13.333 6 20 0M2 9c6.667 6 13.333-6 20 0"></path>'
+    '<path d="M9 10.5v3M15 10.5v3"></path>'
+    '</svg>'
+)
+
+
+def get_category_mechanism_label(cat: str) -> str:
+    """Returns category-specific takeaway badge label (e.g. Biological Mechanism, Protocol Mechanism, Curated Synthesis)."""
+    labels = {
+        "biology": "Biological Mechanism",
+        "lifestyle": "Protocol Mechanism",
+        "book": "Curated Synthesis"
+    }
+    return labels.get(cat, "Empirical Mechanism")
+
 
 def compile_base_layout(
     template_content: str,
@@ -103,7 +140,7 @@ def render_backlog_card(
 
     tag_pills = []
     for t in item.get("tags", []):
-        tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">#{t}</a>')
+        tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">{TAG_PILL_ICON_SVG}{t}</a>')
     tags_html = f'<div class="card-tags">{" ".join(tag_pills)}</div>' if tag_pills else ""
 
     created_at = item.get("created_at", "2026-06-01")
@@ -135,48 +172,47 @@ def render_backlog_card(
         f'</a>'
     )
 
-    if as_list_item:
-        card_html = (
-            f'<{tag_name} class="{card_class}" data-id="{item["id"]}" data-title="{item["title"]}" data-created="{created_at}" data-category="{cat}" data-votes="{item["votes"]}">'
-            f'  <div class="backlog-header">'
-            f'    <div class="backlog-title-group">'
-            f'      <span class="backlog-title">{item["title"]}</span>'
-            f'      <a href="{category_url}" class="category-tag">{category_label}</a>'
-            f'      {pipeline_badge_html}'
-            f'    </div>'
-            f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" aria-label="Upvote topic">'
-            f'      <span class="upvote-icon">▲</span>'
-            f'      <span class="vote-count">{item["votes"]}</span>'
-            f'    </button>'
-            f'  </div>'
-            f'  <div class="backlog-desc">{desc}</div>'
-            f'  {footer_html}'
-            f'</{tag_name}>'
+    analogy = item.get("systems_analogy", "")
+    if vocabulary and analogy:
+        try:
+            from compiler.linker import inject_jargon_links
+        except ModuleNotFoundError:
+            from tools.compiler.linker import inject_jargon_links
+        analogy = inject_jargon_links(analogy, vocabulary)
+
+    analogy_html = ""
+    if analogy:
+        analogy_html = (
+            f'<div class="card-analogy-hook" style="margin-top: 6px;">'
+            f'  <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy:</strong></span> '
+            f'  <span class="analogy-text">{analogy}</span>'
+            f'</div>'
         )
-    else:
-        card_html = (
-            f'<{tag_name} class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}">'
-            f'  <div class="feed-card-header">'
-            f'    <div class="feed-card-title-group">'
-            f'      <h2 class="card-title">'
-            f'        <span class="card-title-link">{item["title"]}</span>'
-            f'      </h2>'
-            f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px;">'
-            f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
-            f'        {pipeline_badge_html}'
-            f'      </div>'
-            f'    </div>'
-            f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic">'
-            f'      <span class="upvote-icon">▲</span>'
-            f'      <span class="vote-count">{item["votes"]}</span>'
-            f'    </button>'
-            f'  </div>'
-            f'  <blockquote class="card-teaser-text qa-takeaway-block">'
-            f'    <span class="qa-answer-text">{desc}</span>'
-            f'  </blockquote>'
-            f'  {footer_html}'
-            f'</{tag_name}>'
-        )
+
+    card_html = (
+        f'<{tag_name} class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}">'
+        f'  <div class="feed-card-header">'
+        f'    <div class="feed-card-title-group">'
+        f'      <h2 class="card-title">'
+        f'        <span class="card-title-link">{item["title"]}</span>'
+        f'      </h2>'
+        f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px;">'
+        f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
+        f'        {pipeline_badge_html}'
+        f'      </div>'
+        f'    </div>'
+        f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic">'
+        f'      <span class="upvote-icon">▲</span>'
+        f'      <span class="vote-count">{item["votes"]}</span>'
+        f'    </button>'
+        f'  </div>'
+        f'  <blockquote class="card-teaser-text qa-takeaway-block">'
+        f'    <span class="qa-question-text">{desc}</span>'
+        f'    {analogy_html}'
+        f'  </blockquote>'
+        f'  {footer_html}'
+        f'</{tag_name}>'
+    )
     return card_html
 
 
@@ -206,7 +242,7 @@ def render_article_card(
 
     tag_pills = []
     for t in (node.get("tags") or []):
-        tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">#{t}</a>')
+        tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">{TAG_PILL_ICON_SVG}{t}</a>')
     tags_html = f'<div class="card-tags">{"".join(tag_pills)}</div>' if tag_pills else ""
 
     created_at = node.get("metadata", {}).get("created_at", "2026-06-01")
@@ -231,6 +267,20 @@ def render_article_card(
         hook = inject_jargon_links(hook, vocabulary)
         takeaway = inject_jargon_links(takeaway, vocabulary)
 
+    analogy_hook = node.get("systems_analogy_hook", "")
+    if vocabulary and analogy_hook:
+        analogy_hook = inject_jargon_links(analogy_hook, vocabulary)
+
+    analogy_html = ""
+    if analogy_hook:
+        analogy_html = (
+            f'<div class="card-analogy-hook" style="margin-top: 6px;">'
+            f'  <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy:</strong></span> '
+            f'  <span class="analogy-text">{analogy_hook}</span>'
+            f'</div>'
+        )
+
+    mech_label = get_category_mechanism_label(cat)
     card_html = (
         f'<div class="feed-card cat-{cat}" data-created="{created_at}" data-title="{node["title"]}" data-category="{cat}">'
         f'  <div class="feed-card-header">'
@@ -249,7 +299,11 @@ def render_article_card(
         f'  </div>'
         f'  <blockquote class="card-teaser-text qa-takeaway-block">'
         f'    <span class="qa-question-text">{hook}</span>'
-        f'    <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
+        f'    {analogy_html}'
+        f'    <div class="card-takeaway-hook" style="margin-top: 6px;">'
+        f'      <span class="takeaway-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label}:</strong></span> '
+        f'      <span class="takeaway-text">{takeaway}</span>'
+        f'    </div>'
         f'  </blockquote>'
         f'  {footer_html}'
         f'</div>'
@@ -504,6 +558,30 @@ def compile_feed_page(
     return html
 
 
+def resolve_citation_numbers(html_content: str, bibliography: List[Dict[str, Any]]) -> str:
+    """Replaces citation link placeholders like [ref1] with sequential numbers like [1]."""
+    if not bibliography:
+        return html_content
+    
+    # Map of ref_id -> sequential number
+    ref_map = {bib["id"]: str(idx) for idx, bib in enumerate(bibliography, 1)}
+    
+    for ref_id, num in ref_map.items():
+        pattern = re.compile(rf'(<a\s+href=["\']#{re.escape(ref_id)}["\'][^>]*>)([^<]*)(</a>)', re.IGNORECASE)
+        
+        def replace_callback(match: re.Match) -> str:
+            prefix = match.group(1)
+            content = match.group(2)
+            suffix = match.group(3)
+            # Replaces occurrences of the ID inside the anchor tag text with the index number
+            new_content = content.replace(ref_id, num)
+            return f"{prefix}{new_content}{suffix}"
+            
+        html_content = pattern.sub(replace_callback, html_content)
+        
+    return html_content
+
+
 def compile_detail_page(
     layout_html: str,
     node: Dict[str, Any],
@@ -535,17 +613,35 @@ def compile_detail_page(
         hook = inject_jargon_links(hook, vocabulary)
         takeaway = inject_jargon_links(takeaway, vocabulary)
 
-    # 1. Takeaway Unified Block (Issue 2 revised)
-    takeaway_block_html = (
-        f'<blockquote class="qa-takeaway-block detail-takeaway-block">'
-        f'  <span class="qa-question-text">{hook}</span>'
-        f'  <span class="qa-answer-text"><strong>Takeaway:</strong> {takeaway}</span>'
-        f'</blockquote>'
-    )
-    
-    # 2. GRADE Evidence Block & Popover details
     er = node["epistemic_rating"]
     grade = er["grade"]
+
+    analogy_hook = node.get("systems_analogy_hook", "")
+    if vocabulary and analogy_hook:
+        analogy_hook = inject_jargon_links(analogy_hook, vocabulary)
+
+    analogy_hero_html = ""
+    if analogy_hook:
+        analogy_hero_html = (
+            f'<div class="detail-hero-analogy-box">'
+            f'  <span class="hero-badge-label">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy</strong></span>'
+            f'  <p class="hero-analogy-text">{analogy_hook}</p>'
+            f'</div>'
+        )
+
+    mech_label = get_category_mechanism_label(node.get("type", ""))
+    takeaway_block_html = (
+        f'<div class="detail-hero-takeaway">'
+        f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
+        f'    <span class="qa-question-text">{hook}</span>'
+        f'    {analogy_hero_html}'
+        f'    <div class="detail-hero-clinical-box">'
+        f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong> — GRADE: {grade.upper()}</span>'
+        f'      <p class="hero-clinical-text">{takeaway}</p>'
+        f'    </div>'
+        f'  </blockquote>'
+        f'</div>'
+    )
     rationale = er["rationale"]
     grade_lower = grade.lower()
     
@@ -652,12 +748,12 @@ def compile_detail_page(
         f'    <strong>GRADE Evidence Rating</strong>'
         f'    <span class="detail-grade-badge grade-{grade_lower}">{grade}</span>'
         f'  </div>'
-        f'  <p class="evidence-grade-rationale"><strong>Rationale:</strong> {rationale}</p>'
-        f'  {debates_html}'
         f'  <div class="evidence-grade-note">'
         f'    The GRADE (Grading of Recommendations, Assessment, Development, and Evaluation) system is a standardized framework for rating the quality of scientific evidence. '
         f'    Ratings scale from High to Very Low quality.'
         f'  </div>'
+        f'  <p class="evidence-grade-rationale"><strong>Rationale:</strong> {rationale}</p>'
+        f'  {debates_html}'
         f'</div>'
     )
 
@@ -692,12 +788,39 @@ def compile_detail_page(
             f'</div>'
         )
 
+    bibliography_html = ""
+    bib_items = node.get("bibliography", [])
+    if bib_items:
+        bib_links = []
+        for idx, bib in enumerate(bib_items, start=1):
+            bib_id = bib.get("id", "")
+            text = bib.get("text", "")
+            link = bib.get("link", "")
+            
+            cite_item = ""
+            if link:
+                cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
+            else:
+                cite_item += f'<span class="evidence-bib-text">{text}</span>'
+                
+            bib_links.append(f'<li class="bib-item" id="{bib_id}">[{idx}] {cite_item}</li>')
+            
+        bibliography_html = (
+            f'<div class="evidence-bibliography" style="margin-top: var(--space-4); border-top: 1px solid var(--border-color); padding-top: var(--space-3);">'
+            f'  <h3 class="evidence-subtitle" style="margin-bottom: var(--space-3);">Bibliography / Reference Registry</h3>'
+            f'  <ul class="bib-list">'
+            f'    {"".join(bib_links)}'
+            f'  </ul>'
+            f'</div>'
+        )
+
     accordion_html = (
         f'<section class="evidence-section detail-section" id="evidence-section">'
         f'  <h2 class="evidence-title">{labels.get("evidence_accordion_title", "Evidence, Studies &amp; Debates")}</h2>'
         f'  <div class="evidence-content">'
         f'    {grade_details_card}'
         f'    {evidence_list_html}'
+        f'    {bibliography_html}'
         f'  </div>'
         f'</section>'
     )
@@ -736,7 +859,7 @@ def compile_detail_page(
     # 6. Core content presentation
     category_label = labels.get(f"category_{node['type']}", node["type"])
     tags_html = "".join([
-        f'<a href="tags/{t}.html" class="tag-pill">#{t}</a>'
+        f'<a href="tags/{t}.html" class="tag-pill">{TAG_PILL_ICON_SVG}{t}</a>'
         for t in node.get("tags", [])
     ])
     
@@ -787,7 +910,7 @@ def compile_detail_page(
     # Mark specific sidebar item active in layout
     html = html.replace(f'data-slug="{node["slug"]}"', f'data-slug="{node["slug"]}" class="nav-link active"')
     
-    # Inject FAQPage JSON-LD Schema
+    # Inject FAQPage and ScholarlyArticle JSON-LD Schemas
     escaped_pill = node["takeaway_pill"].replace('"', '\\"')
     faq_schema = f"""<script type="application/ld+json">
 {{
@@ -804,7 +927,64 @@ def compile_detail_page(
 }}
 </script>
 """
-    html = html.replace("</head>", f"{faq_schema}\n</head>")
+
+    authors_schema = []
+    citations_schema = []
+    for bib in node.get("bibliography", []):
+        bib_id = bib.get("id", "")
+        text = bib.get("text", "")
+        link = bib.get("link", "")
+        
+        if bib_id.startswith("ref_post_"):
+            if "Frank Bernier" in text:
+                name_cleaned = "Frank Bernier"
+            elif "Dilpriya K. Mangat" in text or "Mangat" in text:
+                name_cleaned = "Dilpriya K. Mangat"
+            elif "Amine Zorgani" in text:
+                name_cleaned = "Amine Zorgani"
+            else:
+                name_cleaned = text.split(",")[0].split(".")[0].strip()
+                if name_cleaned.startswith("Dr. "):
+                    name_cleaned = name_cleaned[4:]
+            
+            author_obj = {
+                "@type": "Person",
+                "name": name_cleaned
+            }
+            if link:
+                author_obj["sameAs"] = link
+            authors_schema.append(author_obj)
+        else:
+            citation_obj = {
+                "@type": "ScholarlyArticle",
+                "name": text
+            }
+            if link:
+                citation_obj["url"] = link
+            citations_schema.append(citation_obj)
+            
+    if not authors_schema:
+        authors_schema.append({
+            "@type": "Organization",
+            "name": "The Healthstream Editorial Board"
+        })
+
+    import json
+    scholarly_data = {
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        "headline": node["title"],
+        "description": node["hook_question"],
+        "datePublished": "2026-07-16T18:00:00Z",
+        "author": authors_schema,
+        "citation": citations_schema
+    }
+    
+    scholarly_schema_json = json.dumps(scholarly_data, indent=2, ensure_ascii=False)
+    scholarly_schema = f'<script type="application/ld+json">\n{scholarly_schema_json}\n</script>'
+
+    html = resolve_citation_numbers(html, node.get("bibliography", []))
+    html = html.replace("</head>", f"{faq_schema}\n{scholarly_schema}\n</head>")
     return html
 
 
@@ -979,10 +1159,12 @@ def compile_vocabulary_detail_page(
         m_type = m.get("type", "biology")
         
         if m_type == "lexicon":
+            taxonomy_val = m.get("taxonomy", "concept").upper()
             tag_html = (
                 f'<a href="{slug}" class="connection-item-link topic-lexicon cat-lexicon">'
                 f'  {lexicon_icon}'
                 f'  <span class="connection-title">{title}</span>'
+                f'  <span class="category-tag">{taxonomy_val}</span>'
                 f'</a>'
             )
         elif m.get("in_pipeline"):
@@ -1076,6 +1258,22 @@ def compile_vocabulary_detail_page(
             f'</div>'
         )
 
+    aliases = vocab_item.get("aliases", [])
+    aliases_html = ""
+    if aliases:
+        filtered_aliases = [a for a in aliases if a.lower() != term.lower()]
+        if filtered_aliases:
+            alias_items = [
+                f'<span style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: var(--selected-bg); color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 8px; border-radius: var(--radius-pill);">{a}</span>'
+                for a in filtered_aliases
+            ]
+            aliases_html = (
+                f'<div class="vocab-detail-aliases" style="display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); align-items: center;">'
+                f'  <span style="font-size: 0.8rem; color: var(--text-ink-muted); font-weight: 600; margin-right: var(--space-2);">Aliases:</span>'
+                f'  {" ".join(alias_items)}'
+                f'</div>'
+            )
+
     content_html = (
         f'<article class="vocab-detail-page">'
         f'  <header>'
@@ -1086,6 +1284,7 @@ def compile_vocabulary_detail_page(
         f'      <h1>{term}</h1>'
         f'      <div class="vocab-badges-row" style="display: flex; gap: var(--space-2);">{badge_html}{taxonomy_badge_html}</div>'
         f'    </div>'
+        f'    {aliases_html}'
         f'  </header>'
         f'  {analogy_html}'
         f'  <p class="vocab-definition">{definition}</p>'

@@ -9,15 +9,15 @@
     "debate_sides": [
       {
         "position": "Isolated Supplement Target Engagement (Frank Bernier's Critique)",
-        "arguments": "Daily high-dose supplementation (2g/day) achieves successful brain target engagement (17% increase in CSF DHA), but nutrition is not pharma with softer branding; hitting a biological target in isolation does not guarantee clinical cognitive improvement when independent variables like vascular health, APOE4 status, and metabolic baseline are unaddressed."
+        "arguments": "Daily high-dose supplementation (2g/day) achieves successful brain target engagement (17% increase in CSF DHA) <a href=\"#ref1\" class=\"citation-link\">[ref1]</a>, but nutrition is not pharma with softer branding; hitting a biological target in isolation does not guarantee clinical cognitive improvement when independent variables like vascular health, APOE4 status, and metabolic baseline are unaddressed <a href=\"#ref_post_bernier\" class=\"citation-link\">[ref_post_bernier]</a>."
       },
       {
         "position": "Systemic/Multi-Factorial Prevention (Dr. Dilpriya K. Mangat's Protocol)",
-        "arguments": "Cognitive resilience and dementia prevention are built through a combination of lifestyle habits (e.g., physical activity, quality sleep, blood pressure control, social connection, and nutritious eating patterns) rather than a single 'hero ingredient' supplement."
+        "arguments": "Cognitive resilience and dementia prevention are built through a combination of lifestyle habits (e.g., physical activity, quality sleep, blood pressure control, social connection, and nutritious eating patterns) <a href=\"#ref_post_mangat\" class=\"citation-link\">[ref_post_mangat]</a> rather than a single 'hero ingredient' supplement."
       },
       {
         "position": "Nutrient Synergism / Homocysteine Co-factor",
-        "arguments": "DHA incorporation and synaptic signaling depend on healthy blood-brain barrier transport, which is actively impaired by elevated homocysteine levels. Clinical trials like VITACOG indicate that B-vitamin cofactors are required to resolve homocysteine blockages before DHA target engagement can translate to cognitive benefits."
+        "arguments": "DHA incorporation and synaptic signaling depend on healthy blood-brain barrier transport, which is actively impaired by elevated homocysteine levels. Clinical trials like <a href=\"#ref2\" class=\"citation-link\">VITACOG [ref2]</a> indicate that B-vitamin cofactors are required to resolve homocysteine blockages before DHA target engagement can translate to cognitive benefits."
       }
     ]
   },
@@ -59,11 +59,11 @@
       "link": "https://doi.org/10.1016/j.ebiom.2026.106316"
     },
     {
-      "study": "Smith et al., 2015 (VITACOG)",
-      "design": "Secondary analysis of an RCT",
-      "sample": "n=168 older adults with mild cognitive impairment (MCI)",
-      "outcome": "B-vitamin treatment to lower homocysteine slowed brain atrophy rate by 40% only in participants with high baseline omega-3 fatty acids.",
-      "link": "https://doi.org/10.3945/ajcn.114.101196"
+      "study": "Smith et al., 2018 (Consensus Statement)",
+      "design": "International Consensus Review",
+      "sample": "Review of clinical and pathological evidence linking homocysteine to dementia",
+      "outcome": "Homocysteine-lowering by B vitamins is a proven disease-modifying treatment for slowing brain atrophy and cognitive decline, particularly in individuals with high omega-3 status.",
+      "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5836397/"
     }
   ],
   "bibliography": [
@@ -74,18 +74,19 @@
     },
     {
       "id": "ref2",
-      "text": "Smith AD, et al. Homocysteine-lowering by B vitamins slows cognitive decline and brain atrophy in older adults: secondary analysis of the VITACOG trial. Am J Clin Nutr. 2015;101(6):1160-1170.",
-      "link": "https://doi.org/10.3945/ajcn.114.101196"
+      "text": "Smith AD, Refsum H, et al. Homocysteine and Dementia: An International Consensus Statement. J Alzheimers Dis. 2018;62(2):561-570.",
+      "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5836397/"
     },
     {
       "id": "ref_post_bernier",
       "text": "Frank Bernier, PhD. Brain health supplements: target engagement vs clinical translation. LinkedIn Commentary.",
-      "link": "https://www.linkedin.com/posts/frank-bernier-phd-msc-cip-00a400_alzheimers-dementia-brainhealth-activity-7111111111111111111-xxxx"
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7473900162503954432/"
     },
     {
       "id": "ref_post_mangat",
       "text": "Dilpriya K. Mangat, MD. Supplement questions vs multi-factorial brain health habits. LinkedIn Commentary.",
-      "link": "https://www.linkedin.com/posts/dilpriya-k-mangat-md-frcpc-mba-00b800_brainhealth-healthyaging-dementiaprevention-activity-7222222222222222222-yyyy"
+      "link": "https://www.linkedin.com/feed/update/urn:li:activity:7474834853515902977/"
     }
-  ]
+  ],
+  "systems_analogy_hook": "Pouring premium fuel into an engine without fixing clogged fuel injectors fails to restore horsepower."
 }

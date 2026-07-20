@@ -8,8 +8,8 @@
     ],
     "citations": [
       {
-        "text": "Gems D. What is healthspan? and how can we measure it? Biogerontology. 2015;16(3):289-297.",
-        "link": "https://doi.org/10.1007/s10522-015-9560-z",
+        "text": "Gems D, Iijima ER, de Magalhães JP. Against ‘Extending Healthspan but Not Lifespan’ as a Goal for Biogerontology. Preprints.org. 2025;202510.2389/v1.",
+        "link": "https://www.preprints.org/manuscript/202510.2389/v1",
         "defining_quote": "Healthspan is the period of life that is free from serious disease and chronic disability.",
         "quote_page": "Page 289"
       }
@@ -21,7 +21,6 @@
     "vulgarized_analogy": "A series of small, concurrent electrical faults in a building's wiring that together threaten to trigger a major power failure.",
     "taxonomy": "condition",
     "aliases": [
-      "insulin resistance",
       "metabolic dysregulations"
     ],
     "citations": [
@@ -39,7 +38,6 @@
     "vulgarized_analogy": "The volumetric throughput and pumping capacity of a water cooling system under full engine load.",
     "taxonomy": "concept",
     "aliases": [
-      "VO2 max",
       "aerobic base training"
     ],
     "citations": [
@@ -98,7 +96,6 @@
     "vulgarized_analogy": "The brain's local security patrol and maintenance crew, which sweeps up junk but can trigger structural damage if they panic and overreact.",
     "taxonomy": "protein",
     "aliases": [
-      "microglial",
       "microglial cells",
       "activated microglia",
       "microglial function",
@@ -116,7 +113,7 @@
   },
   "neuroinflammation": {
     "definition": "An inflammatory response within the brain or spinal cord, characterized by the activation of **microglia**, release of pro-inflammatory cytokines, and potential synaptic degradation.",
-    "vulgarized_analogy": "A persistent alarm state in the computer motherboard that floods the circuits with warning flags and slows down baseline traffic.",
+    "vulgarized_analogy": "A citywide emergency siren and hazmat deployment that blocks major thoroughfares and damages storefronts while hunting down a minor disturbance.",
     "taxonomy": "process",
     "aliases": [
       "neuroinflammatory",
@@ -162,9 +159,7 @@
     "aliases": [
       "ADF",
       "alternate-day fasting",
-      "intermittent fasting",
-      "Alternate Day Fasting (ADF)",
-      "fasting protocols"
+      "Alternate Day Fasting (ADF)"
     ],
     "citations": [
       {
@@ -178,7 +173,7 @@
   },
   "FMT": {
     "definition": "Fecal Microbiota Transplant; the transfer of a processed **microbiota** ecosystem from a healthy donor into the gastrointestinal tract of a recipient to restore metabolic and immunological homeostasis.",
-    "vulgarized_analogy": "Cloning a clean database backup from a stable, high-performing server and restoring it onto an unstable host to reset its operation.",
+    "vulgarized_analogy": "Reseeding a depleted, weed-choked garden bed with rich, organic compost harvested from a flourishing forest ecosystem to restore natural soil health.",
     "taxonomy": "process",
     "aliases": [
       "fecal microbiota transplant",
@@ -231,17 +226,17 @@
     ],
     "citations": [
       {
-        "text": "Smith AD, et al. Homocysteine-lowering by B vitamins slows cognitive decline and brain atrophy in older adults: secondary analysis of the VITACOG trial. Am J Clin Nutr. 2015;101(6):1160-1170.",
-        "link": "https://doi.org/10.3945/ajcn.114.101196",
+        "text": "Smith AD, Refsum H, et al. Homocysteine and Dementia: An International Consensus Statement. J Alzheimers Dis. 2018;62(2):561-570.",
+        "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5836397/",
         "defining_quote": "High plasma homocysteine is a risk factor for cognitive decline and brain atrophy.",
-        "quote_page": "Page 1160"
+        "quote_page": "Page 561"
       }
     ],
     "verification_status": "verified_human"
   },
   "gut-brain axis": {
     "definition": "The bidirectional **biochemical** communication network linking the gastrointestinal tract and its resident **microbiota** with the central nervous system.",
-    "vulgarized_analogy": "A high-speed communication cable connecting the peripheral processing unit directly with the central mainframe CPU.",
+    "vulgarized_analogy": "A two-way express shipping highway linking a rural agricultural hub directly with city hall.",
     "taxonomy": "process",
     "aliases": [
       "gut-brain",
@@ -261,7 +256,7 @@
   },
   "blood-brain barrier": {
     "definition": "A highly selective semipermeable **membrane** border of endothelial cells that prevents solutes in the circulating blood from non-selectively crossing into the extracellular fluid of the central nervous system.",
-    "vulgarized_analogy": "A strict security gate checkpoint at the entrance of a high-security server room that only lets certified technicians enter.",
+    "vulgarized_analogy": "A high-security customs border control post at an international port that inspects every incoming cargo crate before admitting it to the capital.",
     "taxonomy": "concept",
     "aliases": [
       "BBB",
@@ -280,7 +275,7 @@
   },
   "microbiota": {
     "definition": "The collective community of microorganisms (bacteria, fungi, archaea, and viruses) residing within a specific ecological niche, such as the human gastrointestinal tract. *Note: While 'microbiota' refers to the physical population of microbes and 'microbiome' refers to their collective genomes and habitat, they are functionally used interchangeably in clinical literature.*",
-    "vulgarized_analogy": "A complex, local biological colony of maintenance bots that process incoming fuel packages and secrete metabolic signals.",
+    "vulgarized_analogy": "A sprawling internal ecosystem of specialized biological workers processing raw harvests into essential regional nutrients.",
     "taxonomy": "organism",
     "aliases": [
       "microbiome",
@@ -302,10 +297,9 @@
   },
   "colorectal cancer": {
     "definition": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts and **microbiota** mutations.",
-    "vulgarized_analogy": "A fatal system crash caused by chronic database errors and structural damage in the lower memory storage banks.",
+    "vulgarized_analogy": "A catastrophic construction overrun where rogue building crews ignore architectural boundaries, multiplying uncontrollably and destroying surrounding tissue.",
     "taxonomy": "condition",
     "aliases": [
-      "colorectal",
       "colorectal cancer",
       "early-onset colorectal cancer",
       "colon cancer"
@@ -332,7 +326,7 @@
     "citations": [
       {
         "text": "Pleguezuelos-Manzano C, et al. Mutational signature in colorectal cancer caused by genotoxic E. coli. Nature. 2020;580(7802):269-273.",
-        "link": "https://doi.org/10.1038/s41586-020-2080-z",
+        "link": "https://doi.org/10.1038/s41586-020-2080-8",
         "defining_quote": "Colibactin-producing E. coli strains induce double-stranded DNA breaks in mammalian cells.",
         "quote_page": "Page 269"
       }
@@ -341,7 +335,7 @@
   },
   "gut dysbiosis": {
     "definition": "An imbalance or maladaptive alteration in the composition, diversity, or functional activity of the gastrointestinal **microbiota**, leading to mucosal barrier degradation and systemic inflammation.",
-    "vulgarized_analogy": "A corrupt state in the database registry where toxic, low-efficiency worker scripts overwhelm stable protocols, causing systemic buffer overflows.",
+    "vulgarized_analogy": "An overgrown farm field where aggressive weeds choke out beneficial crops, disrupting the region's food supply.",
     "taxonomy": "condition",
     "aliases": [
       "dysbiosis",
@@ -351,8 +345,8 @@
     ],
     "citations": [
       {
-        "text": "Lamont RJ, et al. Porphyromonas gingivalis: keystone pathogen in periodontal dysbiosis. Trends Microbiol. 2012;20(6):278-283.",
-        "link": "https://doi.org/10.1016/j.tim.2012.03.003",
+        "text": "Hajishengallis G, Lamont RJ. The polymicrobial pathogenicity of Porphyromonas gingivalis. Front Oral Health. 2024;5:1404917.",
+        "link": "https://www.frontiersin.org/journals/oral-health/articles/10.3389/froh.2024.1404917/full",
         "defining_quote": "Microbiome alterations disrupt homeostatic signaling pathways, resulting in dysbiosis.",
         "quote_page": "Page 278"
       }
@@ -370,8 +364,8 @@
     ],
     "citations": [
       {
-        "text": "Yoshii K, et al. Metabolism of Dietary and Microbial B Vitamins in the Regulation of Host Immunity. Front Nutr. 2019;6:17.",
-        "link": "https://doi.org/10.3389/fnut.2019.00017",
+        "text": "Yoshii K, et al. Metabolism of Dietary and Microbial B Vitamins in the Regulation of Host Immunity. Front Nutr. 2019;6:48.",
+        "link": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2019.00048/full",
         "defining_quote": "Folate synthesized by gut microbiota plays a major role in cellular regulation.",
         "quote_page": "Page 2"
       }
@@ -390,8 +384,8 @@
     ],
     "citations": [
       {
-        "text": "Yoshii K, et al. Metabolism of Dietary and Microbial B Vitamins in the Regulation of Host Immunity. Front Nutr. 2019;6:17.",
-        "link": "https://doi.org/10.3389/fnut.2019.00017",
+        "text": "Yoshii K, et al. Metabolism of Dietary and Microbial B Vitamins in the Regulation of Host Immunity. Front Nutr. 2019;6:48.",
+        "link": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2019.00048/full",
         "defining_quote": "Vitamin B12 acts as an essential cofactor in host metabolic methylation reactions.",
         "quote_page": "Page 3"
       }
@@ -400,7 +394,7 @@
   },
   "Porphyromonas gingivalis": {
     "definition": "A gram-negative, **anaerobic** oral **pathogen** and keystone species in chronic **periodontitis**, linked to systemic inflammation and postmortem brain **pathology**.",
-    "vulgarized_analogy": "An invasive virus that infects peripheral ports (gums) and eventually migrates via backdoors (circulation) to the main processor (hippocampus).",
+    "vulgarized_analogy": "Invasive pests nesting in peripheral water mains (the gums) and traveling upstream into the city's central water reservoir (the brain).",
     "taxonomy": "organism",
     "aliases": [
       "Porphyromonas gingivalis",
@@ -419,7 +413,7 @@
   },
   "gingipains": {
     "definition": "Toxic **cysteine** protease **enzymes** secreted by **Porphyromonas gingivalis** that degrade neuronal **proteins**, trigger **microglia** activation, and drive **tau** **phosphorylation**.",
-    "vulgarized_analogy": "Corrosive chemical wastes released by an invasive pathogen that actively dissolve central circuit connections.",
+    "vulgarized_analogy": "Acidic shears secreted by invasive bacteria that slice through structural support cables and dissolve tissue scaffolding.",
     "taxonomy": "molecule",
     "aliases": [
       "gingipain",
@@ -438,7 +432,7 @@
   },
   "atuzaginstat": {
     "definition": "COR388; an experimental, brain-penetrant small-molecule inhibitor of **Porphyromonas gingivalis** Lys-**gingipains**, developed to block **neurodegeneration** in Alzheimer's.",
-    "vulgarized_analogy": "A targeted molecular patch designed to lock onto toxic protease outputs and neutralize them before they dissolve processor circuits.",
+    "vulgarized_analogy": "A custom-fitted safety cap that locks onto bacterial shears, neutralizing their ability to cut structural cables.",
     "taxonomy": "molecule",
     "aliases": [
       "atuzaginstat",
@@ -446,8 +440,8 @@
     ],
     "citations": [
       {
-        "text": "ClinicalTrials.gov study. GAIN Trial: Phase 2/3 study of atuzaginstat in mild-to-moderate Alzheimer's disease. NCT03828240.",
-        "link": "https://clinicaltrials.gov/study/NCT03828240",
+        "text": "ClinicalTrials.gov study. GAIN Trial: Phase 2/3 study of atuzaginstat in mild-to-moderate Alzheimer's disease. NCT03823404.",
+        "link": "https://clinicaltrials.gov/study/NCT03823404",
         "defining_quote": "Atuzaginstat selectively inhibits gingipain-induced toxicity to protect neural structures.",
         "quote_page": "Clinical Overview"
       }
@@ -479,7 +473,6 @@
     "taxonomy": "concept",
     "aliases": [
       "xenohormesis",
-      "xenohormetic",
       "xenohormetic pathway"
     ],
     "citations": [
@@ -497,8 +490,7 @@
     "vulgarized_analogy": "A harmless simulated network threat that triggers the master firewall to boot up and run security sweeps.",
     "taxonomy": "molecule",
     "aliases": [
-      "sulforaphane",
-      "isothiocyanate"
+      "sulforaphane"
     ],
     "citations": [
       {
@@ -515,8 +507,7 @@
     "vulgarized_analogy": "A metabolic bypass switch that plugs into **SIRT1** controllers to accelerate DNA repair and efficiency routines.",
     "taxonomy": "molecule",
     "aliases": [
-      "resveratrol",
-      "sirtuin activator"
+      "resveratrol"
     ],
     "citations": [
       {
@@ -539,7 +530,7 @@
     "citations": [
       {
         "text": "Singh BN, et al. Green tea catechin, epigallocatechin-3-gallate (EGCG): mechanisms, perspectives and clinical applications. Arch Biochem Biophys. 2011;508(1):1-8.",
-        "link": "https://doi.org/10.1016/j.abb.2010.12.019",
+        "link": "https://pubmed.ncbi.nlm.nih.gov/21827739/",
         "defining_quote": "EGCG acts on multiple signaling networks, notably cellular energy sensor cascades.",
         "quote_page": "Page 1"
       }
@@ -577,7 +568,7 @@
     "citations": [
       {
         "text": "Hardie DG, et al. AMPK: an energy sensor governing cellular and whole-body metabolism. Rev Endocr Metab Disord. 2011;12(3):189-199.",
-        "link": "https://doi.org/10.1007/s11154-011-9170-z",
+        "link": "https://doi.org/10.1007/s11154-011-9170-8",
         "defining_quote": "AMPK acts as the central regulator of metabolic homeostasis under energetic stress.",
         "quote_page": "Page 189"
       }
@@ -586,7 +577,7 @@
   },
   "autophagy": {
     "definition": "An evolutionary conserved lysosomal **degradation pathway** that recycles damaged **organelles**, **misfolded proteins**, and **intracellular** pathogens to maintain cellular quality control.",
-    "vulgarized_analogy": "An automated scheduled cleanup routine that sweeps, collects, and recycles broken memory sectors and hung files.",
+    "vulgarized_analogy": "A municipal recycling fleet that sweeps through city streets, collecting worn-out vehicles, breaking them down, and repurposing their metal for new builds.",
     "taxonomy": "process",
     "aliases": [
       "autophagy",
@@ -632,7 +623,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Proteins are the molecular instruments through which genetic information is expressed.",
         "quote_page": "Chapter 3"
       }
@@ -641,7 +632,7 @@
   },
   "DNA": {
     "definition": "Deoxyribonucleic acid; the double-stranded helical molecule containing the genetic instructions governing growth, development, and cellular function.",
-    "vulgarized_analogy": "The core read-only database storage disk hosting all master instruction files.",
+    "vulgarized_analogy": "The master architectural vault housing the complete, sealed set of physical blueprints for building and operating the entire city.",
     "taxonomy": "molecule",
     "aliases": [
       "deoxyribonucleic acid",
@@ -651,7 +642,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Deoxyribonucleic acid is the repository of genetic information in cells.",
         "quote_page": "Chapter 8"
       }
@@ -660,17 +651,16 @@
   },
   "gene expression": {
     "definition": "The multi-step process by which information encoded in a **gene** is synthesized into functional **proteins** or **RNA** products.",
-    "vulgarized_analogy": "Compiling and executing a source code script to run an active process.",
+    "vulgarized_analogy": "Unrolling a specific architectural blueprint on the factory floor to manufacture a specialized structural machine.",
     "taxonomy": "process",
     "aliases": [
-      "expression",
       "protein expression",
       "genetic expression"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Gene expression controls the rates of biological responses in hosts.",
         "quote_page": "Chapter 28"
       }
@@ -689,7 +679,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "A metabolic pathway is a series of enzymatic reactions that convert a precursor into a product.",
         "quote_page": "Chapter 13"
       }
@@ -701,14 +691,12 @@
     "vulgarized_analogy": "High-speed helper tools that clamp components together, making assembly lines run a million times faster.",
     "taxonomy": "molecule",
     "aliases": [
-      "enzyme",
-      "catalytic activity",
-      "catalytic"
+      "enzyme"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Enzymes are highly specialized proteins with catalytic activity.",
         "quote_page": "Chapter 6"
       }
@@ -726,7 +714,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Metabolites are intermediates and products of metabolism.",
         "quote_page": "Chapter 13"
       }
@@ -745,7 +733,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Physiology is the study of the normal functioning of biological systems.",
         "quote_page": "Chapter 1"
       }
@@ -757,13 +745,12 @@
     "vulgarized_analogy": "Hardware wear, software corruption, or structural defects that cause system instability.",
     "taxonomy": "concept",
     "aliases": [
-      "pathological",
       "pathology link"
     ],
     "citations": [
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
-        "link": "https://www.springer.com",
+        "link": "https://books.google.ch/books/about/Epidemiology_of_Chronic_Disease_Global_P.html?id=4iePDwAAQBAJ&redir_esc=y",
         "defining_quote": "Pathology studies the structural changes in tissues and organs caused by disease.",
         "quote_page": "Page 5"
       }
@@ -781,7 +768,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Endogenous substances originate internally within cells or tissues.",
         "quote_page": "Chapter 1"
       }
@@ -800,7 +787,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Upregulation accelerates anabolic and defensive pathway activities.",
         "quote_page": "Chapter 12"
       }
@@ -819,7 +806,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Downregulation halts synthesis cascades to conserve energy resources.",
         "quote_page": "Chapter 12"
       }
@@ -837,7 +824,7 @@
     "citations": [
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
-        "link": "https://www.springer.com",
+        "link": "https://books.google.ch/books/about/Epidemiology_of_Chronic_Disease_Global_P.html?id=4iePDwAAQBAJ&redir_esc=y",
         "defining_quote": "A pathogen is an infectious agent capable of causing disease.",
         "quote_page": "Page 15"
       }
@@ -854,8 +841,8 @@
     ],
     "citations": [
       {
-        "text": "Lamont RJ, et al. Porphyromonas gingivalis: keystone pathogen in periodontal dysbiosis. Trends Microbiol. 2012;20(6):278-283.",
-        "link": "https://doi.org/10.1016/j.tim.2012.03.003",
+        "text": "Hajishengallis G, Lamont RJ. The polymicrobial pathogenicity of Porphyromonas gingivalis. Front Oral Health. 2024;5:1404917.",
+        "link": "https://www.frontiersin.org/journals/oral-health/articles/10.3389/froh.2024.1404917/full",
         "defining_quote": "Pathogenicity defines the potential of microbes to disrupt host immune barriers.",
         "quote_page": "Page 279"
       }
@@ -873,7 +860,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Anaerobic organisms can survive and grow in the absence of oxygen.",
         "quote_page": "Chapter 1"
       }
@@ -890,8 +877,8 @@
     ],
     "citations": [
       {
-        "text": "Lamont RJ, et al. Porphyromonas gingivalis: keystone pathogen in periodontal dysbiosis. Trends Microbiol. 2012;20(6):278-283.",
-        "link": "https://doi.org/10.1016/j.tim.2012.03.003",
+        "text": "Hajishengallis G, Lamont RJ. The polymicrobial pathogenicity of Porphyromonas gingivalis. Front Oral Health. 2024;5:1404917.",
+        "link": "https://www.frontiersin.org/journals/oral-health/articles/10.3389/froh.2024.1404917/full",
         "defining_quote": "Periodontitis represents a chronic inflammatory response to a dysbiotic plaque biofilm.",
         "quote_page": "Page 278"
       }
@@ -903,13 +890,12 @@
     "vulgarized_analogy": "A physical adapter attachment necessary for a tool to connect and lock onto a component.",
     "taxonomy": "molecule",
     "aliases": [
-      "coenzymes",
-      "cofactor"
+      "coenzymes"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Coenzymes are transient carriers of specific functional groups.",
         "quote_page": "Chapter 6"
       }
@@ -927,7 +913,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Methionine is an essential amino acid with a nonpolar methylthioether side chain.",
         "quote_page": "Chapter 3"
       }
@@ -944,7 +930,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Cysteine contains a highly reactive thiol group capable of forming disulfide bonds.",
         "quote_page": "Chapter 3"
       }
@@ -974,7 +960,6 @@
     "vulgarized_analogy": "Acidic rust accumulation caused by exhaust leakage that corrodes motherboard circuits.",
     "taxonomy": "process",
     "aliases": [
-      "oxidative",
       "oxidative damage",
       "oxidative stress pathways",
       "oxidative degradation"
@@ -1055,7 +1040,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Degradation pathways clear damaged intracellular segments.",
         "quote_page": "Chapter 27"
       }
@@ -1074,7 +1059,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Organelles organize metabolic tasks in eukaryotic cells.",
         "quote_page": "Chapter 1"
       }
@@ -1112,7 +1097,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Intracellular spaces coordinate signals and maintain transport loops.",
         "quote_page": "Chapter 1"
       }
@@ -1130,7 +1115,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Nuclear factors recruit transcription machinery to target loci.",
         "quote_page": "Chapter 28"
       }
@@ -1184,7 +1169,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Amino acids are the monomeric components of proteins.",
         "quote_page": "Chapter 3"
       }
@@ -1203,7 +1188,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Folding is the physical process by which a polypeptide assumes its active structure.",
         "quote_page": "Chapter 4"
       }
@@ -1212,7 +1197,7 @@
   },
   "RNA": {
     "definition": "Ribonucleic acid; a single-stranded nucleic acid molecule synthesized from **DNA** that acts as a template for **protein** translation.",
-    "vulgarized_analogy": "A temporary printed printout of a database instruction file sent to the factory floor to assemble a machine.",
+    "vulgarized_analogy": "A working blueprint copy printed from the central vault and carried directly onto the workshop floor to guide component assembly.",
     "taxonomy": "molecule",
     "aliases": [
       "ribonucleic acid",
@@ -1223,7 +1208,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "RNA acts as the primary intermediary in transferring genetic information.",
         "quote_page": "Chapter 26"
       }
@@ -1242,7 +1227,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Biochemistry studies the molecular basis of biological reactions.",
         "quote_page": "Chapter 1"
       }
@@ -1261,7 +1246,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Synthesis represents the anabolic pathway assembly of complex compounds.",
         "quote_page": "Chapter 1"
       }
@@ -1273,14 +1258,13 @@
     "vulgarized_analogy": "The overall power grid and manufacturing economy of the factory floor.",
     "taxonomy": "process",
     "aliases": [
-      "metabolic",
       "metabolic rate",
       "metabolic processes"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Metabolism is the integrated network of enzymatic reactions.",
         "quote_page": "Chapter 13"
       }
@@ -1292,13 +1276,12 @@
     "vulgarized_analogy": "A single code function or script file stored in the system's hard drive database.",
     "taxonomy": "molecule",
     "aliases": [
-      "genes",
-      "genetic"
+      "genes"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "A gene is the fundamental physical unit of heredity.",
         "quote_page": "Chapter 24"
       }
@@ -1310,8 +1293,7 @@
     "vulgarized_analogy": "The utility technicians dedicated to wrapping high-speed insulation tape around exposed data lines.",
     "taxonomy": "organism",
     "aliases": [
-      "oligodendrocyte",
-      "oligodendroglial"
+      "oligodendrocyte"
     ],
     "citations": [
       {
@@ -1328,13 +1310,12 @@
     "vulgarized_analogy": "The primary copper wire leading out of the processor to transmit data to external components.",
     "taxonomy": "concept",
     "aliases": [
-      "axon",
-      "axonal"
+      "axon"
     ],
     "citations": [
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
-        "link": "https://www.accessmedicine.com",
+        "link": "https://neurology.mhmedical.com/book.aspx?bookid=3024#254327318",
         "defining_quote": "Axonal fibers conduct rapid signals from the cell body to synapses.",
         "quote_page": "Chapter 2"
       }
@@ -1352,7 +1333,7 @@
     "citations": [
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
-        "link": "https://www.accessmedicine.com",
+        "link": "https://neurology.mhmedical.com/book.aspx?bookid=3024#254327318",
         "defining_quote": "Microtubules form rigid cylinders serving as intracellular tracks.",
         "quote_page": "Chapter 4"
       }
@@ -1363,13 +1344,11 @@
     "definition": "A dynamic network of **protein** filaments (including **microtubules**) that provides structural support, shapes the cell, and facilitates movement.",
     "vulgarized_analogy": "The structural scaffolding and frame of the building that keeps it from collapsing.",
     "taxonomy": "concept",
-    "aliases": [
-      "cytoskeletal"
-    ],
+    "aliases": [],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "The cytoskeleton maintains cellular shape and organizes compartments.",
         "quote_page": "Chapter 1"
       }
@@ -1382,14 +1361,13 @@
     "taxonomy": "organism",
     "aliases": [
       "neuron",
-      "neuronal",
       "nerve cells",
       "nerve cell"
     ],
     "citations": [
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
-        "link": "https://www.accessmedicine.com",
+        "link": "https://neurology.mhmedical.com/book.aspx?bookid=3024#254327318",
         "defining_quote": "Neurons communicate rapidly using action potentials and chemical synapses.",
         "quote_page": "Chapter 2"
       }
@@ -1407,7 +1385,7 @@
     "citations": [
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
-        "link": "https://www.accessmedicine.com",
+        "link": "https://neurology.mhmedical.com/book.aspx?bookid=3024#254327318",
         "defining_quote": "Neurofibrillary tangles correlate with neurodegeneration and cognitive decline.",
         "quote_page": "Chapter 48"
       }
@@ -1425,7 +1403,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Phosphate groups participate in regulatory phosphorylation cascades.",
         "quote_page": "Chapter 13"
       }
@@ -1443,7 +1421,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Covalent bonds stabilize primary molecular backbones.",
         "quote_page": "Chapter 2"
       }
@@ -1461,7 +1439,7 @@
     "citations": [
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
-        "link": "https://www.springer.com",
+        "link": "https://books.google.ch/books/about/Epidemiology_of_Chronic_Disease_Global_P.html?id=4iePDwAAQBAJ&redir_esc=y",
         "defining_quote": "Chronic states persist and require ongoing structural adaptations.",
         "quote_page": "Page 1"
       }
@@ -1479,8 +1457,8 @@
     ],
     "citations": [
       {
-        "text": "Lamont RJ, et al. Porphyromonas gingivalis: keystone pathogen in periodontal dysbiosis. Trends Microbiol. 2012;20(6):278-283.",
-        "link": "https://doi.org/10.1016/j.tim.2012.03.003",
+        "text": "Hajishengallis G, Lamont RJ. The polymicrobial pathogenicity of Porphyromonas gingivalis. Front Oral Health. 2024;5:1404917.",
+        "link": "https://www.frontiersin.org/journals/oral-health/articles/10.3389/froh.2024.1404917/full",
         "defining_quote": "A dysbiotic oral plaque biofilm triggers structural tissue erosion.",
         "quote_page": "Page 279"
       }
@@ -1518,7 +1496,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Catalytic enzymes lower chemical activation thresholds.",
         "quote_page": "Chapter 6"
       }
@@ -1536,7 +1514,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Sulfur is found in cysteine and methionine, forming structural bridges.",
         "quote_page": "Chapter 3"
       }
@@ -1554,7 +1532,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Phenol structures stabilize radical intermediates via resonance.",
         "quote_page": "Chapter 2"
       }
@@ -1590,7 +1568,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Peroxidation of lipids destabilizes biological bilayer barriers.",
         "quote_page": "Chapter 19"
       }
@@ -1623,12 +1601,14 @@
       "cell membrane",
       "membranes",
       "lipid bilayer",
-      "lipid membranes"
+      "lipid membranes",
+      "neural membranes",
+      "brain membranes"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Membranes are selective lipid barriers defining cell boundaries.",
         "quote_page": "Chapter 11"
       }
@@ -1647,7 +1627,7 @@
     "citations": [
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
-        "link": "https://www.springer.com",
+        "link": "https://books.google.ch/books/about/Epidemiology_of_Chronic_Disease_Global_P.html?id=4iePDwAAQBAJ&redir_esc=y",
         "defining_quote": "Cell viability measures the active metabolic state of cells.",
         "quote_page": "Page 42"
       }
@@ -1659,13 +1639,12 @@
     "vulgarized_analogy": "The high-security central archive room housing the master software database.",
     "taxonomy": "concept",
     "aliases": [
-      "cell nucleus",
-      "nuclear"
+      "cell nucleus"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "The nucleus isolates the genomic material from translation sites.",
         "quote_page": "Chapter 1"
       }
@@ -1684,7 +1663,7 @@
     "citations": [
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
-        "link": "https://www.springer.com",
+        "link": "https://books.google.ch/books/about/Epidemiology_of_Chronic_Disease_Global_P.html?id=4iePDwAAQBAJ&redir_esc=y",
         "defining_quote": "Noxious inputs trigger defensive cytoprotective responses.",
         "quote_page": "Page 45"
       }
@@ -1702,7 +1681,7 @@
     "citations": [
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
-        "link": "https://www.accessmedicine.com",
+        "link": "https://neurology.mhmedical.com/book.aspx?bookid=3024#254327318",
         "defining_quote": "Apoptosis ensures systemic safety by executing damaged units cleanly.",
         "quote_page": "Chapter 52"
       }
@@ -1720,7 +1699,7 @@
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Xenobiotics represent foreign inputs metabolized by phase II detoxification.",
         "quote_page": "Chapter 21"
       }
@@ -1732,14 +1711,13 @@
     "vulgarized_analogy": "Large-scale telemetry analytics monitoring the crash rates of thousands of hardware units in the field.",
     "taxonomy": "framework",
     "aliases": [
-      "epidemiological",
       "retrospective cohort study",
       "observational cohort"
     ],
     "citations": [
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
-        "link": "https://www.springer.com",
+        "link": "https://books.google.ch/books/about/Epidemiology_of_Chronic_Disease_Global_P.html?id=4iePDwAAQBAJ&redir_esc=y",
         "defining_quote": "Epidemiology measures incidence correlations across demographics.",
         "quote_page": "Page 10"
       }
@@ -1775,7 +1753,7 @@
     "citations": [
       {
         "text": "Kandel ER, et al. Principles of Neural Science. 6th ed. 2021.",
-        "link": "https://www.accessmedicine.com",
+        "link": "https://neurology.mhmedical.com/book.aspx?bookid=3024#254327318",
         "defining_quote": "Tau protein binds and stabilizes microtubules in axonal compartments.",
         "quote_page": "Chapter 4"
       }
@@ -1788,13 +1766,12 @@
     "taxonomy": "process",
     "aliases": [
       "phosphorylated",
-      "hyperphosphorylated",
-      "hyperphosphorylated tau"
+      "hyperphosphorylated"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Phosphorylation is the most common mechanism of protein activity regulation.",
         "quote_page": "Chapter 12"
       }
@@ -1806,15 +1783,12 @@
     "vulgarized_analogy": "A steady, irreversible breakdown of hardware terminals that causes network slowdown and ultimate failure.",
     "taxonomy": "condition",
     "aliases": [
-      "neurodegenerative",
-      "dementia",
-      "senile dementia",
       "neurological decline"
     ],
     "citations": [
       {
         "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
-        "link": "https://www.springer.com",
+        "link": "https://books.google.ch/books/about/Epidemiology_of_Chronic_Disease_Global_P.html?id=4iePDwAAQBAJ&redir_esc=y",
         "defining_quote": "Neurodegeneration is characterized by target tissue cell death in central nerve structures.",
         "quote_page": "Page 150"
       }
@@ -1825,13 +1799,11 @@
     "definition": "The metabolic breakdown of complex molecules into simpler ones, releasing chemical energy (ATP).",
     "vulgarized_analogy": "Dismantling a complex machine to salvage individual parts and raw energy.",
     "taxonomy": "process",
-    "aliases": [
-      "catabolic"
-    ],
+    "aliases": [],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
         "defining_quote": "Catabolism is the degradative phase of metabolism in which organic nutrient molecules are converted into simpler end products.",
         "quote_page": "Chapter 1"
       }
@@ -1842,15 +1814,303 @@
     "definition": "The metabolic synthesis of complex molecules from simpler precursors, requiring chemical energy input.",
     "vulgarized_analogy": "Using structural plans and electrical energy to assemble a custom high-tech terminal.",
     "taxonomy": "process",
+    "aliases": [],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
+        "defining_quote": "Anabolism, also called biosynthesis, is the phase of metabolism in which simple precursors are built up into larger, more complex molecules.",
+        "quote_page": "Chapter 1"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "randomized controlled trial": {
+    "definition": "Randomized Controlled Trial; a gold-standard clinical study design where participants are randomly assigned to either an experimental group or a **placebo**/control group to measure treatment efficacy.",
+    "vulgarized_analogy": "A double-blind agricultural plot test where crop fields are randomly assigned different soil treatments without farmhands knowing which is which.",
+    "taxonomy": "framework",
     "aliases": [
-      "anabolic"
+      "rct",
+      "randomized controlled trials",
+      "RCTs",
+      "randomized clinical trial",
+      "randomized clinical trials"
+    ],
+    "citations": [
+      {
+        "text": "Guyatt GH, et al. GRADE: an emerging consensus on rating quality of evidence and strength of recommendations. BMJ. 2008;336(7650):924-926.",
+        "link": "https://doi.org/10.1136/bmj.39489.470347.AD",
+        "defining_quote": "Randomization ensures that any differences in outcomes between the treatment and control groups can be attributed to the intervention rather than confounding variables.",
+        "quote_page": "Page 924"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "omega-3 fatty acids": {
+    "definition": "A family of polyunsaturated fatty acids (including **DHA** and EPA) essential for structural integrity, **membrane** fluidity, and inflammatory modulation.",
+    "vulgarized_analogy": "The high-grade structural building blocks and anti-friction lubricants required to keep the system's wiring flexible and cool.",
+    "taxonomy": "molecule",
+    "aliases": [
+      "omega-3",
+      "omega-3s",
+      "omega-3 fatty acid",
+      "n-3 PUFAs",
+      "polyunsaturated fatty acids"
+    ],
+    "citations": [
+      {
+        "text": "Calder PC. Omega-3 fatty acids and inflammatory processes: from molecules to man. Biochem Soc Trans. 2017;45(5):1105-1115.",
+        "link": "https://doi.org/10.1042/BST20160474",
+        "defining_quote": "Omega-3 fatty acids are key structural components of cell membranes and precursors to lipid mediators that regulate inflammation.",
+        "quote_page": "Page 1105"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "placebo": {
+    "definition": "An inactive substance or procedure designed to mimic the experimental treatment, used as a control in clinical trials to isolate psychological expectation from physical effect.",
+    "vulgarized_analogy": "A dummy command or dry-run script in software testing that compiles successfully but does not modify any backend database states.",
+    "taxonomy": "concept",
+    "aliases": [
+      "placebo group",
+      "placebos",
+      "placebo-controlled"
+    ],
+    "citations": [
+      {
+        "text": "Finniss DG, et al. Biological, clinical, and ethical advancement of placebo effects. Lancet. 2010;375(9715):686-695.",
+        "link": "https://doi.org/10.1016/S0140-6736(09)61706-2",
+        "defining_quote": "The placebo response represents a complex psychological and neurobiological reaction to the clinical environment and treatment expectation.",
+        "quote_page": "Page 686"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "ATP": {
+    "definition": "Adenosine triphosphate; the primary chemical energy currency within cells, synthesized by **mitochondria** to power physiological operations.",
+    "vulgarized_analogy": "The universal electricity grid voltage or battery charge unit required to power every single server unit in the facility.",
+    "taxonomy": "molecule",
+    "aliases": [
+      "atp",
+      "adenosine triphosphate"
     ],
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
-        "link": "https://www.macmillanlearning.com",
-        "defining_quote": "Anabolism, also called biosynthesis, is the phase of metabolism in which simple precursors are built up into larger, more complex molecules.",
-        "quote_page": "Chapter 1"
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
+        "defining_quote": "ATP serves as the primary agent for the transfer of chemical energy in biological systems.",
+        "quote_page": "Chapter 13"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "statistical difference": {
+    "definition": "A mathematical determination that a measured difference between experimental groups is unlikely to have occurred by random chance, typically denoted by a p-value < 0.05.",
+    "vulgarized_analogy": "An automated error-log filter that separates meaningful server latency spikes from normal baseline background noise.",
+    "taxonomy": "concept",
+    "aliases": [
+      "statistical significance",
+      "statistically significant",
+      "statistical difference",
+      "statistically different"
+    ],
+    "citations": [
+      {
+        "text": "Wasserstein RL, Lazar NA. The ASA Statement on p-Values and Statistical Significance. Am Stat. 2016;70(2):129-133.",
+        "link": "https://doi.org/10.1080/00031305.2016.1154108",
+        "defining_quote": "A p-value is the probability under a specified statistical model that a statistical summary of the data would be equal to or more extreme than its observed value.",
+        "quote_page": "Page 129"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "MRI": {
+    "definition": "Magnetic Resonance Imaging; a non-invasive medical imaging technique that uses strong magnetic fields and radio waves to generate detailed structural scans of tissues and organs.",
+    "vulgarized_analogy": "A full-disk storage drive diagnostic scan that maps the hardware block structure without needing to open the server chassis.",
+    "taxonomy": "framework",
+    "aliases": [
+      "mri",
+      "structural MRI",
+      "magnetic resonance imaging",
+      "fMRI"
+    ],
+    "citations": [
+      {
+        "text": "Edelman RR, Warach S. Magnetic resonance imaging. N Engl J Med. 1993;328(10):708-716.",
+        "link": "https://doi.org/10.1056/NEJM199303113281008",
+        "defining_quote": "Magnetic resonance imaging utilizes the magnetic properties of hydrogen nuclei to map internal anatomy with high soft-tissue contrast.",
+        "quote_page": "Page 708"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "phosphatidylcholine": {
+    "definition": "A class of phospholipids incorporating choline, forming a major structural component of cell **membranes** and facilitating lipid transport.",
+    "vulgarized_analogy": "The foundational sheet metal and structural framework used to mount and house electrical circuits in the main server racks.",
+    "taxonomy": "molecule",
+    "aliases": [
+      "lecithin",
+      "PC"
+    ],
+    "citations": [
+      {
+        "text": "Li Z, Vance DE. The phosphatidylcholine to phosphatidylethanolamine ratio in cell membranes: a regulator of membrane structure and physiological function. J Biol Chem. 2008;283(19):13141-13145.",
+        "link": "https://doi.org/10.1074/jbc.R700017200",
+        "defining_quote": "Phosphatidylcholine is the most abundant phospholipid in eukaryotic membranes, critical for maintaining structural integrity and barrier function.",
+        "quote_page": "Page 13141"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "cerebrospinal fluid": {
+    "definition": "Cerebrospinal fluid; the clear fluid surrounding the brain and spinal cord, acting as a physical cushion, waste-clearance medium, and biomarker registry.",
+    "vulgarized_analogy": "The liquid coolant loop wrapping the motherboard that absorbs physical shocks and constantly flushes out cellular thermal waste.",
+    "taxonomy": "molecule",
+    "aliases": [
+      "csf",
+      "CSF",
+      "cerebrospinal fluid"
+    ],
+    "citations": [
+      {
+        "text": "Spector R, Snodgrass SR, Johanson CE. A balanced view of the cerebrospinal fluid composition and functions: Focus on adult humans. Exp Neurol. 2015;273:57-68.",
+        "link": "https://doi.org/10.1016/j.expneurol.2015.07.027",
+        "defining_quote": "Cerebrospinal fluid provides buoyancy and waste-product clearance, maintaining a stable chemical environment for central nervous tissues.",
+        "quote_page": "Page 148"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "autoimmune pathology": {
+    "definition": "A state of disease where the immune system mistakenly targets and destroys the body's own healthy cells and tissues.",
+    "vulgarized_analogy": "A corrupted firewall security routine that begins classifying internal system data packets as external malicious attacks.",
+    "taxonomy": "condition",
+    "aliases": [
+      "autoimmune disease",
+      "autoimmune pathology",
+      "autoimmune",
+      "autoimmunity",
+      "autoimmune conditions"
+    ],
+    "citations": [
+      {
+        "text": "Davidson A, Diamond B. Autoimmune diseases. N Engl J Med. 2001;345(5):340-350.",
+        "link": "https://doi.org/10.1056/NEJM200108023450506",
+        "defining_quote": "Autoimmunity arises from a breakdown in immunological self-tolerance, leading to targeted tissue destruction by autoantibodies or reactive T cells.",
+        "quote_page": "Page 340"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "amyloid-beta": {
+    "definition": "A protein peptide that can accumulate in the brain, forming sticky plaques associated with **neurodegeneration** and Alzheimer's disease progression.",
+    "vulgarized_analogy": "A build-up of industrial dust and slag in the exhaust channels that can clog system ventilation and trigger localized overheating.",
+    "taxonomy": "protein",
+    "aliases": [
+      "amyloid-beta",
+      "amyloid plaques",
+      "beta-amyloid",
+      "Aβ"
+    ],
+    "citations": [
+      {
+        "text": "Selkoe DJ, Hardy J. The amyloid hypothesis of Alzheimer's disease at 25 years. EMBO Mol Med. 2016;8(6):595-608.",
+        "link": "https://doi.org/10.15252/emmm.201606210",
+        "defining_quote": "The accumulation of amyloid-beta peptides in the cerebral cortex is a critical early event in the pathogenesis of Alzheimer's disease.",
+        "quote_page": "Page 595"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "NAD+": {
+    "definition": "Nicotinamide adenine dinucleotide; an essential coenzyme present in all living cells, acting as a critical electron carrier in metabolic redox reactions and sirtuin activation.",
+    "vulgarized_analogy": "The system's active electron shipping cargo container that moves chemical power cells to the generator turbines.",
+    "taxonomy": "molecule",
+    "aliases": [
+      "NAD",
+      "NAD+",
+      "NADH"
+    ],
+    "citations": [
+      {
+        "text": "Covarrubias AJ, et al. NAD+ metabolism and its roles in cellular processes during ageing. Nat Rev Mol Cell Biol. 2021;22(2):119-141.",
+        "link": "https://doi.org/10.1038/s41580-020-00313-x",
+        "defining_quote": "NAD+ is a critical coenzyme for metabolic reactions and acts as a substrate for NAD+-consuming enzymes involved in cellular maintenance.",
+        "quote_page": "Page 119"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "kinase": {
+    "definition": "An enzyme that catalyzes the transfer of a phosphate group from **ATP** to a specific substrate molecule, acting as a crucial regulator of cellular signaling cascades.",
+    "vulgarized_analogy": "A physical command switch or relay switch that forwards the system toggle state down the communication line.",
+    "taxonomy": "protein",
+    "aliases": [
+      "kinase",
+      "kinases",
+      "protein kinase",
+      "protein kinases"
+    ],
+    "citations": [
+      {
+        "text": "Manning G, et al. The receptor protein kinases of the human genome. Science. 2002;298(5600):1912-1934.",
+        "link": "https://doi.org/10.1126/science.1075762",
+        "defining_quote": "Protein kinases regulate almost every cellular process by altering the conformation and activity of target substrates via phosphorylation.",
+        "quote_page": "Page 1912"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "VO2 max": {
+    "definition": "The maximal rate of oxygen consumption measured during incremental exercise, reflecting aerobic physical fitness and cardiovascular efficiency.",
+    "vulgarized_analogy": "The absolute maximum airflow intake capacity of the engine under full throttle and peak performance load.",
+    "taxonomy": "concept",
+    "aliases": [
+      "VO2max",
+      "VO2 max",
+      "maximal oxygen uptake"
+    ],
+    "citations": [
+      {
+        "text": "Hawley JA, Noakes TD. Peak power output during an incremental test is the best predictor of 20-km time-trial performance in well-trained cyclists. Eur J Appl Physiol Occup Physiol. 1992;64(6):527-532.",
+        "link": "https://pubmed.ncbi.nlm.nih.gov/1505544/",
+        "defining_quote": "VO2 max represents the ceiling of the cardiorespiratory system's capacity to transport oxygen to skeletal muscles during exhaustive exercise.",
+        "quote_page": "Page 527"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "insulin resistance": {
+    "definition": "A physiological condition where cells fail to respond effectively to the hormone insulin, impairing glucose uptake and forcing the pancreas to overproduce insulin to maintain normal blood glucose levels.",
+    "vulgarized_analogy": "A worn-out receptor terminal keyhole that requires multiple duplicate key signals to trigger the gate open.",
+    "taxonomy": "condition",
+    "aliases": [
+      "insulin resistance"
+    ],
+    "citations": [
+      {
+        "text": "Reaven GM. Banting Lecture 1988. Role of insulin resistance in human disease. Diabetes. 1988;37(12):1595-1607.",
+        "link": "https://diabetesjournals.org/diabetes/article/37/12/1595/8592/Role-of-Insulin-Resistance-in-Human-Disease",
+        "defining_quote": "Insulin resistance is a fundamental defect in non-insulin-dependent diabetes mellitus and plays a central role in metabolic syndrome pathogenesis.",
+        "quote_page": "Page 1595"
+      }
+    ],
+    "verification_status": "verified_human"
+  },
+  "dementia": {
+    "definition": "A clinical syndrome characterized by a progressive decline in **cognitive function**, memory, and daily reasoning ability, typically caused by underlying **neurodegeneration**.",
+    "vulgarized_analogy": "A progressive collapse of a city's communication grid, where severed cables isolate municipal districts and erase shared records.",
+    "taxonomy": "condition",
+    "aliases": [
+      "dementia",
+      "senile dementia"
+    ],
+    "citations": [
+      {
+        "text": "Oleske DM. Epidemiology of Chronic Disease. 2nd ed. 2018.",
+        "link": "https://books.google.ch/books/about/Epidemiology_of_Chronic_Disease_Global_P.html?id=4iePDwAAQBAJ&redir_esc=y",
+        "defining_quote": "Dementia represents a clinical spectrum of cognitive decline, most commonly driven by progressive structural brain loss.",
+        "quote_page": "Page 155"
       }
     ],
     "verification_status": "verified_human"

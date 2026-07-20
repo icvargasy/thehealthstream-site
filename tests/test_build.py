@@ -776,3 +776,46 @@ def test_repo_vocabulary_compliance() -> None:
     assert not errors, f"Repository vocabulary.json contains schema violations: {errors}"
 
 
+def test_link_checker_cache() -> None:
+    """Verifies that the link checker cache exists and contains no failures."""
+    import os
+    import json
+    cache_path = "tools/link_cache.json"
+    if os.path.exists(cache_path):
+        with open(cache_path, "r", encoding="utf-8") as f:
+            cache = json.load(f)
+            for url, entry in cache.items():
+                assert entry.get("success", False), f"Cached link failure detected: {url} (Status {entry.get('status_code')})"
+
+
+def test_vocabulary_no_adjective_alias_collisions() -> None:
+    """Verifies that no raw adjective aliases exist in vocabulary.json (Gemini Rule 5.5)."""
+    import json
+    with open("src/vocabulary.json", "r", encoding="utf-8") as f:
+        vocab = json.load(f)
+    
+    forbidden_adjective_aliases = [
+        "microglial", "xenohormetic", "pathological", "metabolic",
+        "oligodendroglial", "axonal", "cytoskeletal", "neuronal",
+        "nuclear", "epidemiological", "neurodegenerative", "catabolic", "anabolic"
+    ]
+    for term, data in vocab.items():
+        aliases = [a.lower() for a in data.get("aliases", [])]
+        for forbidden in forbidden_adjective_aliases:
+            assert forbidden not in aliases, f"Forbidden raw adjective alias detected: '{forbidden}' under term '{term}'"
+
+
+def test_vocabulary_analogy_word_ceilings() -> None:
+    """Verifies that all vulgarized analogies in vocabulary.json satisfy 3-Tier word count ceilings."""
+    import json
+    with open("src/vocabulary.json", "r", encoding="utf-8") as f:
+        vocab = json.load(f)
+    
+    for term, data in vocab.items():
+        analogy = data.get("vulgarized_analogy", "")
+        if analogy:
+            word_count = len(analogy.split())
+            assert word_count <= 45, f"Analogy for '{term}' exceeds Level 3 maximum 45-word ceiling ({word_count} words)"
+
+
+

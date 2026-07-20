@@ -172,3 +172,12 @@ def load_and_validate_all_nodes(nodes_dir: str) -> List[Dict[str, Any]]:
             nodes.append(node_data)
             
     return nodes
+
+
+def validate_backlog_item(item_data: Dict[str, Any], item_id: str = "") -> None:
+    """Validates that a backlog item has all required fields including systems_analogy."""
+    required_keys = ["id", "title", "description", "category", "systems_analogy"]
+    target_id = item_id or item_data.get("id", "unknown")
+    for key in required_keys:
+        if key not in item_data or not item_data[key]:
+            raise ValueError(f"Validation Error in Backlog Item '{target_id}': Missing required field '{key}'")
