@@ -32,7 +32,7 @@
   <!-- Global Header -->
   <header class="global-header">
     <div class="header-brand-container">
-      <button class="icon-button" id="sidebar-toggle" aria-label="Toggle Sidebar" aria-expanded="true">
+      <button class="icon-button" id="sidebar-toggle" aria-label="Toggle Sidebar" aria-controls="sidebar" aria-expanded="true">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="3" y1="12" x2="21" y2="12"></line>
           <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -55,7 +55,7 @@
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="search" id="global-search" placeholder="Search articles or jargon..." aria-label="Search content" autocomplete="off" aria-expanded="false" aria-controls="search-results">
+        <input type="search" id="global-search" placeholder="Search articles or jargon..." aria-label="Search content" autocomplete="off" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="search-results">
       </div>
       <div id="search-results" class="search-results-dropdown" role="listbox" style="display: none;"></div>
     </div>
@@ -141,7 +141,7 @@
 
       <!-- Topics: Flat Static Categories -->
       <nav class="sidebar-section">
-        <div class="sidebar-title">Topics</div>
+        <h2 class="sidebar-title">Topics</h2>
         <ul class="nav-list">
           <li>
             <a href="./category-biology.html" class="nav-link category-link cat-biology " data-category="biology">
@@ -191,7 +191,7 @@
       <div id="main-content" class="content-container fade-in">
         <article class="static-page prose-page">  <header class="static-header">    <h1><span>Terms of Use</span></h1>    <p class="static-desc">Terms of Use for accessing The Healthstream static systems biology library.</p>  </header>  <div class="static-prose-container">  <div class="article-body-text"><p>Welcome to The Healthstream. By accessing our static systems biology library, you agree to abide by these simple terms of use.</p>
 <h3>1. Educational and Informational Reference Only</h3>
-<p>The content provided on this site—including <span class="jargon-term" data-term="biochemical" data-definition="Relating to the chemical processes, compounds, and <a href=&quot;{{BASE_PATH}}vocabulary/pathway.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>pathways&nbsp;↗</a> occurring within living organisms." data-matched-text="biochemical" data-slug="biochemical">biochemical</span> circuit diagrams, <span class="jargon-term" data-term="pathway" data-definition="A linked series of <strong><a href=&quot;{{BASE_PATH}}vocabulary/biochemical.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>biochemical&nbsp;↗</a></strong> reactions occurring within a cell, activated by specific triggers to achieve a <strong><a href=&quot;{{BASE_PATH}}vocabulary/physiological.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;>physiological&nbsp;↗</a></strong> endpoint." data-matched-text="metabolic pathway" data-slug="pathway">metabolic pathway</span> summaries, and lifestyle protocol decodings—is strictly for educational, research, and informational purposes. 
+<p>The content provided on this site—including <span class="jargon-term" tabindex="0" role="button" aria-haspopup="dialog" data-term="biochemical" data-definition="Relating to the chemical processes, compounds, and &lt;a href=&quot;{{base_path}}vocabulary/pathway.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;&gt;pathways&amp;nbsp;↗&lt;/a&gt; occurring within living organisms." data-matched-text="biochemical" data-slug="biochemical">biochemical</span> circuit diagrams, <span class="jargon-term" tabindex="0" role="button" aria-haspopup="dialog" data-term="pathway" data-definition="A linked series of &lt;strong&gt;&lt;a href=&quot;{{base_path}}vocabulary/biochemical.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;&gt;biochemical&amp;nbsp;↗&lt;/a&gt;&lt;/strong&gt; reactions occurring within a cell, activated by specific triggers to achieve a &lt;strong&gt;&lt;a href=&quot;{{base_path}}vocabulary/physiological.html&quot; target=&quot;_blank&quot; class=&quot;popover-nested-link&quot;&gt;physiological&amp;nbsp;↗&lt;/a&gt;&lt;/strong&gt; endpoint." data-matched-text="metabolic pathway" data-slug="pathway">metabolic pathway</span> summaries, and lifestyle protocol decodings—is strictly for educational, research, and informational purposes. 
 - <strong>No Medical Advice</strong>: None of the content constitutes medical advice, clinical diagnosis, or treatment recommendations.
 - <strong>Consult Professionals</strong>: Always consult a licensed healthcare practitioner before starting, modifying, or ending any protocol, dietary intervention, or exercise routine.</p>
 <h3>2. Intellectual Property &amp; Citation Sharing</h3>

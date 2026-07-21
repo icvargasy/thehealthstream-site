@@ -1,13 +1,17 @@
-"""Jargon linking and regex injection module for The Healthstream.
-
-This module scans article content body and automatically links jargon terms
-defined in the glossary to interactive popovers, avoiding tag collisions.
-"""
-
 import re
+import html
 import markdown
 from typing import Dict, Any
 from .utils import slugify
+
+# Global cache for compiled popover HTML definitions to prevent O(M x N x V) re-rendering
+_POPOVER_CACHE: Dict[str, str] = {}
+
+
+def clear_popover_cache():
+    """Clears the internal popover HTML cache."""
+    global _POPOVER_CACHE
+    _POPOVER_CACHE.clear()
 
 
 def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_term: str) -> str:
@@ -18,7 +22,6 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
     if not vocabulary:
         return html_content
 
-    # Build mapping from phrase to canonical term, excluding current_term and its aliases
     current_term_lower = current_term.lower()
     current_aliases = set()
     if current_term in vocabulary:
@@ -40,28 +43,24 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
     if not sorted_phrases:
         return html_content
 
-    # Create combined regex pattern with word boundaries
     escaped_phrases = [re.escape(phrase) for phrase in sorted_phrases]
     pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
     pattern = re.compile(pattern_str, re.IGNORECASE)
 
-    # Tokenize by HTML tags to isolate raw text nodes
     tokens = re.split(r"(<[^>]+>)", html_content)
     in_link = False
     
     for i in range(len(tokens)):
         token = tokens[i]
         
-        # Check if the token is a tag
         if token.startswith("<"):
             tag_lower = token.lower()
-            if tag_lower.startswith("<a ") or tag_lower == "<a>":
+            if re.match(r"^<a[\s/>]", tag_lower):
                 in_link = True
             elif tag_lower == "</a>":
                 in_link = False
             continue
 
-        # Skip replacing terms if already inside a link
         if in_link:
             continue
 
@@ -71,9 +70,8 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
             canonical_key = phrase_to_canonical.get(matched_lower, matched_text)
             slug = slugify(canonical_key)
             
-            # Target a new tab with target="_blank" and show external indicator arrow
             return (
-                f'<a href="{{{{BASE_PATH}}}}vocabulary/{slug}.html" '
+                f'<a href="{{{{base_path}}}}vocabulary/{slug}.html" '
                 f'target="_blank" class="popover-nested-link">{matched_text}&nbsp;↗</a>'
             )
 
@@ -82,99 +80,97 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
     return "".join(tokens)
 
 
+def _get_compiled_definition(canonical_key: str, vocabulary: Dict[str, Any]) -> str:
+    """Pre-compiles and caches popover HTML definitions for a canonical term."""
+    if canonical_key in _POPOVER_CACHE:
+        return _POPOVER_CACHE[canonical_key]
+
+    vocab_item = vocabulary[canonical_key]
+    raw_def = vocab_item.get("definition", "")
+    definition_html = markdown.markdown(raw_def).strip()
+    if definition_html.startswith("<p>") and definition_html.endswith("</p>"):
+        definition_html = definition_html[3:-4]
+
+    definition_html = inject_simple_links(definition_html, vocabulary, canonical_key)
+    escaped_def = html.escape(definition_html, quote=True)
+    _POPOVER_CACHE[canonical_key] = escaped_def
+    return escaped_def
+
+
 def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
     """Scans HTML content and wraps jargon terms in hover popover spans.
 
     Only targets raw text nodes, ignoring HTML attributes, tag names, or
-    text already nested inside anchor tags (<a>...</a>).
-
-    Args:
-        html_content: The compiled HTML body string of the article.
-        vocabulary: The dictionary of jargon definitions.
-
-    Returns:
-        The modified HTML string with injected jargon markers.
+    text already nested inside anchor tags, code blocks, scripts, or existing jargon terms.
     """
     if not vocabulary:
         return html_content
 
-    # Build mapping from phrase to canonical term
     phrase_to_canonical = {}
     for term, details in vocabulary.items():
         phrase_to_canonical[term.lower()] = term
         for alias in details.get("aliases", []):
             phrase_to_canonical[alias.lower()] = term
 
-    # Sort all phrases by length descending to match longer terms first
     sorted_phrases = sorted(phrase_to_canonical.keys(), key=len, reverse=True)
-    
-    # Create combined regex pattern with word boundaries
+    if not sorted_phrases:
+        return html_content
+        
     escaped_phrases = [re.escape(phrase) for phrase in sorted_phrases]
     pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
     pattern = re.compile(pattern_str, re.IGNORECASE)
 
-    # Tokenize the HTML by tags to isolate text nodes
-    # Tokens with odd indices are tags, even indices are raw text
     tokens = re.split(r"(<[^>]+>)", html_content)
-    
-    in_link = False
+    skip_depth = 0
     
     for i in range(len(tokens)):
         token = tokens[i]
         
-        # Check if the token is a tag
         if token.startswith("<"):
             tag_lower = token.lower()
-            if tag_lower.startswith("<a ") or tag_lower == "<a>":
-                in_link = True
-            elif tag_lower == "</a>":
-                in_link = False
+            
+            if tag_lower in ("</a>", "</span>", "</code>", "</pre>", "</script>", "</style>"):
+                if skip_depth > 0:
+                    skip_depth -= 1
+                continue
+                
+            is_anchor = bool(re.match(r"^<a[\s/>]", tag_lower))
+            is_jargon = "jargon-term" in tag_lower
+            is_code = bool(re.match(r"^<(code|pre|script|style)[\s/>]", tag_lower))
+            
+            if is_anchor or is_jargon or is_code:
+                skip_depth += 1
             continue
 
-        # If inside an existing link, skip replacing terms
-        if in_link:
+        if skip_depth > 0:
             continue
 
-        # Replacement callback function
         def replace_callback(match: re.Match) -> str:
             matched_text = match.group(1)
             matched_lower = matched_text.lower()
             canonical_key = phrase_to_canonical.get(matched_lower, matched_text)
-                    
-            vocab_item = vocabulary[canonical_key]
-            raw_def = vocab_item.get("definition", "")
-            definition_html = markdown.markdown(raw_def).strip()
-            if definition_html.startswith("<p>") and definition_html.endswith("</p>"):
-                definition_html = definition_html[3:-4]
-            
-            # Statically inject simple new-tab links inside the popover definition
-            definition_html = inject_simple_links(definition_html, vocabulary, canonical_key)
-            definition = definition_html.replace('"', "&quot;")
+            definition = _get_compiled_definition(canonical_key, vocabulary)
             slug = slugify(canonical_key)
             
             return (
                 f'<span class="jargon-term" '
+                f'tabindex="0" role="button" aria-haspopup="dialog" '
                 f'data-term="{canonical_key}" '
                 f'data-definition="{definition}" '
                 f'data-matched-text="{matched_text}" '
                 f'data-slug="{slug}">{matched_text}</span>'
             )
 
-        # Apply replacements to the raw text token
         tokens[i] = pattern.sub(replace_callback, token)
 
     return "".join(tokens)
 
 
 def inject_direct_links(html_content: str, vocabulary: Dict[str, Any], current_term: str, base_path: str = "./") -> str:
-    """Wraps jargon terms inside Lexicon definitions in direct relative hyperlinks.
-
-    These links navigate in the same tab and are styled specifically for Lexicon pages.
-    """
+    """Wraps jargon terms inside Lexicon definitions in direct relative hyperlinks."""
     if not vocabulary:
         return html_content
 
-    # Build mapping from phrase to canonical term, excluding current_term and its aliases
     current_term_lower = current_term.lower()
     current_aliases = set()
     if current_term in vocabulary:
@@ -196,28 +192,24 @@ def inject_direct_links(html_content: str, vocabulary: Dict[str, Any], current_t
     if not sorted_phrases:
         return html_content
 
-    # Create combined regex pattern with word boundaries
     escaped_phrases = [re.escape(phrase) for phrase in sorted_phrases]
     pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
     pattern = re.compile(pattern_str, re.IGNORECASE)
 
-    # Tokenize by HTML tags to isolate raw text nodes
     tokens = re.split(r"(<[^>]+>)", html_content)
     in_link = False
     
     for i in range(len(tokens)):
         token = tokens[i]
         
-        # Check if the token is a tag
         if token.startswith("<"):
             tag_lower = token.lower()
-            if tag_lower.startswith("<a ") or tag_lower == "<a>":
+            if re.match(r"^<a[\s/>]", tag_lower):
                 in_link = True
             elif tag_lower == "</a>":
                 in_link = False
             continue
 
-        # Skip replacing terms if already inside a link
         if in_link:
             continue
 
@@ -227,7 +219,6 @@ def inject_direct_links(html_content: str, vocabulary: Dict[str, Any], current_t
             canonical_key = phrase_to_canonical.get(matched_lower, matched_text)
             slug = slugify(canonical_key)
             
-            # Direct link to another jargon page in the same tab
             return (
                 f'<a href="{base_path}vocabulary/{slug}.html" '
                 f'class="vocab-nested-link">{matched_text}</a>'

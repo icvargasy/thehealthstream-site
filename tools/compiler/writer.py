@@ -154,6 +154,24 @@ def render_backlog_card(
         except ModuleNotFoundError:
             from tools.compiler.linker import inject_jargon_links
         desc = inject_jargon_links(desc, vocabulary)
+    
+    takeaway = item.get("takeaway_pill", "")
+    if vocabulary and takeaway:
+        try:
+            from compiler.linker import inject_jargon_links
+        except ModuleNotFoundError:
+            from tools.compiler.linker import inject_jargon_links
+        takeaway = inject_jargon_links(takeaway, vocabulary)
+
+    takeaway_html = ""
+    if takeaway:
+        mech_label = get_category_mechanism_label(cat)
+        takeaway_html = (
+            f'<div class="card-takeaway-hook" style="margin-top: 6px;">'
+            f'  <span class="takeaway-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label}:</strong></span> '
+            f'  <span class="takeaway-text">{takeaway}</span>'
+            f'</div>'
+        )
 
     tag_name = "li" if as_list_item else "div"
     card_class = f"backlog-item backlog-card-compact {category_class}" if as_list_item else f"feed-card pipeline-card-merged {category_class}"
@@ -183,7 +201,7 @@ def render_backlog_card(
     analogy_html = ""
     if analogy:
         analogy_html = (
-            f'<div class="card-analogy-hook" style="margin-top: 6px;">'
+            f'<div class="card-analogy-hook">'
             f'  <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy:</strong></span> '
             f'  <span class="analogy-text">{analogy}</span>'
             f'</div>'
@@ -206,8 +224,7 @@ def render_backlog_card(
         f'      <span class="vote-count">{item["votes"]}</span>'
         f'    </button>'
         f'  </div>'
-        f'  <blockquote class="card-teaser-text qa-takeaway-block">'
-        f'    <span class="qa-question-text">{desc}</span>'
+        f'  <blockquote class="card-teaser-text card-analogy-block">'
         f'    {analogy_html}'
         f'  </blockquote>'
         f'  {footer_html}'
@@ -257,30 +274,23 @@ def render_article_card(
     )
     footer_html = f'<div class="card-footer-row">{tags_html}{meta_dates_html}</div>'
 
-    hook = node["hook_question"]
-    takeaway = node["takeaway_pill"]
-    if vocabulary:
+    analogy_hook = node.get("systems_analogy_hook", "")
+    if vocabulary and analogy_hook:
         try:
             from compiler.linker import inject_jargon_links
         except ModuleNotFoundError:
             from tools.compiler.linker import inject_jargon_links
-        hook = inject_jargon_links(hook, vocabulary)
-        takeaway = inject_jargon_links(takeaway, vocabulary)
-
-    analogy_hook = node.get("systems_analogy_hook", "")
-    if vocabulary and analogy_hook:
         analogy_hook = inject_jargon_links(analogy_hook, vocabulary)
 
     analogy_html = ""
     if analogy_hook:
         analogy_html = (
-            f'<div class="card-analogy-hook" style="margin-top: 6px;">'
+            f'<div class="card-analogy-hook">'
             f'  <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy:</strong></span> '
             f'  <span class="analogy-text">{analogy_hook}</span>'
             f'</div>'
         )
 
-    mech_label = get_category_mechanism_label(cat)
     card_html = (
         f'<div class="feed-card cat-{cat}" data-created="{created_at}" data-title="{node["title"]}" data-category="{cat}">'
         f'  <div class="feed-card-header">'
@@ -297,13 +307,8 @@ def render_article_card(
         f'      <span>&rarr;</span>'
         f'    </a>'
         f'  </div>'
-        f'  <blockquote class="card-teaser-text qa-takeaway-block">'
-        f'    <span class="qa-question-text">{hook}</span>'
+        f'  <blockquote class="card-teaser-text card-analogy-block">'
         f'    {analogy_html}'
-        f'    <div class="card-takeaway-hook" style="margin-top: 6px;">'
-        f'      <span class="takeaway-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label}:</strong></span> '
-        f'      <span class="takeaway-text">{takeaway}</span>'
-        f'    </div>'
         f'  </blockquote>'
         f'  {footer_html}'
         f'</div>'
@@ -636,7 +641,7 @@ def compile_detail_page(
         f'    <span class="qa-question-text">{hook}</span>'
         f'    {analogy_hero_html}'
         f'    <div class="detail-hero-clinical-box">'
-        f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong> — GRADE: {grade.upper()}</span>'
+        f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong></span>'
         f'      <p class="hero-clinical-text">{takeaway}</p>'
         f'    </div>'
         f'  </blockquote>'
@@ -684,7 +689,7 @@ def compile_detail_page(
     grade_popover_html = (
         f'<div class="detail-grade-container">'
         f'  <span class="detail-grade-label">Evidence Grade:</span>'
-        f'  <button class="detail-grade-badge grade-{grade_lower}" id="grade-trigger" aria-haspopup="true" aria-expanded="false">'
+        f'  <button class="detail-grade-badge grade-{grade_lower}" id="grade-trigger" aria-haspopup="true" aria-controls="grade-popover" aria-expanded="false">'
         f'    {grade}'
         f'    <svg class="info-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
         f'      <circle cx="12" cy="12" r="10"></circle>'

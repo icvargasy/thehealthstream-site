@@ -1,4 +1,4 @@
-We map physiological networks, metabolic circuits, and behavioral protocols. Our objective is to make complex systems biology accessible, understandable, and actionable—bridging the gap between molecular pathways and daily lifestyle habits.
+We map physiological networks and longevity protocols. We translate complex systems biology to make molecular pathways intuitive and daily protocols actionable—bridging the gap between cellular mechanisms and human healthspan.
 
 ### 1. The Systems Biology Lens
 We view the human body not as a collection of isolated symptoms, but as an interconnected circuit board of biological feedback loops. Every article on this registry maps these pathways upstream and downstream. By understanding the chemical signaling networks that govern our cells, we can make deliberate, evidence-informed decisions about our health span and longevity.

@@ -93,8 +93,8 @@
   },
   "microglia": {
     "definition": "The resident macrophage-like immune cells of the central nervous system, responsible for clearing debris, pruning synapses, and mediating **neuroinflammation**.",
-    "vulgarized_analogy": "The brain's local security patrol and maintenance crew, which sweeps up junk but can trigger structural damage if they panic and overreact.",
-    "taxonomy": "protein",
+    "vulgarized_analogy": "A municipal security patrol sweeping cellular debris before panic triggers collateral infrastructure damage.",
+    "taxonomy": "organism",
     "aliases": [
       "microglial cells",
       "activated microglia",
@@ -116,7 +116,6 @@
     "vulgarized_analogy": "A citywide emergency siren and hazmat deployment that blocks major thoroughfares and damages storefronts while hunting down a minor disturbance.",
     "taxonomy": "process",
     "aliases": [
-      "neuroinflammatory",
       "brain inflammation",
       "inflammatory cascades in the brain",
       "neuroinflammation markers"
@@ -194,12 +193,11 @@
   },
   "cognitive function": {
     "definition": "The neurological processes of memory, attention, executive control, and reasoning, mediated by synaptic density and coordinated brain networks.",
-    "vulgarized_analogy": "The CPU's processing efficiency, throughput capacity, and memory retrieval speeds under full load.",
+    "vulgarized_analogy": "The central dispatch office's coordination efficiency, throughput capacity, and retrieval speed under heavy municipal demand.",
     "taxonomy": "process",
     "aliases": [
       "cognition",
       "cognitive performance",
-      "cognitive decline",
       "cognitive scores",
       "memory performance",
       "cognitive improvement",
@@ -316,10 +314,9 @@
   },
   "colibactin": {
     "definition": "A genotoxic chemical **metabolite** produced by Escherichia coli strains carrying the *pks* **pathogenicity** island, which induces double-strand **DNA** breaks and mutational signatures in host mucosal cells.",
-    "vulgarized_analogy": "A malicious software patch released by an invasive bot that actively cuts database instruction code, introducing permanent mutations.",
+    "vulgarized_analogy": "Corrosive shears introduced by invasive pests that slice structural master blueprints on the factory floor, causing defect propagation.",
     "taxonomy": "molecule",
     "aliases": [
-      "colibactin",
       "genotoxic colibactin",
       "pks+ E. coli"
     ],
@@ -355,10 +352,9 @@
   },
   "folate": {
     "definition": "Vitamin B9; an essential **coenzyme** cofactor in one-carbon **metabolism** synthesized by gut bacteria, critical for **DNA** synthesis, repair, and methylation.",
-    "vulgarized_analogy": "A baseline molecular catalog index card utilized by database compilers to format and stamp new files.",
+    "vulgarized_analogy": "A standardized template stamp used by printing press operators to format and bind new structural pages.",
     "taxonomy": "molecule",
     "aliases": [
-      "folate",
       "vitamin B9",
       "folates"
     ],
@@ -374,7 +370,7 @@
   },
   "Vitamin B12": {
     "definition": "Cobalamin; a complex water-soluble vitamin synthesized exclusively by bacteria, acting as a **coenzyme** in **methionine** synthesis and **myelin sheath** maintenance.",
-    "vulgarized_analogy": "A critical hardware key necessary to boot up the metabolic compiler and run security sweeps on the central processor cables.",
+    "vulgarized_analogy": "A specialized ignition key required to start assembly line generators and maintain insulating sleeves on power transmission lines.",
     "taxonomy": "molecule",
     "aliases": [
       "B12",
@@ -487,11 +483,9 @@
   },
   "sulforaphane": {
     "definition": "An **organosulfur** compound found in cruciferous vegetables that acts as a potent indirect **antioxidant** by inducing the **Nrf2** cellular defense **pathway**.",
-    "vulgarized_analogy": "A harmless simulated network threat that triggers the master firewall to boot up and run security sweeps.",
+    "vulgarized_analogy": "A harmless simulated smoke alarm that triggers municipal fire crews to run comprehensive safety inspections.",
     "taxonomy": "molecule",
-    "aliases": [
-      "sulforaphane"
-    ],
+    "aliases": [],
     "citations": [
       {
         "text": "Fahey JW, et al. Broccoli sprouts: an exceptionally rich source of phase 2 enzyme inducers. Proc Natl Acad Sci U S A. 1997;94(19):10367-10372.",
@@ -504,11 +498,9 @@
   },
   "resveratrol": {
     "definition": "A dietary **polyphenol** found in red grape skins that acts as an activator of the **SIRT1** deacetylase, mimicking some **physiological** aspects of caloric restriction.",
-    "vulgarized_analogy": "A metabolic bypass switch that plugs into **SIRT1** controllers to accelerate DNA repair and efficiency routines.",
+    "vulgarized_analogy": "An emergency governor switch that signals factory managers to accelerate structural maintenance and energy conservation.",
     "taxonomy": "molecule",
-    "aliases": [
-      "resveratrol"
-    ],
+    "aliases": [],
     "citations": [
       {
         "text": "Baur JA, Sinclair DA. Therapeutic potential of resveratrol: the in vivo evidence. Nat Rev Drug Discov. 2006;5(6):493-506.",
@@ -558,10 +550,9 @@
   },
   "AMPK": {
     "definition": "AMP-activated **protein** kinase; a conserved master energy sensor that regulates glucose and lipid **metabolism**, and triggers **autophagy** under low energy status.",
-    "vulgarized_analogy": "The cell's primary fuel gauge that monitors energy balance and switches the system from storage into cleanup mode when fuel runs low.",
+    "vulgarized_analogy": "The master fuel gauge monitoring energy balance and switching factory operations into conservation and cleanup mode.",
     "taxonomy": "protein",
     "aliases": [
-      "AMPK",
       "AMP-activated protein kinase",
       "AMPK activation"
     ],
@@ -669,7 +660,7 @@
   },
   "pathway": {
     "definition": "A linked series of **biochemical** reactions occurring within a cell, activated by specific triggers to achieve a **physiological** endpoint.",
-    "vulgarized_analogy": "A pre-programmed command macro or pipeline that routes raw inputs through a series of operations to compile an output.",
+    "vulgarized_analogy": "A linked assembly line pipeline that routes raw materials through sequential processing stations to output a finished component.",
     "taxonomy": "process",
     "aliases": [
       "pathways",
@@ -815,7 +806,7 @@
   },
   "pathogen": {
     "definition": "Any microorganism (bacteria, virus, fungus, or parasite) capable of causing disease or **chronic** inflammatory damage in a host organism.",
-    "vulgarized_analogy": "A malicious external script or malware targeting database integrity.",
+    "vulgarized_analogy": "An invasive pest species infiltrating municipal water reservoirs to disrupt city operations.",
     "taxonomy": "organism",
     "aliases": [
       "pathogens",
@@ -997,8 +988,7 @@
     "vulgarized_analogy": "A specific class of fire-alarm test chemicals used to trigger security drills.",
     "taxonomy": "molecule",
     "aliases": [
-      "organosulfur compound",
-      "isothiocyanates"
+      "organosulfur compound"
     ],
     "citations": [
       {
@@ -1273,7 +1263,7 @@
   },
   "gene": {
     "definition": "A specific sequence of **DNA** nucleotides containing the genetic instructions required to synthesize a single functional **protein** or **RNA** molecule.",
-    "vulgarized_analogy": "A single code function or script file stored in the system's hard drive database.",
+    "vulgarized_analogy": "A single architectural schematic stored in the central factory blueprint vault.",
     "taxonomy": "molecule",
     "aliases": [
       "genes"
@@ -1357,7 +1347,7 @@
   },
   "neurons": {
     "definition": "Electrically excitable cells of the nervous system specialized for receiving, processing, and transmitting information via chemical and electrical signals.",
-    "vulgarized_analogy": "The primary CPU transistor gates and microchips that route all incoming and outgoing data signals.",
+    "vulgarized_analogy": "The central dispatch stations and telegraph relays that coordinate municipal traffic and communication.",
     "taxonomy": "organism",
     "aliases": [
       "neuron",
@@ -1869,7 +1859,7 @@
   },
   "placebo": {
     "definition": "An inactive substance or procedure designed to mimic the experimental treatment, used as a control in clinical trials to isolate psychological expectation from physical effect.",
-    "vulgarized_analogy": "A dummy command or dry-run script in software testing that compiles successfully but does not modify any backend database states.",
+    "vulgarized_analogy": "A dummy fuel additive or inert fluid used during engine testing that flows through pipes without driving combustion.",
     "taxonomy": "concept",
     "aliases": [
       "placebo group",
@@ -1888,11 +1878,12 @@
   },
   "ATP": {
     "definition": "Adenosine triphosphate; the primary chemical energy currency within cells, synthesized by **mitochondria** to power physiological operations.",
-    "vulgarized_analogy": "The universal electricity grid voltage or battery charge unit required to power every single server unit in the facility.",
+    "vulgarized_analogy": "The universal electricity grid voltage or battery charge unit required to power every single piece of machinery in the facility.",
     "taxonomy": "molecule",
     "aliases": [
-      "atp",
-      "adenosine triphosphate"
+      "adenosine triphosphate",
+      "cellular ATP",
+      "ATP energy"
     ],
     "citations": [
       {

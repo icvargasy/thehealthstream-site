@@ -1,8 +1,8 @@
 {
   "type": "biology",
   "title": "DHA Target Engagement & Cognition in Dementia Risk",
-  "hook_question": "Does raising brain DHA levels actually slow down cognitive decline?",
-  "takeaway_pill": "A 24-month RCT of 365 older adults demonstrated that while high-dose DHA (2g/day) successfully crosses the blood-brain barrier, it does not improve cognitive scores, memory, or brain volumes. Isolated supplements cannot override systemic metabolic aging and genetic risks.",
+  "hook_question": "Can high-dose DHA engagement halt structural brain decay without resolving metabolic co-factors?",
+  "takeaway_pill": "A 24-month RCT (n=365) proved high-dose DHA (2g/day) crosses the blood-brain barrier without improving cognition or brain volume. Isolated nutrient target engagement cannot override broader metabolic aging and APOE4 genetic risk.",
   "epistemic_rating": {
     "grade": "High",
     "rationale": "This rating reflects a high-quality, 24-month randomized, double-blind, placebo-controlled trial (RCT) monitoring central nervous system engagement directly via CSF draws and brain volume changes via structural MRI.",
@@ -88,5 +88,5 @@
       "link": "https://www.linkedin.com/feed/update/urn:li:activity:7474834853515902977/"
     }
   ],
-  "systems_analogy_hook": "Pouring premium fuel into an engine without fixing clogged fuel injectors fails to restore horsepower."
+  "systems_analogy_hook": "Supplying high-octane fuel to an engine with clogged fuel injectors fails to restore peak horsepower."
 }

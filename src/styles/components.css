@@ -2591,20 +2591,24 @@ a.pipeline-badge:hover {
 
 .card-analogy-hook,
 .card-takeaway-hook {
-  margin-top: 8px;
+  margin-top: 0;
   font-size: 0.88rem;
   line-height: 1.45;
+  display: inline;
 }
 
 .analogy-badge-label {
   color: var(--accent-synapse);
   font-size: 0.78rem;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
-  margin-right: 4px;
+  gap: 4px;
+  margin-right: 6px;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 .takeaway-badge-label {
@@ -3342,7 +3346,7 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   justify-content: space-between;
   align-items: flex-start;
   gap: var(--space-3);
-  margin-bottom: var(--space-3);
+  margin-bottom: 4px;
 }
 
 .feed-card-title-group {
@@ -3519,15 +3523,15 @@ h4 .jargon-term:hover {
   opacity: 1;
 }
 
-/* Merged Backlog Cards inside main feed (Issue 7 & 10) */
+/* Merged Backlog Cards inside main feed & category pages */
 .feed-card.pipeline-card-merged {
-  border: 1px dashed var(--border-color) !important;
-  background-color: var(--bg-surface-alt) !important;
+  border: 1px solid var(--border-color) !important;
+  background-color: var(--sb-bg) !important;
   box-shadow: none !important;
   transform: none !important;
   cursor: default !important;
-  opacity: 0.74 !important; /* Lowered opacity for draft visual state */
-  transition: none !important;
+  opacity: 1 !important;
+  transition: background-color var(--transition-fast), border-color var(--transition-fast) !important;
 }
 
 .feed-card.pipeline-card-merged:hover {
@@ -3537,16 +3541,17 @@ h4 .jargon-term:hover {
 }
 
 .feed-card.pipeline-card-merged .card-title-link {
-  color: var(--text-ink-muted) !important; /* Muted title color for pipeline cards */
-  font-family: var(--font-serif);
-  font-weight: 700;
+  color: var(--text-ink) !important;
+  font-family: var(--font-display) !important;
+  font-size: 1.35rem !important;
+  font-weight: 700 !important;
   cursor: default !important;
   pointer-events: none;
 }
 
 .feed-card.pipeline-card-merged .card-teaser-text {
-  color: var(--text-ink-muted) !important;
-  opacity: 0.9;
+  color: var(--text-ink) !important;
+  opacity: 1 !important;
 }
 
 .feed-card.pipeline-card-merged .category-tag,
@@ -3731,5 +3736,18 @@ a.pipeline-badge-link:hover {
   color: var(--accent-synapse) !important;
   stroke: var(--accent-synapse) !important;
 }
+
+/* WCAG 2.1 AA Keyboard Focus Visibility Rules */
+:focus-visible {
+  outline: 2px solid var(--accent-synapse) !important;
+  outline-offset: 2px !important;
+}
+
+.jargon-term:focus-visible {
+  outline: 2px solid var(--accent-synapse) !important;
+  outline-offset: 3px !important;
+  border-radius: 2px;
+}
+
 
 

@@ -128,7 +128,8 @@ def test_inject_jargon_links() -> None:
     # Standard replacement
     text_content = "This activates AMPK and metabolic flexibility."
     linked = inject_jargon_links(text_content, vocabulary)
-    assert '<span class="jargon-term" data-term="AMPK"' in linked
+    assert '<span class="jargon-term"' in linked
+    assert 'data-term="AMPK"' in linked
     assert "data-term=\"metabolic flexibility\"" in linked
 
     # Case insensitivity
@@ -340,7 +341,7 @@ def test_compile_feed_page() -> None:
     compiled = compile_feed_page(layout, nodes, translations)
     assert "The Healthstream" in compiled
     assert "Hub" in compiled
-    assert "Snacking switch?" in compiled
+    assert "AMPK Activation" in compiled
     assert 'href="ampk-activation.html"' in compiled
 
 
@@ -816,6 +817,151 @@ def test_vocabulary_analogy_word_ceilings() -> None:
         if analogy:
             word_count = len(analogy.split())
             assert word_count <= 45, f"Analogy for '{term}' exceeds Level 3 maximum 45-word ceiling ({word_count} words)"
+
+
+def test_accessibility_attributes_compilation() -> None:
+    """Verifies static HTML compilation renders accessibility attributes (ARIA, tabindex, semantic headings)."""
+    layout = '<html><body><button id="sidebar-toggle" aria-controls="sidebar">Toggle</button><h2 class="sidebar-title">Topics</h2>{{title}} {{meta_description}} {{content}}</body></html>'
+    translations = {"en": {"category_biology": "Biology"}}
+    vocabulary = {"AMPK": {"definition": "An energy-sensing enzyme."}}
+    node = {
+        "slug": "ampk-activation",
+        "title": "AMPK Activation",
+        "type": "biology",
+        "hook_question": "Does snacking block AMPK?",
+        "takeaway_pill": "Fasting activates AMPK.",
+        "epistemic_rating": {"grade": "High", "rationale": "Consensus supported.", "debate_sides": []},
+        "tags": ["biology"],
+        "reading_modes": {"overview_3min": "This activates AMPK.", "deep_dive": []},
+        "edges": [], "evidence_table": [], "bibliography": []
+    }
+
+    # 1. Detail page compilation check
+    compiled_detail = compile_detail_page(layout, node, translations, vocabulary=vocabulary)
+    assert 'tabindex="0"' in compiled_detail
+    assert 'role="button"' in compiled_detail
+    assert 'aria-haspopup="dialog"' in compiled_detail
+    assert 'aria-controls="grade-popover"' in compiled_detail
+
+    # 2. Sidebar heading check
+    compiled_base = compile_base_layout(layout, translations, [node], [], "feed")
+    assert '<h2 class="sidebar-title">' in compiled_base
+
+
+def test_card_layout_parity_all_pages() -> None:
+    """Verifies unified card layout markup across feed, category, and tag compiled pages."""
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    nodes = [{
+        "slug": "ampk-activation",
+        "title": "AMPK Activation",
+        "type": "biology",
+        "hook_question": "Does snacking block energy?",
+        "takeaway_pill": "Fasting activates AMPK.",
+        "systems_analogy_hook": "Acts as cellular fuel gauge.",
+        "epistemic_rating": {"grade": "High", "rationale": "Supported.", "debate_sides": []},
+        "tags": ["metabolism"],
+        "reading_modes": {"overview_3min": "Overview.", "deep_dive": []},
+        "edges": [], "evidence_table": [], "bibliography": []
+    }]
+    backlog = [{
+        "id": "autophagy-kinetics",
+        "title": "Autophagy Kinetics",
+        "description": "Fasting trigger",
+        "category": "biology",
+        "tags": ["metabolism"],
+        "votes": 42,
+        "created_at": "2026-06-15"
+    }]
+    translations = {"en": {"category_biology": "Biology", "nav_home": "Explore"}}
+
+    feed = compile_feed_page(layout, nodes, translations, backlog=backlog)
+    cat = compile_category_page(layout, "biology", nodes, translations, backlog=backlog)
+    tag = compile_tag_page(layout, "metabolism", nodes, translations, backlog=backlog)
+
+    for page_html in (feed, cat, tag):
+        # Article card parity
+        assert 'class="feed-card cat-biology"' in page_html
+        assert 'data-title="AMPK Activation"' in page_html
+        assert 'data-category="biology"' in page_html
+        assert 'class="category-tag">BIOLOGY</a>' in page_html
+        assert 'class="card-meta-dates"' in page_html
+
+        # Backlog card parity
+        assert 'data-id="autophagy-kinetics"' in page_html
+        assert 'class="backlog-votes"' in page_html
+        assert 'data-base-votes="42"' in page_html
+
+
+def test_content_nodes_vulgarisation_and_analogy_ceilings() -> None:
+    """Scans all JSON files under src/nodes/en/ to verify 3-tier word count ceilings on takeaways and analogies."""
+    import glob
+    import json
+    import os
+
+    node_files = glob.glob("src/nodes/en/**/*.json", recursive=True)
+    assert len(node_files) > 0, "No content node files found under src/nodes/en/"
+
+    for filepath in node_files:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        title = data.get("title", os.path.basename(filepath))
+        
+        # Takeaway pill ceiling (Level 2/3: <= 45 words)
+        takeaway = data.get("takeaway_pill", "")
+        if takeaway:
+            word_count = len(takeaway.split())
+            assert word_count <= 45, f"Node '{title}' takeaway_pill exceeds Level 3 ceiling of 45 words ({word_count} words)"
+
+        # Systems analogy hook ceiling (Level 2/3: <= 45 words)
+        analogy = data.get("systems_analogy_hook", "")
+        if analogy:
+            word_count = len(analogy.split())
+            assert word_count <= 45, f"Node '{title}' systems_analogy_hook exceeds Level 3 ceiling of 45 words ({word_count} words)"
+
+
+def test_render_backlog_card_layout_parity() -> None:
+    """Verifies that render_backlog_card renders ONLY the systems analogy hook block and omits takeaways."""
+    from tools.compiler.writer import render_backlog_card
+
+    backlog_item = {
+        "id": "test-backlog-item",
+        "title": "Test Backlog Proposal",
+        "description": "Why is cellular energy sensing critical for longevity?",
+        "category": "biology",
+        "votes": 12,
+        "tags": ["biology", "metabolism"],
+        "created_at": "2026-06-15",
+        "systems_analogy": "A factory power grid throttling non-essential machinery.",
+        "takeaway_pill": "Phosphorylation of energy sensors activates mitochondrial biogenesis."
+    }
+
+    translations = {"en": {"category_biology": "Biological Circuits"}}
+    card_html = render_backlog_card(backlog_item, translations, as_list_item=False)
+
+    assert 'class="feed-card pipeline-card-merged cat-biology"' in card_html
+    assert 'class="card-analogy-hook"' in card_html
+    assert 'A factory power grid throttling non-essential machinery.' in card_html
+    assert 'class="pipeline-badge pipeline-badge-link"' in card_html
+    assert 'In the Pipeline' in card_html
+    # Confirm formal questions and mechanism takeaways are omitted from feed cards
+    assert 'class="card-takeaway-hook"' not in card_html
+    assert 'class="qa-question-text"' not in card_html
+
+
+def test_validate_vocabulary_item_ai_generated_default() -> None:
+    """Verifies that validate_vocabulary_item sets verification_status to 'ai_generated' by default."""
+    from tools.compiler.reader import validate_vocabulary_item
+
+    item_data = {
+        "definition": "A test term definition.",
+        "vulgarized_analogy": "A test analogy."
+    }
+    validate_vocabulary_item(item_data, "test-term")
+    assert item_data.get("verification_status") == "ai_generated"
+
+
+
 
 
 

@@ -131,6 +131,9 @@ function initializeJargonPopovers() {
     popover = document.createElement("div");
     popover.id = "global-popover";
     popover.className = "hs-popover";
+    popover.setAttribute("role", "dialog");
+    popover.setAttribute("aria-label", "Jargon glossary definition");
+    popover.setAttribute("tabindex", "-1");
     document.body.appendChild(popover);
   }
 
@@ -154,7 +157,10 @@ function initializeJargonPopovers() {
 
     const left = rect.left + (rect.width / 2) - (popoverWidth / 2);
     
-    const headerHeight = 56;
+    const headerHeight = parseInt(
+      getComputedStyle(document.documentElement).getPropertyValue("--header-height") || "56",
+      10
+    );
     const spaceAbove = rect.top - headerHeight;
     let top;
     
@@ -181,42 +187,55 @@ function initializeJargonPopovers() {
     popover.classList.remove("visible");
   };
 
-  terms.forEach((term) => {
-    term.addEventListener("click", (e) => {
-      e.stopPropagation();
-      const definition = term.getAttribute("data-definition") || "";
-      const slug = term.getAttribute("data-slug") || "";
-      const canonicalKey = term.getAttribute("data-term") || "";
-      const matchedText = term.getAttribute("data-matched-text") || term.innerText || "";
-      const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
-      const href = `${basePath}vocabulary/${slug}.html`;
+  const handleTermActivation = (term, e) => {
+    e.stopPropagation();
+    const definition = term.getAttribute("data-definition") || "";
+    const slug = term.getAttribute("data-slug") || "";
+    const canonicalKey = term.getAttribute("data-term") || "";
+    const matchedText = term.getAttribute("data-matched-text") || term.innerText || "";
+    const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
+    const href = `${basePath}vocabulary/${slug}.html`;
 
-      const parsedDefinition = definition.replace(/\{\{BASE_PATH\}\}|%7B%7BBASE_PATH%7D%7D/gi, basePath);
+    const parsedDefinition = definition.replace(/\{\{BASE_PATH\}\}|%7B%7BBASE_PATH%7D%7D/gi, basePath);
 
-      let aliasHtml = "";
-      if (canonicalKey && matchedText && matchedText.trim().toLowerCase() !== canonicalKey.trim().toLowerCase()) {
-        aliasHtml = `
-          <div class="popover-alias-badge" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: var(--selected-bg); color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 6px; border-radius: var(--radius-pill); align-self: flex-start; margin-top: calc(-1 * var(--space-1)); margin-bottom: var(--space-1);">
-            Alias: ${matchedText}
-          </div>
-        `;
-      }
-
-      popover.innerHTML = `
-        <div class="popover-term-title" style="font-weight: 700; color: var(--accent-synapse); font-size: 0.95rem; margin-bottom: var(--space-1);">${canonicalKey}</div>
-        ${aliasHtml}
-        <div class="popover-def">${parsedDefinition}</div>
-        <a href="${href}" class="popover-link">View in Glossary &rarr;</a>
+    let aliasHtml = "";
+    if (canonicalKey && matchedText && matchedText.trim().toLowerCase() !== canonicalKey.trim().toLowerCase()) {
+      aliasHtml = `
+        <div class="popover-alias-badge" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: var(--selected-bg); color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 6px; border-radius: var(--radius-pill); align-self: flex-start; margin-top: calc(-1 * var(--space-1)); margin-bottom: var(--space-1);">
+          Alias: ${matchedText}
+        </div>
       `;
+    }
 
-      positionPopover(term);
-      popover.classList.add("visible");
-    });
+    popover.innerHTML = `
+      <div class="popover-term-title" style="font-weight: 700; color: var(--accent-synapse); font-size: 0.95rem; margin-bottom: var(--space-1);">${canonicalKey}</div>
+      ${aliasHtml}
+      <div class="popover-def">${parsedDefinition}</div>
+      <a href="${href}" class="popover-link">View in Glossary &rarr;</a>
+    `;
+
+    positionPopover(term);
+    popover.classList.add("visible");
+  };
+
+  // Delegated event listening for jargon popover activation
+  document.addEventListener("click", (e) => {
+    const term = e.target.closest(".jargon-term");
+    if (term) {
+      handleTermActivation(term, e);
+    } else if (popover && !popover.contains(e.target)) {
+      hidePopover();
+    }
   });
 
-  // Dismiss on clicking outside or scrolling the reading pane
-  document.addEventListener("click", (e) => {
-    if (popover && !popover.contains(e.target)) {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      const term = e.target.closest && e.target.closest(".jargon-term");
+      if (term) {
+        e.preventDefault();
+        handleTermActivation(term, e);
+      }
+    } else if (e.key === "Escape") {
       hidePopover();
     }
   });
@@ -328,8 +347,8 @@ function initializeBacklogVoting() {
         const itemAccent = getComputedStyle(item).getPropertyValue("--backlog-accent") || "var(--accent-synapse)";
 
         modal.innerHTML = `
-          <div class="vote-modal-content" style="background: var(--bg-paper); border: 1px solid var(--border-color); border-radius: var(--radius-card); padding: var(--space-4); max-width: 400px; width: 90%; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: var(--space-3); animation: modalFadeIn 0.2s ease-out;">
-            <h3 style="margin: 0; font-family: var(--font-display); font-size: 1.2rem; color: var(--text-ink);">Support Topic Proposal</h3>
+          <div class="vote-modal-content" role="dialog" aria-modal="true" aria-labelledby="vote-modal-title" style="background: var(--bg-paper); border: 1px solid var(--border-color); border-radius: var(--radius-card); padding: var(--space-4); max-width: 400px; width: 90%; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: var(--space-3); animation: modalFadeIn 0.2s ease-out;">
+            <h3 id="vote-modal-title" style="margin: 0; font-family: var(--font-display); font-size: 1.2rem; color: var(--text-ink);">Support Topic Proposal</h3>
             <p style="margin: 0; font-size: 0.9rem; color: var(--text-ink-muted); line-height: 1.5;">
               Verify your identity to support <strong>"${itemTitle}"</strong>. We only use this email to validate community voting.
             </p>
@@ -352,7 +371,18 @@ function initializeBacklogVoting() {
 
         setTimeout(() => emailInput.focus(), 50);
 
-        const closeModal = () => modal.remove();
+        const handleKeydown = (evt) => {
+          if (evt.key === "Escape") {
+            closeModal();
+          }
+        };
+
+        const closeModal = () => {
+          document.removeEventListener("keydown", handleKeydown);
+          modal.remove();
+        };
+
+        document.addEventListener("keydown", handleKeydown);
 
         cancelBtn.addEventListener("click", closeModal);
         modal.addEventListener("click", (evt) => {
@@ -872,6 +902,11 @@ function initializeTocNavigation() {
           top: targetOffsetTop - 16,
           behavior: "smooth"
         });
+
+        targetEl.setAttribute("tabindex", "-1");
+        if (typeof targetEl.focus === "function") {
+          targetEl.focus({ preventScroll: true });
+        }
 
         // Set active class
         tocLinks.forEach((l) => l.classList.remove("active"));

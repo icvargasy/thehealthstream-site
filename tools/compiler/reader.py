@@ -161,9 +161,9 @@ def load_and_validate_all_nodes(nodes_dir: str) -> List[Dict[str, Any]]:
         raise FileNotFoundError(f"Nodes source directory missing at: {nodes_dir}")
 
     nodes = []
-    for entry in os.listdir(nodes_dir):
-        if entry.endswith(".json"):
-            file_path = os.path.join(nodes_dir, entry)
+    for entry in sorted(os.listdir(nodes_dir)):
+        file_path = os.path.join(nodes_dir, entry)
+        if os.path.isfile(file_path) and entry.endswith(".json"):
             node_data = load_json_file(file_path)
             validate_node(node_data, file_path)
             
@@ -179,5 +179,24 @@ def validate_backlog_item(item_data: Dict[str, Any], item_id: str = "") -> None:
     required_keys = ["id", "title", "description", "category", "systems_analogy"]
     target_id = item_id or item_data.get("id", "unknown")
     for key in required_keys:
-        if key not in item_data or not item_data[key]:
+        if key not in item_data:
             raise ValueError(f"Validation Error in Backlog Item '{target_id}': Missing required field '{key}'")
+        val = item_data[key]
+        if val is None or (isinstance(val, str) and not val.strip()):
+            raise ValueError(f"Validation Error in Backlog Item '{target_id}': Empty required field '{key}'")
+
+
+def validate_vocabulary_item(item_data: Dict[str, Any], term: str) -> None:
+    """Validates vocabulary entry fields and enforces 'verification_status: ai_generated' default.
+
+    Args:
+        item_data: Dictionary representing term definition properties.
+        term: Term string key for context reporting.
+    """
+    if not isinstance(item_data, dict):
+        raise ValueError(f"Validation Error in Vocabulary term '{term}': Entry must be a JSON object")
+
+    status = item_data.get("verification_status")
+    if not status or status not in {"verified_human", "ai_generated"}:
+        item_data["verification_status"] = "ai_generated"
+

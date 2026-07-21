@@ -178,6 +178,15 @@ def run_build() -> None:
     # Ensure output directory exists
     os.makedirs(output_dir, exist_ok=True)
 
+    # Clean old compiled HTML files to prevent orphaned pages
+    for root_dir, _, files in os.walk(output_dir):
+        for file in files:
+            if file.endswith(".html"):
+                try:
+                    os.remove(os.path.join(root_dir, file))
+                except OSError:
+                    pass
+
     # Pre-compute the vocabulary mention graph ONCE (avoids 3× redundant O(N²) scans)
     print("Computing vocabulary mention graph...")
     mentions = _build_mentions_map(nodes, backlog, vocabulary)
