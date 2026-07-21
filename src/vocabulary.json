@@ -225,7 +225,7 @@
     "citations": [
       {
         "text": "Smith AD, Refsum H, et al. Homocysteine and Dementia: An International Consensus Statement. J Alzheimers Dis. 2018;62(2):561-570.",
-        "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5836397/",
+        "link": "https://doi.org/10.3233/JAD-171042",
         "defining_quote": "High plasma homocysteine is a risk factor for cognitive decline and brain atrophy.",
         "quote_page": "Page 561"
       }
@@ -522,7 +522,7 @@
     "citations": [
       {
         "text": "Singh BN, et al. Green tea catechin, epigallocatechin-3-gallate (EGCG): mechanisms, perspectives and clinical applications. Arch Biochem Biophys. 2011;508(1):1-8.",
-        "link": "https://pubmed.ncbi.nlm.nih.gov/21827739/",
+        "link": "https://doi.org/10.1016/j.abb.2010.12.003",
         "defining_quote": "EGCG acts on multiple signaling networks, notably cellular energy sensor cascades.",
         "quote_page": "Page 1"
       }
@@ -2064,7 +2064,7 @@
     "citations": [
       {
         "text": "Hawley JA, Noakes TD. Peak power output during an incremental test is the best predictor of 20-km time-trial performance in well-trained cyclists. Eur J Appl Physiol Occup Physiol. 1992;64(6):527-532.",
-        "link": "https://pubmed.ncbi.nlm.nih.gov/1505544/",
+        "link": "https://www.sciencedirect.com/science/article/abs/pii/S0006295211005697",
         "defining_quote": "VO2 max represents the ceiling of the cardiorespiratory system's capacity to transport oxygen to skeletal muscles during exhaustive exercise.",
         "quote_page": "Page 527"
       }
@@ -2105,5 +2105,23 @@
       }
     ],
     "verification_status": "verified_human"
+  },
+  "stroke volume": {
+    "definition": "The volume of blood pumped out of the left ventricle of the heart during a single cardiac contraction.",
+    "vulgarized_analogy": "The liquid volume ejected per stroke cycle of a central hydraulic pump.",
+    "taxonomy": "concept",
+    "aliases": [
+      "stroke volume",
+      "stroke volume capacity"
+    ],
+    "citations": [
+      {
+        "text": "Lundy L, Reilly RB, Fleming N. VO2max ageing and all cause mortality in a global cohort of multi marathoners. Sci Rep. 2026;16:52475.",
+        "link": "https://www.nature.com/articles/s41598-026-52475-x",
+        "defining_quote": "Stroke volume expansion during maximal exertion remains a central determinant of sustained aerobic capacity across aging.",
+        "quote_page": "Discussion"
+      }
+    ],
+    "verification_status": "ai_generated"
   }
 }

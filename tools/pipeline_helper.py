@@ -332,7 +332,7 @@ def validate_vocabulary_schema(vocab_path: str) -> List[str]:
         return errors
 
     valid_taxonomies = {"protein", "molecule", "process", "concept", "organism", "condition", "framework"}
-    valid_statuses = {"verified_human", "verified_agent_grounded"}
+    valid_statuses = {"verified_human", "verified_agent_grounded", "ai_generated"}
 
     for term, item in vocab.items():
         if not isinstance(item, dict):

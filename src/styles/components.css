@@ -2853,6 +2853,56 @@ a.pipeline-badge:hover {
   color: var(--color-citation-hover);
 }
 
+.source-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 2px 7px;
+  border-radius: var(--radius-button);
+  background: var(--surface-bg-alt, #f3f4f6);
+  color: var(--text-muted, #6b7280);
+  border: 1px solid var(--border-color, #e5e7eb);
+  margin-right: var(--space-2);
+  vertical-align: 1px;
+  line-height: 1.2;
+}
+.source-tag-badge.empirical-study,
+.source-tag-badge.primary-study {
+  background: var(--tag-empirical-study-bg);
+  color: var(--tag-empirical-study-color);
+  border-color: var(--tag-empirical-study-border);
+}
+.source-tag-badge.seminal-landmark {
+  background: var(--tag-seminal-landmark-bg);
+  color: var(--tag-seminal-landmark-color);
+  border-color: var(--tag-seminal-landmark-border);
+}
+.source-tag-badge.linkedin-commentary {
+  background: var(--tag-linkedin-commentary-bg);
+  color: var(--tag-linkedin-commentary-color);
+  border-color: var(--tag-linkedin-commentary-border);
+}
+.source-tag-badge.clinical-trial {
+  background: var(--tag-clinical-trial-bg);
+  color: var(--tag-clinical-trial-color);
+  border-color: var(--tag-clinical-trial-border);
+}
+.source-tag-badge.consensus-review {
+  background: var(--tag-consensus-review-bg);
+  color: var(--tag-consensus-review-color);
+  border-color: var(--tag-consensus-review-border);
+}
+.source-tag-badge.book,
+.source-tag-badge.book-monograph {
+  background: var(--tag-book-bg);
+  color: var(--tag-book-color);
+  border-color: var(--tag-book-border);
+}
+
 .bib-item:target {
   background-color: var(--selected-bg);
   border-left: 3px solid var(--accent-synapse);
@@ -2975,9 +3025,10 @@ a.pipeline-badge:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: var(--space-2);
-  margin-bottom: var(--space-3);
+  border-bottom: none;
+  padding-top: var(--space-2);
+  padding-bottom: var(--space-1);
+  margin-bottom: var(--space-2);
 }
 
 .evidence-grade-details-header strong {

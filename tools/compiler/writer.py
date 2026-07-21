@@ -25,10 +25,16 @@ TAG_PILL_ICON_SVG = (
 
 SYNAPSE_LOGO_SVG = (
     '<svg class="systems-analogy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" '
-    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" '
     'style="vertical-align: middle; margin-right: 4px; display: inline-block;">'
-    '<circle cx="12" cy="12" r="3"></circle>'
-    '<path d="M12 3v6M12 15v6M3 12h6M15 12h6"></path>'
+    '<path d="M12 22V3"></path>'
+    '<path d="M12 18c3 0 5-2 5-4"></path>'
+    '<path d="M12 18c-3 0-5-2-5-4"></path>'
+    '<path d="M12 12c4.5 0 7-2.5 7-5"></path>'
+    '<path d="M12 12c-4.5 0-7-2.5-7-5"></path>'
+    '<circle cx="12" cy="3" r="1.5" fill="currentColor"></circle>'
+    '<circle cx="19" cy="7" r="1.5" fill="currentColor"></circle>'
+    '<circle cx="5" cy="7" r="1.5" fill="currentColor"></circle>'
     '</svg>'
 )
 
@@ -208,7 +214,7 @@ def render_backlog_card(
         )
 
     card_html = (
-        f'<{tag_name} class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}">'
+        f'<{tag_name} id="{item["id"]}" class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}">'
         f'  <div class="feed-card-header">'
         f'    <div class="feed-card-title-group">'
         f'      <h2 class="card-title">'
@@ -748,16 +754,15 @@ def compile_detail_page(
     
     # 4. Evidence Row-List (Tabular Middle-Ground, Responsive)
     grade_details_card = (
-        f'<div class="evidence-grade-details-card grade-{grade_lower}">'
-        f'  <div class="evidence-grade-details-header">'
-        f'    <strong>GRADE Evidence Rating</strong>'
+        f'<div class="evidence-grade-details-card grade-{grade_lower}" style="margin-top: var(--space-3); margin-bottom: var(--space-4);">'
+        f'  <div class="evidence-grade-details-header" style="display: flex; align-items: center; justify-content: space-between; padding-top: var(--space-2); padding-bottom: var(--space-2); border-bottom: none;">'
+        f'    <strong style="font-family: var(--font-body); font-weight: 700; font-size: 1.05rem; color: var(--text-ink);">GRADE Evidence Rating</strong>'
         f'    <span class="detail-grade-badge grade-{grade_lower}">{grade}</span>'
         f'  </div>'
-        f'  <div class="evidence-grade-note">'
-        f'    The GRADE (Grading of Recommendations, Assessment, Development, and Evaluation) system is a standardized framework for rating the quality of scientific evidence. '
-        f'    Ratings scale from High to Very Low quality.'
+        f'  <div class="evidence-grade-note" style="margin-top: var(--space-1); margin-bottom: var(--space-3); font-size: 0.8rem; color: var(--text-ink-muted); line-height: 1.4;">'
+        f'    The GRADE (Grading of Recommendations, Assessment, Development, and Evaluation) system is a standardized framework for rating the quality of scientific evidence. Ratings scale from High to Very Low quality.'
         f'  </div>'
-        f'  <p class="evidence-grade-rationale"><strong>Rationale:</strong> {rationale}</p>'
+        f'  <p class="evidence-grade-rationale" style="margin-top: var(--space-2);"><strong>Rationale:</strong> {rationale}</p>'
         f'  {debates_html}'
         f'</div>'
     )
@@ -801,19 +806,35 @@ def compile_detail_page(
             bib_id = bib.get("id", "")
             text = bib.get("text", "")
             link = bib.get("link", "")
+            tag = bib.get("tag", bib.get("type", None))
+            if not tag:
+                link_lower = (link or "").lower()
+                text_lower = (text or "").lower()
+                if "macmillanlearning" in link_lower or "books.google" in link_lower or "principles of biochemistry" in text_lower or "epidemiology of chronic disease" in text_lower or "2nd ed" in text_lower or "8th ed" in text_lower:
+                    tag = "Book / Monograph"
+                elif "linkedin.com" in link_lower:
+                    tag = "LinkedIn Commentary"
+                else:
+                    tag = "Empirical Study"
+            title = bib.get("title", "")
+            
+            tag_slug = slugify(tag)
+            tag_badge = f'<span class="source-tag-badge {tag_slug}">{tag}</span>'
+            
+            title_html = f'<strong>"{title}"</strong> ' if title else ""
             
             cite_item = ""
             if link:
-                cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
+                cite_item += f'{tag_badge}{title_html}<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
             else:
-                cite_item += f'<span class="evidence-bib-text">{text}</span>'
+                cite_item += f'{tag_badge}{title_html}<span class="evidence-bib-text">{text}</span>'
                 
-            bib_links.append(f'<li class="bib-item" id="{bib_id}">[{idx}] {cite_item}</li>')
+            bib_links.append(f'<li class="bib-item" id="{bib_id}" style="margin-bottom: var(--space-3);">[{idx}] {cite_item}</li>')
             
         bibliography_html = (
             f'<div class="evidence-bibliography" style="margin-top: var(--space-4); border-top: 1px solid var(--border-color); padding-top: var(--space-3);">'
-            f'  <h3 class="evidence-subtitle" style="margin-bottom: var(--space-3);">Bibliography / Reference Registry</h3>'
-            f'  <ul class="bib-list">'
+            f'  <h3 class="evidence-subtitle" style="margin-bottom: var(--space-3);">References &amp; Evidence Registry</h3>'
+            f'  <ul class="bib-list" style="list-style: none; padding-left: 0;">'
             f'    {"".join(bib_links)}'
             f'  </ul>'
             f'</div>'
@@ -824,7 +845,6 @@ def compile_detail_page(
         f'  <h2 class="evidence-title">{labels.get("evidence_accordion_title", "Evidence, Studies &amp; Debates")}</h2>'
         f'  <div class="evidence-content">'
         f'    {grade_details_card}'
-        f'    {evidence_list_html}'
         f'    {bibliography_html}'
         f'  </div>'
         f'</section>'
@@ -1044,11 +1064,24 @@ def compile_vocabulary_page(
         definition = vocabulary[term].get("definition", "")
         clean_def = definition.replace("**", "")
         short_def = clean_def[:100].strip() + "..." if len(clean_def) > 100 else clean_def
+        
+        status = vocabulary[term].get("verification_status", "ai_generated")
+        blue_tick_svg_small = (
+            '<svg class="verified-tick-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">'
+            '  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>'
+            '  <polyline points="22 4 12 14.01 9 11.01"></polyline>'
+            '</svg>'
+        )
+        if status == "verified_human":
+            tick_badge = f'<span class="verified-human-tick" title="Verified Human" aria-label="Verified Human">{blue_tick_svg_small}</span>'
+        else:
+            tick_badge = f'<span class="unverified-tick-badge" title="AI-compiled draft — Pending human expert verification" aria-label="Pending Verification" style="font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-ink-muted); opacity: 0.75; padding: 1px 6px; border: 1px dashed var(--border-color); border-radius: var(--radius-button);">Pending Verification</span>'
             
         card_html = (
             f'<div class="vocab-card" id="{slug}">'
-            f'  <h3 class="vocab-title">'
-            f'    <a href="vocabulary/{slug}.html" class="vocab-card-link">{term} &rarr;</a>'
+            f'  <h3 class="vocab-title" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">'
+            f'    <a href="vocabulary/{slug}.html" class="vocab-card-link">{term}</a>'
+            f'    {tick_badge}'
             f'  </h3>'
             f'  <p class="vocab-teaser">{short_def}</p>'
             f'</div>'
@@ -1079,10 +1112,19 @@ def compile_vocabulary_page(
         '  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>'
         '</svg>'
     )
+    legend_note = (
+        '<p class="vocab-legend-note" style="font-size: 0.82rem; color: var(--text-ink-muted); margin-top: var(--space-2); margin-bottom: 0; font-style: italic; opacity: 0.85;">'
+        '  <span style="display: inline-flex; align-items: center; vertical-align: middle; margin-right: 4px;">'
+        '    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
+        '  </span>'
+        '  Terms with a blue checkmark have been verified by human medical experts. Terms marked "Pending Verification" are AI-compiled drafts.'
+        '</p>'
+    )
     vocab_html = (
         f'<header class="feed-intro vocab-feed-intro">'
         f'  <h1 class="page-title">{book_open_svg}<span>{labels.get("vocabulary_header", "Jargon Glossary Index")}</span></h1>'
         f'  <p>{labels.get("vocabulary_desc", "")}</p>'
+        f'  {legend_note}'
         f'</header>'
         f'{vocab_nav_html}'
         f'<div class="vocab-container">'
@@ -1203,12 +1245,18 @@ def compile_vocabulary_detail_page(
             f'</div>'
         )
 
-    # Verification Badge
-    status = vocab_item.get("verification_status", "verified_human")
-    if status == "verified_agent_grounded":
-        badge_html = '<span class="vocab-status-badge badge-agent">✓ Verified Agent</span>'
+    # Verification Badge & Blue Tick Icon
+    status = vocab_item.get("verification_status", "ai_generated")
+    blue_tick_svg = (
+        '<svg class="verified-tick-svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">'
+        '  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>'
+        '  <polyline points="22 4 12 14.01 9 11.01"></polyline>'
+        '</svg>'
+    )
+    if status == "verified_human":
+        badge_html = f'<span class="verified-human-tick" title="Verified Human" aria-label="Verified Human" style="display: inline-flex; align-items: center; margin-left: 4px;">{blue_tick_svg}</span>'
     else:
-        badge_html = '<span class="vocab-status-badge badge-human">✓ Verified Human</span>'
+        badge_html = f'<span class="unverified-tick-badge" title="AI-compiled draft — Pending human expert verification" aria-label="Pending Verification" style="font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-ink-muted); opacity: 0.75; padding: 2px 7px; border: 1px dashed var(--border-color); border-radius: var(--radius-button); margin-left: 6px;">Pending Verification</span>'
 
     # Taxonomy Badge
     taxonomy = vocab_item.get("taxonomy", "")
@@ -1236,10 +1284,23 @@ def compile_vocabulary_detail_page(
             link = citation.get("link", "")
             quote = citation.get("defining_quote", "")
             page = citation.get("quote_page", "")
+            tag = citation.get("tag", citation.get("type", None))
+            if not tag:
+                link_lower = (link or "").lower()
+                text_lower = (text or "").lower()
+                if "macmillanlearning" in link_lower or "books.google" in link_lower or "principles of biochemistry" in text_lower or "epidemiology of chronic disease" in text_lower or "2nd ed" in text_lower or "8th ed" in text_lower:
+                    tag = "Book / Monograph"
+                elif "linkedin.com" in link_lower:
+                    tag = "LinkedIn Commentary"
+                else:
+                    tag = "Empirical Study"
             
-            cite_item = ""
+            tag_slug = slugify(tag)
+            tag_badge = f'<span class="source-tag-badge {tag_slug}">{tag}</span>'
+            
+            cite_item = f'{tag_badge}'
             if link:
-                cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="vocab-citation-link">{text}</a>'
+                cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="vocab-citation-link">{text} ↗</a>'
             else:
                 cite_item += f'<span class="vocab-citation-text">{text}</span>'
                 
@@ -1285,9 +1346,9 @@ def compile_vocabulary_detail_page(
         f'    <a href="../vocabulary.html" class="vocab-back-link">'
         f'      &larr; Back to Lexicon'
         f'    </a>'
-        f'    <div class="vocab-title-row">'
-        f'      <h1>{term}</h1>'
-        f'      <div class="vocab-badges-row" style="display: flex; gap: var(--space-2);">{badge_html}{taxonomy_badge_html}</div>'
+        f'    <div class="vocab-title-row" style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: var(--space-2); margin-top: var(--space-1); margin-bottom: var(--space-2);">'
+        f'      <h1 style="display: inline-flex; align-items: center; gap: 6px; margin: 0; font-family: var(--font-display); font-size: 2rem;"><span>{term}</span>{badge_html}</h1>'
+        f'      {taxonomy_badge_html}'
         f'    </div>'
         f'    {aliases_html}'
         f'  </header>'

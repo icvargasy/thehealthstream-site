@@ -58,6 +58,31 @@ body, body[data-theme="light"] {
   --color-citation: oklch(0.42 0.08 220);
   --color-citation-hover: oklch(0.32 0.07 220);
 
+  /* Centralized Source Type Tag Palette */
+  --tag-empirical-study-bg: rgba(37, 99, 235, 0.08);
+  --tag-empirical-study-color: #2563eb;
+  --tag-empirical-study-border: rgba(37, 99, 235, 0.25);
+
+  --tag-seminal-landmark-bg: rgba(180, 83, 9, 0.08);
+  --tag-seminal-landmark-color: #b45309;
+  --tag-seminal-landmark-border: rgba(180, 83, 9, 0.25);
+
+  --tag-clinical-trial-bg: rgba(5, 150, 105, 0.08);
+  --tag-clinical-trial-color: #059669;
+  --tag-clinical-trial-border: rgba(5, 150, 105, 0.25);
+
+  --tag-consensus-review-bg: rgba(124, 58, 237, 0.08);
+  --tag-consensus-review-color: #7c3aed;
+  --tag-consensus-review-border: rgba(124, 58, 237, 0.25);
+
+  --tag-linkedin-commentary-bg: rgba(10, 102, 194, 0.08);
+  --tag-linkedin-commentary-color: #0a66c2;
+  --tag-linkedin-commentary-border: rgba(10, 102, 194, 0.25);
+
+  --tag-book-bg: rgba(217, 119, 6, 0.08);
+  --tag-book-color: #d97706;
+  --tag-book-border: rgba(217, 119, 6, 0.25);
+
   /* Theme-specific Accent Color Categories */
   --accent-biology: oklch(0.48 0.18 250);
   --accent-lifestyle: oklch(0.38 0.14 140);

@@ -439,4 +439,67 @@ describe("Client Interaction - app.js", () => {
     expect(cardArticle.style.display).toBe("");
     expect(cardPipeline.style.display).toBe("");
   });
+
+  it("should handle proposal form submission and toggle '__other_option__' custom input", async () => {
+    const container = document.querySelector(".content-container");
+    const formDiv = document.createElement("div");
+    formDiv.innerHTML = `
+      <form id="proposal-form">
+        <input type="email" id="form-email" value="test@example.com" required>
+        <input type="text" id="form-question" value="Does EGCG boost AMPK?" required>
+        <input type="text" id="form-source" value="PubMed">
+        <input type="radio" name="entry.336364410" value="biology" checked>
+        <input type="radio" name="entry.336364410" id="category-other-radio" value="__other_option__">
+        <input type="text" id="category-other-text" disabled>
+        <input type="text" id="form-impact" value="High impact">
+        <button type="submit" id="proposal-submit-btn">Submit Proposal</button>
+        <div id="proposal-form-message"></div>
+      </form>
+    `;
+    container.appendChild(formDiv);
+
+    document.dispatchEvent(new window.Event("DOMContentLoaded"));
+
+    const otherRadio = document.getElementById("category-other-radio");
+    const otherText = document.getElementById("category-other-text");
+
+    window.alert = vi.fn();
+
+    // Radio toggle enables text input
+    otherRadio.checked = true;
+    otherRadio.dispatchEvent(new Event("change"));
+    expect(otherText.disabled).toBe(false);
+    otherText.value = "Custom Category";
+
+    window.fetch = vi.fn().mockResolvedValue({ ok: true });
+
+    const form = document.getElementById("proposal-form");
+    form.dispatchEvent(new Event("submit", { cancelable: true }));
+
+    await vi.waitFor(() => {
+      expect(document.querySelector(".form-confirmation-card")).not.toBeNull();
+    });
+    expect(localStorageMock.setItem).toHaveBeenCalledWith("voter_email", "test@example.com");
+  });
+
+  it("should open email verification modal when voting on backlog item without cached email", async () => {
+    const voteBtn = document.querySelector(".backlog-votes");
+    voteBtn.click();
+
+    const modal = document.querySelector(".vote-modal-overlay");
+    expect(modal).not.toBeNull();
+
+    const emailInput = modal.querySelector("#vote-modal-email");
+    emailInput.value = "community@example.com";
+
+    window.fetch = vi.fn().mockResolvedValue({ ok: true });
+    const submitBtn = modal.querySelector(".vote-modal-submit");
+    submitBtn.click();
+
+    await vi.waitFor(() => {
+      expect(document.querySelector(".vote-modal-overlay")).toBeNull();
+    });
+    expect(localStorageMock.setItem).toHaveBeenCalledWith("voter_email", "community@example.com");
+  });
 });
+

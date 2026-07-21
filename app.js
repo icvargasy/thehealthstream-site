@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeScrollingAndHash();
   initializeFeedToggle();
   initializeCardClicks();
+  initializeLexiconVerification();
 });
 
 /**
@@ -1249,3 +1250,44 @@ function initializeCardClicks() {
     }
   });
 }
+
+/**
+ * Handles interactive human-verification toggles for jargon lexicon terms.
+ * Allows users to click 'Verify' or outline tick icons to mark AI-generated terms as Human Verified.
+ * @returns {void}
+ */
+function initializeLexiconVerification() {
+  document.addEventListener("click", (e) => {
+    const btn = e.target.closest(".unverified-tick-btn");
+    if (!btn) return;
+    e.preventDefault();
+    e.stopPropagation();
+
+    const term = btn.getAttribute("data-term") || "Term";
+    const blueTickHtml = `
+      <span class="verified-human-tick" title="Verified Human" aria-label="Verified Human">
+        <svg class="verified-tick-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-left: 4px;">
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+          <polyline points="22 4 12 14.01 9 11.01"></polyline>
+        </svg>
+      </span>
+    `;
+
+    const wrapper = document.createElement("span");
+    wrapper.innerHTML = blueTickHtml;
+    if (btn.parentNode) {
+      btn.parentNode.replaceChild(wrapper.firstElementChild, btn);
+    }
+
+    try {
+      const verified = JSON.parse(localStorage.getItem("verified_terms") || "[]");
+      if (!verified.includes(term)) {
+        verified.push(term);
+        localStorage.setItem("verified_terms", JSON.stringify(verified));
+      }
+    } catch (err) {
+      console.warn("Could not save verification state:", err);
+    }
+  });
+}
+

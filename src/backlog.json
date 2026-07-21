@@ -44,21 +44,6 @@
     "systems_analogy": "Contaminants nesting in peripheral water pipes that migrate upstream into the central city reservoir."
   },
   {
-    "id": "vo2max-retention-and-cardiorespiratory-aging",
-    "title": "VO2max Retention and Cardiorespiratory Aging",
-    "description": "How does maintaining exceptionally high cardiorespiratory fitness in multi-marathoners alter the aging trajectory of VO2max and lower all-cause mortality?",
-    "takeaway_pill": "High cardiorespiratory fitness preserves stroke volume, mitochondrial density, and capillary perfusion across aging. Systematic high-intensity endurance protocols compress morbidity by delaying age-related VO2max decline and dramatically lowering all-cause mortality.",
-    "category": "lifestyle",
-    "votes": 0,
-    "tags": [
-      "lifestyle",
-      "exercise",
-      "longevity"
-    ],
-    "created_at": "2026-06-15",
-    "systems_analogy": "Maintaining high-displacement ventilation and peak pump throughput across a factory power station's lifespan."
-  },
-  {
     "id": "phytochemical-regulation-of-aging-pathways",
     "title": "Phytochemical Regulation of Aging Pathways",
     "description": "How do dietary plant compounds (xenohormetic signals like sulforaphane, EGCG, and resveratrol) regulate Nrf2, AMPK, and SIRT1 pathways?",

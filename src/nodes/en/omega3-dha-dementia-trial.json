@@ -63,27 +63,35 @@
       "design": "International Consensus Review",
       "sample": "Review of clinical and pathological evidence linking homocysteine to dementia",
       "outcome": "Homocysteine-lowering by B vitamins is a proven disease-modifying treatment for slowing brain atrophy and cognitive decline, particularly in individuals with high omega-3 status.",
-      "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5836397/"
+      "link": "https://doi.org/10.3233/JAD-171042"
     }
   ],
   "bibliography": [
     {
       "id": "ref1",
+      "tag": "Clinical Trial",
+      "title": "CNS target engagement of high-dose DHA supplementation in older adults at risk for dementia: a randomised, double-blind, placebo-controlled trial",
       "text": "Yassine HN, et al. CNS target engagement of high-dose DHA supplementation in older adults at risk for dementia: a randomised, double-blind, placebo-controlled trial. eBioMedicine. 2026;106:106316.",
       "link": "https://doi.org/10.1016/j.ebiom.2026.106316"
     },
     {
       "id": "ref2",
+      "tag": "Consensus Review",
+      "title": "Homocysteine and Dementia: An International Consensus Statement",
       "text": "Smith AD, Refsum H, et al. Homocysteine and Dementia: An International Consensus Statement. J Alzheimers Dis. 2018;62(2):561-570.",
-      "link": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5836397/"
+      "link": "https://doi.org/10.3233/JAD-171042"
     },
     {
       "id": "ref_post_bernier",
+      "tag": "LinkedIn Commentary",
+      "title": "Brain health supplements: target engagement vs clinical translation",
       "text": "Frank Bernier, PhD. Brain health supplements: target engagement vs clinical translation. LinkedIn Commentary.",
       "link": "https://www.linkedin.com/feed/update/urn:li:activity:7473900162503954432/"
     },
     {
       "id": "ref_post_mangat",
+      "tag": "LinkedIn Commentary",
+      "title": "Supplement questions vs multi-factorial brain health habits",
       "text": "Dilpriya K. Mangat, MD. Supplement questions vs multi-factorial brain health habits. LinkedIn Commentary.",
       "link": "https://www.linkedin.com/feed/update/urn:li:activity:7474834853515902977/"
     }

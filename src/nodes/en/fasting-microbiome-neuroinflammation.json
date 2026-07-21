@@ -58,16 +58,22 @@
   "bibliography": [
     {
       "id": "ref1",
+      "tag": "Empirical Study",
+      "title": "Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis",
       "text": "Mela V, et al. Microbiota fasting-related changes ameliorate cognitive decline in obesity and boost ex vivo microglial function through the gut-brain axis. Gut. 2025;74:1828-1846.",
       "link": "https://doi.org/10.1136/gutjnl-2025-335353"
     },
     {
       "id": "ref_post_zorgani",
+      "tag": "LinkedIn Commentary",
+      "title": "Fasting May Rewire the Brain, Better than Diet ...Through the Microbiome",
       "text": "Dr. Amine Zorgani. Fasting May Rewire the Brain, Better than Diet ...Through the Microbiome. LinkedIn Commentary.",
       "link": "https://www.linkedin.com/feed/update/urn:li:activity:7479090063021215744/"
     },
     {
       "id": "ref_post_bernier_probiotic",
+      "tag": "LinkedIn Commentary",
+      "title": "Alzheimer's research: drug targets vs brain-health nutrition prevention",
       "text": "Frank Bernier, PhD. Alzheimer's research: drug targets vs brain-health nutrition prevention. LinkedIn Commentary.",
       "link": "https://www.linkedin.com/feed/update/urn:li:activity:7473900162503954432/"
     }

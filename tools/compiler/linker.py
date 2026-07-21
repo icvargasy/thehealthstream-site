@@ -14,6 +14,9 @@ def clear_popover_cache():
     _POPOVER_CACHE.clear()
 
 
+# Robust HTML tag split pattern supporting quotes in attributes and comments
+HTML_TAG_SPLIT_REGEX = re.compile(r"(<!--.*?-->|<(?:[^>\"']|\"[^\"]*\"|'[^']*')*>)")
+
 def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_term: str) -> str:
     """Wraps jargon terms inside definition snippets in simple external anchor links.
 
@@ -47,21 +50,22 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
     pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
     pattern = re.compile(pattern_str, re.IGNORECASE)
 
-    tokens = re.split(r"(<[^>]+>)", html_content)
-    in_link = False
+    tokens = HTML_TAG_SPLIT_REGEX.split(html_content)
+    skip_depth = 0
     
     for i in range(len(tokens)):
         token = tokens[i]
         
         if token.startswith("<"):
-            tag_lower = token.lower()
-            if re.match(r"^<a[\s/>]", tag_lower):
-                in_link = True
-            elif tag_lower == "</a>":
-                in_link = False
+            tag_lower = token.lower().strip()
+            if re.match(r"^</a[\s>]", tag_lower):
+                if skip_depth > 0:
+                    skip_depth -= 1
+            elif re.match(r"^<a[\s/>]", tag_lower):
+                skip_depth += 1
             continue
 
-        if in_link:
+        if skip_depth > 0:
             continue
 
         def replace_callback(match: re.Match) -> str:
@@ -120,16 +124,16 @@ def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
     pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
     pattern = re.compile(pattern_str, re.IGNORECASE)
 
-    tokens = re.split(r"(<[^>]+>)", html_content)
+    tokens = HTML_TAG_SPLIT_REGEX.split(html_content)
     skip_depth = 0
     
     for i in range(len(tokens)):
         token = tokens[i]
         
         if token.startswith("<"):
-            tag_lower = token.lower()
+            tag_lower = token.lower().strip()
             
-            if tag_lower in ("</a>", "</span>", "</code>", "</pre>", "</script>", "</style>"):
+            if re.match(r"^</(a|span|code|pre|script|style)[\s>]", tag_lower):
                 if skip_depth > 0:
                     skip_depth -= 1
                 continue

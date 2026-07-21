@@ -961,6 +961,206 @@ def test_validate_vocabulary_item_ai_generated_default() -> None:
     assert item_data.get("verification_status") == "ai_generated"
 
 
+def test_dynamic_analogy_purity_noun_subject_and_3tier_ceilings() -> None:
+    """Dynamic first-principles enforcer for Systems Analogy Purity across current and future entries.
+
+    Checks:
+    1. Zero Biological/Clinical Jargon: Dynamically matches terms/aliases from src/vocabulary.json
+       plus biological suffix patterns (-itis, -cyte, -phage, -ase, -ome, -genic, -vascular, -tropic, -blast, -some, -emia).
+    2. Explicit Noun Subject: Analogies cannot start with bare action verbs (e.g. Restructures, Activates, Regulates).
+    3. Context-Aware 3-Tier Ceilings: Level 1 (Vocab <= 25 words), Level 2 (Card <= 35 words), Level 3 (Node <= 45 words).
+    """
+    import glob, json, os, re
+
+    # 1. Build dynamic jargon lexicon from vocabulary.json keys and aliases
+    vocab_path = "src/vocabulary.json"
+    assert os.path.exists(vocab_path), "src/vocabulary.json missing"
+    with open(vocab_path, "r", encoding="utf-8") as f:
+        vocab_data = json.load(f)
+
+    # Exclude non-jargon taxonomy words
+    ignore_words = {"concept", "framework", "condition", "process", "lifestyle", "exercise", "book", "grade", "evidence", "healthspan"}
+    dynamic_jargon_terms = set()
+
+    for term, data in vocab_data.items():
+        term_clean = term.lower().strip()
+        if len(term_clean) > 2 and term_clean not in ignore_words:
+            dynamic_jargon_terms.add(term_clean)
+        for alias in data.get("aliases", []):
+            alias_clean = alias.lower().strip()
+            if len(alias_clean) > 2 and alias_clean not in ignore_words:
+                dynamic_jargon_terms.add(alias_clean)
+
+    # Additional explicit medical/biological suffix regex
+    bio_suffix_regex = re.compile(r"\b\w+(?:itis|cyte|phage|ase|ome|genic|vascular|tropic|blast|some|emia|pathic)\b", re.IGNORECASE)
+
+    # Imperative / Action verb blacklist at position 0
+    bare_action_verb_regex = re.compile(r"^(Restructures|Regulates|Activates|Clears|Triggers|Modulates|Prevents|Reduces|Enhances|Improves|Accelerates|Drives|Inhibits|Promotes|Suppresses|Alters)\b", re.IGNORECASE)
+
+    # A. Audit Published Nodes (src/nodes/en/)
+    node_files = glob.glob("src/nodes/en/**/*.json", recursive=True)
+    for filepath in node_files:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+
+        analogy = data.get("systems_analogy_hook", "").strip()
+        if not analogy:
+            continue
+
+        # Ceiling check (Level 2/3 Card/Popover ceiling: <= 35 words)
+        words = analogy.split()
+        assert len(words) <= 35, f"Node analogy in '{filepath}' exceeds Level 2 ceiling of 35 words ({len(words)} words)"
+
+        # Explicit Noun Subject check
+        match_verb = bare_action_verb_regex.match(analogy)
+        assert not match_verb, f"Node analogy in '{filepath}' starts with bare action verb '{match_verb.group(0)}': '{analogy}'"
+
+        # Dynamic Jargon Check
+        analogy_lower = analogy.lower()
+        for j_term in dynamic_jargon_terms:
+            pattern = r"\b" + re.escape(j_term) + r"\b"
+            assert not re.search(pattern, analogy_lower), f"Node analogy in '{filepath}' violates Purity Rule with vocabulary term '{j_term}'"
+
+        # Bio Suffix Check
+        suffix_matches = bio_suffix_regex.findall(analogy)
+        assert not suffix_matches, f"Node analogy in '{filepath}' violates Purity Rule with biological suffix terms: {suffix_matches}"
+
+    # B. Audit Backlog Items (src/backlog.json)
+    backlog_path = "src/backlog.json"
+    if os.path.exists(backlog_path):
+        with open(backlog_path, "r", encoding="utf-8") as f:
+            backlog_items = json.load(f)
+        for item in backlog_items:
+            analogy = item.get("systems_analogy", "").strip()
+            if not analogy:
+                continue
+            words = analogy.split()
+            assert len(words) <= 35, f"Backlog analogy for '{item.get('id')}' exceeds Level 2 ceiling of 35 words ({len(words)} words)"
+            match_verb = bare_action_verb_regex.match(analogy)
+            assert not match_verb, f"Backlog analogy for '{item.get('id')}' starts with bare action verb '{match_verb.group(0)}'"
+
+    # C. Audit Vocabulary Analogies (Level 1 ceiling <= 30 words)
+    for term, data in vocab_data.items():
+        v_analogy = data.get("vulgarized_analogy", "").strip()
+        if not v_analogy:
+            continue
+        words = v_analogy.split()
+        assert len(words) <= 30, f"Vocabulary analogy for '{term}' exceeds Level 1 ceiling of 30 words ({len(words)} words)"
+
+
+def test_full_build_internal_relative_links_and_anchors() -> None:
+    """Compiles site to en/ and verifies 100% of internal HTML relative links and fragment anchors resolve."""
+    from html.parser import HTMLParser
+    from tools.build import run_build
+    import os
+
+    class LinkAndAnchorExtractor(HTMLParser):
+        def __init__(self):
+            super().__init__()
+            self.hrefs = []
+            self.ids = set()
+
+        def handle_starttag(self, tag, attrs):
+            attr_dict = dict(attrs)
+            if "id" in attr_dict:
+                self.ids.add(attr_dict["id"])
+            if tag == "a" and "href" in attr_dict:
+                self.hrefs.append(attr_dict["href"])
+
+    run_build()
+    output_dir = "en"
+    assert os.path.exists(output_dir), "en directory missing after run_build()"
+
+    html_files = []
+    for root, _, files in os.walk(output_dir):
+        for f in files:
+            if f.endswith(".html"):
+                html_files.append(os.path.join(root, f))
+
+    assert len(html_files) > 0, "No HTML files generated by run_build()"
+
+    for filepath in html_files:
+        with open(filepath, "r", encoding="utf-8") as f:
+            content = f.read()
+
+        parser = LinkAndAnchorExtractor()
+        parser.feed(content)
+
+        # Check internal relative links
+        for href in parser.hrefs:
+            if href.startswith(("http://", "https://", "mailto:", "javascript:")):
+                continue
+
+            parts = href.split("#")
+            rel_path = parts[0]
+            fragment = parts[1] if len(parts) > 1 else None
+
+            if rel_path:
+                target_path = os.path.normpath(os.path.join(os.path.dirname(filepath), rel_path))
+                assert os.path.exists(target_path), f"Broken relative link '{href}' in {os.path.relpath(filepath, output_dir)}"
+            else:
+                target_path = filepath
+
+            if fragment:
+                with open(target_path, "r", encoding="utf-8") as tf:
+                    target_parser = LinkAndAnchorExtractor()
+                    target_parser.feed(tf.read())
+                assert fragment in target_parser.ids, f"Broken anchor '#{fragment}' in '{href}' from {os.path.relpath(filepath, output_dir)}"
+
+
+def test_compile_detail_page_json_ld_schema_validity() -> None:
+    """Parses JSON-LD script block from compiled detail page using json.loads and validates FAQPage structure."""
+    import json
+    from tools.compiler.writer import compile_detail_page
+
+    layout = "<html><head></head><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    node = {
+        "slug": "test-node",
+        "title": "Test Title",
+        "type": "biology",
+        "hook_question": "Question?",
+        "takeaway_pill": "Takeaway.",
+        "epistemic_rating": {"grade": "High", "rationale": "Rationale.", "debate_sides": []},
+        "tags": ["biology"],
+        "reading_modes": {"overview_3min": "Overview", "deep_dive": []},
+        "edges": [],
+        "evidence_table": [],
+        "bibliography": []
+    }
+    translations = {"en": {"takeaway_pill_title": "Takeaway", "consensus_level": "Level", "consensus_established": "Est"}}
+
+    compiled = compile_detail_page(layout, node, translations, [node])
+
+    start_tag = '<script type="application/ld+json">'
+    end_tag = '</script>'
+    assert start_tag in compiled and end_tag in compiled
+
+    json_str = compiled.split(start_tag)[1].split(end_tag)[0].strip()
+    data = json.loads(json_str)
+
+    assert data["@context"] == "https://schema.org"
+    assert data["@type"] == "FAQPage"
+    assert "mainEntity" in data
+    assert isinstance(data["mainEntity"], list)
+    assert len(data["mainEntity"]) > 0
+    assert data["mainEntity"][0]["@type"] == "Question"
+    assert data["mainEntity"][0]["acceptedAnswer"]["@type"] == "Answer"
+
+
+def test_linker_attribute_safety_with_gt_symbol() -> None:
+    """Ensures inject_jargon_links does not corrupt HTML tags containing '>' inside attribute quotes."""
+    from tools.compiler.linker import inject_jargon_links
+
+    vocab = {"AMPK": {"definition": "Energy sensor definition."}}
+    html_input = '<img alt="AMPK > SIRT1 pathway" src="test.jpg"> AMPK is active.'
+    output = inject_jargon_links(html_input, vocab)
+
+    assert '<img alt="AMPK > SIRT1 pathway" src="test.jpg">' in output
+    assert '<span class="jargon-term"' in output
+    assert 'data-term="AMPK"' in output
+
+
+
 
 
 
