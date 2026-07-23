@@ -866,11 +866,12 @@ def compile_detail_page(
         
         outcome_desc = item.get("outcome", "")
 
+        meta_span = f'<span class="evidence-design">{meta_text}</span>' if meta_text else ""
         item_html = (
             f'<div class="evidence-item">'
             f'  <div class="evidence-meta">'
             f'    <a href="{item["link"]}" target="_blank" rel="noopener" class="evidence-study-link">{item["study"]} ↗</a>'
-            f'    {f"<span class=\"evidence-design\">{meta_text}</span>" if meta_text else ""}'
+            f'    {meta_span}'
             f'  </div>'
             f'  <div class="evidence-outcome">{outcome_desc}</div>'
             f'</div>'
@@ -1926,11 +1927,13 @@ def compile_static_content_page(
     elif "submit" in t_key_lower or "proposal" in t_key_lower or form_type == "proposal":
         header_icon = pen_svg
 
+    static_desc_val = labels.get(desc_key)
+    static_desc_html = f'<p class="static-desc">{static_desc_val}</p>' if static_desc_val else ""
     page_html = (
         f'<article class="static-page {page_class}">'
         f'  <header class="static-header">'
         f'    <h1>{header_icon}<span>{labels.get(title_key, "Info")}</span></h1>'
-        f'    {f"<p class=\"static-desc\">{labels.get(desc_key)}</p>" if labels.get(desc_key) else ""}'
+        f'    {static_desc_html}'
         f'  </header>'
         f'  {content_layout}'
         f'</article>'
