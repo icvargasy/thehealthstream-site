@@ -281,7 +281,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**."
+    "teaser": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **gene expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**."
   },
   {
     "title": "protein",
@@ -361,7 +361,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The process by which a cell increases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals."
+    "teaser": "The process by which a cell increases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals."
   },
   {
     "title": "downregulate",
@@ -369,7 +369,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The process by which a cell decreases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway**.",
+    "teaser": "The process by which a cell decreases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway**.",
     "in_pipeline": true
   },
   {
@@ -950,5 +950,13 @@
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "The volume of blood pumped out of the left ventricle of the heart during a single cardiac contraction."
+  },
+  {
+    "title": "mitochondria",
+    "slug": "vocabulary/mitochondria.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Double-membrane-bound organelles found in most eukaryotic organisms, responsible for generating adenosine triphosphate (**ATP**), which serves as a source of chemical energy."
   }
 ]

@@ -106,7 +106,7 @@ a:hover {
   background-color: var(--sb-bg);
   display: flex;
   flex-direction: column;
-  transition: width var(--transition-normal), border-right-color var(--transition-normal), background-color var(--transition-normal), color var(--transition-normal);
+  transition: border-right-color var(--transition-normal), background-color var(--transition-normal), color var(--transition-normal);
 }
 
 /* Sidebar Toggling classes */

@@ -127,6 +127,8 @@ function initializeJargonPopovers() {
   const terms = document.querySelectorAll(".jargon-term");
   if (terms.length === 0) return;
 
+  let activeTrigger = null;
+
   // Create single popover instance
   let popover = document.getElementById("global-popover");
   if (!popover) {
@@ -136,6 +138,7 @@ function initializeJargonPopovers() {
     popover.setAttribute("role", "dialog");
     popover.setAttribute("aria-label", "Jargon glossary definition");
     popover.setAttribute("tabindex", "-1");
+    popover.setAttribute("aria-live", "polite");
     document.body.appendChild(popover);
   }
 
@@ -187,6 +190,10 @@ function initializeJargonPopovers() {
    */
   const hidePopover = () => {
     popover.classList.remove("visible");
+    if (activeTrigger) {
+      activeTrigger.focus();
+      activeTrigger = null;
+    }
   };
 
   const handleTermActivation = (term, e) => {
@@ -218,6 +225,8 @@ function initializeJargonPopovers() {
 
     positionPopover(term);
     popover.classList.add("visible");
+    activeTrigger = term;
+    popover.focus();
   };
 
   // Delegated event listening for jargon popover activation
@@ -557,7 +566,8 @@ function initializeSearch() {
     } else if (e.key === "Enter") {
       if (activeIndex >= 0 && activeIndex < currentMatches.length) {
         e.preventDefault();
-        window.location.href = currentMatches[activeIndex].slug;
+        const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
+        window.location.href = basePath + currentMatches[activeIndex].slug;
       }
     } else if (e.key === "Escape") {
       e.preventDefault();
