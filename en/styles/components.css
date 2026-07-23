@@ -3624,6 +3624,7 @@ h4 .jargon-term:hover {
   transition: all var(--transition-fast);
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  white-space: nowrap;
 }
 
 .feed-toggle-btn:hover:not(.active) {
@@ -3641,6 +3642,8 @@ h4 .jargon-term:hover {
 .feed-toggle-btn .toggle-badge {
   font-size: 0.7rem;
   opacity: 0.85;
+  vertical-align: middle;
+  line-height: 1;
 }
 
 .feed-toggle-btn.active .toggle-badge {
