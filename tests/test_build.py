@@ -379,7 +379,7 @@ def test_compile_detail_page() -> None:
     compiled = compile_detail_page(layout, node, translations, [node])
     assert "AMPK Activation" in compiled
     assert "Fasting pill" in compiled
-    assert "Evidence Grade:" in compiled
+    assert "Evidence Level:" in compiled
     assert "High" in compiled
     assert "GRADE Rating Methodology &rarr;" in compiled
     assert "popover-debate-link" not in compiled
@@ -1158,6 +1158,55 @@ def test_linker_attribute_safety_with_gt_symbol() -> None:
     assert '<img alt="AMPK > SIRT1 pathway" src="test.jpg">' in output
     assert '<span class="jargon-term"' in output
     assert 'data-term="AMPK"' in output
+
+
+def test_database_grade_schema_purity() -> None:
+    """Ensures all backlog items and developed nodes have valid GRADE levels (High, Moderate, Low, Very Low)."""
+    import json
+    import os
+
+    valid_grades = {"High", "Moderate", "Low", "Very Low"}
+
+    # 1. Backlog Validation
+    backlog_path = "src/backlog.json"
+    if os.path.exists(backlog_path):
+        with open(backlog_path, "r", encoding="utf-8") as f:
+            items = json.load(f)
+        for item in items:
+            grade = item.get("grade")
+            assert grade in valid_grades, f"Backlog proposal '{item.get('id')}' has invalid/missing grade: '{grade}'"
+
+
+def test_backlog_book_title_naming_standards() -> None:
+    """Verifies book category items follow 'Book Title (Author Name)' and validates minimum dataset size."""
+    import json
+    import os
+    import re
+
+    backlog_path = "src/backlog.json"
+    assert os.path.exists(backlog_path), "backlog.json is missing!"
+
+    with open(backlog_path, "r", encoding="utf-8") as f:
+        items = json.load(f)
+
+    # 1. Size check (data preservation assertion)
+    assert len(items) >= 28, f"Backlog has shrunk! Found only {len(items)} items, expected at least 28."
+
+    # 2. Check for Gabor Maté book summary restoration
+    mate_present = any(item.get("id") == "when-the-body-says-no-summary" for item in items)
+    assert mate_present, "Gabor Maté book summary ('when-the-body-says-no-summary') is missing from the backlog!"
+
+    # 3. Check book title formatting
+    book_title_regex = re.compile(r"^.+\s\(.+\)$")
+    for item in items:
+        if item.get("category") == "book":
+            title = item.get("title", "")
+            assert book_title_regex.match(title), (
+                f"Book category entry '{item.get('id')}' violates naming convention! "
+                f"Title was '{title}', must be in format 'Book Title (Author Name)'"
+            )
+
+
 
 
 

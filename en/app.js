@@ -35,8 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeTocNavigation();
   initializeGradePopover();
   initializeScrollingAndHash();
-  initializeFeedToggle();
+  initializeFeedFilters();
   initializeCardClicks();
+
   initializeLexiconVerification();
 });
 
@@ -1171,57 +1172,101 @@ function initializeScrollingAndHash() {
   }
 }
 
-
 /**
  * Handles client-side filtering toggle buttons for Explore and Category feeds.
  * @returns {void}
  */
-function initializeFeedToggle() {
+function initializeFeedFilters() {
   const toggleButtons = document.querySelectorAll(".feed-toggle-btn");
   const feedCards = document.querySelectorAll(".feed-card");
+  const tierFilterSelect = document.getElementById("feed-tier-filter-select");
   
-  if (toggleButtons.length === 0) return;
+  if (toggleButtons.length === 0 && !tierFilterSelect) return;
   
-  const filterFeed = (filterValue) => {
+  let activeFeedFilter = safeStorage.getItem("feed_filter") || "all";
+  let activeTierFilter = safeStorage.getItem("tier_filter") || "all";
+  
+  const filterFeed = () => {
+    let visibleCount = 0;
     feedCards.forEach((card) => {
       const isPipeline = card.classList.contains("pipeline-card-merged");
+      const cardTier = card.getAttribute("data-tier");
       
-      if (filterValue === "all") {
+      let matchesFeed = false;
+      if (activeFeedFilter === "all") {
+        matchesFeed = true;
+      } else if (activeFeedFilter === "decoded") {
+        matchesFeed = !isPipeline;
+      } else if (activeFeedFilter === "pipeline") {
+        matchesFeed = isPipeline;
+      }
+      
+      let matchesTier = false;
+      if (activeTierFilter === "all") {
+        matchesTier = true;
+      } else {
+        matchesTier = (cardTier === activeTierFilter);
+      }
+      
+      if (matchesFeed && matchesTier) {
         card.style.display = "";
-      } else if (filterValue === "decoded") {
-        card.style.display = isPipeline ? "none" : "";
-      } else if (filterValue === "pipeline") {
-        card.style.display = isPipeline ? "" : "none";
+        visibleCount++;
+      } else {
+        card.style.display = "none";
       }
     });
+
+    // Screen reader announcements (aria-live region)
+    let announcer = document.getElementById("feed-announcer");
+    if (!announcer) {
+      announcer = document.createElement("div");
+      announcer.id = "feed-announcer";
+      announcer.className = "sr-only";
+      announcer.setAttribute("aria-live", "polite");
+      announcer.setAttribute("style", "position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;");
+      document.body.appendChild(announcer);
+    }
+    announcer.textContent = `Feed updated. Showing ${visibleCount} articles.`;
   };
 
-  // Restore saved filter preference from localStorage
-  const savedFilter = safeStorage.getItem("feed_filter") || "all";
-  
+  // Restore feed toggle active classes
   toggleButtons.forEach((btn) => {
     const filterValue = btn.getAttribute("data-filter");
-    if (filterValue === savedFilter) {
+    if (filterValue === activeFeedFilter) {
       btn.classList.add("active");
     } else {
       btn.classList.remove("active");
     }
   });
-  
-  filterFeed(savedFilter);
 
+  // Restore active tier filter select value
+  if (tierFilterSelect) {
+    tierFilterSelect.value = activeTierFilter;
+  }
+  
+  filterFeed();
+
+  // Feed toggle buttons listener
   toggleButtons.forEach((button) => {
     button.addEventListener("click", () => {
       toggleButtons.forEach((btn) => btn.classList.remove("active"));
       button.classList.add("active");
       
-      const filterValue = button.getAttribute("data-filter");
-      safeStorage.setItem("feed_filter", filterValue);
-      filterFeed(filterValue);
+      activeFeedFilter = button.getAttribute("data-filter");
+      safeStorage.setItem("feed_filter", activeFeedFilter);
+      filterFeed();
     });
   });
-}
 
+  // Dropdown Evidence Level selector listener
+  if (tierFilterSelect) {
+    tierFilterSelect.addEventListener("change", (e) => {
+      activeTierFilter = e.target.value;
+      safeStorage.setItem("tier_filter", activeTierFilter);
+      filterFeed();
+    });
+  }
+}
 
 /**
  * Makes the entire .feed-card clickable for published articles,

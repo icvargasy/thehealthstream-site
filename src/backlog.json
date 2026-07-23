@@ -1,10 +1,362 @@
 [
   {
+    "id": "faecalibacterium-immunotherapy-axis",
+    "title": "Faecalibacterium & Immunotherapy Responsiveness",
+    "description": "How does gut Faecalibacterium prausnitzii fermentation of resistant starches modulate host short-chain fatty acids to optimize T-cell response during cancer immunotherapy?",
+    "takeaway_pill": "Gut Faecalibacterium prausnitzii ferment resistant starches into short-chain fatty acids, enhancing CD8+ T-cell infiltration and anti-PD-1 immunotherapy efficacy in cutaneous malignancies.",
+    "category": "biology",
+    "grade": "Moderate",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "metabolism",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A specialized port authority fueling supply ships that reinforce frontline municipal border patrol agents."
+  },
+  {
+    "id": "reversible-autophagy-neuronal-restoration",
+    "title": "Reversible Autophagy and Neuronal Restoration",
+    "description": "Can reactivating suppressed lysosomal autophagy purge accumulated neuronal protein aggregates and reverse motor/cognitive deficits?",
+    "takeaway_pill": "Transient suppression of autophagy causes toxic protein aggregation and motor decline, but reactivating lysosomal clearance rapidly purges debris and restores synaptic architecture.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A municipal sanitation fleet resuming trash collection to restore clogged urban transit routes to mint condition."
+  },
+  {
+    "id": "luteolin-kynurenine-ahr-axis",
+    "title": "Luteolin Gut-Brain Kynurenine Axis",
+    "description": "How does dietary luteolin reshape gut microbial tryptophan metabolism to suppress kynurenine-AhR signaling and protect hippocampal mitochondria?",
+    "takeaway_pill": "Dietary luteolin reshapes microbial tryptophan metabolism, suppressing kynurenine-driven AhR signaling and protecting hippocampal mitochondria from high-fat diet oxidative stress.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "metabolism",
+      "supplements"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A filtration valve in a central chemical factory neutralizing volatile exhaust before it corrodes sensitive control circuits."
+  },
+  {
+    "id": "skin-hydroxyl-radical-oxidation-field",
+    "title": "Human Skin Surface Hydroxyl Oxidation Field",
+    "description": "How does the skin's surface hydroxyl radical oxidation microenvironment protect against volatile organic compounds, and how do cosmetics disrupt it?",
+    "takeaway_pill": "Human skin naturally generates a protective hydroxyl radical oxidation field against ambient VOCs, which personal cosmetics and lotions rapidly quench and disrupt.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "An invisible electrostatic barrier surrounding a facility that neutralizes airborne pollutants before they strike internal walls."
+  },
+  {
+    "id": "gut-dysbiosis-lps-microglial-priming",
+    "title": "Gut Dysbiosis & Microglial Priming in Alzheimer's",
+    "description": "How does loss of SCFA-producing bacteria alongside LPS-producing bacterial expansion breach barrier integrity to prime microglial neuroinflammation?",
+    "takeaway_pill": "Depletion of SCFA-producing Faecalibacterium alongside LPS-producing E. coli expansion breaches barrier integrity, triggering TLR4/NLRP3 neuroinflammation and accelerating Alzheimer's pathology.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Decaying perimeter fencing allowing toxic waste runoff to leak into city drinking wells and trigger public safety alarms."
+  },
+  {
+    "id": "gluteal-muscle-endocrine-glucose-sink",
+    "title": "Gluteal Muscle as a Systemic Glucose Sink",
+    "description": "Does gluteal muscle silencing from chronic sitting reduce host postprandial glucose disposal capacity and exacerbate systemic metabolic strain?",
+    "takeaway_pill": "Gluteal muscle atrophy from chronic sitting silences the body's largest glucose disposal site, elevating postprandial blood sugar and driving systemic metabolic dysfunction.",
+    "category": "lifestyle",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "lifestyle",
+      "metabolism"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A heavy-duty municipal reservoir absorbing sudden torrential rainwater to prevent citywide street flooding."
+  },
+  {
+    "id": "microbiome-creatine-bifidobacterium-axis",
+    "title": "Bifidobacterium-Creatine Axis in Brain Bioenergetics",
+    "description": "How does Bifidobacterium pseudolongum acetate production drive Slc6a8 histone acetylation to restore intestinal creatine absorption and brain energy?",
+    "takeaway_pill": "Bifidobacterium pseudolongum acetate production upregulates intestinal Slc6a8 transporters via histone acetylation, rescuing systemic creatine absorption and hippocampal energy metabolism.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "metabolism",
+      "supplements"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A rail terminal operator installing high-capacity loading cranes to transport raw fuel into central power stations."
+  },
+  {
+    "id": "sports-diversity-hormetic-longevity",
+    "title": "Sports Diversity and Hormetic Longevity",
+    "description": "Why does multi-sport engagement reduce 30-year all-cause mortality by 19% compared to single-activity physical exercise routines?",
+    "takeaway_pill": "Engaging in diverse athletic modalities reduces 30-year all-cause mortality by 19% by imposing multi-planar stress and preventing single-system biomechanical overload.",
+    "category": "lifestyle",
+    "grade": "Moderate",
+    "votes": 0,
+    "tags": [
+      "lifestyle",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A structural engineering firm testing buildings against wind, seismic, and thermal loads to prevent single-point structural failures."
+  },
+  {
+    "id": "amyloid-clearing-clinical-futility",
+    "title": "Amyloid-Clearing Monoclonal Antibody Efficacy Gap",
+    "description": "Why does effective monoclonal antibody clearance of amyloid plaque fail to yield clinically meaningful cognitive or functional improvements in Alzheimer's trial cohorts?",
+    "takeaway_pill": "Cochrane meta-analyses demonstrate that monoclonal antibody removal of amyloid plaque yields trivial 18-month cognitive gains, highlighting the need for non-amyloid metabolic targets.",
+    "category": "biology",
+    "grade": "High",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Scraping spray-paint off building facades while ignoring active structural plumbing leaks beneath the floorboards."
+  },
+  {
+    "id": "exercise-induced-brain-pad-reversal",
+    "title": "Exercise-Induced Brain Age Reversal (Brain-PAD)",
+    "description": "What dose-response effect does 12 months of structured physical activity exert on structural MRI brain-predicted age difference (brain-PAD)?",
+    "takeaway_pill": "12 months of consistent moderate-to-vigorous exercise (150 min/week) reduces structural brain age markers (brain-PAD) by 0.95 to 1.8 years on quantitative MRI scans.",
+    "category": "lifestyle",
+    "grade": "Moderate",
+    "votes": 0,
+    "tags": [
+      "lifestyle",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Routine annual building maintenance resetting structural wear counters and extending operational lifespan."
+  },
+  {
+    "id": "exerkine-blood-brain-barrier-signaling",
+    "title": "Exerkine Blood-Brain Barrier Signaling",
+    "description": "How do muscle-derived secretome factors (exerkines) cross the blood-brain barrier to modulate microglial neuroinflammation and synaptic plasticity?",
+    "takeaway_pill": "Muscle contraction releases systemic exerkines that cross the blood-brain barrier to suppress microglial neuroinflammation and upregulate hippocampal BDNF neuroplasticity.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "metabolism",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Factory machinery transmitting wireless status signals that activate automated maintenance repair drones in distal control towers."
+  },
+  {
+    "id": "vigorous-exercise-intensity-multipliers",
+    "title": "Vigorous Exercise Metabolic Intensity Multipliers",
+    "description": "How do accelerometer-measured intensity multipliers demonstrate non-linear metabolic protection for Type 2 Diabetes and CVD risk?",
+    "takeaway_pill": "Accelerometer data reveals 1 minute of vigorous physical activity yields the metabolic equivalent of 9.4 minutes of moderate activity for Type 2 Diabetes risk reduction.",
+    "category": "lifestyle",
+    "grade": "Moderate",
+    "votes": 0,
+    "tags": [
+      "lifestyle",
+      "metabolism"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A high-efficiency turbocharger delivering four times the output per unit of fuel consumed by standard engines."
+  },
+  {
+    "id": "advanced-glycation-endproducts-collagen-stiffness",
+    "title": "The Age Code (David Cox)",
+    "description": "How do dietary advanced glycation endproducts (AGEs) cross-link skin and joint collagen to drive systemic tissue stiffening and microvascular inflammation?",
+    "takeaway_pill": "Advanced glycation endproducts (AGEs) form covalent cross-links with long-lived collagen proteins, causing structural tissue stiffness and activating RAGE-driven inflammatory pathways.",
+    "category": "book",
+    "grade": "Very Low",
+    "votes": 0,
+    "tags": [
+      "book",
+      "metabolism",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Adding structural glue to flexible joints in a machine, causing them to lock up and wear out prematurely."
+  },
+  {
+    "id": "lifestyle-synergy-nad-sirtuin-pathways",
+    "title": "Lifestyle Synergy & Endogenous Sirtuin Pathways",
+    "description": "How do consistent sleep, physical activity, and fasting compound to upregulate endogenous NAD+ biosynthesis and sirtuin activity?",
+    "takeaway_pill": "Consistent sleep and physical exercise synergistically upregulate the rate-limiting enzyme NAMPT, boosting cellular NAD+ levels and stimulating SIRT1 pathways without synthetic supplements.",
+    "category": "biology",
+    "grade": "Moderate",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "metabolism",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Automated regular cleaning routines that optimize standard power grids without requiring external booster generators."
+  },
+  {
+    "id": "cgm-non-diabetic-glycotypes",
+    "title": "CGM Non-Diabetic Glycotypes & Dysregulation",
+    "description": "How do continuous glucose monitors reveal subclinical glycemic spikes and distinct 'glucotypes' in healthy, normoglycemic cohorts?",
+    "takeaway_pill": "Continuous glucose monitoring reveals that 15% of clinically 'healthy' individuals undergo transient glycemic spikes reaching prediabetic ranges, defining distinct physiological 'glucotypes'.",
+    "category": "lifestyle",
+    "grade": "Very Low",
+    "votes": 0,
+    "tags": [
+      "lifestyle",
+      "metabolism"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Installing a real-time water flow meter to detect hidden pipe leaks that do not trigger main pressure drops."
+  },
+  {
+    "id": "dietary-cadmium-nephrotoxicity-dmt1-transporters",
+    "title": "Dietary Cadmium Nephrotoxicity via Metal Mimicry",
+    "description": "How does dietary cadmium hijack divalent metal transporter 1 (DMT1) and ZIP8 receptors to accumulate in proximal renal tubules and trigger oxidative stress?",
+    "takeaway_pill": "Cadmium acts as a molecular mimic to hijack intestinal DMT1 and renal ZIP8 transporters, leading to bioaccumulation in the proximal renal tubules and chronic cellular injury.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Counterfeit keys unlocking restricted transport corridors and allowing toxic packages to build up inside sorting offices."
+  },
+  {
+    "id": "biodiversity-hypothesis-skin-soil-axis",
+    "title": "Hanski Biodiversity Hypothesis & Immune Training",
+    "description": "Does contact with soil microbiota replenish commensal skin and gut bacterial diversity to mitigate chronic inflammatory and allergic hypersensitivity?",
+    "takeaway_pill": "Contact with biodiverse soil microbiota inoculates skin commensals (specifically Gammaproteobacteria), which stimulates immunomodulatory pathways and limits atopic hypersensitivity.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Exposing local security teams to diverse fire drills so they learn to ignore harmless smoke signals."
+  },
+  {
+    "id": "glymphatic-clearance-slow-wave-sleep",
+    "title": "Glymphatic Clearance during Slow-Wave Sleep",
+    "description": "How does cerebrospinal fluid flow driven by arterial pulsations clear metabolic waste, including amyloid-beta and tau, from the brain during sleep?",
+    "takeaway_pill": "During slow-wave sleep, interstitial space increases by 60%, allowing cerebrospinal fluid to wash through brain tissue and clear neurotoxic aggregates via the glymphatic system.",
+    "category": "biology",
+    "grade": "Moderate",
+    "votes": 0,
+    "tags": [
+      "book",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A city water department opening fire hydrants overnight to flush debris out of empty sewer conduits."
+  },
+  {
+    "id": "auditory-cortex-dopamine-network-coordination",
+    "title": "Auditory Cortex Auditory-Dopaminergic Coupling",
+    "description": "How does rhythmic auditory stimulation modulate functional connectivity between sensory networks and the striatal dopaminergic reward pathway?",
+    "takeaway_pill": "Rhythmic auditory stimuli modulate dopaminergic release pathways in the striatum, coordinating motor and cognitive networks via entrainment of neural oscillations.",
+    "category": "biology",
+    "grade": "Very Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A central metronome broadcasting sync signals that coordinate separate automated factory assembly lines."
+  },
+  {
+    "id": "cyclic-sighing-parasympathetic-vagal-tone",
+    "title": "Cyclic Sighing Autonomic Vagal Modulation",
+    "description": "Does daily cyclic sighing breathwork stimulate parasympathetic vagal output to reduce acute respiratory rates and physiological arousal?",
+    "takeaway_pill": "A 5-minute daily practice of cyclic sighing (double inhale followed by extended exhale) stimulates the vagus nerve to reduce immediate respiratory rates and calm the autonomic system.",
+    "category": "lifestyle",
+    "grade": "Very Low",
+    "votes": 0,
+    "tags": [
+      "lifestyle",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Depressing a physical exhaust release valve to rapidly lower internal pressure in a mechanical boiler."
+  },
+  {
+    "id": "swiss-leenaards-translational-aging-projects",
+    "title": "Swiss Leenaards Translational Aging Cohorts",
+    "description": "How do regional cohort studies and translational research initiatives funded by Fondation Leenaards map clinical frailty markers in aging populations?",
+    "takeaway_pill": "The Leenaards Foundation translates cellular research (e.g., senescent cell secretome targets) into cohort-level clinical tools to diagnose and track frailty markers in Switzerland.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "A research foundation testing prototype regional traffic lights to determine which designs prevent city congestion."
+  },
+  {
+    "id": "dermal-bisphenol-absorption-thermal-receipts",
+    "title": "Dermal Bisphenol Transfer & Endocrine Disruption",
+    "description": "How does handling thermal receipt paper transfer unbound Bisphenol A (BPA) and Bisphenol S (BPS) dermally to mimic estrogen receptor pathways?",
+    "takeaway_pill": "Handling thermal receipt paper transfers unbound Bisphenol A (BPA) to the skin, where it is absorbed dermally and acts as an endocrine disruptor mimicking estrogen.",
+    "category": "biology",
+    "grade": "Low",
+    "votes": 0,
+    "tags": [
+      "biology",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Allowing external chemical compounds to bypass main checkpoints and bind to sensitive local regulatory receptors."
+  },
+  {
+    "id": "preventative-health-economics-longevity-dividend",
+    "title": "Preventative Health Economics & Longevity Dividend",
+    "description": "How does compressing morbidity through preventative lifestyle interventions yield massive economic value (the longevity dividend) compared to disease treatment?",
+    "takeaway_pill": "Targeting biological aging and compressing morbidity is estimated to yield trillions in economic savings by preventing multi-system chronic disease progression.",
+    "category": "lifestyle",
+    "grade": "Very Low",
+    "votes": 0,
+    "tags": [
+      "lifestyle",
+      "longevity"
+    ],
+    "created_at": "2026-07-23",
+    "systems_analogy": "Upgrading regional building materials to reduce citywide structural repairs and disaster response costs over the next century."
+  },
+  {
     "id": "rise-of-early-onset-cancers",
     "title": "Rise of Early-Onset Cancers",
     "description": "Are environmental metabolic signals over-riding apoptosis checkpoints and driving early-stage tissue expansion in adults under 50?",
     "takeaway_pill": "Early-onset colorectal cancer surge in adults under 50 stems from microenvironment disruption—ultra-processed diets, gut dysbiosis, and early metabolic dysfunction accelerating mucosal inflammation and somatic mutations.",
     "category": "biology",
+    "grade": "Low",
     "votes": 0,
     "tags": [
       "biology",
@@ -20,6 +372,7 @@
     "description": "How do gut microbial communities synthesize and exchange vitamin cofactors to regulate systemic host metabolism?",
     "takeaway_pill": "Gut microbes synthesize essential B and K vitamins while dietary vitamins alter microbial diversity. This bidirectional exchange modulates short-chain fatty acid production, mitochondrial bioenergetics, and systemic host metabolic homeostasis.",
     "category": "biology",
+    "grade": "Low",
     "votes": 0,
     "tags": [
       "biology",
@@ -35,6 +388,7 @@
     "description": "Does Porphyromonas gingivalis migration from the gum line to the hippocampus drive amyloid-beta, tau, and ubiquitin neurodegeneration?",
     "takeaway_pill": "Porphyromonas gingivalis secretes toxic gingipain proteases that breach the blood-brain barrier. Hippocampal pathogen translocation triggers microglial neuroinflammation, tau hyperphosphorylation, and amyloid-beta accumulation, linking chronic periodontitis to Alzheimer's pathology.",
     "category": "biology",
+    "grade": "Low",
     "votes": 0,
     "tags": [
       "biology",
@@ -49,6 +403,7 @@
     "description": "How do dietary plant compounds (xenohormetic signals like sulforaphane, EGCG, and resveratrol) regulate Nrf2, AMPK, and SIRT1 pathways?",
     "takeaway_pill": "Dietary phytochemicals act as mild xenohormetic stressors, upregulating Nrf2 antioxidant defenses, activating AMPK bioenergetic sensing, and stimulating SIRT1 sirtuin signaling to clear damaged cellular components and retard physiological aging.",
     "category": "biology",
+    "grade": "Low",
     "votes": 0,
     "tags": [
       "biology",
@@ -65,6 +420,7 @@
     "description": "How does chronic, hidden stress and emotional suppression downregulate immune function and trigger autoimmune and cardiovascular pathologies?",
     "takeaway_pill": "Dr. Gabor Maté synthesizes clinical evidence demonstrating how chronic emotional suppression overactivates the HPA axis. Persistent cortisol elevation and autonomic strain disinhibit inflammatory pathways, driving autoimmune destruction and cardiovascular damage.",
     "category": "book",
+    "grade": "Very Low",
     "votes": 0,
     "tags": [
       "book",

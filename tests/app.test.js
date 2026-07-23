@@ -440,6 +440,64 @@ describe("Client Interaction - app.js", () => {
     expect(cardPipeline.style.display).toBe("");
   });
 
+  it("should filter feed cards by evidence level tier when the global dropdown select value changes", () => {
+    const container = document.querySelector(".content-container");
+    const testArea = document.createElement("div");
+    testArea.innerHTML = `
+      <div class="feed-sort-container">
+        <select id="feed-tier-filter-select">
+          <option value="all" selected>All Levels</option>
+          <option value="consensus-core">Consensus Core</option>
+          <option value="emerging-frontier">Emerging Frontier</option>
+        </select>
+      </div>
+      <div id="feed-cards-container">
+        <div class="feed-card cat-biology" id="card-consensus" data-tier="consensus-core">
+          <span class="evidence-tier-badge tier-consensus-core" data-tier="consensus-core">Consensus Core</span>
+        </div>
+        <div class="feed-card cat-biology" id="card-frontier" data-tier="emerging-frontier">
+          <span class="evidence-tier-badge tier-emerging-frontier" data-tier="emerging-frontier">Emerging Frontier</span>
+        </div>
+      </div>
+      <div class="feed-toggle-container">
+        <button class="feed-toggle-btn active" data-filter="all">All</button>
+      </div>
+    `;
+    container.appendChild(testArea);
+
+    // Re-trigger DOMContentLoaded initialization
+    document.dispatchEvent(new window.Event("DOMContentLoaded"));
+
+    const tierSelect = document.getElementById("feed-tier-filter-select");
+    const cardConsensus = document.getElementById("card-consensus");
+    const cardFrontier = document.getElementById("card-frontier");
+
+    // Initially both should show
+    expect(cardConsensus.style.display).toBe("");
+    expect(cardFrontier.style.display).toBe("");
+
+    // Change dropdown selection to Consensus Core
+    tierSelect.value = "consensus-core";
+    tierSelect.dispatchEvent(new window.Event("change"));
+
+    expect(cardConsensus.style.display).toBe("");
+    expect(cardFrontier.style.display).toBe("none");
+
+    // Check screen reader announcer exists and has matching text
+    const announcer = document.getElementById("feed-announcer");
+    expect(announcer).not.toBeNull();
+    expect(announcer.textContent).toContain("Showing 1 articles");
+
+    // Reset dropdown selection to All
+    tierSelect.value = "all";
+    tierSelect.dispatchEvent(new window.Event("change"));
+
+    expect(cardConsensus.style.display).toBe("");
+    expect(cardFrontier.style.display).toBe("");
+    expect(announcer.textContent).toContain("Showing 2 articles");
+  });
+
+
   it("should handle proposal form submission and toggle '__other_option__' custom input", async () => {
     const container = document.querySelector(".content-container");
     const formDiv = document.createElement("div");

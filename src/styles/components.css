@@ -461,6 +461,45 @@ a.tag-pill:focus-visible {
   outline: none;
 }
 
+/* Static Evidence Level Tier Badges (Status Markers) */
+.evidence-tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0;
+  background: transparent;
+  border: none;
+  cursor: default;
+  height: auto;
+  line-height: 1;
+}
+
+.evidence-tier-badge .tier-icon {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+}
+
+/* Tier Colors (Text & Icon only, no bubble backgrounds) */
+.evidence-tier-badge.tier-consensus-core {
+  color: var(--tier-consensus-text);
+}
+
+.evidence-tier-badge.tier-emerging-frontier {
+  color: var(--tier-frontier-text);
+}
+
+.evidence-tier-badge.tier-exploratory-sandbox {
+  color: var(--tier-sandbox-text);
+}
+
+
+
 /* Color coordination for tags based on category */
 .cat-biology .tag-pill {
   background-color: oklch(0.55 0.18 250 / 0.08);
@@ -1196,6 +1235,25 @@ button.detail-grade-badge:hover {
   color: oklch(0.50 0.14 15);
   border: 1px solid oklch(0.60 0.16 15 / 0.25);
 }
+
+.detail-grade-badge.tier-consensus-core {
+  background-color: var(--tier-consensus-bg);
+  color: var(--tier-consensus-text);
+  border: 1px solid var(--tier-consensus-border);
+}
+
+.detail-grade-badge.tier-emerging-frontier {
+  background-color: var(--tier-frontier-bg);
+  color: var(--tier-frontier-text);
+  border: 1px solid var(--tier-frontier-border);
+}
+
+.detail-grade-badge.tier-exploratory-sandbox {
+  background-color: var(--tier-sandbox-bg);
+  color: var(--tier-sandbox-text);
+  border: 1px solid var(--tier-sandbox-border);
+}
+
 
 .grade-popover-card {
   position: absolute;
@@ -3576,23 +3634,45 @@ h4 .jargon-term:hover {
 
 /* Merged Backlog Cards inside main feed & category pages */
 .feed-card.pipeline-card-merged {
-  border: 1px solid var(--border-color) !important;
+  border: 1px dashed var(--border-color) !important;
   background-color: var(--sb-bg) !important;
   box-shadow: none !important;
   transform: none !important;
   cursor: default !important;
-  opacity: 1 !important;
-  transition: background-color var(--transition-fast), border-color var(--transition-fast) !important;
+  opacity: 0.80 !important;
+  transition: opacity var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast) !important;
 }
 
 .feed-card.pipeline-card-merged:hover {
   transform: none !important;
   box-shadow: none !important;
   border-color: var(--border-color) !important;
+  opacity: 0.95 !important;
+}
+
+.feed-card.pipeline-card-merged.cat-biology {
+  border-color: oklch(0.55 0.18 250 / 0.25) !important;
+}
+.feed-card.pipeline-card-merged.cat-biology:hover {
+  border-color: oklch(0.55 0.18 250 / 0.5) !important;
+}
+
+.feed-card.pipeline-card-merged.cat-lifestyle {
+  border-color: oklch(0.62 0.15 140 / 0.3) !important;
+}
+.feed-card.pipeline-card-merged.cat-lifestyle:hover {
+  border-color: oklch(0.50 0.12 140 / 0.6) !important;
+}
+
+.feed-card.pipeline-card-merged.cat-book {
+  border-color: oklch(0.70 0.16 75 / 0.3) !important;
+}
+.feed-card.pipeline-card-merged.cat-book:hover {
+  border-color: oklch(0.55 0.12 75 / 0.6) !important;
 }
 
 .feed-card.pipeline-card-merged .card-title-link {
-  color: var(--text-ink) !important;
+  color: var(--text-ink-muted) !important;
   font-family: var(--font-display) !important;
   font-size: 1.35rem !important;
   font-weight: 700 !important;
@@ -3601,8 +3681,8 @@ h4 .jargon-term:hover {
 }
 
 .feed-card.pipeline-card-merged .card-teaser-text {
-  color: var(--text-ink) !important;
-  opacity: 1 !important;
+  color: var(--text-ink-muted) !important;
+  opacity: 0.9 !important;
 }
 
 .feed-card.pipeline-card-merged .category-tag,
@@ -3644,6 +3724,22 @@ a.pipeline-badge-link:hover {
   background-color: var(--accent-book) !important;
   border-color: var(--accent-book) !important;
   color: var(--text-ink) !important;
+}
+
+/* Style the In the Pipeline status badge itself to be dashed and muted */
+.pipeline-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px dashed var(--border-color) !important;
+  background-color: transparent !important;
+  border-radius: 4px !important;
+  padding: 2px 6px !important;
+  font-size: 0.72rem !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  color: var(--text-ink-muted) !important;
+  text-decoration: none !important;
 }
 
 .feed-card.pipeline-card-merged .backlog-votes {

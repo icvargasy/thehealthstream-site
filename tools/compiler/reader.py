@@ -175,8 +175,8 @@ def load_and_validate_all_nodes(nodes_dir: str) -> List[Dict[str, Any]]:
 
 
 def validate_backlog_item(item_data: Dict[str, Any], item_id: str = "") -> None:
-    """Validates that a backlog item has all required fields including systems_analogy."""
-    required_keys = ["id", "title", "description", "category", "systems_analogy"]
+    """Validates that a backlog item has all required fields including systems_analogy and grade."""
+    required_keys = ["id", "title", "description", "category", "systems_analogy", "grade"]
     target_id = item_id or item_data.get("id", "unknown")
     for key in required_keys:
         if key not in item_data:
@@ -184,6 +184,13 @@ def validate_backlog_item(item_data: Dict[str, Any], item_id: str = "") -> None:
         val = item_data[key]
         if val is None or (isinstance(val, str) and not val.strip()):
             raise ValueError(f"Validation Error in Backlog Item '{target_id}': Empty required field '{key}'")
+
+    valid_grades = {"High", "Moderate", "Low", "Very Low"}
+    if item_data["grade"] not in valid_grades:
+        raise ValueError(
+            f"Validation Error in Backlog Item '{target_id}': Invalid grade '{item_data['grade']}'. Valid levels: {valid_grades}"
+        )
+
 
 
 def validate_vocabulary_item(item_data: Dict[str, Any], term: str) -> None:

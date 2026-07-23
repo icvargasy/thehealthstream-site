@@ -165,7 +165,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An imbalance or maladaptive alteration in the composition, diversity, or functional activity of the gastrointestinal **microbiota**, leading to mucosal barrier degradation and systemic inflammation."
+    "teaser": "An imbalance or maladaptive alteration in the composition, diversity, or functional activity of the gastrointestinal **microbiota**, leading to mucosal barrier degradation and systemic inflammation.",
+    "in_pipeline": true
   },
   {
     "title": "folate",
@@ -865,7 +866,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Magnetic Resonance Imaging; a non-invasive medical imaging technique that uses strong magnetic fields and radio waves to generate detailed structural scans of tissues and organs."
+    "teaser": "Magnetic Resonance Imaging; a non-invasive medical imaging technique that uses strong magnetic fields and radio waves to generate detailed structural scans of tissues and organs.",
+    "in_pipeline": true
   },
   {
     "title": "phosphatidylcholine",

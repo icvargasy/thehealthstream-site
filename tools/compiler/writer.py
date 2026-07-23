@@ -116,6 +116,70 @@ def compile_base_layout(
     return html
 
 
+def render_evidence_tier_badge(grade: str) -> str:
+    """Helper to render a static translated evidence level badge.
+
+    Maps GRADE to:
+    - High/Moderate -> Consensus Core (Tier 1)
+    - Low -> Emerging Frontier (Tier 2)
+    - Very Low -> Exploratory Sandbox (Tier 3)
+    """
+    grade_clean = (grade or "").strip().lower()
+
+    if grade_clean in ("high", "moderate"):
+        tier_slug = "consensus-core"
+        tier_label = "Consensus Core"
+        icon_svg = (
+            '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
+            '  <polyline points="20 6 9 17 4 12"></polyline>'
+            '</svg>'
+        )
+        title_text = "Consensus Core: High/moderate clinical evidence base"
+    elif grade_clean == "low":
+        tier_slug = "emerging-frontier"
+        tier_label = "Emerging Frontier"
+        icon_svg = (
+            '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+            '  <path d="M2 22h20M12 2v20M5 12h14"></path>'
+            '</svg>'
+        )
+        title_text = "Emerging Frontier: Emerging or early-stage physiological evidence"
+    else: # "very low"
+        tier_slug = "exploratory-sandbox"
+        tier_label = "Exploratory Sandbox"
+        icon_svg = (
+            '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+            '  <circle cx="12" cy="12" r="10"></circle>'
+            '  <line x1="12" y1="16" x2="12" y2="12"></line>'
+            '  <line x1="12" y1="8" x2="12.01" y2="8"></line>'
+            '</svg>'
+        )
+        title_text = "Exploratory Sandbox: Exploratory or hypothesis-driven concepts"
+
+    return (
+        f'<span class="evidence-tier-badge tier-{tier_slug}" data-tier="{tier_slug}" data-grade="{grade_clean}" title="{title_text}">'
+        f'  {icon_svg}<span>{tier_label}</span>'
+        f'</span>'
+    )
+
+
+def render_tier_filter_select() -> str:
+    """Renders the global evidence level filter select dropdown HTML."""
+    return (
+        f'<div class="feed-filter-dropdown-container" style="display: flex; align-items: center; gap: var(--space-1); margin-left: var(--space-2);">'
+        f'  <label for="feed-tier-filter-select" class="feed-sort-label">Evidence:</label>'
+        f'  <select id="feed-tier-filter-select" class="feed-sort-select" aria-label="Filter by Evidence Level">'
+        f'    <option value="all" selected>All Evidence Tiers</option>'
+        f'    <option value="consensus-core">Consensus Core (Tier 1)</option>'
+        f'    <option value="emerging-frontier">Emerging Frontier (Tier 2)</option>'
+        f'    <option value="exploratory-sandbox">Exploratory Sandbox (Tier 3)</option>'
+        f'  </select>'
+        f'</div>'
+    )
+
+
+
+
 def render_backlog_card(
     item: Dict[str, Any],
     translations: Dict[str, Any],
@@ -139,46 +203,25 @@ def render_backlog_card(
     cat = item.get("category", "")
     category_class = f"cat-{cat}" if cat else ""
     category_label = labels.get(f"category_{cat}", cat).upper()
-
     prefix = "../" if is_nested else ""
     category_url = f"{prefix}category-{cat}.html"
     backlog_url = f"{prefix}backlog.html"
 
-    tag_pills = []
-    for t in item.get("tags", []):
-        tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">{TAG_PILL_ICON_SVG}{t}</a>')
-    tags_html = f'<div class="card-tags">{" ".join(tag_pills)}</div>' if tag_pills else ""
+    created_at = item.get("created_at", "2026-06-15")
+    meta_dates_html = (
+        f'<div class="card-meta-dates">'
+        f'  <span>Proposed: {created_at}</span>'
+        f'</div>'
+    )
 
-    created_at = item.get("created_at", "2026-06-01")
-    meta_dates_html = f'<div class="card-meta-dates"><span>Proposed: {created_at}</span></div>'
-    footer_html = f'<div class="card-footer-row">{tags_html}{meta_dates_html}</div>'
-
-    desc = item["description"]
-    if vocabulary:
+    desc = item.get("description", "")
+    if vocabulary and desc:
         try:
             from compiler.linker import inject_jargon_links
         except ModuleNotFoundError:
             from tools.compiler.linker import inject_jargon_links
         desc = inject_jargon_links(desc, vocabulary)
     
-    takeaway = item.get("takeaway_pill", "")
-    if vocabulary and takeaway:
-        try:
-            from compiler.linker import inject_jargon_links
-        except ModuleNotFoundError:
-            from tools.compiler.linker import inject_jargon_links
-        takeaway = inject_jargon_links(takeaway, vocabulary)
-
-    takeaway_html = ""
-    if takeaway:
-        mech_label = get_category_mechanism_label(cat)
-        takeaway_html = (
-            f'<div class="card-takeaway-hook" style="margin-top: 6px;">'
-            f'  <span class="takeaway-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label}:</strong></span> '
-            f'  <span class="takeaway-text">{takeaway}</span>'
-            f'</div>'
-        )
-
     tag_name = "li" if as_list_item else "div"
     card_class = f"backlog-item backlog-card-compact {category_class}" if as_list_item else f"feed-card pipeline-card-merged {category_class}"
     
@@ -195,6 +238,11 @@ def render_backlog_card(
         f'  {git_branch_svg}In the Pipeline'
         f'</a>'
     )
+
+    grade = item.get("grade", "Very Low")
+    grade_clean = grade.strip().lower()
+    evidence_badge_html = render_evidence_tier_badge(grade)
+    tier_slug = "consensus-core" if grade_clean in ("high", "moderate") else ("emerging-frontier" if grade_clean == "low" else "exploratory-sandbox")
 
     analogy = item.get("systems_analogy", "")
     if vocabulary and analogy:
@@ -213,16 +261,23 @@ def render_backlog_card(
             f'</div>'
         )
 
+    tag_pills = []
+    for t in item.get("tags", []):
+        tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">{TAG_PILL_ICON_SVG}{t}</a>')
+    tags_html = f'<div class="card-tags">{" ".join(tag_pills)}</div>' if tag_pills else ""
+    footer_html = f'<div class="card-footer-row">{tags_html}{meta_dates_html}</div>'
+
     card_html = (
-        f'<{tag_name} id="{item["id"]}" class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}">'
+        f'<{tag_name} id="{item["id"]}" class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}" data-grade="{grade_clean}" data-tier="{tier_slug}">'
         f'  <div class="feed-card-header">'
         f'    <div class="feed-card-title-group">'
         f'      <h2 class="card-title">'
         f'        <span class="card-title-link">{item["title"]}</span>'
         f'      </h2>'
-        f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px;">'
+        f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px; flex-wrap: wrap;">'
         f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
         f'        {pipeline_badge_html}'
+        f'        {evidence_badge_html}'
         f'      </div>'
         f'    </div>'
         f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic">'
@@ -297,15 +352,21 @@ def render_article_card(
             f'</div>'
         )
 
+    grade = node.get("epistemic_rating", {}).get("grade", "Very Low")
+    grade_clean = grade.strip().lower()
+    evidence_badge_html = render_evidence_tier_badge(grade)
+    tier_slug = "consensus-core" if grade_clean in ("high", "moderate") else ("emerging-frontier" if grade_clean == "low" else "exploratory-sandbox")
+
     card_html = (
-        f'<div class="feed-card cat-{cat}" data-created="{created_at}" data-title="{node["title"]}" data-category="{cat}">'
+        f'<div class="feed-card cat-{cat}" data-created="{created_at}" data-title="{node["title"]}" data-category="{cat}" data-grade="{grade_clean}" data-tier="{tier_slug}">'
         f'  <div class="feed-card-header">'
         f'    <div class="feed-card-title-group">'
         f'      <h2 class="card-title">'
         f'        <a href="{article_url}" class="card-title-link">{node["title"]}</a>'
         f'      </h2>'
-        f'      <div style="display: flex; gap: var(--space-2); align-items: center;">'
+        f'      <div style="display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;">'
         f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
+        f'        {evidence_badge_html}'
         f'      </div>'
         f'    </div>'
         f'    <a href="{article_url}" class="read-article-btn">'
@@ -319,6 +380,7 @@ def render_article_card(
         f'  {footer_html}'
         f'</div>'
     )
+
     return card_html
 
 
@@ -444,15 +506,21 @@ def compile_category_page(
         f'  <div class="page-intro-row">'
         f'    <h1 class="page-title">{category_icon}<span>{category_label}</span></h1>'
         f'    <div class="feed-sort-container">'
-        f'      <label for="feed-sort-select">Sort by:</label>'
-        f'      <select id="feed-sort-select" class="feed-sort-select">'
-        f'        <option value="newest" selected>Newest First</option>'
-        f'        <option value="oldest">Oldest First</option>'
-        f'        <option value="alpha-asc">Alphabetical (A-Z)</option>'
-        f'        <option value="alpha-desc">Alphabetical (Z-A)</option>'
-        f'      </select>'
+        f'      <div style="display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;">'
+        f'        <div style="display: flex; align-items: center; gap: var(--space-1);">'
+        f'          <label for="feed-sort-select">Sort by:</label>'
+        f'          <select id="feed-sort-select" class="feed-sort-select">'
+        f'            <option value="newest" selected>Newest First</option>'
+        f'            <option value="oldest">Oldest First</option>'
+        f'            <option value="alpha-asc">Alphabetical (A-Z)</option>'
+        f'            <option value="alpha-desc">Alphabetical (Z-A)</option>'
+        f'          </select>'
+        f'        </div>'
+        f'        {render_tier_filter_select()}'
+        f'      </div>'
         f'    </div>'
         f'  </div>'
+
         f'  {toggle_row_html}'
         f'</header>'
         f'<div class="feed-cards" id="feed-cards-container">{" ".join(rendered_cards)}{empty_note}</div>'
@@ -530,15 +598,21 @@ def compile_feed_page(
         f'  <div class="page-intro-row">'
         f'    <h1 class="page-title">{compass_svg}<span>{labels.get("nav_home", "Explore")}</span></h1>'
         f'    <div class="feed-sort-container">'
-        f'      <label for="feed-sort-select">Sort by:</label>'
-        f'      <select id="feed-sort-select" class="feed-sort-select">'
-        f'        <option value="newest" selected>Newest First</option>'
-        f'        <option value="oldest">Oldest First</option>'
-        f'        <option value="alpha-asc">Alphabetical (A-Z)</option>'
-        f'        <option value="alpha-desc">Alphabetical (Z-A)</option>'
-        f'      </select>'
+        f'      <div style="display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;">'
+        f'        <div style="display: flex; align-items: center; gap: var(--space-1);">'
+        f'          <label for="feed-sort-select">Sort by:</label>'
+        f'          <select id="feed-sort-select" class="feed-sort-select">'
+        f'            <option value="newest" selected>Newest First</option>'
+        f'            <option value="oldest">Oldest First</option>'
+        f'            <option value="alpha-asc">Alphabetical (A-Z)</option>'
+        f'            <option value="alpha-desc">Alphabetical (Z-A)</option>'
+        f'          </select>'
+        f'        </div>'
+        f'        {render_tier_filter_select()}'
+        f'      </div>'
         f'    </div>'
         f'  </div>'
+
         f'  <p class="feed-tagline">{labels.get("site_tagline", "Systems Biology Content Hub")}</p>'
         f'  {toggle_row_html}'
         f'</header>'
@@ -691,24 +765,37 @@ def compile_detail_page(
     if er.get("debate_sides"):
         debate_link_html = f' <a href="#evidence-section" class="popover-debate-link">debates</a>'
 
+    if grade_lower in ("high", "moderate"):
+        tier_label = "Consensus Core"
+        tier_slug = "consensus-core"
+        tier_desc = "Established clinical consensus backed by human RCTs and validated molecular mechanisms."
+    elif grade_lower == "low":
+        tier_label = "Emerging Frontier"
+        tier_slug = "emerging-frontier"
+        tier_desc = "Promising cellular pathways and pre-clinical models awaiting large-scale human efficacy trials."
+    else:
+        tier_label = "Exploratory Sandbox"
+        tier_slug = "exploratory-sandbox"
+        tier_desc = "Consumer biofeedback and behavioral awareness tools. Valued for self-experimentation rather than clinical endpoint outcomes."
+
     grade_popover_html = (
         f'<div class="detail-grade-container">'
-        f'  <span class="detail-grade-label">Evidence Grade:</span>'
-        f'  <button class="detail-grade-badge grade-{grade_lower}" id="grade-trigger" aria-haspopup="true" aria-controls="grade-popover" aria-expanded="false">'
-        f'    {grade}'
+        f'  <span class="detail-grade-label">Evidence Level:</span>'
+        f'  <button class="detail-grade-badge tier-{tier_slug}" id="grade-trigger" aria-haspopup="true" aria-controls="grade-popover" aria-expanded="false">'
+        f'    {tier_label}'
         f'    <svg class="info-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
         f'      <circle cx="12" cy="12" r="10"></circle>'
         f'      <line x1="12" y1="16" x2="12" y2="12"></line>'
         f'      <line x1="12" y1="8" x2="12.01" y2="8"></line>'
         f'    </svg>'
         f'  </button>'
-        f'  <div class="grade-popover-card" id="grade-popover" role="dialog" aria-label="Evidence Grade Details">'
+        f'  <div class="grade-popover-card" id="grade-popover" role="dialog" aria-label="Evidence Level Details">'
         f'    <div class="grade-popover-header">'
-        f'      <strong>Evidence Grade: {grade}</strong>'
+        f'      <strong>{tier_label} (GRADE: {grade})</strong>'
         f'      <button class="grade-popover-close" aria-label="Close details">&times;</button>'
         f'    </div>'
         f'    <p class="grade-popover-note">'
-        f'      The GRADE system is a standardized framework for rating the quality of scientific evidence from High to Very Low.{debate_link_html}'
+        f'      {tier_desc}{debate_link_html}'
         f'      <a href="#evidence-section" class="popover-more-link">more...</a>'
         f'    </p>'
         f'    <div class="grade-popover-links">'
@@ -717,6 +804,7 @@ def compile_detail_page(
         f'  </div>'
         f'</div>'
     )
+
 
     # 3. Compile markdown content for Tabbed Reading Pane
     overview_html = markdown.markdown(node["reading_modes"]["overview_3min"])
@@ -756,8 +844,9 @@ def compile_detail_page(
         f'<div class="evidence-grade-details-card grade-{grade_lower}" style="margin-top: var(--space-3); margin-bottom: var(--space-4);">'
         f'  <div class="evidence-grade-details-header" style="display: flex; align-items: center; justify-content: space-between; padding-top: var(--space-2); padding-bottom: var(--space-2); border-bottom: none;">'
         f'    <strong style="font-family: var(--font-body); font-weight: 700; font-size: 1.05rem; color: var(--text-ink);">GRADE Evidence Rating</strong>'
-        f'    <span class="detail-grade-badge grade-{grade_lower}">{grade}</span>'
+        f'    <span class="detail-grade-badge grade-{grade_lower}">{grade} — {tier_label}</span>'
         f'  </div>'
+
         f'  <div class="evidence-grade-note" style="margin-top: var(--space-1); margin-bottom: var(--space-3); font-size: 0.8rem; color: var(--text-ink-muted); line-height: 1.4;">'
         f'    The GRADE (Grading of Recommendations, Assessment, Development, and Evaluation) system is a standardized framework for rating the quality of scientific evidence. Ratings scale from High to Very Low quality.'
         f'  </div>'
@@ -1545,15 +1634,21 @@ def compile_tag_page(
     # Sorting dropdown
     sort_dropdown_html = (
         f'<div class="feed-sort-container">'
-        f'  <label for="feed-sort-select">Sort by:</label>'
-        f'  <select id="feed-sort-select" class="feed-sort-select">'
-        f'    <option value="newest" selected>Newest First</option>'
-        f'    <option value="oldest">Oldest First</option>'
-        f'    <option value="alpha-asc">Alphabetical (A-Z)</option>'
-        f'    <option value="alpha-desc">Alphabetical (Z-A)</option>'
-        f'  </select>'
+        f'  <div style="display: flex; align-items: center; gap: var(--space-2); flex-wrap: wrap;">'
+        f'    <div style="display: flex; align-items: center; gap: var(--space-1);">'
+        f'      <label for="feed-sort-select">Sort by:</label>'
+        f'      <select id="feed-sort-select" class="feed-sort-select">'
+        f'        <option value="newest" selected>Newest First</option>'
+        f'        <option value="oldest">Oldest First</option>'
+        f'        <option value="alpha-asc">Alphabetical (A-Z)</option>'
+        f'        <option value="alpha-desc">Alphabetical (Z-A)</option>'
+        f'      </select>'
+        f'    </div>'
+        f'    {render_tier_filter_select()}'
+        f'  </div>'
         f'</div>'
     )
+
 
     tag_icon = get_tag_icon_svg(tag)
     page_html = (

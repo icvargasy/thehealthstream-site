@@ -143,6 +143,11 @@ def run_build() -> None:
         for item in backlog:
             validate_backlog_item(item, item.get("id", ""))
 
+        # Database Mutation Policy size validation check (fails compile if database shrinks)
+        if len(backlog) < 28:
+            raise ValueError(f"Build Error: Backlog registry has shrunk to {len(backlog)} records! Expected at least 28.")
+
+
         print("Reading jargon vocabulary...")
         vocabulary = load_json_file(vocabulary_path)
 
