@@ -9,7 +9,7 @@
   border-right: 1px solid var(--sb-border);
   padding: 0 12px;
   flex-shrink: 0;
-  transition: width var(--transition-normal), background-color var(--transition-normal), border-right-color var(--transition-normal), padding var(--transition-normal);
+  transition: background-color var(--transition-normal), border-right-color var(--transition-normal);
 }
 
 body.left-collapsed .header-brand-container {
@@ -973,7 +973,6 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   width: 100%;
   margin: 0 var(--space-4);
   z-index: 250;
-  transition: width var(--transition-normal);
 }
 
 .search-input-wrapper {
@@ -2691,20 +2690,36 @@ a.pipeline-badge:hover {
 }
 
 .detail-hero-analogy-box {
-  background-color: oklch(0.60 0.18 18 / 0.06);
-  border-left: 3px solid var(--accent-synapse);
+  background-color: var(--selected-bg);
+  border: 1px solid var(--selected-border);
   padding: 10px 14px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-button);
   margin-top: 10px;
   margin-bottom: 10px;
 }
 
 .detail-hero-clinical-box {
-  background-color: oklch(0.55 0.18 250 / 0.06);
-  border-left: 3px solid var(--accent-biology);
+  background-color: var(--cat-biology-bg);
+  border: 1px solid var(--cat-biology-border);
   padding: 10px 14px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-button);
   margin-top: 10px;
+}
+
+.article-detail.cat-lifestyle .detail-hero-clinical-box {
+  background-color: var(--cat-lifestyle-bg);
+  border-color: var(--cat-lifestyle-border);
+}
+.article-detail.cat-lifestyle .detail-hero-clinical-box .hero-badge-label {
+  color: var(--accent-lifestyle);
+}
+
+.article-detail.cat-book .detail-hero-clinical-box {
+  background-color: var(--cat-book-bg);
+  border-color: var(--cat-book-border);
+}
+.article-detail.cat-book .detail-hero-clinical-box .hero-badge-label {
+  color: var(--accent-book);
 }
 
 .hero-badge-label {
@@ -2963,8 +2978,8 @@ a.pipeline-badge:hover {
 
 .bib-item:target {
   background-color: var(--selected-bg);
-  border-left: 3px solid var(--accent-synapse);
-  padding-left: var(--space-2);
+  border: 1px solid var(--selected-border);
+  padding: var(--space-2);
   border-radius: var(--radius-button);
   transition: background-color var(--transition-normal);
 }

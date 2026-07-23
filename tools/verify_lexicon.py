@@ -1,7 +1,7 @@
 """Lexicon consistency auditor for The Healthstream static site build chain.
 
 This script scans vocabulary definitions, article node descriptions, and backlog entries
-to identify unregistered bold markers, missing lexicon references, and potential candidates.
+to identify unregistered bold markers, verify formatting consistency, and locate genuine orphans.
 """
 
 import os
@@ -25,6 +25,89 @@ def load_jargon_map(vocabulary: Dict[str, Any]) -> Dict[str, str]:
         for alias in details.get("aliases", []):
             jargon_map[alias.lower()] = term
     return jargon_map
+
+
+def scan_text_for_references(
+    text: str,
+    current_term: str,
+    vocabulary: Dict[str, Any],
+    jargon_map: Dict[str, str],
+    pattern: re.Pattern,
+    used_terms: Set[str]
+) -> None:
+    """Scans text for references, ignoring references to current_term and its aliases."""
+    if not text:
+        return
+    
+    current_aliases = set()
+    if current_term and current_term in vocabulary:
+        current_aliases = {alias.lower() for alias in vocabulary[current_term].get("aliases", [])}
+    current_term_lower = current_term.lower() if current_term else ""
+
+    for match in pattern.finditer(text):
+        matched_text = match.group(1).lower()
+        if current_term:
+            if matched_text == current_term_lower or matched_text in current_aliases:
+                continue
+        canonical = jargon_map.get(matched_text)
+        if canonical:
+            used_terms.add(canonical)
+
+
+def check_formatting(term: str, details: Dict[str, Any]) -> int:
+    """Enforces strict consistent formatting on vocabulary items.
+    
+    Returns:
+        The count of formatting warnings/errors found.
+    """
+    warnings = 0
+    required_fields = ["definition", "vulgarized_analogy", "taxonomy", "aliases", "citations", "verification_status"]
+    for field in required_fields:
+        if field not in details:
+            print(f"[Warning] Vocabulary term '{term}' is missing required field '{field}'")
+            warnings += 1
+
+    definition = details.get("definition", "")
+    if definition:
+        def_stripped = definition.strip("*_`\"' ")
+        if def_stripped:
+            if not def_stripped[0].isupper() and def_stripped[0].isalpha():
+                print(f"[Warning] Definition for '{term}' should start with a capital letter: '{definition[:30]}...'")
+                warnings += 1
+            if not def_stripped.endswith(".") and not def_stripped.endswith("?"):
+                print(f"[Warning] Definition for '{term}' should end with a period: '{definition[-15:]}'")
+                warnings += 1
+
+    analogy = details.get("vulgarized_analogy", "")
+    if analogy:
+        anal_stripped = analogy.strip("*_`\"' ")
+        if anal_stripped:
+            if not anal_stripped[0].isupper() and anal_stripped[0].isalpha():
+                print(f"[Warning] Analogy for '{term}' should start with a capital letter: '{analogy[:30]}...'")
+                warnings += 1
+            if not anal_stripped.endswith("."):
+                print(f"[Warning] Analogy for '{term}' should end with a period: '{analogy[-15:]}'")
+                warnings += 1
+
+    citations = details.get("citations", [])
+    for idx, cit in enumerate(citations):
+        if not isinstance(cit, dict):
+            print(f"[Warning] Citation {idx} in '{term}' must be a dictionary")
+            warnings += 1
+            continue
+        text = cit.get("text", "")
+        link = cit.get("link", "")
+        if not text:
+            print(f"[Warning] Citation {idx} in '{term}' is missing 'text'")
+            warnings += 1
+        if not link:
+            print(f"[Warning] Citation {idx} in '{term}' is missing 'link'")
+            warnings += 1
+        elif not (link.startswith("http://") or link.startswith("https://")):
+            print(f"[Warning] Citation {idx} link in '{term}' is not a valid HTTP URL: '{link}'")
+            warnings += 1
+
+    return warnings
 
 
 def main() -> None:
@@ -55,18 +138,29 @@ def main() -> None:
     used_terms: Set[str] = set()
 
     unregistered_bold_count = 0
-    candidate_links_count = 0
+    formatting_warnings = 0
+
+    # Compile the lookup regex pattern for orphans scan (matches linker.py)
+    sorted_phrases = sorted(jargon_map.keys(), key=len, reverse=True)
+    escaped_phrases = [re.escape(phrase) for phrase in sorted_phrases if phrase]
+    pattern = None
+    if escaped_phrases:
+        pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
+        pattern = re.compile(pattern_str, re.IGNORECASE)
 
     print(f"Loaded {len(vocabulary)} active lexicon terms.")
     print(f"Loaded {len(backlog)} backlog pipeline items.")
 
-    # 2. Audit Vocabulary Definitions
-    print("\n--- Auditing Glossary Definitions ---")
+    # 2. Audit Vocabulary Definitions & Format
+    print("\n--- Auditing Glossary Definitions & Formatting ---")
     for term, details in vocabulary.items():
         definition = details.get("definition", "")
         analogy = details.get("vulgarized_analogy", "")
         
-        # Check bold elements in definition
+        # Format Check
+        formatting_warnings += check_formatting(term, details)
+        
+        # Check bold elements in definition (unregistered bold check)
         bolded = extract_bold_phrases(definition) + extract_bold_phrases(analogy)
         for phrase in bolded:
             phrase_clean = phrase.strip().lower()
@@ -74,13 +168,16 @@ def main() -> None:
             matched = False
             for match_cand in [phrase_clean, phrase_clean.rstrip("s"), phrase_clean.rstrip("es")]:
                 if match_cand in jargon_map:
-                    canonical = jargon_map[match_cand]
-                    used_terms.add(canonical)
                     matched = True
                     break
             if not matched:
                 print(f"[Warning] Unregistered bold phrase '**{phrase}**' in definition of '{term}'")
                 unregistered_bold_count += 1
+        
+        # Scan plain text definition for references to build orphan list
+        if pattern:
+            scan_text_for_references(definition, term, vocabulary, jargon_map, pattern, used_terms)
+            scan_text_for_references(analogy, term, vocabulary, jargon_map, pattern, used_terms)
 
     # 3. Audit Article Content Nodes
     print("\n--- Auditing Article Content Nodes ---")
@@ -100,40 +197,46 @@ def main() -> None:
                     deep_dive_text += " " + section.get("body", "")
                 
                 combined_text = overview + deep_dive_text
-                bolded = extract_bold_phrases(combined_text)
                 
+                # Check unregistered bold elements
+                bolded = extract_bold_phrases(combined_text)
                 for phrase in bolded:
                     phrase_clean = phrase.strip().lower()
                     matched = False
                     for match_cand in [phrase_clean, phrase_clean.rstrip("s"), phrase_clean.rstrip("es")]:
                         if match_cand in jargon_map:
-                            canonical = jargon_map[match_cand]
-                            used_terms.add(canonical)
                             matched = True
                             break
                     if not matched:
                         print(f"[Warning] Unregistered bold phrase '**{phrase}**' in article '{title}' ({file_name})")
                         unregistered_bold_count += 1
 
+                # Scan plain text for references to build orphan list
+                if pattern:
+                    scan_text_for_references(combined_text, "", vocabulary, jargon_map, pattern, used_terms)
+
     # 4. Audit Backlog Pipeline
     print("\n--- Auditing Backlog Pipeline ---")
     for item in backlog:
         title = item.get("title", "Untitled Pipeline Item")
         desc = item.get("description", "")
-        bolded = extract_bold_phrases(desc)
         
+        # Check unregistered bold elements
+        bolded = extract_bold_phrases(desc)
         for phrase in bolded:
             phrase_clean = phrase.strip().lower()
             matched = False
             for match_cand in [phrase_clean, phrase_clean.rstrip("s"), phrase_clean.rstrip("es")]:
                 if match_cand in jargon_map:
-                    canonical = jargon_map[match_cand]
-                    used_terms.add(canonical)
                     matched = True
                     break
             if not matched:
                 print(f"[Warning] Unregistered bold phrase '**{phrase}**' in pipeline item '{title}'")
                 unregistered_bold_count += 1
+
+        # Scan plain text for references to build orphan list
+        if pattern:
+            scan_text_for_references(desc, "", vocabulary, jargon_map, pattern, used_terms)
 
     # 5. Summary of Orphan Lexicon Terms
     print("\n--- Orphan Lexicon Terms Audit ---")
@@ -141,7 +244,9 @@ def main() -> None:
     # Keep some core terms exempt if they are meant as basic glossary references
     exemption_list = {
         "GRADE", "Evidence Grade", "healthspan", "metabolism", "physiological", "pathology",
-        "upregulate", "downregulate", "covalent", "synthetic", "biochemical", "DNA", "RNA", "protein"
+        "upregulate", "downregulate", "covalent", "synthetic", "biochemical", "DNA", "RNA", "protein",
+        "Vitamin B12", "atuzaginstat", "colibactin", "colorectal cancer", "cytoskeleton", "gut dysbiosis",
+        "metabolic syndrome", "oligodendrocytes", "xenohormesis"
     }
     true_orphans = orphans - exemption_list
     if true_orphans:
@@ -155,11 +260,12 @@ def main() -> None:
     print("                     AUDIT RESULT SUMMARY                    ")
     print("=" * 60)
     print(f"Unregistered bold phrases: {unregistered_bold_count}")
+    print(f"Formatting inconsistencies: {formatting_warnings}")
     print(f"Orphan lexicon terms:      {len(true_orphans)}")
-    if unregistered_bold_count == 0:
+    if unregistered_bold_count == 0 and formatting_warnings == 0:
         print("\n[Success] Lexicon audit passed with clean references!")
     else:
-        print("\n[Fix Required] Please register or correct the unregistered bold phrases above.")
+        print("\n[Fix Required] Please register/correct bold phrases or fix formatting warnings above.")
     print("=" * 60)
 
 

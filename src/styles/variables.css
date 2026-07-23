@@ -17,7 +17,7 @@
   --font-system: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-size-h1: clamp(1.9rem, 3.2vw, 2.5rem);
   --font-size-h2: clamp(1.35rem, 2.3vw, 1.8rem);
-  --font-size-h3: 1.25rem;
+  --font-size-h3: 1.35rem;
   --font-size-body: 1rem;
   --font-size-label: 0.75rem;
 

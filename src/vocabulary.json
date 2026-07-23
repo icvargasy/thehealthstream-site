@@ -586,7 +586,7 @@
     "verification_status": "verified_human"
   },
   "Nrf2": {
-    "definition": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**.",
+    "definition": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **gene expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**.",
     "vulgarized_analogy": "The master coordinator of emergency response protocols that runs diagnostics and activates anti-corrosion defense shields.",
     "taxonomy": "protein",
     "aliases": [
@@ -767,7 +767,7 @@
     "verification_status": "verified_human"
   },
   "upregulate": {
-    "definition": "The process by which a cell increases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals.",
+    "definition": "The process by which a cell increases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals.",
     "vulgarized_analogy": "Throttle acceleration; boosting the frequency and throughput of a specific system task.",
     "taxonomy": "process",
     "aliases": [
@@ -786,7 +786,7 @@
     "verification_status": "verified_human"
   },
   "downregulate": {
-    "definition": "The process by which a cell decreases the response, rate, or **expression** of a **gene**, **protein**, or metabolic **pathway**.",
+    "definition": "The process by which a cell decreases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway**.",
     "vulgarized_analogy": "Throttling down; applying the brakes or reducing task priority to conserve system resources.",
     "taxonomy": "process",
     "aliases": [
@@ -2120,6 +2120,24 @@
         "link": "https://www.nature.com/articles/s41598-026-52475-x",
         "defining_quote": "Stroke volume expansion during maximal exertion remains a central determinant of sustained aerobic capacity across aging.",
         "quote_page": "Discussion"
+      }
+    ],
+    "verification_status": "ai_generated"
+  },
+  "mitochondria": {
+    "definition": "Double-membrane-bound organelles found in most eukaryotic organisms, responsible for generating adenosine triphosphate (**ATP**), which serves as a source of chemical energy.",
+    "vulgarized_analogy": "The cell's local power stations combusting fuel sources to produce standardized energy charge packs.",
+    "taxonomy": "molecule",
+    "aliases": [
+      "mitochondrion",
+      "mitochondrial"
+    ],
+    "citations": [
+      {
+        "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
+        "link": "https://www.macmillanlearning.com/college/us/product/Lehninger-Principles-of-Biochemistry/p/1319228003",
+        "defining_quote": "Mitochondria are the primary site of ATP synthesis in eukaryotic cells, coupling respiration to phosphorylation.",
+        "quote_page": "Chapter 19"
       }
     ],
     "verification_status": "ai_generated"
