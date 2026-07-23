@@ -1980,6 +1980,10 @@ def copy_static_assets(output_dir: str) -> None:
     if os.path.exists("assets"):
         shutil.copytree("assets", assets_dest)
 
+    # 5. Copy CNAME for GitHub Pages custom domain
+    if os.path.exists("CNAME"):
+        shutil.copy2("CNAME", os.path.join(output_dir, "CNAME"))
+
 
 def generate_sitemap(
     output_dir: str,
