@@ -272,53 +272,70 @@ body.left-collapsed .header-brand-container {
   border-color: var(--accent-synapse);
 }
 
-.guide-banner-content {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  gap: var(--space-4);
+.guide-token-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-1);
 }
 
-.guide-banner-item {
-  flex: 1;
+.guide-token-panel {
+  background-color: var(--bg-paper);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-button);
+  padding: var(--space-3);
   display: flex;
-  align-items: flex-start;
+  flex-direction: column;
   gap: var(--space-2);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02);
 }
 
-.guide-banner-icon {
-  font-size: 1.5rem;
-  line-height: 1;
+.guide-token-panel.panel-summaries {
+  border-left: 3px solid var(--category-biology);
 }
 
-.guide-banner-text {
-  font-size: 0.9rem;
-  color: var(--text-ink);
-  line-height: 1.5;
+.guide-token-panel.panel-pipeline {
+  border-left: 3px solid var(--category-lifestyle);
 }
 
-.guide-banner-text strong {
+.guide-token-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.guide-token-badge {
+  font-size: 0.72rem !important;
+  margin: 0 !important;
+}
+
+.guide-token-btn {
+  font-size: 0.72rem !important;
+  padding: 3px 8px !important;
+  flex-shrink: 0;
+}
+
+.guide-token-text {
+  font-size: 0.85rem;
+  color: var(--text-ink-muted);
+  margin: 0;
+  line-height: 1.4;
+}
+
+.guide-token-text strong {
   color: var(--text-ink);
   font-weight: 700;
-}
-
-.guide-banner-divider {
-  width: 1px;
-  background-color: var(--border-color);
-  align-self: stretch;
 }
 
 @media (max-width: 768px) {
   .visitor-guide-banner {
     padding: var(--space-3);
   }
-  .guide-banner-content {
-    flex-direction: column;
-    gap: var(--space-3);
-  }
-  .guide-banner-divider {
-    height: 1px;
-    width: 100%;
+  .guide-token-grid {
+    grid-template-columns: 1fr;
+    gap: var(--space-2);
   }
 }
 /* Legacy vote-btn styles removed */
