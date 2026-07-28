@@ -336,14 +336,14 @@ body.left-collapsed .header-brand-container {
 .guide-mock-card.mock-pipeline {
   background-color: var(--bg-surface-alt);
   border: 1px dashed #cbd5e1;
-  border-left: 5px dashed #64748b;
+  border-left: 4px dashed #64748b;
 }
 
 /* Summary Decoding Mock: Clean Background & Solid Border */
 .guide-mock-card.mock-summary {
   background-color: var(--bg-paper);
   border: 1px solid #cbd5e1;
-  border-left: 5px solid #334155;
+  border-left: 4px solid #334155;
 }
 
 .guide-mock-top-row {
