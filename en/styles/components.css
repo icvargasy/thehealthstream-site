@@ -224,85 +224,17 @@ body.left-collapsed .header-brand-container {
   cursor: default;
 }
 
-/* Visitor Onboarding Hero Card */
-.visitor-onboarding-card {
-  background-color: var(--bg-surface-alt);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-card);
-  padding: var(--space-4);
-  margin-bottom: var(--space-4);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+/* Interactive Sample Decoding Card #0 */
+.feed-card.sample-decoding-card {
+  border: 1px dashed var(--accent-synapse);
+  background-color: var(--bg-paper);
+  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.04);
 }
 
-.onboarding-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: var(--space-2);
-}
-
-.onboarding-badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: var(--accent-synapse);
-}
-
-.onboarding-heading {
-  font-family: var(--font-display);
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin: 2px 0 0 0;
-  color: var(--text-ink);
-}
-
-.onboarding-close-btn {
-  background: none;
-  border: 1px solid transparent;
-  font-size: 1.4rem;
-  color: var(--text-ink-muted);
-  cursor: pointer;
-  padding: 2px 8px;
-  border-radius: var(--radius-button);
-  line-height: 1;
-  transition: background-color var(--transition-fast);
-}
-
-.onboarding-close-btn:hover {
-  background-color: var(--border-color);
-  color: var(--text-ink);
-}
-
-.onboarding-intro {
-  font-size: 0.92rem;
-  color: var(--text-ink-muted);
-  margin: 0;
-  line-height: 1.5;
-}
-
-.onboarding-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-3);
-  margin-top: var(--space-1);
-}
-
-.onboarding-item {
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-  font-size: 0.85rem;
-  color: var(--text-ink);
-  line-height: 1.4;
-}
-
-.onboarding-icon {
-  font-size: 1.1rem;
-  flex-shrink: 0;
+.dismiss-sample-card-btn:hover {
+  background-color: var(--accent-synapse);
+  color: white;
+  border-color: var(--accent-synapse);
 }
 /* Legacy vote-btn styles removed */
 
