@@ -294,20 +294,16 @@ body.left-collapsed .header-brand-container {
   border: 1px solid var(--border-color);
   border-radius: var(--radius-button);
   padding: 8px 12px;
-  line-height: 1.45;
+  line-height: 1.42;
   flex-shrink: 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 4px;
 }
 
-.intro-step-badge {
+.intro-title-badge {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   color: var(--accent-synapse);
   white-space: nowrap;
-  flex-shrink: 0;
 }
 
 .guide-intro-icon-svg {
@@ -349,7 +345,7 @@ body.left-collapsed .header-brand-container {
 
 .guide-mock-title {
   font-family: var(--font-display);
-  font-size: 0.92rem;
+  font-size: 0.90rem;
   font-weight: 700;
   color: #1e293b;
   margin: 0;
@@ -359,13 +355,13 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-mock-btn {
-  font-size: 0.72rem;
+  font-size: 0.70rem;
   font-weight: 700;
   color: #475569;
   background-color: #f1f5f9;
   border: 1px solid #cbd5e1;
   border-radius: var(--radius-pill);
-  padding: 3px 9px;
+  padding: 2px 8px;
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -373,43 +369,46 @@ body.left-collapsed .header-brand-container {
 .guide-mock-tag-row {
   display: flex;
   align-items: center;
-  gap: 5px;
-  flex-wrap: wrap;
+  gap: 4px;
+  flex-wrap: nowrap;
 }
 
 .guide-mock-tag {
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
   color: #475569;
   background-color: #e2e8f0;
-  padding: 2px 5px;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
+  padding: 1.5px 4px;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 .guide-mock-pipeline-badge {
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
   color: #64748b;
   background-color: #f1f5f9;
   border: 1px dashed #94a3b8;
-  padding: 2px 5px;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
+  padding: 1.5px 4px;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
   display: inline-flex;
   align-items: center;
-  gap: 3px;
+  gap: 2px;
+  white-space: nowrap;
 }
 
 .guide-mock-badge {
-  font-size: 0.62rem;
+  font-size: 0.58rem;
   font-weight: 700;
   color: #475569;
   background-color: #e2e8f0;
   border: 1px solid #cbd5e1;
-  padding: 2px 5px;
-  border-radius: 4px;
-  letter-spacing: 0.04em;
+  padding: 1.5px 4px;
+  border-radius: 3px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
 }
 
 .guide-mock-analogy.unshaded-analogy {

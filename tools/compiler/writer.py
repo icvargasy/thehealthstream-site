@@ -539,7 +539,7 @@ def compile_category_page(
 def render_interactive_sample_card() -> str:
     """Renders a neutral slate-gray visitor guide legend with equal height mock cards at the top of index.html."""
     pipeline_step_icon = (
-        '<svg class="guide-intro-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+        '<svg class="guide-intro-icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
         '  <line x1="6" y1="3" x2="6" y2="15"></line>'
         '  <circle cx="18" cy="6" r="3"></circle>'
         '  <circle cx="6" cy="18" r="3"></circle>'
@@ -547,9 +547,11 @@ def render_interactive_sample_card() -> str:
         '</svg>'
     )
     summary_step_icon = (
-        '<svg class="guide-intro-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-        '  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>'
-        '  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>'
+        '<svg class="guide-intro-icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        '  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>'
+        '  <polyline points="14 2 14 8 20 8"></polyline>'
+        '  <line x1="16" y1="13" x2="8" y2="13"></line>'
+        '  <line x1="16" y1="17" x2="8" y2="17"></line>'
         '</svg>'
     )
     git_branch_badge_svg = (
@@ -570,7 +572,7 @@ def render_interactive_sample_card() -> str:
         '    <!-- Mock 1: In the Pipeline Proposal -->'
         '    <div class="guide-mock-wrapper">'
         '      <div class="guide-mock-intro">'
-        '        <span class="intro-step-badge">' + pipeline_step_icon + ' <strong>In the Pipeline:</strong></span> Topic proposals submitted by our team or community. Upvote to prioritize research compilation!'
+        '        <span class="intro-title-badge">' + pipeline_step_icon + ' <strong>In the Pipeline:</strong></span> Topic proposals submitted by our team or community. Upvote to prioritize research compilation!'
         '      </div>'
         '      <div class="guide-mock-card mock-pipeline">'
         '        <div class="guide-mock-top-row">'
@@ -600,7 +602,7 @@ def render_interactive_sample_card() -> str:
         '    <!-- Mock 2: Published Summary Decoding -->'
         '    <div class="guide-mock-wrapper">'
         '      <div class="guide-mock-intro">'
-        '        <span class="intro-step-badge">' + summary_step_icon + ' <strong>Summaries:</strong></span> Completed decodings with key takeaways across consensus, emerging, and exploratory evidence tiers.'
+        '        <span class="intro-title-badge">' + summary_step_icon + ' <strong>Summaries:</strong></span> Completed decodings with key takeaways across consensus, emerging, and exploratory evidence tiers.'
         '      </div>'
         '      <div class="guide-mock-card mock-summary">'
         '        <div class="guide-mock-top-row">'
