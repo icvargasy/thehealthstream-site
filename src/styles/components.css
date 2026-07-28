@@ -332,18 +332,16 @@ body.left-collapsed .header-brand-container {
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
 }
 
-/* In the Pipeline Mock: Shaded Gray Background & Segmented Dashed Border */
+/* In the Pipeline Mock: Shaded Gray Background & Dashed Border — same thickness as real cards */
 .guide-mock-card.mock-pipeline {
   background-color: var(--bg-surface-alt);
-  border: 1.5px dashed #cbd5e1;
-  border-left: 5px dashed #64748b;
+  border: 1.5px dashed var(--border-color);
 }
 
-/* Summary Decoding Mock: Clean Background & Solid Border */
+/* Summary Decoding Mock: Clean Background & Solid Border — same thickness as real cards */
 .guide-mock-card.mock-summary {
   background-color: var(--bg-paper);
-  border: 1.5px solid #cbd5e1;
-  border-left: 5px solid #334155;
+  border: 1.5px solid var(--border-color);
 }
 
 .guide-mock-top-row {
@@ -355,9 +353,9 @@ body.left-collapsed .header-brand-container {
 
 .guide-mock-title {
   font-family: var(--font-display);
-  font-size: 0.90rem;
+  font-size: 0.78rem;
   font-weight: 700;
-  color: #1e293b;
+  color: var(--text-ink);
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -365,11 +363,11 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-mock-btn {
-  font-size: 0.70rem;
+  font-size: 0.63rem;
   font-weight: 700;
-  color: #475569;
-  background-color: #f1f5f9;
-  border: 1px solid #cbd5e1;
+  color: var(--text-ink-muted);
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-color);
   border-radius: var(--radius-pill);
   padding: 2px 8px;
   white-space: nowrap;
@@ -384,10 +382,10 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-mock-tag {
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   font-weight: 700;
-  color: #475569;
-  background-color: #e2e8f0;
+  color: var(--text-ink-muted);
+  background-color: var(--bg-surface-alt);
   padding: 1.5px 4px;
   border-radius: 3px;
   letter-spacing: 0.03em;
@@ -395,11 +393,11 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-mock-pipeline-badge {
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   font-weight: 700;
-  color: #64748b;
-  background-color: #f1f5f9;
-  border: 1px dashed #94a3b8;
+  color: var(--text-ink-muted);
+  background-color: var(--bg-surface-alt);
+  border: 1px dashed var(--border-color);
   padding: 1.5px 4px;
   border-radius: 3px;
   letter-spacing: 0.03em;
@@ -410,9 +408,9 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-mock-badge {
-  font-size: 0.58rem;
+  font-size: 0.55rem;
   font-weight: 700;
-  color: #64748b;
+  color: var(--text-ink-muted);
   background-color: transparent;
   border: none;
   padding: 0;
@@ -425,8 +423,8 @@ body.left-collapsed .header-brand-container {
   border: none;
   border-radius: 0;
   padding: 2px 0;
-  font-size: 0.78rem;
-  color: #475569;
+  font-size: 0.68rem;
+  color: var(--text-ink-muted);
   margin: 2px 0;
   line-height: 1.35;
 }
@@ -436,8 +434,8 @@ body.left-collapsed .header-brand-container {
   align-items: center;
   justify-content: space-between;
   gap: 8px;
-  font-size: 0.72rem;
-  color: #64748b;
+  font-size: 0.63rem;
+  color: var(--text-ink-muted);
   margin-top: auto;
 }
 
@@ -447,17 +445,17 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-mock-pill {
-  background-color: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  color: #64748b;
-  font-size: 0.68rem;
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-color);
+  color: var(--text-ink-muted);
+  font-size: 0.60rem;
   padding: 1px 6px;
   border-radius: 12px;
 }
 
 .guide-mock-date {
-  font-size: 0.72rem;
-  color: #64748b;
+  font-size: 0.63rem;
+  color: var(--text-ink-muted);
   white-space: nowrap;
 }
 
@@ -473,9 +471,9 @@ body.left-collapsed .header-brand-container {
 
 /* Chronological Feed & Cards */
 .feed-intro {
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-2);
   border-bottom: 1px solid var(--border-color);
-  padding-bottom: var(--space-3);
+  padding-bottom: var(--space-2);
 }
 
 .feed-intro p {
