@@ -224,16 +224,16 @@ body.left-collapsed .header-brand-container {
   cursor: default;
 }
 
-/* Neutral Visitor Guide Legend & Mobile-Optimized Wireframe Mocks */
+/* Neutral Visitor Guide Legend & Micro-Scaled Authentic Cards */
 .visitor-guide-neutral-card {
   background-color: var(--bg-surface-alt);
   border: 1px dashed var(--accent-synapse);
   border-radius: var(--radius-card);
-  padding: var(--space-4);
+  padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-4);
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
+  gap: var(--space-2);
   box-shadow: 0 2px 14px rgba(0, 0, 0, 0.03);
 }
 
@@ -245,7 +245,7 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-welcome-badge {
-  font-size: 0.72rem;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -254,20 +254,20 @@ body.left-collapsed .header-brand-container {
 
 .guide-heading {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.15rem;
   font-weight: 700;
-  margin: 2px 0 0 0;
+  margin: 1px 0 0 0;
   color: var(--text-ink);
 }
 
 .dismiss-guide-btn {
   background: none;
   border: 1px solid var(--border-color);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   font-weight: 600;
   color: var(--text-ink-muted);
   cursor: pointer;
-  padding: 3px 10px;
+  padding: 2px 9px;
   border-radius: var(--radius-pill);
   line-height: 1;
   transition: all var(--transition-fast);
@@ -281,107 +281,39 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-intro-text {
-  font-size: 0.9rem;
-  color: var(--text-ink-muted);
-  margin: 0;
-  line-height: 1.45;
-}
-
-.guide-wireframe-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: var(--space-3);
-  margin-top: var(--space-1);
-}
-
-.wireframe-mock-card {
-  background-color: var(--bg-paper);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-button);
-  padding: var(--space-3);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
   font-size: 0.85rem;
-}
-
-.mock-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.mock-badge {
-  font-size: 0.7rem;
-  font-weight: 700;
-  padding: 2px 7px;
-  border-radius: var(--radius-pill);
-}
-
-.mock-tier-consensus {
-  background-color: oklch(0.70 0.13 250 / 0.12);
-  color: oklch(0.40 0.16 250);
-  border: 1px solid oklch(0.70 0.13 250 / 0.30);
-}
-
-.mock-pipeline-tag {
-  background-color: oklch(0.60 0.12 140 / 0.12);
-  color: oklch(0.40 0.14 140);
-  border: 1px solid oklch(0.60 0.12 140 / 0.30);
-}
-
-.mock-category-tag {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  color: var(--text-ink-muted);
-}
-
-.mock-card-title {
-  font-size: 0.92rem;
-  font-weight: 700;
-  margin: 0;
-  color: var(--text-ink);
-}
-
-.mock-analogy-text, .mock-description-text {
-  font-size: 0.82rem;
   color: var(--text-ink-muted);
   margin: 0;
   line-height: 1.4;
 }
 
-.mock-card-footer {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin-top: auto;
-  padding-top: var(--space-1);
+.guide-wireframe-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-1);
 }
 
-.mock-read-btn {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent-synapse);
-  background-color: var(--selected-bg);
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--selected-border);
+.feed-card.guide-mini-card {
+  padding: var(--space-3);
+  margin-bottom: 0;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.02);
 }
 
-.mock-upvote-btn {
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent-synapse);
-  background-color: var(--selected-bg);
-  padding: 3px 10px;
-  border-radius: var(--radius-pill);
-  border: 1px solid var(--selected-border);
+.guide-mini-card .feed-card-header {
+  margin-bottom: 0;
+}
+
+.guide-mock-btn, .guide-mock-upvote {
+  font-size: 0.72rem;
+  padding: 3px 8px;
+  opacity: 0.95;
 }
 
 @media (max-width: 768px) {
+  .visitor-guide-neutral-card {
+    padding: var(--space-3);
+  }
   .guide-wireframe-grid {
     grid-template-columns: 1fr;
   }
