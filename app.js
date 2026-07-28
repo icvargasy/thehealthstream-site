@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeScrollingAndHash();
   initializeFeedFilters();
   initializeCardClicks();
-
   initializeLexiconVerification();
+  initializeVisitorOnboarding();
 });
 
 /**
@@ -89,11 +89,13 @@ function initializeTheme() {
 /**
  * Manages the collapsible left sidebar layout state and aria attributes.
  * Persists the sidebar collapsed preference in localStorage.
+ * Includes mobile backdrop click dismissal and nav link auto-collapse.
  * @returns {void}
  */
 function initializeSidebar() {
   const sidebarToggle = document.getElementById("sidebar-toggle");
   const dashboardContainer = document.getElementById("dashboard-container");
+  const backdrop = document.getElementById("sidebar-backdrop");
   if (!sidebarToggle || !dashboardContainer) return;
 
   // Restore collapsed state (default to collapsed on mobile <= 768px if no preference stored)
@@ -107,6 +109,13 @@ function initializeSidebar() {
     sidebarToggle.setAttribute("aria-expanded", "false");
   }
 
+  const collapseSidebar = () => {
+    document.body.classList.add("left-collapsed");
+    dashboardContainer.classList.add("left-collapsed");
+    sidebarToggle.setAttribute("aria-expanded", "false");
+    safeStorage.setItem("left_sidebar_collapsed", "true");
+  };
+
   sidebarToggle.addEventListener("click", () => {
     const willCollapse = !document.body.classList.contains("left-collapsed");
     
@@ -115,6 +124,45 @@ function initializeSidebar() {
     sidebarToggle.setAttribute("aria-expanded", willCollapse ? "false" : "true");
     
     safeStorage.setItem("left_sidebar_collapsed", willCollapse ? "true" : "false");
+  });
+
+  // Mobile Backdrop click dismissal
+  if (backdrop) {
+    backdrop.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        collapseSidebar();
+      }
+    });
+  }
+
+  // Mobile sidebar option navigation auto-dismissal
+  const sidebarNavLinks = document.querySelectorAll("#sidebar .nav-link");
+  sidebarNavLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (window.innerWidth <= 768) {
+        collapseSidebar();
+      }
+    });
+  });
+}
+
+/**
+ * Manages visitor discovery onboarding banner display and local storage dismissal state.
+ * @returns {void}
+ */
+function initializeVisitorOnboarding() {
+  const banner = document.getElementById("visitor-onboarding-banner");
+  const closeBtn = document.getElementById("dismiss-onboarding");
+  if (!banner || !closeBtn) return;
+
+  const isDismissed = safeStorage.getItem("onboarding_dismissed") === "true";
+  if (!isDismissed) {
+    banner.style.display = "flex";
+  }
+
+  closeBtn.addEventListener("click", () => {
+    banner.style.display = "none";
+    safeStorage.setItem("onboarding_dismissed", "true");
   });
 }
 
