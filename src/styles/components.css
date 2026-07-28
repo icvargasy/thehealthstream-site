@@ -227,7 +227,7 @@ body.left-collapsed .header-brand-container {
 /* Sleek Visitor Guide Banner */
 .visitor-guide-banner {
   background: var(--bg-surface);
-  border: 1px solid var(--accent-synapse);
+  border: 1.5px solid var(--accent-synapse);
   border-radius: var(--radius-card);
   padding: var(--space-3) var(--space-4);
   margin-bottom: var(--space-4);
@@ -335,15 +335,15 @@ body.left-collapsed .header-brand-container {
 /* In the Pipeline Mock: Shaded Gray Background & Segmented Dashed Border */
 .guide-mock-card.mock-pipeline {
   background-color: var(--bg-surface-alt);
-  border: 1px dashed #cbd5e1;
-  border-left: 4px dashed #64748b;
+  border: 1.5px dashed #cbd5e1;
+  border-left: 5px dashed #64748b;
 }
 
 /* Summary Decoding Mock: Clean Background & Solid Border */
 .guide-mock-card.mock-summary {
   background-color: var(--bg-paper);
-  border: 1px solid #cbd5e1;
-  border-left: 4px solid #334155;
+  border: 1.5px solid #cbd5e1;
+  border-left: 5px solid #334155;
 }
 
 .guide-mock-top-row {
@@ -494,7 +494,7 @@ body.left-collapsed .header-brand-container {
 .feed-card {
   position: relative;
   background-color: var(--bg-surface-alt);
-  border: 1px solid var(--border-color);
+  border: 1.5px solid var(--border-color);
   border-radius: var(--radius-card);
   padding: 12px 16px;
   cursor: pointer;
@@ -3920,7 +3920,7 @@ h4 .jargon-term:hover {
 
 /* Merged Backlog Cards inside main feed & category pages */
 .feed-card.pipeline-card-merged {
-  border: 1px dashed var(--border-color) !important;
+  border: 1.5px dashed var(--border-color) !important;
   background-color: var(--sb-bg) !important;
   box-shadow: none !important;
   transform: none !important;
