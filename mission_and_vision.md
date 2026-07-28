@@ -4,25 +4,36 @@ Long-term objectives, roadmap phasing, and validation milestones for the static 
 
 ---
 
-## 1. Core Mission
+## 1. Core Mission & Master SSOT Tenets
 
 **The Healthstream** compiles objective, systems-aligned decodings of the underlying feedback loops that govern human health, longevity, daily habits, and scientific literature. Our aim is to present biology, lifestyle protocols, and emerging health research in a precise, non-commercial, and highly accessible format.
 
-### Core Architecture & Curation Principles
-*   **Zero-Runtime Framework**: Keep client page loads instantaneous and fully indexable for search engines (SEO/GEO) by compiling all pages statically. Hosted on GitHub Pages without server execution.
-*   **Zero-Cost Hybrid Backend**: Leverage Google Forms + Sheets for silent background submissions (proposals, votes) and Giscus (GitHub Discussions API) for static comments. This avoids server hosting costs and platform lock-in.
-*   **14-Year-Old (Adolescent) Visuality Principle**: Systems analogies must map 1:1 to everyday physical/mechanical dynamics (plumbing, car engines, traffic lights, factory assembly lines) that a 14-year-old high school student can picture in under 5 seconds. Technical biological or chemical jargon (e.g. *kinase, phosphorylation, upregulate, transducer*) is strictly forbidden in analogy blocks and reserved exclusively for clinical deep dives.
-*   **3-Tier Epistemic Transparency**: Rather than ignoring unproven research, entries are categorized into three constructive data confidence tiers: Consensus Core (Tier 1: High/Moderate GRADE), Emerging Frontier (Tier 2: Low GRADE preliminary human/animal models), and Exploratory Sandbox (Tier 3: Very Low GRADE pre-clinical/biofeedback tools).
-*   **Community Co-Creation**: Readers actively participate in library curation via pipeline topic upvoting, pathway proposal submissions, and jargon lexicon human verification.
-*   **Dual-Lens Framework (Systems Analogy + Clinical Mechanism)**: Every entry presents two complementary perspectives:
-    1.  **Systems Analogy**: An intuitive mental model matching biological dynamics 1:1 across multi-domain physical systems.
-    2.  **Clinical Mechanism**: Empirical proof, GRADE evidence ratings, RCT metrics, and exact molecular feedback loops.
+### Master SSOT Core Tenets
+
+*   **Pillar 1: Epistemic Transparency & GRADE Alignment**:
+    *   Classify all decoded entries into three constructive data confidence tiers: **Consensus Core** (Tier 1: High/Moderate GRADE), **Emerging Frontier** (Tier 2: Low GRADE preliminary human/animal models), and **Exploratory Sandbox** (Tier 3: Very Low GRADE pre-clinical hypotheses).
+    *   Symmetrical Scientific Debates: Require cited opposing perspectives in `epistemic_rating.debate_sides` for lower-tier evidence topics.
+*   **Pillar 2: Category-Tailored Context Mapping**:
+    *   *Biology Nodes*: Trace inputs, cellular transducers, and physiological outcomes where evidence permits.
+    *   *Lifestyle Nodes*: Trace behavioral triggers, physiological adaptations, and functional outcomes.
+    *   *Book Nodes*: Trace core thesis, supporting arguments, and practical implications.
+    *   *Exploratory Sandbox*: Highlight early-stage hypotheses and open research questions transparently.
+*   **Pillar 3: Adolescent Readability Benchmark (Flesch-Kincaid Grade 8–9)**:
+    *   Translate complex mechanisms into familiar everyday mental models (fuel gauges, traffic signals, factory assembly lines) pictureable in < 5 seconds.
+    *   Enforce a **Flesch-Kincaid Grade Level 8–9 (High School / 14–16 Age Literacy)** reading floor for analogy blocks. Biological or chemical textbook jargon (*kinase, phosphorylation, upregulate, transducer*) is strictly forbidden in analogy blocks and reserved exclusively for clinical deep dives.
+    *   *Good vs. Bad Rubric*:
+        *   ❌ **Bad (Jargon Overload)**: *"AMPK suppresses mTORC1 via phosphorylation under low ATP."*
+        *   ✅ **Good (Feynman Mental Model)**: *"Think of AMPK as the cell's main fuel gauge, pausing construction projects when energy reserves drop."*
+*   **Pillar 4: Strategic Monetization & Editorial Independence**:
+    *   *Decoupled Core*: All decoded pathways, jargon definitions, and GRADE evidence reviews remain 100% free, open-access, and paywall-free under Creative Commons/MIT.
+    *   *Strategic Monetization Boundaries*: Future monetization is restricted to value-add utilities (biometric protocol calculators), third-party lab diagnostic referrals, and community supporters (GitHub Sponsors).
+    *   *Mandatory Disclosure*: Editorial choices and evidence grades are 100% decoupled from financial incentives. Any commercial partner or affiliate link carries explicit visual disclosure tags (`[Partner Referral]`).
+*   **Zero-Runtime & Zero-Cost Architecture**: Compiles statically to GitHub Pages without server execution. Uses Google Forms/Sheets for background backlog upvoting (`no-cors`) and Giscus for static comments.
 *   **3-Tier Metaphor & Complexity Ceilings**:
-    - *Level 1 (Single Molecule / State)*: Max 20 words.
-    - *Level 2 (Dual Interaction / Process)*: Max 35 words (Card teaser ceiling).
-    - *Level 3 (Multi-System Loop / Disease)*: Max 45 words (Popover ceiling).
-*   **Independent Subagent Verification Protocol**: Every content decoding, schema change, or metaphor addition must be independently audited by task-specific subagent panels evaluating scientific precision, cognitive accessibility, domain matching, and UI/UX layout footprints.
-*   **Separation of Concerns**: Product behaviors live in `PRODUCT.md`; styling tokens live in `DESIGN.md`; brand guidelines live in `BRAND.md`; engineering rules live in `gemini.md`. Strategy and milestones live here.
+    *   *Level 1 (Single Molecule / State)*: Max 20 words.
+    *   *Level 2 (Dual Interaction / Process)*: Max 35 words (Card teaser ceiling).
+    *   *Level 3 (Multi-System Loop / Disease)*: Max 45 words (Popover ceiling).
+*   **Separation of Concerns**: Strategy and core tenets live here in `mission_and_vision.md` (SSOT). Voice and style live in `BRAND.md`; functional specs and metrics live in `PRODUCT.md`; visual design tokens live in `DESIGN.md`; AI agent rules and compiler build pipelines live in `GEMINI.md`.
 
 ---
 
