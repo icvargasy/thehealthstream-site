@@ -661,9 +661,9 @@ def compile_feed_page(
     toggle_row_html = (
         f'  <div class="feed-toggle-row">'
         f'    <div class="feed-toggle-container">'
-        f'      <button class="feed-toggle-btn active" data-filter="all">All <span class="toggle-badge">({total_count})</span></button>'
-        f'      <button class="feed-toggle-btn" data-filter="decoded">Articles <span class="toggle-badge">({articles_count})</span></button>'
-        f'      <button class="feed-toggle-btn" data-filter="pipeline">Pipeline <span class="toggle-badge">({pipeline_count})</span></button>'
+        f'      <button class="feed-toggle-btn active" data-filter="all">{labels.get("toggle_all", "All")} <span class="toggle-badge">({total_count})</span></button>'
+        f'      <button class="feed-toggle-btn" data-filter="decoded">{labels.get("toggle_decoded", "Summaries")} <span class="toggle-badge">({articles_count})</span></button>'
+        f'      <button class="feed-toggle-btn" data-filter="pipeline">{labels.get("toggle_pipeline", "In the Pipeline")} <span class="toggle-badge">({pipeline_count})</span></button>'
         f'    </div>'
         f'    <a href="submit-proposal.html" class="explore-proposal-btn">+ Submit Topic Proposal</a>'
         f'  </div>'
