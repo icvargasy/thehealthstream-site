@@ -147,21 +147,22 @@ function initializeSidebar() {
 }
 
 /**
- * Manages visitor discovery onboarding banner display and local storage dismissal state.
+ * Manages Interactive Sample Decoding Card #0 display and local storage dismissal state.
  * @returns {void}
  */
 function initializeVisitorOnboarding() {
-  const banner = document.getElementById("visitor-onboarding-banner");
-  const closeBtn = document.getElementById("dismiss-onboarding");
-  if (!banner || !closeBtn) return;
+  const sampleCard = document.getElementById("sample-decoding-card-0");
+  const dismissBtn = document.getElementById("dismiss-sample-card");
+  if (!sampleCard || !dismissBtn) return;
 
   const isDismissed = safeStorage.getItem("onboarding_dismissed") === "true";
   if (!isDismissed) {
-    banner.style.display = "flex";
+    sampleCard.style.display = "flex";
+    sampleCard.style.flexDirection = "column";
   }
 
-  closeBtn.addEventListener("click", () => {
-    banner.style.display = "none";
+  dismissBtn.addEventListener("click", () => {
+    sampleCard.style.display = "none";
     safeStorage.setItem("onboarding_dismissed", "true");
   });
 }
