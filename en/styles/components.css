@@ -277,22 +277,43 @@ body.left-collapsed .header-brand-container {
   grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
   gap: var(--space-3);
   margin-top: var(--space-2);
+  align-items: stretch;
 }
 
 .guide-mock-wrapper {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  height: 100%;
 }
 
 .guide-mock-intro {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   color: var(--text-ink);
   background-color: var(--bg-paper);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-button);
   padding: 8px 12px;
-  line-height: 1.4;
+  line-height: 1.45;
+  flex-shrink: 0;
+  display: flex;
+  align-items: flex-start;
+  gap: 4px;
+}
+
+.intro-step-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--accent-synapse);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.guide-intro-icon-svg {
+  display: inline-block;
+  vertical-align: middle;
+  stroke: var(--accent-synapse);
 }
 
 .guide-mock-card {
@@ -301,6 +322,7 @@ body.left-collapsed .header-brand-container {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
 }
 
@@ -351,27 +373,27 @@ body.left-collapsed .header-brand-container {
 .guide-mock-tag-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   flex-wrap: wrap;
 }
 
 .guide-mock-tag {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
   color: #475569;
   background-color: #e2e8f0;
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 4px;
   letter-spacing: 0.04em;
 }
 
 .guide-mock-pipeline-badge {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
   color: #64748b;
   background-color: #f1f5f9;
   border: 1px dashed #94a3b8;
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 4px;
   letter-spacing: 0.04em;
   display: inline-flex;
@@ -380,24 +402,24 @@ body.left-collapsed .header-brand-container {
 }
 
 .guide-mock-badge {
-  font-size: 0.65rem;
+  font-size: 0.62rem;
   font-weight: 700;
   color: #475569;
   background-color: #e2e8f0;
   border: 1px solid #cbd5e1;
-  padding: 2px 6px;
+  padding: 2px 5px;
   border-radius: 4px;
   letter-spacing: 0.04em;
 }
 
-.guide-mock-analogy {
-  background-color: rgba(241, 245, 249, 0.75);
-  border: 1px solid #e2e8f0;
-  border-radius: 6px;
-  padding: 6px 10px;
+.guide-mock-analogy.unshaded-analogy {
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  padding: 2px 0;
   font-size: 0.78rem;
-  color: #334155;
-  margin: 4px 0;
+  color: #475569;
+  margin: 2px 0;
   line-height: 1.35;
 }
 
