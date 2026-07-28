@@ -409,11 +409,10 @@ body.left-collapsed .header-brand-container {
 .guide-mock-badge {
   font-size: 0.58rem;
   font-weight: 700;
-  color: #475569;
+  color: #64748b;
   background-color: transparent;
-  border: 1px solid #cbd5e1;
-  padding: 1.5px 4px;
-  border-radius: 3px;
+  border: none;
+  padding: 0;
   letter-spacing: 0.03em;
   white-space: nowrap;
 }
