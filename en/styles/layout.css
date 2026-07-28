@@ -158,10 +158,36 @@ body.left-collapsed #sidebar,
   }
 }
 
+/* Mobile Sidebar Backdrop Overlay */
+.sidebar-backdrop {
+  display: none;
+}
+
 /* Responsive Dashboard Layout for Tablet / Mobile */
 @media (max-width: 768px) {
   #dashboard-container {
     grid-template-columns: 1fr;
+  }
+  
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - var(--header-height));
+    height: calc(100dvh - var(--header-height));
+    background-color: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    z-index: 85;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-normal);
+  }
+  
+  body:not(.left-collapsed) .sidebar-backdrop {
+    opacity: 1;
+    pointer-events: auto;
   }
   
   #sidebar {
@@ -169,6 +195,7 @@ body.left-collapsed #sidebar,
     top: var(--header-height);
     left: 0;
     height: calc(100vh - var(--header-height));
+    height: calc(100dvh - var(--header-height));
     z-index: 90;
     width: var(--sidebar-width);
     transform: translateX(0);

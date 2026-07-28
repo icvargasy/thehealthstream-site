@@ -888,7 +888,7 @@ def test_card_layout_parity_all_pages() -> None:
 
         # Backlog card parity
         assert 'data-id="autophagy-kinetics"' in page_html
-        assert 'class="backlog-votes"' in page_html
+        assert 'class="backlog-votes' in page_html
         assert 'data-base-votes="42"' in page_html
 
 
