@@ -537,8 +537,22 @@ def compile_category_page(
 
 
 def render_interactive_sample_card() -> str:
-    """Renders a neutral slate-gray visitor guide legend at the top of index.html."""
-    git_branch_svg = (
+    """Renders a neutral slate-gray visitor guide legend with equal height mock cards at the top of index.html."""
+    pipeline_step_icon = (
+        '<svg class="guide-intro-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+        '  <line x1="6" y1="3" x2="6" y2="15"></line>'
+        '  <circle cx="18" cy="6" r="3"></circle>'
+        '  <circle cx="6" cy="18" r="3"></circle>'
+        '  <path d="M18 9a9 9 0 0 1-9 9"></path>'
+        '</svg>'
+    )
+    summary_step_icon = (
+        '<svg class="guide-intro-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        '  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>'
+        '  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>'
+        '</svg>'
+    )
+    git_branch_badge_svg = (
         '<svg class="pipeline-icon-svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
         '  <line x1="6" y1="3" x2="6" y2="15"></line>'
         '  <circle cx="18" cy="6" r="3"></circle>'
@@ -556,7 +570,7 @@ def render_interactive_sample_card() -> str:
         '    <!-- Mock 1: In the Pipeline Proposal -->'
         '    <div class="guide-mock-wrapper">'
         '      <div class="guide-mock-intro">'
-        '        🌿 <strong>In the Pipeline:</strong> Reader-proposed topics undergoing citation auditing. Click <strong>▲ Upvote</strong> to prioritize research!'
+        '        <span class="intro-step-badge">' + pipeline_step_icon + ' <strong>In the Pipeline:</strong></span> Topic proposals submitted by our team or community. Upvote to prioritize research compilation!'
         '      </div>'
         '      <div class="guide-mock-card mock-pipeline">'
         '        <div class="guide-mock-top-row">'
@@ -567,12 +581,12 @@ def render_interactive_sample_card() -> str:
         '        </div>'
         '        <div class="guide-mock-tag-row">'
         '          <span class="guide-mock-tag">TOPIC CATEGORY</span>'
-        '          <span class="guide-mock-pipeline-badge">' + git_branch_svg + ' IN THE PIPELINE</span>'
+        '          <span class="guide-mock-pipeline-badge">' + git_branch_badge_svg + ' IN THE PIPELINE</span>'
         '          <span class="guide-mock-badge">✦ EVIDENCE TIER</span>'
         '        </div>'
-        '        <blockquote class="guide-mock-analogy">'
+        '        <blockquote class="guide-mock-analogy unshaded-analogy">'
         '          <span class="analogy-badge-label">' + SYNAPSE_LOGO_SVG + ' <strong>SYSTEMS ANALOGY:</strong></span> '
-        '          <span class="analogy-text">A municipal rationing protocol resetting peripheral supplies...</span>'
+        '          <span class="analogy-text">...</span>'
         '        </blockquote>'
         '        <div class="guide-mock-footer-row">'
         '          <div class="guide-mock-tags">'
@@ -586,7 +600,7 @@ def render_interactive_sample_card() -> str:
         '    <!-- Mock 2: Published Summary Decoding -->'
         '    <div class="guide-mock-wrapper">'
         '      <div class="guide-mock-intro">'
-        '        📖 <strong>Summaries:</strong> Completed decodings with 1-min takeaways, cellular dynamics &amp; evidence ratings.'
+        '        <span class="intro-step-badge">' + summary_step_icon + ' <strong>Summaries:</strong></span> Completed decodings with key takeaways across consensus, emerging, and exploratory evidence tiers.'
         '      </div>'
         '      <div class="guide-mock-card mock-summary">'
         '        <div class="guide-mock-top-row">'
@@ -599,9 +613,9 @@ def render_interactive_sample_card() -> str:
         '          <span class="guide-mock-tag">TOPIC CATEGORY</span>'
         '          <span class="guide-mock-badge">✓ EVIDENCE TIER</span>'
         '        </div>'
-        '        <blockquote class="guide-mock-analogy">'
+        '        <blockquote class="guide-mock-analogy unshaded-analogy">'
         '          <span class="analogy-badge-label">' + SYNAPSE_LOGO_SVG + ' <strong>SYSTEMS ANALOGY:</strong></span> '
-        '          <span class="analogy-text">Supplying high-octane fuel to an engine with clogged fuel injectors...</span>'
+        '          <span class="analogy-text">...</span>'
         '        </blockquote>'
         '        <div class="guide-mock-footer-row">'
         '          <div class="guide-mock-tags">'
