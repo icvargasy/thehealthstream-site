@@ -537,7 +537,7 @@ def compile_category_page(
 
 
 def render_interactive_sample_card() -> str:
-    """Renders a neutral slate-gray visitor guide legend with equal height mock cards at the top of index.html."""
+    """Renders a neutral slate-gray visitor guide legend at the top of index.html."""
     pipeline_step_icon = (
         '<svg class="guide-intro-icon-svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
         '  <line x1="6" y1="3" x2="6" y2="15"></line>'
@@ -568,15 +568,18 @@ def render_interactive_sample_card() -> str:
         '    <span class="guide-banner-title">Welcome &amp; How It Works</span>'
         '    <button class="dismiss-guide-btn" id="dismiss-sample-card" aria-label="Dismiss guide">Dismiss Guide &times;</button>'
         '  </div>'
+        '  <p class="guide-banner-subtitle">'
+        '    Welcome to The Healthstream — an open, non-commercial registry compiling objective decodings of physiological feedback loops, longevity science, and lifestyle interventions. Explore completed decodings or upvote upcoming topic proposals below.'
+        '  </p>'
         '  <div class="guide-neutral-grid">'
         '    <!-- Mock 1: In the Pipeline Proposal -->'
         '    <div class="guide-mock-wrapper">'
         '      <div class="guide-mock-intro">'
-        '        <span class="intro-title-badge">' + pipeline_step_icon + ' <strong>In the Pipeline:</strong></span> Topic proposals submitted by our team or community. Upvote to prioritize research compilation!'
+        '        <span class="intro-title-badge">' + pipeline_step_icon + ' <strong>In the Pipeline:</strong></span> Topic proposals submitted by our team or community (dashed left border). Upvote to prioritize research compilation!'
         '      </div>'
         '      <div class="guide-mock-card mock-pipeline">'
         '        <div class="guide-mock-top-row">'
-        '          <h3 class="guide-mock-title">Sample Pipeline Topic Title</h3>'
+        '          <h3 class="guide-mock-title">Sample Topic Proposal Title</h3>'
         '          <button class="guide-mock-btn mock-btn-vote" style="pointer-events: none;" aria-label="Upvote topic proposal">'
         '            <span class="upvote-icon">▲</span> UPVOTE (0)'
         '          </button>'
@@ -602,7 +605,7 @@ def render_interactive_sample_card() -> str:
         '    <!-- Mock 2: Published Summary Decoding -->'
         '    <div class="guide-mock-wrapper">'
         '      <div class="guide-mock-intro">'
-        '        <span class="intro-title-badge">' + summary_step_icon + ' <strong>Summaries:</strong></span> Completed decodings with key takeaways across consensus, emerging, and exploratory evidence tiers.'
+        '        <span class="intro-title-badge">' + summary_step_icon + ' <strong>Summaries:</strong></span> Completed decodings (solid left border) with key takeaways across consensus, emerging, and exploratory tiers.'
         '      </div>'
         '      <div class="guide-mock-card mock-summary">'
         '        <div class="guide-mock-top-row">'
