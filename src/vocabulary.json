@@ -4,7 +4,8 @@
     "vulgarized_analogy": "The portion of a vehicle's life where it runs smoothly without engine trouble, rather than just the total years before it goes to the scrap yard.",
     "taxonomy": "concept",
     "aliases": [
-      "quality of life"
+      "health span",
+      "healthspan duration"
     ],
     "citations": [
       {
@@ -445,13 +446,12 @@
     "verification_status": "verified_human"
   },
   "all-cause mortality": {
-    "definition": "The death rate from any cause in a specified population over a defined period, used as a primary validation metric in longevity and **epidemiological studies**.",
-    "vulgarized_analogy": "The ultimate system shutdown probability rating of the hardware over its operating lifecycle.",
+    "definition": "Death from any cause in a population within a specified time period; a primary epidemiologic endpoint.",
+    "vulgarized_analogy": "The total system failure rate across all components, regardless of whether failure started in the engine, wiring, or cooling.",
     "taxonomy": "concept",
     "aliases": [
-      "all-cause mortality",
-      "mortality risk",
-      "mortality rate"
+      "all cause mortality",
+      "all-cause mortality rate"
     ],
     "citations": [
       {
@@ -736,7 +736,8 @@
     "vulgarized_analogy": "Hardware wear, software corruption, or structural defects that cause system instability.",
     "taxonomy": "concept",
     "aliases": [
-      "pathology link"
+      "pathological",
+      "pathologies"
     ],
     "citations": [
       {
