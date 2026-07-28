@@ -115,6 +115,18 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
                     f"Validation Error in {file_path}: Field '{sub_key}' in edges[{idx}] must be a string"
                 )
 
+    # Validate optional or recommended fields
+    systems_analogy = node_data.get("systems_analogy_hook", "")
+    if systems_analogy:
+        # Linter check for forbidden technical biological/chemical jargon in analogy blocks
+        forbidden_analogy_jargon = {"phosphorylation", "deacetylase", "transfection", "transducer"}
+        analogy_words = set(systems_analogy.lower().split())
+        forbidden_found = forbidden_analogy_jargon.intersection(analogy_words)
+        if forbidden_found:
+            raise ValueError(
+                f"Validation Error in {file_path}: Systems Analogy contains forbidden technical jargon: {forbidden_found}. Analogies must use everyday accessible mental models."
+            )
+
     # Validate evidence table elements
     for idx, item in enumerate(node_data["evidence_table"]):
         if not isinstance(item, dict):

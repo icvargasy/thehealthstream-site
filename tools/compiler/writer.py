@@ -536,35 +536,46 @@ def compile_category_page(
     return html
 
 
-def render_visitor_onboarding_banner() -> str:
-    """Renders a dismissible visitor onboarding hero banner for index.html."""
+def render_interactive_sample_card() -> str:
+    """Renders Interactive Sample Decoding Card #0 at the top of index.html."""
     return (
-        '<div class="visitor-onboarding-card" id="visitor-onboarding-banner" style="display: none;">'
-        '  <div class="onboarding-header">'
-        '    <div class="onboarding-title-group">'
-        '      <span class="onboarding-badge">Welcome &amp; How It Works</span>'
-        '      <h2 class="onboarding-heading">Navigating The Healthstream</h2>'
+        '<div class="feed-card sample-decoding-card cat-biology" id="sample-decoding-card-0" data-created="9999-99-99" data-title="How to Navigate The Healthstream Registry" data-category="biology" data-grade="high" data-tier="consensus-core" style="display: none;">'
+        '  <div class="feed-card-header">'
+        '    <div class="feed-card-title-group">'
+        '      <div class="sample-card-badge-row" style="margin-bottom: 6px; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">'
+        '        <span class="sample-pill-tag" style="background-color: var(--accent-synapse); color: white; font-size: 0.72rem; font-weight: 700; padding: 2px 8px; border-radius: var(--radius-pill); text-transform: uppercase; letter-spacing: 0.05em;">✨ Interactive Sample #0</span>'
+        '        <span class="sample-tutorial-hint" style="font-size: 0.8rem; color: var(--text-ink-muted);">Try clicking elements below to test interactions!</span>'
+        '      </div>'
+        '      <h2 class="card-title">'
+        '        <span class="card-title-link">How to Navigate The Healthstream Registry</span>'
+        '      </h2>'
+        '      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px; flex-wrap: wrap;">'
+        '        <span class="category-tag">BIOLOGY</span>'
+        '        <span class="evidence-badge tier-consensus" title="Human RCTs &amp; Meta-Analyses">✓✓ Consensus Core (Tier 1)</span>'
+        '      </div>'
         '    </div>'
-        '    <button class="onboarding-close-btn" id="dismiss-onboarding" aria-label="Dismiss welcome guide">&times;</button>'
+        '    <button class="backlog-votes vote-cta-btn sample-vote-btn" data-base-votes="42" data-id="sample-0" aria-label="Try upvoting">'
+        '      <span class="upvote-icon">▲</span>'
+        '      <span class="vote-label">Upvote</span>'
+        '      <span class="vote-count">(42)</span>'
+        '    </button>'
         '  </div>'
-        '  <p class="onboarding-intro">An open-access, zero-commercial registry mapping physiological feedback loops, longevity research, and lifestyle protocols.</p>'
-        '  <div class="onboarding-grid">'
-        '    <div class="onboarding-item">'
-        '      <span class="onboarding-icon">📖</span>'
-        '      <div><strong>Read Decodings:</strong> Explore 1-Min Takeaways &amp; deep-dive cellular mechanisms.</div>'
+        '  <blockquote class="card-teaser-text card-analogy-block">'
+        '    <div class="card-analogy-hook">'
+        '      <span class="analogy-badge-label"><strong>Systems Analogy:</strong></span> '
+        '      <span class="analogy-text">A home thermostat regulating furnace output based on ambient room temperature, optimizing fuel use without crashing the power grid.</span>'
         '    </div>'
-        '    <div class="onboarding-item">'
-        '      <span class="onboarding-icon">🔬</span>'
-        '      <div><strong>3 Evidence Tiers:</strong> Filter by Consensus Core (Tier 1), Emerging Frontier (Tier 2), or Exploratory Sandbox (Tier 3).</div>'
+        '  </blockquote>'
+        '  <div class="sample-interactive-instructions" style="background-color: var(--bg-surface-alt); border: 1px dashed var(--accent-synapse); border-radius: var(--radius-button); padding: 8px 12px; margin: 8px 0; font-size: 0.85rem; color: var(--text-ink); display: flex; align-items: center; gap: 8px;">'
+        '    <span class="instruction-icon" style="font-size: 1.1rem;">🏷️</span>'
+        '    <span>Click any dotted jargon term like <span class="jargon-term sample-jargon-demo" data-term="metabolism" style="border-bottom: 1px dotted var(--accent-synapse); cursor: pointer; font-weight: 600;">metabolism</span> to open an instant popover!</span>'
+        '  </div>'
+        '  <div class="card-footer-row" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap;">'
+        '    <div class="card-tags">'
+        '      <span class="tag-pill">#onboarding</span>'
+        '      <span class="tag-pill">#guide</span>'
         '    </div>'
-        '    <div class="onboarding-item">'
-        '      <span class="onboarding-icon">▲</span>'
-        '      <div><strong>Upvote &amp; Propose:</strong> Upvote topics in the scientific pipeline or submit new pathway proposals.</div>'
-        '    </div>'
-        '    <div class="onboarding-item">'
-        '      <span class="onboarding-icon">🏷️</span>'
-        '      <div><strong>Interactive Lexicon:</strong> Click any highlighted jargon term for instant popover definitions.</div>'
-        '    </div>'
+        '    <button class="dismiss-sample-card-btn" id="dismiss-sample-card" style="background: none; border: 1px solid var(--border-color); border-radius: var(--radius-pill); padding: 3px 10px; font-size: 0.78rem; font-weight: 600; color: var(--text-ink-muted); cursor: pointer; transition: all var(--transition-fast);" aria-label="Dismiss guide card">Dismiss Guide &times;</button>'
         '  </div>'
         '</div>'
     )
@@ -630,10 +641,9 @@ def compile_feed_page(
         f'  </div>'
     )
 
-    onboarding_banner = render_visitor_onboarding_banner()
+    sample_card_html = render_interactive_sample_card()
 
     intro_html = (
-        f'{onboarding_banner}'
         f'<header class="feed-intro">'
         f'  <div class="page-intro-row">'
         f'    <h1 class="page-title">{compass_svg}<span>{labels.get("nav_home", "Explore")}</span></h1>'
@@ -657,6 +667,7 @@ def compile_feed_page(
         f'  {toggle_row_html}'
         f'</header>'
         f'<div class="feed-cards" id="feed-cards-container">'
+        f'  {sample_card_html}'
         f'  {" ".join(rendered_cards)}'
         f'</div>'
     )
