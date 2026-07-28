@@ -88,6 +88,8 @@ def compile_base_layout(
         replacements[f"{{{{label_{key}}}}}"] = str(value)
 
     replacements["{{base_path}}"] = base_path
+    replacements["{{canonical_url}}"] = "https://varga.github.io/thehealthstream/"
+    replacements["{{og_type}}"] = "website"
     replacements["{{nav_active_feed}}"] = "active" if active_nav == "feed" else ""
     replacements["{{nav_active_vocab}}"] = "active" if active_nav == "vocab" else ""
     replacements["{{nav_active_backlog}}"] = "active" if active_nav == "backlog" else ""
@@ -280,9 +282,10 @@ def render_backlog_card(
         f'        {evidence_badge_html}'
         f'      </div>'
         f'    </div>'
-        f'    <button class="backlog-votes" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic">'
+        f'    <button class="backlog-votes vote-cta-btn" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic proposal">'
         f'      <span class="upvote-icon">▲</span>'
-        f'      <span class="vote-count">{item["votes"]}</span>'
+        f'      <span class="vote-label">Upvote</span>'
+        f'      <span class="vote-count">({item["votes"]})</span>'
         f'    </button>'
         f'  </div>'
         f'  <blockquote class="card-teaser-text card-analogy-block">'
@@ -370,7 +373,7 @@ def render_article_card(
         f'      </div>'
         f'    </div>'
         f'    <a href="{article_url}" class="read-article-btn">'
-        f'      <span>Read Article</span>'
+        f'      <span>Read Summary</span>'
         f'      <span>&rarr;</span>'
         f'    </a>'
         f'  </div>'
@@ -533,6 +536,40 @@ def compile_category_page(
     return html
 
 
+def render_visitor_onboarding_banner() -> str:
+    """Renders a dismissible visitor onboarding hero banner for index.html."""
+    return (
+        '<div class="visitor-onboarding-card" id="visitor-onboarding-banner" style="display: none;">'
+        '  <div class="onboarding-header">'
+        '    <div class="onboarding-title-group">'
+        '      <span class="onboarding-badge">Welcome &amp; How It Works</span>'
+        '      <h2 class="onboarding-heading">Navigating The Healthstream</h2>'
+        '    </div>'
+        '    <button class="onboarding-close-btn" id="dismiss-onboarding" aria-label="Dismiss welcome guide">&times;</button>'
+        '  </div>'
+        '  <p class="onboarding-intro">An open-access, zero-commercial registry mapping physiological feedback loops, longevity research, and lifestyle protocols.</p>'
+        '  <div class="onboarding-grid">'
+        '    <div class="onboarding-item">'
+        '      <span class="onboarding-icon">📖</span>'
+        '      <div><strong>Read Decodings:</strong> Explore 1-Min Takeaways &amp; deep-dive cellular mechanisms.</div>'
+        '    </div>'
+        '    <div class="onboarding-item">'
+        '      <span class="onboarding-icon">🔬</span>'
+        '      <div><strong>3 Evidence Tiers:</strong> Filter by Consensus Core (Tier 1), Emerging Frontier (Tier 2), or Exploratory Sandbox (Tier 3).</div>'
+        '    </div>'
+        '    <div class="onboarding-item">'
+        '      <span class="onboarding-icon">▲</span>'
+        '      <div><strong>Upvote &amp; Propose:</strong> Upvote topics in the scientific pipeline or submit new pathway proposals.</div>'
+        '    </div>'
+        '    <div class="onboarding-item">'
+        '      <span class="onboarding-icon">🏷️</span>'
+        '      <div><strong>Interactive Lexicon:</strong> Click any highlighted jargon term for instant popover definitions.</div>'
+        '    </div>'
+        '  </div>'
+        '</div>'
+    )
+
+
 def compile_feed_page(
     layout_html: str,
     nodes: List[Dict[str, Any]],
@@ -593,7 +630,10 @@ def compile_feed_page(
         f'  </div>'
     )
 
+    onboarding_banner = render_visitor_onboarding_banner()
+
     intro_html = (
+        f'{onboarding_banner}'
         f'<header class="feed-intro">'
         f'  <div class="page-intro-row">'
         f'    <h1 class="page-title">{compass_svg}<span>{labels.get("nav_home", "Explore")}</span></h1>'
@@ -2012,30 +2052,40 @@ def generate_sitemap(
         url = ET.SubElement(urlset, "url")
         loc = ET.SubElement(url, "loc")
         loc.text = f"{site_url}/{page}"
+        lastmod = ET.SubElement(url, "lastmod")
+        lastmod.text = "2026-07-28"
 
     # Category index pages
     for cat in ["biology", "lifestyle", "book"]:
         url = ET.SubElement(urlset, "url")
         loc = ET.SubElement(url, "loc")
         loc.text = f"{site_url}/category-{cat}.html"
+        lastmod = ET.SubElement(url, "lastmod")
+        lastmod.text = "2026-07-28"
 
     # Dynamic Article pages
     for n in nodes:
         url = ET.SubElement(urlset, "url")
         loc = ET.SubElement(url, "loc")
         loc.text = f"{site_url}/{n['slug']}.html"
+        lastmod = ET.SubElement(url, "lastmod")
+        lastmod.text = n.get("metadata", {}).get("last_audited") or n.get("metadata", {}).get("created_at") or "2026-07-28"
 
     # Tag filter pages
     for slug in (tag_slugs or []):
         url = ET.SubElement(urlset, "url")
         loc = ET.SubElement(url, "loc")
         loc.text = f"{site_url}/tags/{slug}.html"
+        lastmod = ET.SubElement(url, "lastmod")
+        lastmod.text = "2026-07-28"
 
     # Individual vocabulary term detail pages
     for slug in (vocab_slugs or []):
         url = ET.SubElement(urlset, "url")
         loc = ET.SubElement(url, "loc")
         loc.text = f"{site_url}/vocabulary/{slug}.html"
+        lastmod = ET.SubElement(url, "lastmod")
+        lastmod.text = "2026-07-28"
 
     # Pretty format XML
     raw_xml = ET.tostring(urlset, encoding="utf-8")
