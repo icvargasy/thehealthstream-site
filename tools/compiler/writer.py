@@ -1811,7 +1811,7 @@ def compile_static_content_page(
     except FileNotFoundError as e:
         raise FileNotFoundError(f"Content Markdown file missing at: {md_filepath}") from e
 
-    compiled_body = markdown.markdown(md_content)
+    compiled_body = markdown.markdown(md_content, extensions=["sane_lists", "tables", "fenced_code"])
     if vocabulary:
         try:
             from compiler.linker import inject_jargon_links
