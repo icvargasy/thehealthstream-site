@@ -224,28 +224,28 @@ body.left-collapsed .header-brand-container {
   cursor: default;
 }
 
-/* Neutral Visitor Guide Legend & Micro-Scaled Authentic Cards */
+/* Ultra-Low Vertical Footprint Visitor Guide Legend */
 .visitor-guide-neutral-card {
   background-color: var(--bg-surface-alt);
   border: 1px dashed var(--accent-synapse);
   border-radius: var(--radius-card);
-  padding: var(--space-3) var(--space-4);
-  margin-bottom: var(--space-4);
+  padding: 10px 14px;
+  margin-bottom: var(--space-3);
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
-  box-shadow: 0 2px 14px rgba(0, 0, 0, 0.03);
+  gap: 8px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.02);
 }
 
 .guide-card-header {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
   gap: var(--space-2);
 }
 
 .guide-welcome-badge {
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -254,20 +254,21 @@ body.left-collapsed .header-brand-container {
 
 .guide-heading {
   font-family: var(--font-display);
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  margin: 1px 0 0 0;
+  margin: 0;
   color: var(--text-ink);
+  line-height: 1.2;
 }
 
 .dismiss-guide-btn {
   background: none;
   border: 1px solid var(--border-color);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
   color: var(--text-ink-muted);
   cursor: pointer;
-  padding: 2px 9px;
+  padding: 2px 8px;
   border-radius: var(--radius-pill);
   line-height: 1;
   transition: all var(--transition-fast);
@@ -280,42 +281,64 @@ body.left-collapsed .header-brand-container {
   border-color: var(--accent-synapse);
 }
 
-.guide-intro-text {
-  font-size: 0.85rem;
-  color: var(--text-ink-muted);
-  margin: 0;
-  line-height: 1.4;
-}
-
-.guide-wireframe-grid {
+.guide-micro-legend-row {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: var(--space-3);
-  margin-top: var(--space-1);
+  gap: 8px;
 }
 
-.feed-card.guide-mini-card {
-  padding: var(--space-3);
-  margin-bottom: 0;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.02);
+.micro-legend-bar {
+  background-color: var(--bg-paper);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-button);
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.78rem;
+  line-height: 1.3;
 }
 
-.guide-mini-card .feed-card-header {
-  margin-bottom: 0;
+.micro-legend-bar.bar-summaries {
+  border-left: 3px solid var(--category-biology);
 }
 
-.guide-mock-btn, .guide-mock-upvote {
-  font-size: 0.72rem;
-  padding: 3px 8px;
-  opacity: 0.95;
+.micro-legend-bar.bar-pipeline {
+  border-left: 3px solid var(--category-lifestyle);
+}
+
+.tag-micro, .badge-micro {
+  font-size: 0.65rem !important;
+  padding: 1px 5px !important;
+  flex-shrink: 0;
+}
+
+.micro-label {
+  color: var(--text-ink);
+}
+
+.upvote-pill-preview {
+  display: inline-block;
+  background-color: var(--selected-bg);
+  border: 1px solid var(--selected-border);
+  color: var(--accent-synapse);
+  font-weight: 700;
+  font-size: 0.68rem;
+  padding: 0 5px;
+  border-radius: var(--radius-pill);
 }
 
 @media (max-width: 768px) {
   .visitor-guide-neutral-card {
-    padding: var(--space-3);
+    padding: 8px 12px;
   }
-  .guide-wireframe-grid {
+  .guide-micro-legend-row {
     grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .micro-legend-bar {
+    flex-wrap: wrap;
+    gap: 4px 6px;
   }
 }
 /* Legacy vote-btn styles removed */
