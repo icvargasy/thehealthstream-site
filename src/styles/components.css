@@ -70,8 +70,10 @@ body.left-collapsed .header-brand-container {
   border: 1px solid var(--border-color);
   color: var(--text-ink);
   border-radius: var(--radius-button);
-  width: 36px;
-  height: 36px;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -191,15 +193,116 @@ body.left-collapsed .header-brand-container {
   color: var(--accent-synapse);
   border: 1px solid var(--selected-border);
   border-radius: var(--radius-pill);
-  padding: 1px 8px;
+  padding: 4px 10px;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   white-space: nowrap;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all var(--transition-fast);
 }
 
-.backlog-desc {
-  color: var(--sb-text-muted);
+.backlog-votes:hover, .backlog-votes.vote-cta-btn:hover {
+  background-color: var(--accent-synapse);
+  color: white;
+  border-color: var(--accent-synapse);
+}
+
+.backlog-votes .vote-label {
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+}
+
+.backlog-votes.voted {
+  background-color: oklch(0.55 0.18 140 / 0.12);
+  color: oklch(0.45 0.15 140);
+  border-color: oklch(0.55 0.18 140 / 0.35);
+  cursor: default;
+}
+
+/* Visitor Onboarding Hero Card */
+.visitor-onboarding-card {
+  background-color: var(--bg-surface-alt);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-card);
+  padding: var(--space-4);
+  margin-bottom: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.03);
+}
+
+.onboarding-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.onboarding-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-synapse);
+}
+
+.onboarding-heading {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 2px 0 0 0;
+  color: var(--text-ink);
+}
+
+.onboarding-close-btn {
+  background: none;
+  border: 1px solid transparent;
+  font-size: 1.4rem;
+  color: var(--text-ink-muted);
+  cursor: pointer;
+  padding: 2px 8px;
+  border-radius: var(--radius-button);
+  line-height: 1;
+  transition: background-color var(--transition-fast);
+}
+
+.onboarding-close-btn:hover {
+  background-color: var(--border-color);
+  color: var(--text-ink);
+}
+
+.onboarding-intro {
+  font-size: 0.92rem;
+  color: var(--text-ink-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.onboarding-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-1);
+}
+
+.onboarding-item {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  font-size: 0.85rem;
+  color: var(--text-ink);
   line-height: 1.4;
+}
+
+.onboarding-icon {
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 /* Legacy vote-btn styles removed */
 
