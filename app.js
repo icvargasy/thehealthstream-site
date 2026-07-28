@@ -147,7 +147,7 @@ function initializeSidebar() {
 }
 
 /**
- * Manages Interactive Sample Decoding Card #0 display and local storage dismissal state.
+ * Manages Visitor Guide Banner display and local storage dismissal state.
  * @returns {void}
  */
 function initializeVisitorOnboarding() {
