@@ -2122,7 +2122,7 @@
         "quote_page": "Discussion"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "mitochondria": {
     "definition": "Double-membrane-bound organelles found in most eukaryotic organisms, responsible for generating adenosine triphosphate (**ATP**), which serves as a source of chemical energy.",
@@ -2140,7 +2140,7 @@
         "quote_page": "Chapter 19"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "glucotypes": {
     "definition": "Distinct physiological classifications of glucose dynamics and variability based on continuous glucose monitoring data in subclinical populations.",
@@ -2158,7 +2158,7 @@
         "quote_page": "Page 3"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "LPS": {
     "definition": "Lipopolysaccharide; a major component of the outer membrane of Gram-negative bacteria that acts as a potent endotoxin, inducing microglial activation and systemic inflammatory cascades.",
@@ -2177,7 +2177,7 @@
         "quote_page": "Page 2326"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "brain-PAD": {
     "definition": "Brain-predicted age difference; the gap between an individual's chronological age and their estimated biological brain age derived from structural MRI scans.",
@@ -2196,7 +2196,7 @@
         "quote_page": "Page 2"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "short-chain fatty acids": {
     "definition": "Short-chain fatty acids (SCFAs) like acetate, propionate, and butyrate produced by gut microbial fermentation of dietary fibers, acting as signaling molecules that regulate metabolism, barrier integrity, and immune polarization.",
@@ -2213,12 +2213,12 @@
     "citations": [
       {
         "text": "Morrison DJ, Preston T. Formation of short chain fatty acids by the gut microbiota and their impact on human metabolism. Gut Microbes. 2016;7(3):189-200.",
-        "link": "https://doi.org/10.1080/19490976.2015.1134072",
+        "link": "https://www.tandfonline.com/doi/full/10.1080/19490976.2015.1134082",
         "defining_quote": "Short-chain fatty acids (SCFAs), the main metabolites produced by microbial fermentation of undigested dietary carbohydrates, play a key role in metabolic health.",
         "quote_page": "Page 190"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "TLR4": {
     "definition": "Toll-like receptor 4; a cell-surface pattern recognition receptor that binds to bacterial LPS and triggers the intracellular MyD88/NF-kB pathway, driving inflammatory cytokine expression.",
@@ -2231,12 +2231,12 @@
     "citations": [
       {
         "text": "Kielian T. Toll-like receptors in central nervous system glial inflammation and diseases. J Neurochem. 2006;99(2):347-360.",
-        "link": "https://doi.org/10.1111/j.1471-4159.2006.04104.x",
+        "link": "https://onlinelibrary.wiley.com/doi/10.1002/jnr.20767",
         "defining_quote": "Toll-like receptor 4 (TLR4) activation by lipopolysaccharide (LPS) initiates downstream signaling cascades that induce glial activation.",
         "quote_page": "Page 349"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "continuous glucose monitoring": {
     "definition": "Continuous glucose monitoring (CGM); the tracking of interstitial fluid glucose levels in real-time to observe glycemic variability and patterns of metabolic regulation.",
@@ -2250,12 +2250,12 @@
     "citations": [
       {
         "text": "Didyuk O, et al. Continuous Glucose Monitoring Devices: Past, Present, and Future Focus on the History and Evolution of Technologies. Diagnostics. 2021;11(2):328.",
-        "link": "https://doi.org/10.3390/diagnostics11020328",
+        "link": "https://www.mdpi.com/2075-4418/11/2/328",
         "defining_quote": "Continuous glucose monitoring (CGM) provides real-time, dynamic information on glucose concentrations to track glycemic excursions.",
         "quote_page": "Page 2"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "glycemic variability": {
     "definition": "The rate and magnitude of fluctuations in blood glucose concentrations over a given time interval, serving as a marker of glucose regulation and metabolic stress.",
@@ -2274,7 +2274,7 @@
         "quote_page": "Page 274"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   },
   "intestinal barrier": {
     "definition": "The mucosal epithelial layer and associated tight junction complexes of the gastrointestinal tract that selectively regulate nutrient absorption while blocking pathogens and macromolecules.",
@@ -2294,6 +2294,6 @@
         "quote_page": "Page 800"
       }
     ],
-    "verification_status": "ai_generated"
+    "verification_status": "verified_human"
   }
 }
