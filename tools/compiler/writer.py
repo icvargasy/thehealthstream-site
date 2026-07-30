@@ -276,7 +276,7 @@ def render_backlog_card(
         f'      <h2 class="card-title">'
         f'        <span class="card-title-link">{item["title"]}</span>'
         f'      </h2>'
-        f'      <div style="display: flex; gap: var(--space-2); align-items: center; margin-top: 4px; flex-wrap: wrap;">'
+        f'      <div style="display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;">'
         f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
         f'        {pipeline_badge_html}'
         f'        {evidence_badge_html}'
