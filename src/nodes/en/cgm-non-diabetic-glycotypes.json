@@ -1,0 +1,61 @@
+{
+  "type": "lifestyle",
+  "title": "CGM Non-Diabetic Glycotypes & Dysregulation",
+  "hook_question": "Do continuous glucose monitors reveal hidden blood sugar spikes in healthy, non-diabetic people?",
+  "takeaway_pill": "Continuous glucose monitoring (CGM) in healthy, non-diabetic cohorts reveals subclinical glycemic spikes, categorizing individuals into distinct physiological 'glucotypes' and identifying early metabolic dysregulation.",
+  "epistemic_rating": {
+    "grade": "Very Low",
+    "rationale": "While continuous glucose monitoring tracking technology is highly precise, its application for classifying healthy populations into 'glucotypes' relies on modeling and subclinical observational datasets, lacking large-scale long-term RCTs that link these spikes directly to chronic disease outcomes.",
+    "debate_sides": [
+      {
+        "position": "Subclinical Metabolic Discovery",
+        "arguments": "Advocates argue that monitoring glycemic fluctuations in healthy people reveals early-stage insulin resistance and postprandial spikes that standard clinical markers (like fasting glucose or HbA1c) fail to detect, allowing for preventative lifestyle adjustments."
+      },
+      {
+        "position": "Diagnostic Over-Monitoring & Lifestyle Stress",
+        "arguments": "Critics contend that continuous tracking in non-diabetic individuals creates unnecessary anxiety, encourages extreme dietary restrictions, and lacks evidence showing that mitigating transient spikes in healthy populations actually extends healthspan."
+      }
+    ]
+  },
+  "tags": [
+    "lifestyle",
+    "metabolism"
+  ],
+  "reading_modes": {
+    "overview_3min": "When we assess our metabolic health, we usually rely on annual fasting blood tests. However, using **continuous glucose monitoring** in clinically healthy, non-diabetic populations reveals a different picture. Even in people with normal HbA1c levels, real-time tracking shows significant **glycemic variability**, with some individuals experiencing transient spikes reaching prediabetic ranges. Based on these glucose patterns, researchers have classified individuals into distinct physiological **glucotypes** (low, moderate, and severe spikes). This variability shows that **metabolism** is highly individual and dynamic. While some clinicians debate whether tracking these spikes in healthy people is necessary, monitoring glucose dynamics offers an early window to optimize lifestyle habits and protect **healthspan**.",
+    "deep_dive": [
+      {
+        "heading": "Beyond HbA1c: Discovering the Glucotype",
+        "body": "Standard clinical assessments for diabetes rely on fasting blood glucose and glycated hemoglobin (HbA1c). While these metrics reflect long-term averages, they flatten out daily fluctuations. By collecting continuous, real-time measurements, **continuous glucose monitoring** reveals transient postprandial excursions. Analyzing these traces allows researchers to categorize individuals into low, moderate, or severe **glucotypes**, revealing subclinical glucose dysregulation."
+      },
+      {
+        "heading": "Glycemic Variability and Subclinical Spikes",
+        "body": "In observational trials of healthy, normoglycemic cohorts, continuous tracking showed that approximately 15% of participants experienced transient glucose spikes exceeding 140 mg/dL (the clinical threshold for impaired glucose tolerance) after standard meals. This high **glycemic variability** suggests that subclinical metabolic strain and early **insulin resistance** are often present long before fasting glucose markers show abnormal values."
+      },
+      {
+        "heading": "Preventative Value vs. Diagnostic Overkill",
+        "body": "The clinical utility of glucose monitoring in healthy individuals is an active area of discussion. Proponents argue that identifying a severe spike pattern early allows for tailored dietary modifications to prevent metabolic decline. Conversely, critics argue that tracking normal variations leads to anxiety and food avoidance, highlighting the need for balanced, evidence-based application of personal health technology."
+      }
+    ]
+  },
+  "edges": [],
+  "evidence_table": [
+    {
+      "study": "Hall et al., 2018",
+      "design": "Observational Cohort Study using CGMs",
+      "sample": "n=57 healthy, non-diabetic individuals",
+      "outcome": "Continuous glucose monitoring classified individuals into low, moderate, and severe spiking 'glucotypes'. Many participants who were clinically healthy experienced spikes that reached prediabetic levels.",
+      "link": "https://doi.org/10.1371/journal.pbio.2005143"
+    }
+  ],
+  "bibliography": [
+    {
+      "id": "ref1",
+      "tag": "Empirical Study",
+      "title": "Glucotypes reveal new patterns of glucose dysregulation in subclinical populations",
+      "text": "Hall H, et al. Glucotypes reveal new patterns of glucose dysregulation in subclinical populations. PLOS Biol. 2018;16(7):e2005143.",
+      "link": "https://doi.org/10.1371/journal.pbio.2005143"
+    }
+  ],
+  "systems_analogy_hook": "Installing a real-time water flow meter to log temporary pressure spikes that standard daily pressure checks miss."
+}

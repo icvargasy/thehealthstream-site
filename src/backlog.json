@@ -428,5 +428,21 @@
     ],
     "created_at": "2026-07-13",
     "systems_analogy": "Hidden pressure in a municipal grid triggering false alarms that cause security crews to damage local infrastructure."
+  },
+  {
+    "id": "breath-james-nestor-nasal-nitric-oxide",
+    "title": "Breath (James Nestor)",
+    "description": "Does shifting from mouth to nasal breathing enhance systemic tissue oxygenation via sinus-derived nitric oxide and the Bohr effect?",
+    "takeaway_pill": "Nasal breathing utilizes paranasal sinus nitric oxide and optimized carbon dioxide retention to dilate blood vessels and enhance cellular oxygen delivery via the Bohr effect.",
+    "category": "book",
+    "grade": "Very Low",
+    "votes": 0,
+    "tags": [
+      "book",
+      "lifestyle",
+      "longevity"
+    ],
+    "created_at": "2026-07-30",
+    "systems_analogy": "Transitioning from a drafty, uninsulated chimney to a narrow, pre-heated intake duct that conditions incoming airflow for peak engine efficiency."
   }
 ]

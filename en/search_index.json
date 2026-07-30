@@ -1,11 +1,35 @@
 [
   {
+    "title": "CGM Non-Diabetic Glycotypes & Dysregulation",
+    "slug": "cgm-non-diabetic-glycotypes.html",
+    "type": "article",
+    "category": "Lifestyle Practices",
+    "category_type": "lifestyle",
+    "teaser": "Do continuous glucose monitors reveal hidden blood sugar spikes in healthy, non-diabetic people?"
+  },
+  {
+    "title": "Exercise-Induced Brain Age Reversal (Brain-PAD)",
+    "slug": "exercise-induced-brain-pad-reversal.html",
+    "type": "article",
+    "category": "Lifestyle Practices",
+    "category_type": "lifestyle",
+    "teaser": "Does a year of consistent, moderate-to-vigorous exercise (150+ minutes per week) reverse biological brain age?"
+  },
+  {
     "title": "Fasting, Microbiome Shifts, and Neuroinflammation",
     "slug": "fasting-microbiome-neuroinflammation.html",
     "type": "article",
     "category": "Biological Circuits",
     "category_type": "biology",
-    "teaser": "Does alternate-day fasting reprogram microglial security patrols via the gut-brain axis?"
+    "teaser": "Can fasting on alternate days alter your gut bacteria to reduce brain inflammation?"
+  },
+  {
+    "title": "Gut Dysbiosis & Microglial Priming in Alzheimer's",
+    "slug": "gut-dysbiosis-lps-microglial-priming.html",
+    "type": "article",
+    "category": "Biological Circuits",
+    "category_type": "biology",
+    "teaser": "Does a leaking gut barrier prime your brain's immune cells to accelerate Alzheimer's?"
   },
   {
     "title": "DHA Target Engagement & Cognition in Dementia Risk",
@@ -13,7 +37,7 @@
     "type": "article",
     "category": "Biological Circuits",
     "category_type": "biology",
-    "teaser": "Can high-dose DHA engagement halt structural brain decay without resolving metabolic co-factors?"
+    "teaser": "Can daily high-dose omega-3 supplements alone stop brain shrinkage and memory loss?"
   },
   {
     "title": "VO2max Retention and Cardiorespiratory Aging",
@@ -21,7 +45,7 @@
     "type": "article",
     "category": "Lifestyle Practices",
     "category_type": "lifestyle",
-    "teaser": "Does maintaining exceptionally high cardiorespiratory fitness in multi-marathoners alter the aging trajectory of VO2max and lower all-cause mortality?"
+    "teaser": "Can decades of high-volume running prevent the age-related decline of your aerobic capacity?"
   },
   {
     "title": "healthspan",
@@ -165,8 +189,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An imbalance or maladaptive alteration in the composition, diversity, or functional activity of the gastrointestinal **microbiota**, leading to mucosal barrier degradation and systemic inflammation.",
-    "in_pipeline": true
+    "teaser": "An imbalance or maladaptive alteration in the composition, diversity, or functional activity of the gastrointestinal **microbiota**, leading to mucosal barrier degradation and systemic inflammation."
   },
   {
     "title": "folate",
@@ -866,8 +889,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Magnetic Resonance Imaging; a non-invasive medical imaging technique that uses strong magnetic fields and radio waves to generate detailed structural scans of tissues and organs.",
-    "in_pipeline": true
+    "teaser": "Magnetic Resonance Imaging; a non-invasive medical imaging technique that uses strong magnetic fields and radio waves to generate detailed structural scans of tissues and organs."
   },
   {
     "title": "phosphatidylcholine",
@@ -900,8 +922,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A protein peptide that can accumulate in the brain, forming sticky plaques associated with **neurodegeneration** and Alzheimer's disease progression.",
-    "in_pipeline": true
+    "teaser": "A protein peptide that can accumulate in the brain, forming sticky plaques associated with **neurodegeneration** and Alzheimer's disease progression."
   },
   {
     "title": "NAD+",
@@ -958,5 +979,69 @@
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "Double-membrane-bound organelles found in most eukaryotic organisms, responsible for generating adenosine triphosphate (**ATP**), which serves as a source of chemical energy."
+  },
+  {
+    "title": "glucotypes",
+    "slug": "vocabulary/glucotypes.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Distinct physiological classifications of glucose dynamics and variability based on continuous glucose monitoring data in subclinical populations."
+  },
+  {
+    "title": "LPS",
+    "slug": "vocabulary/lps.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Lipopolysaccharide; a major component of the outer membrane of Gram-negative bacteria that acts as a potent endotoxin, inducing microglial activation and systemic inflammatory cascades."
+  },
+  {
+    "title": "brain-PAD",
+    "slug": "vocabulary/brain-pad.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Brain-predicted age difference; the gap between an individual's chronological age and their estimated biological brain age derived from structural MRI scans."
+  },
+  {
+    "title": "short-chain fatty acids",
+    "slug": "vocabulary/short-chain-fatty-acids.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Short-chain fatty acids (SCFAs) like acetate, propionate, and butyrate produced by gut microbial fermentation of dietary fibers, acting as signaling molecules that regulate metabolism, barrier integrity, and immune polarization."
+  },
+  {
+    "title": "TLR4",
+    "slug": "vocabulary/tlr4.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Toll-like receptor 4; a cell-surface pattern recognition receptor that binds to bacterial LPS and triggers the intracellular MyD88/NF-kB pathway, driving inflammatory cytokine expression."
+  },
+  {
+    "title": "continuous glucose monitoring",
+    "slug": "vocabulary/continuous-glucose-monitoring.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "Continuous glucose monitoring (CGM); the tracking of interstitial fluid glucose levels in real-time to observe glycemic variability and patterns of metabolic regulation."
+  },
+  {
+    "title": "glycemic variability",
+    "slug": "vocabulary/glycemic-variability.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The rate and magnitude of fluctuations in blood glucose concentrations over a given time interval, serving as a marker of glucose regulation and metabolic stress."
+  },
+  {
+    "title": "intestinal barrier",
+    "slug": "vocabulary/intestinal-barrier.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The mucosal epithelial layer and associated tight junction complexes of the gastrointestinal tract that selectively regulate nutrient absorption while blocking pathogens and macromolecules."
   }
 ]
