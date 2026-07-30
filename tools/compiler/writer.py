@@ -1127,8 +1127,11 @@ def compile_detail_page(
     full_content = (
         f'<article class="article-detail cat-{node["type"]}">'
         f'  <header class="detail-header">'
-        f'    <a href="category-{node["type"]}.html" class="category-tag">{category_label}</a>'
-        f'    <h1>{node["title"]}</h1>'
+        f'    <div class="detail-kicker-row">'
+        f'      <a href="category-{node["type"]}.html" class="category-tag">{category_label}</a>'
+        f'      <span class="detail-topic-subtitle">{node["title"]}</span>'
+        f'    </div>'
+        f'    <h1>{node["hook_question"]}</h1>'
         f'    {meta_row_html}'
         f'  </header>'
         f'  {takeaway_block_html}'

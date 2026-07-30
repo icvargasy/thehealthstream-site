@@ -4260,6 +4260,200 @@ a.pipeline-badge-link:hover {
   padding: 8px var(--space-2);
   cursor: pointer;
   font-size: 0.75rem;
+.feed-card.pipeline-card-merged.cat-lifestyle .backlog-votes.voted {
+  background-color: var(--accent-lifestyle);
+  border-color: var(--accent-lifestyle);
+  color: var(--text-ink);
+}
+
+.feed-card.pipeline-card-merged.cat-book .backlog-votes.voted {
+  background-color: var(--accent-book);
+  border-color: var(--accent-book);
+  color: var(--text-ink);
+}
+
+/* Category-Dynamic CTA Button & Hover Styling */
+.feed-card.cat-biology .read-article-btn:hover,
+.feed-card.cat-biology .backlog-votes:hover:not(:disabled) {
+  border-color: oklch(0.40 0.16 250);
+  color: oklch(0.40 0.16 250);
+  background-color: oklch(0.70 0.13 250 / 0.10);
+}
+
+.feed-card.cat-lifestyle .read-article-btn:hover,
+.feed-card.cat-lifestyle .backlog-votes:hover:not(:disabled) {
+  border-color: oklch(0.40 0.14 140);
+  color: oklch(0.40 0.14 140);
+  background-color: oklch(0.60 0.12 140 / 0.10);
+}
+
+.feed-card.cat-book .read-article-btn:hover,
+.feed-card.cat-book .backlog-votes:hover:not(:disabled) {
+  border-color: oklch(0.45 0.15 70);
+  color: oklch(0.45 0.15 70);
+  background-color: oklch(0.70 0.14 70 / 0.10);
+}
+
+/* Sidebar Differentiated Category Count Badges (Issue 9) */
+.category-stats-sidebar {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.sidebar-stat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--sb-text-muted);
+}
+
+.sidebar-stat-badge svg {
+  opacity: 0.7;
+}
+
+.nav-link:hover .sidebar-stat-badge,
+.category-link:hover .sidebar-stat-badge {
+  color: var(--sb-text);
+}
+
+/* Explore submit proposal header button placement (Issue 10) */
+.explore-proposal-btn {
+  background-color: var(--accent-synapse);
+  border: 1px solid var(--accent-synapse);
+  color: white !important;
+  padding: 7px 18px;
+  border-radius: 30px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transition: all var(--transition-fast);
+}
+
+.explore-proposal-btn:hover {
+  background-color: var(--accent-synapse-hover);
+  border-color: var(--accent-synapse-hover);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.18);
+  transform: translateY(-1.5px);
+}
+
+/* Explicit topic category coloring for connection lists */
+.connection-item-link.topic-biology,
+.connection-item-link.cat-biology,
+.connection-item-link.topic-biology .connection-title,
+.connection-item-link.topic-biology svg {
+  color: var(--accent-biology) !important;
+  stroke: var(--accent-biology) !important;
+}
+
+.connection-item-link.topic-lifestyle,
+.connection-item-link.cat-lifestyle,
+.connection-item-link.topic-lifestyle .connection-title,
+.connection-item-link.topic-lifestyle svg {
+  color: var(--accent-lifestyle) !important;
+  stroke: var(--accent-lifestyle) !important;
+}
+
+.connection-item-link.topic-book,
+.connection-item-link.cat-book,
+.connection-item-link.topic-book .connection-title,
+.connection-item-link.topic-book svg {
+  color: var(--accent-book) !important;
+  stroke: var(--accent-book) !important;
+}
+
+.sidebar-stat-badge-total {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--sb-text-muted);
+  margin-left: auto;
+  transition: color var(--transition-fast);
+}
+
+.nav-link:hover .sidebar-stat-badge-total,
+.category-link:hover .sidebar-stat-badge-total {
+  color: var(--sb-text);
+}
+
+/* Explicit lexicon category coloring for connection lists */
+.connection-item-link.topic-lexicon,
+.connection-item-link.cat-lexicon,
+.connection-item-link.topic-lexicon .connection-title,
+.connection-item-link.topic-lexicon svg {
+  color: var(--accent-synapse) !important;
+  stroke: var(--accent-synapse) !important;
+}
+
+/* WCAG 2.1 AA Keyboard Focus Visibility Rules */
+:focus-visible {
+  outline: 2px solid var(--accent-synapse) !important;
+  outline-offset: 2px !important;
+}
+
+.jargon-term:focus-visible {
+  outline: 2px solid var(--accent-synapse) !important;
+  outline-offset: 3px !important;
+  border-radius: 2px;
+}
+
+/* Card kicker and subheadings */
+.card-kicker-row {
+  display: flex;
+  margin-bottom: 2px;
+}
+.card-topic-subtitle {
+  font-family: var(--font-system);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-synapse);
+}
+.feed-card.cat-biology .card-topic-subtitle {
+  color: var(--accent-biology);
+}
+.feed-card.cat-lifestyle .card-topic-subtitle {
+  color: oklch(0.45 0.13 140);
+}
+.feed-card.cat-book .card-topic-subtitle {
+  color: oklch(0.55 0.12 75);
+}
+
+/* CSS-Only Segmented Tabs for Summaries Takeaway Box */
+.scrappy-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.tabs-nav {
+  display: flex;
+  background-color: var(--bg-surface-alt);
+  padding: 4px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-color);
+  margin-bottom: var(--space-2);
+  gap: var(--space-1);
+}
+.tab-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  padding: 8px var(--space-2);
+  cursor: pointer;
+  font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-ink-muted);
   border-radius: var(--radius-button);
@@ -4268,6 +4462,8 @@ a.pipeline-badge-link:hover {
   letter-spacing: 0.05em;
   min-height: 48px; /* Mobile tap target compliance */
   user-select: none;
+  border: 1px solid transparent;
+  background: transparent;
 }
 .tab-label:hover {
   color: var(--text-ink);
@@ -4280,30 +4476,30 @@ body[data-theme="dark"] .tab-label:hover {
 /* Active Tab Selection */
 #tab-analogy:checked ~ .tabs-nav .label-analogy,
 #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
-  background-color: var(--bg-paper);
+  background-color: var(--bg-paper) !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  color: var(--text-ink);
-  border: 1px solid var(--border-color);
+  color: var(--text-ink) !important;
+  border: 1px solid var(--border-color) !important;
 }
 
 /* Category dynamic styling for active tabs */
 .cat-biology #tab-analogy:checked ~ .tabs-nav .label-analogy,
 .cat-biology #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
-  color: var(--accent-biology);
-  border-color: oklch(0.55 0.18 250 / 0.3);
-  background-color: oklch(0.55 0.18 250 / 0.05);
+  color: var(--accent-biology) !important;
+  border-color: oklch(0.55 0.18 250 / 0.3) !important;
+  background-color: oklch(0.55 0.18 250 / 0.05) !important;
 }
 .cat-lifestyle #tab-analogy:checked ~ .tabs-nav .label-analogy,
 .cat-lifestyle #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
-  color: oklch(0.45 0.13 140);
-  border-color: oklch(0.62 0.15 140 / 0.3);
-  background-color: oklch(0.62 0.15 140 / 0.05);
+  color: oklch(0.45 0.13 140) !important;
+  border-color: oklch(0.62 0.15 140 / 0.3) !important;
+  background-color: oklch(0.62 0.15 140 / 0.05) !important;
 }
 .cat-book #tab-analogy:checked ~ .tabs-nav .label-analogy,
 .cat-book #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
-  color: oklch(0.55 0.12 75);
-  border-color: oklch(0.70 0.16 75 / 0.3);
-  background-color: oklch(0.70 0.16 75 / 0.05);
+  color: oklch(0.55 0.12 75) !important;
+  border-color: oklch(0.70 0.16 75 / 0.3) !important;
+  background-color: oklch(0.70 0.16 75 / 0.05) !important;
 }
 
 .tab-panel {
@@ -4319,6 +4515,32 @@ body[data-theme="dark"] .tab-label:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Detail page kicker styles */
+.detail-kicker-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  flex-wrap: wrap;
+}
+.detail-topic-subtitle {
+  font-family: var(--font-system);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-synapse);
+}
+.article-detail.cat-biology .detail-topic-subtitle {
+  color: var(--accent-biology);
+}
+.article-detail.cat-lifestyle .detail-topic-subtitle {
+  color: oklch(0.45 0.13 140);
+}
+.article-detail.cat-book .detail-topic-subtitle {
+  color: oklch(0.55 0.12 75);
+}
+
 /* Mobile responsiveness tweaks */
 @media (max-width: 600px) {
   .feed-card-header {
@@ -4331,12 +4553,5 @@ body[data-theme="dark"] .tab-label:hover {
     width: 100% !important;
     justify-content: center !important;
     min-height: 48px !important;
-  }
-  .tabs-nav {
-    flex-direction: column;
-    gap: 4px;
-  }
-  .tab-label {
-    width: 100%;
   }
 }
