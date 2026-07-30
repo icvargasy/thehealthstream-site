@@ -128,39 +128,29 @@ def render_evidence_tier_badge(grade: str) -> str:
     """
     grade_clean = (grade or "").strip().lower()
 
+    evidence_icon_svg = (
+        '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+        '  <circle cx="11" cy="11" r="8"></circle>'
+        '  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>'
+        '</svg>'
+    )
+
     if grade_clean in ("high", "moderate"):
         tier_slug = "consensus-core"
         tier_label = "Proven"
-        icon_svg = (
-            '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
-            '  <polyline points="20 6 9 17 4 12"></polyline>'
-            '</svg>'
-        )
         title_text = "Proven: Strong, proven science backed by clinical studies in humans"
     elif grade_clean == "low":
         tier_slug = "emerging-frontier"
         tier_label = "Promising"
-        icon_svg = (
-            '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-            '  <path d="M2 22h20M12 2v20M5 12h14"></path>'
-            '</svg>'
-        )
         title_text = "Promising: Promising science shown in early tests, awaiting larger human trials"
     else: # "very low"
         tier_slug = "exploratory-sandbox"
         tier_label = "Untested"
-        icon_svg = (
-            '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-            '  <circle cx="12" cy="12" r="10"></circle>'
-            '  <line x1="12" y1="16" x2="12" y2="12"></line>'
-            '  <line x1="12" y1="8" x2="12.01" y2="8"></line>'
-            '</svg>'
-        )
         title_text = "Untested: Experimental or unproven ideas based on biofeedback or theoretical concepts"
 
     return (
         f'<span class="evidence-tier-badge tier-{tier_slug}" data-tier="{tier_slug}" data-grade="{grade_clean}" title="{title_text}">'
-        f'  {icon_svg}<span>{tier_label}</span>'
+        f'  {evidence_icon_svg}<span>{tier_label}</span>'
         f'</span>'
     )
 
