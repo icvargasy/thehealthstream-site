@@ -4211,5 +4211,132 @@ a.pipeline-badge-link:hover {
   border-radius: 2px;
 }
 
+/* Card kicker and subheadings */
+.card-kicker-row {
+  display: flex;
+  margin-bottom: 2px;
+}
+.card-topic-subtitle {
+  font-family: var(--font-system);
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--accent-synapse);
+}
+.feed-card.cat-biology .card-topic-subtitle {
+  color: var(--accent-biology);
+}
+.feed-card.cat-lifestyle .card-topic-subtitle {
+  color: oklch(0.45 0.13 140);
+}
+.feed-card.cat-book .card-topic-subtitle {
+  color: oklch(0.55 0.12 75);
+}
 
+/* CSS-Only Segmented Tabs for Summaries Takeaway Box */
+.scrappy-tabs {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-2);
+}
+.tabs-nav {
+  display: flex;
+  background-color: var(--bg-surface-alt);
+  padding: 4px;
+  border-radius: var(--radius-button);
+  border: 1px solid var(--border-color);
+  margin-bottom: var(--space-2);
+  gap: var(--space-1);
+}
+.tab-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  flex: 1;
+  padding: 8px var(--space-2);
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--text-ink-muted);
+  border-radius: var(--radius-button);
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  min-height: 48px; /* Mobile tap target compliance */
+  user-select: none;
+}
+.tab-label:hover {
+  color: var(--text-ink);
+  background-color: rgba(0, 0, 0, 0.02);
+}
+body[data-theme="dark"] .tab-label:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
 
+/* Active Tab Selection */
+#tab-analogy:checked ~ .tabs-nav .label-analogy,
+#tab-mechanism:checked ~ .tabs-nav .label-mechanism {
+  background-color: var(--bg-paper);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  color: var(--text-ink);
+  border: 1px solid var(--border-color);
+}
+
+/* Category dynamic styling for active tabs */
+.cat-biology #tab-analogy:checked ~ .tabs-nav .label-analogy,
+.cat-biology #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
+  color: var(--accent-biology);
+  border-color: oklch(0.55 0.18 250 / 0.3);
+  background-color: oklch(0.55 0.18 250 / 0.05);
+}
+.cat-lifestyle #tab-analogy:checked ~ .tabs-nav .label-analogy,
+.cat-lifestyle #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
+  color: oklch(0.45 0.13 140);
+  border-color: oklch(0.62 0.15 140 / 0.3);
+  background-color: oklch(0.62 0.15 140 / 0.05);
+}
+.cat-book #tab-analogy:checked ~ .tabs-nav .label-analogy,
+.cat-book #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
+  color: oklch(0.55 0.12 75);
+  border-color: oklch(0.70 0.16 75 / 0.3);
+  background-color: oklch(0.70 0.16 75 / 0.05);
+}
+
+.tab-panel {
+  display: none;
+  animation: tabFadeIn var(--transition-fast) ease-in-out;
+}
+#tab-analogy:checked ~ .tabs-content .panel-analogy,
+#tab-mechanism:checked ~ .tabs-content .panel-mechanism {
+  display: block;
+}
+@keyframes tabFadeIn {
+  from { opacity: 0; transform: translateY(1px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile responsiveness tweaks */
+@media (max-width: 600px) {
+  .feed-card-header {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: var(--space-2) !important;
+  }
+  .read-article-btn,
+  .backlog-votes {
+    width: 100% !important;
+    justify-content: center !important;
+    min-height: 48px !important;
+  }
+  .tabs-nav {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .tab-label {
+    width: 100%;
+  }
+}

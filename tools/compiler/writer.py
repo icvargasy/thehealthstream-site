@@ -130,25 +130,25 @@ def render_evidence_tier_badge(grade: str) -> str:
 
     if grade_clean in ("high", "moderate"):
         tier_slug = "consensus-core"
-        tier_label = "Consensus Core"
+        tier_label = "Proven"
         icon_svg = (
             '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">'
             '  <polyline points="20 6 9 17 4 12"></polyline>'
             '</svg>'
         )
-        title_text = "Consensus Core: High/moderate clinical evidence base"
+        title_text = "Proven: Strong, proven science backed by clinical studies in humans"
     elif grade_clean == "low":
         tier_slug = "emerging-frontier"
-        tier_label = "Emerging Frontier"
+        tier_label = "Promising"
         icon_svg = (
             '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
             '  <path d="M2 22h20M12 2v20M5 12h14"></path>'
             '</svg>'
         )
-        title_text = "Emerging Frontier: Emerging or early-stage physiological evidence"
+        title_text = "Promising: Promising science shown in early tests, awaiting larger human trials"
     else: # "very low"
         tier_slug = "exploratory-sandbox"
-        tier_label = "Exploratory Sandbox"
+        tier_label = "Untested"
         icon_svg = (
             '<svg class="tier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
             '  <circle cx="12" cy="12" r="10"></circle>'
@@ -156,7 +156,7 @@ def render_evidence_tier_badge(grade: str) -> str:
             '  <line x1="12" y1="8" x2="12.01" y2="8"></line>'
             '</svg>'
         )
-        title_text = "Exploratory Sandbox: Exploratory or hypothesis-driven concepts"
+        title_text = "Untested: Experimental or unproven ideas based on biofeedback or theoretical concepts"
 
     return (
         f'<span class="evidence-tier-badge tier-{tier_slug}" data-tier="{tier_slug}" data-grade="{grade_clean}" title="{title_text}">'
@@ -172,9 +172,9 @@ def render_tier_filter_select() -> str:
         f'  <label for="feed-tier-filter-select" class="feed-sort-label">Evidence:</label>'
         f'  <select id="feed-tier-filter-select" class="feed-sort-select" aria-label="Filter by Evidence Level">'
         f'    <option value="all" selected>All Evidence Tiers</option>'
-        f'    <option value="consensus-core">Consensus Core (Tier 1)</option>'
-        f'    <option value="emerging-frontier">Emerging Frontier (Tier 2)</option>'
-        f'    <option value="exploratory-sandbox">Exploratory Sandbox (Tier 3)</option>'
+        f'    <option value="consensus-core">Proven (Tier 1)</option>'
+        f'    <option value="emerging-frontier">Promising (Tier 2)</option>'
+        f'    <option value="exploratory-sandbox">Untested (Tier 3)</option>'
         f'  </select>'
         f'</div>'
     )
@@ -273,8 +273,11 @@ def render_backlog_card(
         f'<{tag_name} id="{item["id"]}" class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}" data-grade="{grade_clean}" data-tier="{tier_slug}">'
         f'  <div class="feed-card-header">'
         f'    <div class="feed-card-title-group">'
+        f'      <div class="card-kicker-row">'
+        f'        <span class="card-topic-subtitle">{item["title"]}</span>'
+        f'      </div>'
         f'      <h2 class="card-title">'
-        f'        <span class="card-title-link">{item["title"]}</span>'
+        f'        <span class="card-title-link">{item["description"]}</span>'
         f'      </h2>'
         f'      <div style="display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;">'
         f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
@@ -364,8 +367,11 @@ def render_article_card(
         f'<div class="feed-card cat-{cat}" data-created="{created_at}" data-title="{node["title"]}" data-category="{cat}" data-grade="{grade_clean}" data-tier="{tier_slug}">'
         f'  <div class="feed-card-header">'
         f'    <div class="feed-card-title-group">'
+        f'      <div class="card-kicker-row">'
+        f'        <span class="card-topic-subtitle">{node["title"]}</span>'
+        f'      </div>'
         f'      <h2 class="card-title">'
-        f'        <a href="{article_url}" class="card-title-link">{node["title"]}</a>'
+        f'        <a href="{article_url}" class="card-title-link">{node["hook_question"]}</a>'
         f'      </h2>'
         f'      <div style="display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;">'
         f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
@@ -820,18 +826,42 @@ def compile_detail_page(
         )
 
     mech_label = get_category_mechanism_label(node.get("type", ""))
-    takeaway_block_html = (
-        f'<div class="detail-hero-takeaway">'
-        f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
-        f'    <span class="qa-question-text">{hook}</span>'
-        f'    {analogy_hero_html}'
-        f'    <div class="detail-hero-clinical-box">'
-        f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong></span>'
-        f'      <p class="hero-clinical-text">{takeaway}</p>'
-        f'    </div>'
-        f'  </blockquote>'
-        f'</div>'
-    )
+    if analogy_hook:
+        takeaway_block_html = (
+            f'<div class="detail-hero-takeaway">'
+            f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
+            f'    <span class="qa-question-text">{hook}</span>'
+            f'    <div class="scrappy-tabs">'
+            f'      <input type="radio" id="tab-analogy" name="scrappy-tab-group" checked style="display:none;">'
+            f'      <input type="radio" id="tab-mechanism" name="scrappy-tab-group" style="display:none;">'
+            f'      <div class="tabs-nav">'
+            f'        <label for="tab-analogy" class="tab-label label-analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</label>'
+            f'        <label for="tab-mechanism" class="tab-label label-mechanism">{CLINICAL_MECHANISM_SVG} {mech_label}</label>'
+            f'      </div>'
+            f'      <div class="tabs-content">'
+            f'        <div class="tab-panel panel-analogy">'
+            f'          <p class="hero-analogy-text">{analogy_hook}</p>'
+            f'        </div>'
+            f'        <div class="tab-panel panel-mechanism">'
+            f'          <p class="hero-clinical-text">{takeaway}</p>'
+            f'        </div>'
+            f'      </div>'
+            f'    </div>'
+            f'  </blockquote>'
+            f'</div>'
+        )
+    else:
+        takeaway_block_html = (
+            f'<div class="detail-hero-takeaway">'
+            f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
+            f'    <span class="qa-question-text">{hook}</span>'
+            f'    <div class="detail-hero-clinical-box">'
+            f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong></span>'
+            f'      <p class="hero-clinical-text">{takeaway}</p>'
+            f'    </div>'
+            f'  </blockquote>'
+            f'</div>'
+        )
     rationale = er["rationale"]
     grade_lower = grade.lower()
     
@@ -872,17 +902,17 @@ def compile_detail_page(
         debate_link_html = f' <a href="#evidence-section" class="popover-debate-link">debates</a>'
 
     if grade_lower in ("high", "moderate"):
-        tier_label = "Consensus Core"
+        tier_label = "Proven"
         tier_slug = "consensus-core"
-        tier_desc = "Established clinical consensus backed by human RCTs and validated molecular mechanisms."
+        tier_desc = "Strong, proven science backed by clinical studies in humans."
     elif grade_lower == "low":
-        tier_label = "Emerging Frontier"
+        tier_label = "Promising"
         tier_slug = "emerging-frontier"
-        tier_desc = "Promising cellular pathways and pre-clinical models awaiting large-scale human efficacy trials."
+        tier_desc = "Promising science shown in early tests or animal studies, awaiting larger human trials."
     else:
-        tier_label = "Exploratory Sandbox"
+        tier_label = "Untested"
         tier_slug = "exploratory-sandbox"
-        tier_desc = "Consumer biofeedback and behavioral awareness tools. Valued for self-experimentation rather than clinical endpoint outcomes."
+        tier_desc = "Experimental or unproven ideas based on biofeedback or theoretical concepts."
 
     grade_popover_html = (
         f'<div class="detail-grade-container">'

@@ -7,9 +7,9 @@ We view the human body not as a collection of isolated symptoms, but as an inter
 
 Health and longevity research moves continuously from raw hypothesis to clinical consensus. We classify all entries into three constructive data confidence tiers:
 
-- **Consensus Core (Tier 1)**: Robust, high-confidence evidence validated by human RCTs and meta-analyses.
-- **Emerging Frontier (Tier 2)**: Promising preliminary human trials and mechanistic animal models exploring novel targets.
-- **Exploratory Sandbox (Tier 3)**: Hypothesis-driven, pre-clinical bio-mechanisms and consumer biofeedback frameworks.
+- **Proven (Tier 1)**: Strong, proven science backed by clinical studies in humans.
+- **Promising (Tier 2)**: Promising science shown in early human tests or animal models, awaiting larger trials.
+- **Untested (Tier 3)**: Experimental or unproven ideas based on biofeedback or theoretical concepts.
 
 ### Community-Driven Co-Creation
 
