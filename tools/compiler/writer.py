@@ -284,7 +284,7 @@ def render_backlog_card(
         f'        <span class="card-topic-subtitle">{item["title"]}</span>'
         f'      </div>'
         f'      <h2 class="card-title">'
-        f'        <span class="card-title-link">{item["description"]}</span>'
+        f'        <span class="card-title-link">{item["hook_question"]}</span>'
         f'      </h2>'
         f'      <div style="display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;">'
         f'        <a href="{category_url}" class="category-tag">{category_label}</a>'

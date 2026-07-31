@@ -397,6 +397,7 @@ def test_compile_backlog_page() -> None:
         {
             "id": "autophagy-kinetics",
             "title": "Autophagy Kinetics",
+            "hook_question": "Can fasting restart the cell's internal recycling system?",
             "description": "Fasting trigger",
             "votes": 124,
         }
@@ -655,6 +656,7 @@ def test_card_structure_and_backlog_buttons() -> None:
         {
             "id": "autophagy-kinetics",
             "title": "Autophagy Kinetics",
+            "hook_question": "Can fasting restart the cell's internal recycling system?",
             "description": "Fasting trigger",
             "category": "biology",
             "tags": ["biology"],
@@ -866,6 +868,7 @@ def test_card_layout_parity_all_pages() -> None:
     backlog = [{
         "id": "autophagy-kinetics",
         "title": "Autophagy Kinetics",
+        "hook_question": "Can fasting restart the cell's internal recycling system?",
         "description": "Fasting trigger",
         "category": "biology",
         "tags": ["metabolism"],
@@ -921,12 +924,13 @@ def test_content_nodes_vulgarisation_and_analogy_ceilings() -> None:
 
 
 def test_render_backlog_card_layout_parity() -> None:
-    """Verifies that render_backlog_card renders ONLY the systems analogy hook block and omits takeaways."""
+    """Verifies render_backlog_card uses hook_question as card H2 and renders the systems analogy block."""
     from tools.compiler.writer import render_backlog_card
 
     backlog_item = {
         "id": "test-backlog-item",
         "title": "Test Backlog Proposal",
+        "hook_question": "Could disrupted cell recycling quietly accelerate brain aging?",
         "description": "Why is cellular energy sensing critical for longevity?",
         "category": "biology",
         "votes": 12,
@@ -940,11 +944,15 @@ def test_render_backlog_card_layout_parity() -> None:
     card_html = render_backlog_card(backlog_item, translations, as_list_item=False)
 
     assert 'class="feed-card pipeline-card-merged cat-biology"' in card_html
+    # hook_question must appear as the card H2 headline
+    assert 'Could disrupted cell recycling quietly accelerate brain aging?' in card_html
     assert 'class="card-analogy-hook"' in card_html
     assert 'A factory power grid throttling non-essential machinery.' in card_html
     assert 'class="pipeline-badge pipeline-badge-link"' in card_html
     assert 'In the Pipeline' in card_html
-    # Confirm formal questions and mechanism takeaways are omitted from feed cards
+    # description must NOT appear as the card H2 (internal field only)
+    assert 'Why is cellular energy sensing critical for longevity?' not in card_html
+    # Formal mechanism takeaways are reserved for detail pages
     assert 'class="card-takeaway-hook"' not in card_html
     assert 'class="qa-question-text"' not in card_html
 
@@ -1206,11 +1214,59 @@ def test_backlog_book_title_naming_standards() -> None:
                 f"Title was '{title}', must be in format 'Book Title (Author Name)'"
             )
 
+def test_validate_backlog_item_requires_hook_question() -> None:
+    """Ensures validate_backlog_item raises ValueError when hook_question is absent."""
+    from tools.compiler.reader import validate_backlog_item
+
+    base_item = {
+        "id": "test-backlog-id",
+        "title": "Test Backlog Entry",
+        "hook_question": "Could disrupted cell recycling quietly accelerate brain aging?",
+        "description": "How does autophagy suppression drive neurodegeneration?",
+        "category": "biology",
+        "systems_analogy": "A city sanitation fleet halted by budget cuts, letting waste pile in streets.",
+        "grade": "Low",
+    }
+
+    # 1. Valid item must pass without raising
+    validate_backlog_item(base_item, "test-backlog-id")
+
+    # 2. Missing hook_question must raise
+    invalid = {k: v for k, v in base_item.items() if k != "hook_question"}
+    with pytest.raises(ValueError, match="hook_question"):
+        validate_backlog_item(invalid, "test-backlog-id")
+
+    # 3. Empty hook_question must raise
+    empty = {**base_item, "hook_question": ""}
+    with pytest.raises(ValueError, match="hook_question"):
+        validate_backlog_item(empty, "test-backlog-id")
 
 
+def test_backlog_hook_question_schema_parity() -> None:
+    """Ensures every non-book backlog item has a populated hook_question field."""
+    import json
+    import os
 
+    backlog_path = "src/backlog.json"
+    if not os.path.exists(backlog_path):
+        return
 
+    with open(backlog_path, "r", encoding="utf-8") as f:
+        items = json.load(f)
 
+    for item in items:
+        item_id = item.get("id", "unknown")
+        category = item.get("category", "")
+        if category == "book":
+            continue  # book cards use Title (Author) format, hook_question optional
+        hook = item.get("hook_question", "")
+        assert hook and hook.strip(), (
+            f"Backlog item '{item_id}' (category={category}) is missing a hook_question. "
+            "All Science and Lifestyle pipeline cards must have a hook_question."
+        )
+        assert hook.strip().endswith("?"), (
+            f"Backlog item '{item_id}' hook_question must end with '?'. Got: '{hook}'"
+        )
 
 
 
