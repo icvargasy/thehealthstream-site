@@ -559,5 +559,41 @@ describe("Client Interaction - app.js", () => {
     });
     expect(localStorageMock.setItem).toHaveBeenCalledWith("voter_email", "community@example.com");
   });
+
+  it("should switch active tabs and panels on click", async () => {
+    document.body.innerHTML = `
+      <div class="scrappy-tabs">
+        <div class="tabs-nav">
+          <button type="button" class="tab-btn active" data-tab="analogy">Analogy</button>
+          <button type="button" class="tab-btn" data-tab="mechanism">Mechanism</button>
+        </div>
+        <div class="tabs-content">
+          <div class="tab-panel panel-analogy active" data-panel="analogy">Analogy Content</div>
+          <div class="tab-panel panel-mechanism" data-panel="mechanism">Mechanism Content</div>
+        </div>
+      </div>
+    `;
+
+    const analogyBtn = document.querySelector('.tab-btn[data-tab="analogy"]');
+    const mechanismBtn = document.querySelector('.tab-btn[data-tab="mechanism"]');
+    const analogyPanel = document.querySelector('.tab-panel[data-panel="analogy"]');
+    const mechanismPanel = document.querySelector('.tab-panel[data-panel="mechanism"]');
+
+    // Click mechanism tab
+    mechanismBtn.click();
+
+    expect(analogyBtn.classList.contains("active")).toBe(false);
+    expect(mechanismBtn.classList.contains("active")).toBe(true);
+    expect(analogyPanel.classList.contains("active")).toBe(false);
+    expect(mechanismPanel.classList.contains("active")).toBe(true);
+
+    // Click analogy tab back
+    analogyBtn.click();
+
+    expect(analogyBtn.classList.contains("active")).toBe(true);
+    expect(mechanismBtn.classList.contains("active")).toBe(false);
+    expect(analogyPanel.classList.contains("active")).toBe(true);
+    expect(mechanismPanel.classList.contains("active")).toBe(false);
+  });
 });
 

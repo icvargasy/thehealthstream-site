@@ -817,22 +817,19 @@ def compile_detail_page(
 
     mech_label = get_category_mechanism_label(node.get("type", ""))
     if analogy_hook:
-        node_slug = node["title"].lower().replace(" ", "-").replace("&", "and").replace("'", "").replace("(", "").replace(")", "")
         takeaway_block_html = (
             f'<div class="detail-hero-takeaway">'
             f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
             f'    <div class="scrappy-tabs">'
-            f'      <input type="radio" id="tab-analogy-{node_slug}" name="scrappy-tab-group-{node_slug}" class="radio-analogy" checked style="display:none;">'
-            f'      <input type="radio" id="tab-mechanism-{node_slug}" name="scrappy-tab-group-{node_slug}" class="radio-mechanism" style="display:none;">'
             f'      <div class="tabs-nav">'
-            f'        <label for="tab-analogy-{node_slug}" class="tab-label label-analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</label>'
-            f'        <label for="tab-mechanism-{node_slug}" class="tab-label label-mechanism">{CLINICAL_MECHANISM_SVG} {mech_label}</label>'
+            f'        <button type="button" class="tab-btn active" data-tab="analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</button>'
+            f'        <button type="button" class="tab-btn" data-tab="mechanism">{CLINICAL_MECHANISM_SVG} {mech_label}</button>'
             f'      </div>'
             f'      <div class="tabs-content">'
-            f'        <div class="tab-panel panel-analogy">'
+            f'        <div class="tab-panel panel-analogy active" data-panel="analogy">'
             f'          <p class="hero-analogy-text">{analogy_hook}</p>'
             f'        </div>'
-            f'        <div class="tab-panel panel-mechanism">'
+            f'        <div class="tab-panel panel-mechanism" data-panel="mechanism">'
             f'          <p class="hero-clinical-text">{takeaway}</p>'
             f'        </div>'
             f'      </div>'

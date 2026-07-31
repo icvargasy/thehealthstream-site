@@ -3746,12 +3746,14 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   align-items: flex-start;
   gap: var(--space-3);
   margin-bottom: 4px;
+  flex-wrap: wrap;
 }
 
 .feed-card-title-group {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
+  flex: 1 1 320px;
 }
 
 .published-badge {
@@ -4234,32 +4236,6 @@ a.pipeline-badge-link:hover {
   color: oklch(0.55 0.12 75);
 }
 
-/* CSS-Only Segmented Tabs for Summaries Takeaway Box */
-.scrappy-tabs {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  margin-top: var(--space-2);
-  margin-bottom: var(--space-2);
-}
-.tabs-nav {
-  display: flex;
-  background-color: var(--bg-surface-alt);
-  padding: 4px;
-  border-radius: var(--radius-button);
-  border: 1px solid var(--border-color);
-  margin-bottom: var(--space-2);
-  gap: var(--space-1);
-}
-.tab-label {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex: 1;
-  padding: 8px var(--space-2);
-  cursor: pointer;
-  font-size: 0.75rem;
 .feed-card.pipeline-card-merged.cat-lifestyle .backlog-votes.voted {
   background-color: var(--accent-lifestyle);
   border-color: var(--accent-lifestyle);
@@ -4445,7 +4421,7 @@ a.pipeline-badge-link:hover {
   margin-bottom: var(--space-2);
   gap: var(--space-1);
 }
-.tab-label {
+.tab-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -4465,17 +4441,16 @@ a.pipeline-badge-link:hover {
   border: 1px solid transparent;
   background: transparent;
 }
-.tab-label:hover {
+.tab-btn:hover {
   color: var(--text-ink);
   background-color: rgba(0, 0, 0, 0.02);
 }
-body[data-theme="dark"] .tab-label:hover {
+body[data-theme="dark"] .tab-btn:hover {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
 /* Active Tab Selection */
-.radio-analogy:checked ~ .tabs-nav .label-analogy,
-.radio-mechanism:checked ~ .tabs-nav .label-mechanism {
+.tab-btn.active {
   background-color: var(--bg-paper) !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   color: var(--text-ink) !important;
@@ -4483,20 +4458,17 @@ body[data-theme="dark"] .tab-label:hover {
 }
 
 /* Category dynamic styling for active tabs */
-.cat-biology .radio-analogy:checked ~ .tabs-nav .label-analogy,
-.cat-biology .radio-mechanism:checked ~ .tabs-nav .label-mechanism {
+.cat-biology .tab-btn.active {
   color: var(--accent-biology) !important;
   border-color: oklch(0.55 0.18 250 / 0.3) !important;
   background-color: oklch(0.55 0.18 250 / 0.05) !important;
 }
-.cat-lifestyle .radio-analogy:checked ~ .tabs-nav .label-analogy,
-.cat-lifestyle .radio-mechanism:checked ~ .tabs-nav .label-mechanism {
+.cat-lifestyle .tab-btn.active {
   color: oklch(0.45 0.13 140) !important;
   border-color: oklch(0.62 0.15 140 / 0.3) !important;
   background-color: oklch(0.62 0.15 140 / 0.05) !important;
 }
-.cat-book .radio-analogy:checked ~ .tabs-nav .label-analogy,
-.cat-book .radio-mechanism:checked ~ .tabs-nav .label-mechanism {
+.cat-book .tab-btn.active {
   color: oklch(0.55 0.12 75) !important;
   border-color: oklch(0.70 0.16 75 / 0.3) !important;
   background-color: oklch(0.70 0.16 75 / 0.05) !important;
@@ -4505,8 +4477,7 @@ body[data-theme="dark"] .tab-label:hover {
 .tab-panel {
   display: none !important;
 }
-.radio-analogy:checked ~ .tabs-content .panel-analogy,
-.radio-mechanism:checked ~ .tabs-content .panel-mechanism {
+.tab-panel.active {
   display: block !important;
   animation: tabFadeIn var(--transition-fast) ease-in-out;
 }
@@ -4555,7 +4526,7 @@ body[data-theme="dark"] .tab-label:hover {
 }
 
 /* Mobile responsiveness tweaks */
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .feed-card-header {
     flex-direction: column !important;
     align-items: stretch !important;
@@ -4566,5 +4537,6 @@ body[data-theme="dark"] .tab-label:hover {
     width: 100% !important;
     justify-content: center !important;
     min-height: 48px !important;
+    margin-top: var(--space-2) !important;
   }
 }
