@@ -29,8 +29,8 @@ The landing page displays a chronological stream of content cards categorized by
 *   **Lifestyle/Behavior (Sage Border)**: Actionable sleep, exercise, and circadian habits.
 *   **Book Summaries (Gold Border)**: Synthesis of scientific books and curated longevity texts.
 
-#### The Curiosity Hook (Option 1)
-Instead of displaying the core answer upfront, each feed card features a prominent **Curiosity Hook / Question** (e.g., *"Does constant constant snacking permanently lock our metabolic switches in storage mode?"*). This creates a strong hook that drives click-throughs and opens future community discussion.
+#### Hook Question (`hook_question`)
+Each feed card title is a **Hook Question**: a plain-language interrogative sentence (FK Grade 8–9, 12–18 words) that gestures toward a specific, counterintuitive outcome without disclosing the answer upfront. The same `hook_question` field is used identically for published Summary cards and unpublished Pipeline cards, ensuring display consistency across the unified feed. Science and Lifestyle cards follow the 7-principle Hook Question Standard (see `GEMINI.md §5.7`). Book cards use `"[Title] (Author)"` format.
 ### 3.3. Page Transition & Optimized Detail View
 Clicking a feed card performs a clean page transition to the optimized static detail page, containing:
 *   **1-Min Pill Takeaway Box**: Placed at the absolute start of the article page. An information icon prefix box containing the distilled, actionable conclusion.
@@ -48,7 +48,7 @@ Clicking a feed card performs a clean page transition to the optimized static de
 
 ### 4.1. Leap-of-Faith Assumptions
 1.  **Value Hypothesis**: General readers and biohackers are motivated to study systems biology pathway mappings to modify their lifestyle habits.
-2.  **Growth Hypothesis**: Decoded curiosity hooks will drive sharing on LinkedIn, generating organic loops alongside long-tail search indexing.
+2.  **Growth Hypothesis**: Decoded hook questions will drive sharing on LinkedIn and organic search indexing by surfacing counterintuitive scientific outcomes in an immediately scannable format.
 3.  **Retention Hypothesis**: Readers will return to the site regularly as a structured, non-commercial reference registry.
 
 ### 4.2. Engine of Growth
