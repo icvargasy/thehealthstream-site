@@ -4474,8 +4474,8 @@ body[data-theme="dark"] .tab-label:hover {
 }
 
 /* Active Tab Selection */
-#tab-analogy:checked ~ .tabs-nav .label-analogy,
-#tab-mechanism:checked ~ .tabs-nav .label-mechanism {
+.radio-analogy:checked ~ .tabs-nav .label-analogy,
+.radio-mechanism:checked ~ .tabs-nav .label-mechanism {
   background-color: var(--bg-paper) !important;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   color: var(--text-ink) !important;
@@ -4483,32 +4483,32 @@ body[data-theme="dark"] .tab-label:hover {
 }
 
 /* Category dynamic styling for active tabs */
-.cat-biology #tab-analogy:checked ~ .tabs-nav .label-analogy,
-.cat-biology #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
+.cat-biology .radio-analogy:checked ~ .tabs-nav .label-analogy,
+.cat-biology .radio-mechanism:checked ~ .tabs-nav .label-mechanism {
   color: var(--accent-biology) !important;
   border-color: oklch(0.55 0.18 250 / 0.3) !important;
   background-color: oklch(0.55 0.18 250 / 0.05) !important;
 }
-.cat-lifestyle #tab-analogy:checked ~ .tabs-nav .label-analogy,
-.cat-lifestyle #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
+.cat-lifestyle .radio-analogy:checked ~ .tabs-nav .label-analogy,
+.cat-lifestyle .radio-mechanism:checked ~ .tabs-nav .label-mechanism {
   color: oklch(0.45 0.13 140) !important;
   border-color: oklch(0.62 0.15 140 / 0.3) !important;
   background-color: oklch(0.62 0.15 140 / 0.05) !important;
 }
-.cat-book #tab-analogy:checked ~ .tabs-nav .label-analogy,
-.cat-book #tab-mechanism:checked ~ .tabs-nav .label-mechanism {
+.cat-book .radio-analogy:checked ~ .tabs-nav .label-analogy,
+.cat-book .radio-mechanism:checked ~ .tabs-nav .label-mechanism {
   color: oklch(0.55 0.12 75) !important;
   border-color: oklch(0.70 0.16 75 / 0.3) !important;
   background-color: oklch(0.70 0.16 75 / 0.05) !important;
 }
 
 .tab-panel {
-  display: none;
-  animation: tabFadeIn var(--transition-fast) ease-in-out;
+  display: none !important;
 }
-#tab-analogy:checked ~ .tabs-content .panel-analogy,
-#tab-mechanism:checked ~ .tabs-content .panel-mechanism {
-  display: block;
+.radio-analogy:checked ~ .tabs-content .panel-analogy,
+.radio-mechanism:checked ~ .tabs-content .panel-mechanism {
+  display: block !important;
+  animation: tabFadeIn var(--transition-fast) ease-in-out;
 }
 @keyframes tabFadeIn {
   from { opacity: 0; transform: translateY(1px); }
@@ -4523,21 +4523,34 @@ body[data-theme="dark"] .tab-label:hover {
   margin-bottom: var(--space-2);
   flex-wrap: wrap;
 }
-.detail-topic-subtitle {
+.detail-topic-subtitle,
+.detail-topic-subtitle-link {
   font-family: var(--font-system);
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--accent-synapse);
+  text-decoration: none;
 }
-.article-detail.cat-biology .detail-topic-subtitle {
+.detail-topic-subtitle-link {
+  cursor: pointer;
+  transition: opacity var(--transition-fast);
+}
+.detail-topic-subtitle-link:hover {
+  text-decoration: underline;
+  opacity: 0.8;
+}
+.article-detail.cat-biology .detail-topic-subtitle,
+.article-detail.cat-biology .detail-topic-subtitle-link {
   color: var(--accent-biology);
 }
-.article-detail.cat-lifestyle .detail-topic-subtitle {
+.article-detail.cat-lifestyle .detail-topic-subtitle,
+.article-detail.cat-lifestyle .detail-topic-subtitle-link {
   color: oklch(0.45 0.13 140);
 }
-.article-detail.cat-book .detail-topic-subtitle {
+.article-detail.cat-book .detail-topic-subtitle,
+.article-detail.cat-book .detail-topic-subtitle-link {
   color: oklch(0.55 0.12 75);
 }
 

@@ -817,16 +817,16 @@ def compile_detail_page(
 
     mech_label = get_category_mechanism_label(node.get("type", ""))
     if analogy_hook:
+        node_slug = node["title"].lower().replace(" ", "-").replace("&", "and").replace("'", "").replace("(", "").replace(")", "")
         takeaway_block_html = (
             f'<div class="detail-hero-takeaway">'
             f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
-            f'    <span class="qa-question-text">{hook}</span>'
             f'    <div class="scrappy-tabs">'
-            f'      <input type="radio" id="tab-analogy" name="scrappy-tab-group" checked style="display:none;">'
-            f'      <input type="radio" id="tab-mechanism" name="scrappy-tab-group" style="display:none;">'
+            f'      <input type="radio" id="tab-analogy-{node_slug}" name="scrappy-tab-group-{node_slug}" class="radio-analogy" checked style="display:none;">'
+            f'      <input type="radio" id="tab-mechanism-{node_slug}" name="scrappy-tab-group-{node_slug}" class="radio-mechanism" style="display:none;">'
             f'      <div class="tabs-nav">'
-            f'        <label for="tab-analogy" class="tab-label label-analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</label>'
-            f'        <label for="tab-mechanism" class="tab-label label-mechanism">{CLINICAL_MECHANISM_SVG} {mech_label}</label>'
+            f'        <label for="tab-analogy-{node_slug}" class="tab-label label-analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</label>'
+            f'        <label for="tab-mechanism-{node_slug}" class="tab-label label-mechanism">{CLINICAL_MECHANISM_SVG} {mech_label}</label>'
             f'      </div>'
             f'      <div class="tabs-content">'
             f'        <div class="tab-panel panel-analogy">'
@@ -844,7 +844,6 @@ def compile_detail_page(
         takeaway_block_html = (
             f'<div class="detail-hero-takeaway">'
             f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
-            f'    <span class="qa-question-text">{hook}</span>'
             f'    <div class="detail-hero-clinical-box">'
             f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong></span>'
             f'      <p class="hero-clinical-text">{takeaway}</p>'
@@ -870,6 +869,32 @@ def compile_detail_page(
                         pattern = re.compile(re.escape(name), re.IGNORECASE)
                         linked_name = f'<a href="{bib["link"]}" target="_blank" class="debate-author-link">{name}</a>'
                         pos_text = pattern.sub(linked_name, pos_text)
+            
+            # Auto-citation injection for debates if not already present
+            if not re.search(r'href=["\']#ref', args_text):
+                injected_citations = []
+                # Check for specific commentaries/authors
+                for bib in node.get("bibliography", []):
+                    # Extract name keyword (e.g. "Bernier", "Mangat", "Zorgani")
+                    author_keyword = ""
+                    if "bernier" in bib.get("text", "").lower():
+                        author_keyword = "bernier"
+                    elif "mangat" in bib.get("text", "").lower():
+                        author_keyword = "mangat"
+                    elif "zorgani" in bib.get("text", "").lower():
+                        author_keyword = "zorgani"
+                    
+                    if author_keyword and (author_keyword in pos_text.lower() or author_keyword in args_text.lower()):
+                        injected_citations.append(f'<a href="#{bib["id"]}" class="citation-link">[{bib["id"]}]</a>')
+                
+                # If no author commentaries matched, fallback to primary study ref1
+                if not injected_citations and node.get("bibliography"):
+                    # Default to the first reference (usually ref1)
+                    primary_ref_id = node["bibliography"][0]["id"]
+                    injected_citations.append(f'<a href="#{primary_ref_id}" class="citation-link">[{primary_ref_id}]</a>')
+                
+                if injected_citations:
+                    args_text += " " + " ".join(injected_citations)
             
             item = (
                 f'<li>'
@@ -1124,12 +1149,21 @@ def compile_detail_page(
         f'</div>'
     )
     
+    primary_source_link = ""
+    if node.get("bibliography"):
+        primary_source_link = node["bibliography"][0].get("link", "")
+        
+    if primary_source_link:
+        subtitle_html = f'<a href="{primary_source_link}" target="_blank" rel="noopener noreferrer" class="detail-topic-subtitle-link">{node["title"]} ↗</a>'
+    else:
+        subtitle_html = f'<span class="detail-topic-subtitle">{node["title"]}</span>'
+        
     full_content = (
         f'<article class="article-detail cat-{node["type"]}">'
         f'  <header class="detail-header">'
         f'    <div class="detail-kicker-row">'
         f'      <a href="category-{node["type"]}.html" class="category-tag">{category_label}</a>'
-        f'      <span class="detail-topic-subtitle">{node["title"]}</span>'
+        f'      {subtitle_html}'
         f'    </div>'
         f'    <h1>{node["hook_question"]}</h1>'
         f'    {meta_row_html}'
