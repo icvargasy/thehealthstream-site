@@ -259,6 +259,18 @@ body.left-collapsed .header-brand-container {
   line-height: 1.45;
 }
 
+.guide-mission-link {
+  color: var(--text-ink-muted);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  opacity: 0.8;
+  transition: opacity 0.15s ease;
+}
+.guide-mission-link:hover {
+  opacity: 1;
+}
+
 .dismiss-guide-btn {
   background: none;
   border: 1px solid var(--border-color);

@@ -1,4 +1,4 @@
-We map physiological networks, daily habits, and longevity protocols—bridging the gap between molecular mechanisms and human healthspan.
+The Healthstream is a free, open-access registry that decodes how your body works — mapping feedback loops across biology, lifestyle, and longevity science, graded by evidence strength.
 
 ### The Systems Biology Lens
 We view the human body not as a collection of isolated symptoms, but as an interconnected circuit board of feedback loops. Every decoding maps these inputs, transducers, and outcomes upstream and downstream so readers can make deliberate, evidence-informed decisions.
@@ -7,9 +7,9 @@ We view the human body not as a collection of isolated symptoms, but as an inter
 
 Health and longevity research moves continuously from raw hypothesis to clinical consensus. We classify all entries into three constructive data confidence tiers:
 
-- **Proven (Tier 1)**: Strong, proven science backed by clinical studies in humans.
-- **Promising (Tier 2)**: Promising science shown in early human tests or animal models, awaiting larger trials.
-- **Untested (Tier 3)**: Experimental or unproven ideas based on biofeedback or theoretical concepts.
+- **Consensus Core (Tier 1)**: High/Moderate GRADE — replicated in human clinical trials.
+- **Emerging Frontier (Tier 2)**: Low GRADE — early human or animal evidence, awaiting larger trials.
+- **Exploratory Sandbox (Tier 3)**: Very Low GRADE — pre-clinical hypotheses or theoretical models.
 
 ### Community-Driven Co-Creation
 

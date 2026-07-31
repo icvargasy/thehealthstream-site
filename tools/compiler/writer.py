@@ -589,7 +589,7 @@ def render_interactive_sample_card() -> str:
         '    <button class="dismiss-guide-btn" id="dismiss-sample-card" aria-label="Dismiss guide">Dismiss Guide &times;</button>'
         '  </div>'
         '  <p class="guide-banner-subtitle">'
-        '    Welcome to The Healthstream — your simple guide to how the human body works, backed by real science. Read decoded summaries or upvote topics you want us to research next!'
+        '    The Healthstream decodes the full evidence spectrum — from consensus science to early frontier research, always free. <a href="about.html" class="guide-mission-link">Our mission →</a>'
         '  </p>'
         '  <div class="guide-neutral-grid">'
         '    <!-- Mock 1: In the Pipeline Proposal -->'
