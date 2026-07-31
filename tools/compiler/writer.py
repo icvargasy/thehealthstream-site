@@ -1332,7 +1332,7 @@ def compile_vocabulary_page(
         if status == "verified_human":
             tick_badge = f'<span class="verified-human-tick" title="Verified Human" aria-label="Verified Human">{blue_tick_svg_small}</span>'
         else:
-            tick_badge = f'<span class="unverified-tick-badge" title="AI-compiled draft — Pending human expert verification" aria-label="Pending Verification" style="font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-ink-muted); opacity: 0.75; padding: 1px 6px; border: 1px dashed var(--border-color); border-radius: var(--radius-button);">Pending Verification</span>'
+            tick_badge = f'<span class="unverified-tick-badge" title="AI-compiled draft — Pending human review" aria-label="Pending Verification" style="font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-ink-muted); opacity: 0.75; padding: 1px 6px; border: 1px dashed var(--border-color); border-radius: var(--radius-button);">Pending Verification</span>'
             
         card_html = (
             f'<div class="vocab-card" id="{slug}">'
@@ -1374,7 +1374,7 @@ def compile_vocabulary_page(
         '  <span style="display: inline-flex; align-items: center; vertical-align: middle; margin-right: 4px;">'
         '    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
         '  </span>'
-        '  Terms with a blue checkmark have been verified by human medical experts. Terms marked "Pending Verification" are AI-compiled drafts.'
+        '  Terms with a blue checkmark have been human-reviewed. Terms marked "Pending Verification" are AI-compiled drafts awaiting review.'
         '</p>'
     )
     vocab_html = (
@@ -1513,7 +1513,7 @@ def compile_vocabulary_detail_page(
     if status == "verified_human":
         badge_html = f'<span class="verified-human-tick" title="Verified Human" aria-label="Verified Human" style="display: inline-flex; align-items: center; margin-left: 4px;">{blue_tick_svg}</span>'
     else:
-        badge_html = f'<span class="unverified-tick-badge" title="AI-compiled draft — Pending human expert verification" aria-label="Pending Verification" style="font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-ink-muted); opacity: 0.75; padding: 2px 7px; border: 1px dashed var(--border-color); border-radius: var(--radius-button); margin-left: 6px;">Pending Verification</span>'
+        badge_html = f'<span class="unverified-tick-badge" title="AI-compiled draft — Pending human review" aria-label="Pending Verification" style="font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-ink-muted); opacity: 0.75; padding: 2px 7px; border: 1px dashed var(--border-color); border-radius: var(--radius-button); margin-left: 6px;">Pending Verification</span>'
 
     # Taxonomy Badge
     taxonomy = vocab_item.get("taxonomy", "")
