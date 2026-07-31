@@ -1401,26 +1401,5 @@ function initializeLexiconVerification() {
  * @returns {void}
  */
 function initializeTabs() {
-  document.addEventListener("click", (e) => {
-    const btn = e.target.closest(".tab-btn");
-    if (!btn) return;
-
-    const container = btn.closest(".scrappy-tabs");
-    if (!container) return;
-
-    // Deactivate all buttons in this tab group
-    container.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
-    // Deactivate all panels in this tab group
-    container.querySelectorAll(".tab-panel").forEach((p) => p.classList.remove("active"));
-
-    // Activate clicked button
-    btn.classList.add("active");
-
-    // Activate corresponding panel
-    const target = btn.getAttribute("data-tab");
-    const panel = container.querySelector(`.tab-panel[data-panel="${target}"]`);
-    if (panel) {
-      panel.classList.add("active");
-    }
-  });
+  // Tabs removed.
 }

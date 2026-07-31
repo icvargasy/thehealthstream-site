@@ -257,7 +257,24 @@ def render_backlog_card(
     for t in item.get("tags", []):
         tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">{TAG_PILL_ICON_SVG}{t}</a>')
     tags_html = f'<div class="card-tags">{" ".join(tag_pills)}</div>' if tag_pills else ""
-    footer_html = f'<div class="card-footer-row">{tags_html}{meta_dates_html}</div>'
+    vote_btn_html = (
+        f'<button class="backlog-votes vote-cta-btn" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic proposal">'
+        f'  <span class="upvote-icon">▲</span>'
+        f'  <span class="vote-label">Upvote</span>'
+        f'  <span class="vote-count">({item["votes"]})</span>'
+        f'</button>'
+    )
+    footer_html = (
+        f'<div class="card-footer-new">'
+        f'  <div class="card-footer-left">'
+        f'    {tags_html}'
+        f'    {meta_dates_html}'
+        f'  </div>'
+        f'  <div class="card-footer-right">'
+        f'    {vote_btn_html}'
+        f'  </div>'
+        f'</div>'
+    )
 
     card_html = (
         f'<{tag_name} id="{item["id"]}" class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}" data-grade="{grade_clean}" data-tier="{tier_slug}">'
@@ -275,11 +292,6 @@ def render_backlog_card(
         f'        {evidence_badge_html}'
         f'      </div>'
         f'    </div>'
-        f'    <button class="backlog-votes vote-cta-btn" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic proposal">'
-        f'      <span class="upvote-icon">▲</span>'
-        f'      <span class="vote-label">Upvote</span>'
-        f'      <span class="vote-count">({item["votes"]})</span>'
-        f'    </button>'
         f'  </div>'
         f'  <blockquote class="card-teaser-text card-analogy-block">'
         f'    {analogy_html}'
@@ -329,7 +341,23 @@ def render_article_card(
         f'  <span>Updated: {last_audited}</span>'
         f'</div>'
     )
-    footer_html = f'<div class="card-footer-row">{tags_html}{meta_dates_html}</div>'
+    read_btn_html = (
+        f'<a href="{article_url}" class="read-article-btn">'
+        f'  <span>Read Summary</span>'
+        f'  <span>&rarr;</span>'
+        f'</a>'
+    )
+    footer_html = (
+        f'<div class="card-footer-new">'
+        f'  <div class="card-footer-left">'
+        f'    {tags_html}'
+        f'    {meta_dates_html}'
+        f'  </div>'
+        f'  <div class="card-footer-right">'
+        f'    {read_btn_html}'
+        f'  </div>'
+        f'</div>'
+    )
 
     analogy_hook = node.get("systems_analogy_hook", "")
     if vocabulary and analogy_hook:
@@ -368,10 +396,6 @@ def render_article_card(
         f'        {evidence_badge_html}'
         f'      </div>'
         f'    </div>'
-        f'    <a href="{article_url}" class="read-article-btn">'
-        f'      <span>Read Summary</span>'
-        f'      <span>&rarr;</span>'
-        f'    </a>'
         f'  </div>'
         f'  <blockquote class="card-teaser-text card-analogy-block">'
         f'    {analogy_html}'
@@ -819,20 +843,15 @@ def compile_detail_page(
     if analogy_hook:
         takeaway_block_html = (
             f'<div class="detail-hero-takeaway">'
-            f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
-            f'    <div class="scrappy-tabs">'
-            f'      <div class="tabs-nav">'
-            f'        <button type="button" class="tab-btn active" data-tab="analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</button>'
-            f'        <button type="button" class="tab-btn" data-tab="mechanism">{CLINICAL_MECHANISM_SVG} {mech_label}</button>'
-            f'      </div>'
-            f'      <div class="tabs-content">'
-            f'        <div class="tab-panel panel-analogy active" data-panel="analogy">'
-            f'          <p class="hero-analogy-text">{analogy_hook}</p>'
-            f'        </div>'
-            f'        <div class="tab-panel panel-mechanism" data-panel="mechanism">'
-            f'          <p class="hero-clinical-text">{takeaway}</p>'
-            f'        </div>'
-            f'      </div>'
+            f'  <blockquote class="qa-takeaway-block detail-takeaway-block takeaway-stacked">'
+            f'    <div class="takeaway-analogy-row">'
+            f'      <span class="hero-badge-label">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy</strong></span>'
+            f'      <p class="hero-analogy-text">{analogy_hook}</p>'
+            f'    </div>'
+            f'    <div class="takeaway-separator"></div>'
+            f'    <div class="takeaway-mechanism-row">'
+            f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong></span>'
+            f'      <p class="hero-clinical-text">{takeaway}</p>'
             f'    </div>'
             f'  </blockquote>'
             f'</div>'
@@ -1126,18 +1145,7 @@ def compile_detail_page(
     ])
     
     # 6.5. Sticky Table of Contents (TOC)
-    has_connections = bool(connections_html)
-    has_evidence = bool(evidence_items)
-    
-    toc_links = []
-    toc_links.append('<a href="#overview-section" class="toc-link active">Circuit Overview</a>')
-    toc_links.append('<a href="#deepdive-section" class="toc-link">Molecular Mechanisms</a>')
-    if has_connections:
-        toc_links.append('<a href="#connections-section" class="toc-link">Connected Circuits</a>')
-    if has_evidence:
-        toc_links.append('<a href="#evidence-section" class="toc-link">Evidence &amp; Studies</a>')
-        
-    toc_html = f'<nav class="article-toc" aria-label="Table of Contents">{"".join(toc_links)}</nav>'
+    toc_html = ""
     
     meta_row_html = (
         f'<div class="detail-header-meta">'

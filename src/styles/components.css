@@ -544,26 +544,31 @@ body.left-collapsed .header-brand-container {
   z-index: 2;
 }
 
-.card-footer-row {
+.card-footer-new {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: var(--space-2);
-  margin-top: 0;
+  align-items: flex-end;
+  margin-top: var(--space-2);
   position: relative;
   z-index: 2;
+  width: 100%;
 }
 
-.card-footer-row .card-tags {
-  margin-top: 0;
+.card-footer-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.card-footer-right {
+  display: flex;
+  align-items: flex-end;
 }
 
 .card-meta-dates {
   font-family: var(--font-system);
   font-size: 0.7rem;
   color: var(--text-ink-muted);
-  margin-left: auto;
   white-space: nowrap;
 }
 
@@ -1541,6 +1546,20 @@ button.detail-grade-badge:hover {
   display: block;
 }
 
+@media (max-width: 768px) {
+  .grade-popover-card {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    right: auto !important;
+    transform: translate(-50%, -50%) !important;
+    width: 90% !important;
+    max-width: 340px !important;
+    margin-top: 0 !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3) !important;
+  }
+}
+
 @keyframes popoverFadeIn {
   from {
     opacity: 0;
@@ -2462,39 +2481,7 @@ a.pipeline-badge:hover {
   }
 }
 
-/* Sticky Table of Contents (TOC) */
-.article-toc {
-  position: sticky;
-  top: -16px; /* Sticks to the top of the scroll container (#reading-pane) offset by padding */
-  background-color: var(--sb-bg);
-  z-index: 10;
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-4);
-  padding: var(--space-2) 0;
-  border-bottom: 1px solid var(--border-color);
-  margin-bottom: var(--space-3);
-  font-size: 0.85rem;
-  font-weight: 700;
-  transition: background-color var(--transition-normal), border-bottom-color var(--transition-normal);
-}
-
-.toc-link {
-  color: var(--text-ink-muted);
-  text-decoration: none;
-  border-bottom: 2px solid transparent;
-  padding-bottom: 4px;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
-}
-
-.toc-link:hover {
-  color: var(--accent-synapse);
-}
-
-.toc-link.active {
-  color: var(--accent-synapse);
-  border-color: var(--accent-synapse);
-}
+/* Sticky Table of Contents (TOC) removed per layout refactor */
 
 /* Scroll Offset adjustment for TOC navigation links */
 .detail-section {
@@ -3029,18 +3016,31 @@ a.pipeline-badge:hover {
   display: block; /* Normal block flow, no line clamping */
 }
 
-/* Category-specific overrides for detail page takeaway block */
 .article-detail.cat-biology .detail-takeaway-block {
-  background-color: oklch(0.55 0.18 250 / 0.06);
-  border-color: oklch(0.55 0.18 250 / 0.25);
+  background-color: oklch(0.55 0.18 250 / 0.06) !important;
+  border-color: oklch(0.55 0.18 250 / 0.25) !important;
 }
 .article-detail.cat-lifestyle .detail-takeaway-block {
-  background-color: oklch(0.62 0.15 140 / 0.06);
-  border-color: oklch(0.62 0.15 140 / 0.25);
+  background-color: oklch(0.62 0.15 140 / 0.06) !important;
+  border-color: oklch(0.62 0.15 140 / 0.25) !important;
 }
 .article-detail.cat-book .detail-takeaway-block {
-  background-color: oklch(0.70 0.16 75 / 0.06);
-  border-color: oklch(0.70 0.16 75 / 0.25);
+  background-color: oklch(0.70 0.16 75 / 0.06) !important;
+  border-color: oklch(0.70 0.16 75 / 0.25) !important;
+}
+
+/* Badge coloring inside the takeaway rows */
+.takeaway-analogy-row .hero-badge-label {
+  color: var(--accent-synapse) !important;
+}
+.article-detail.cat-biology .takeaway-mechanism-row .hero-badge-label {
+  color: var(--accent-biology) !important;
+}
+.article-detail.cat-lifestyle .takeaway-mechanism-row .hero-badge-label {
+  color: var(--accent-lifestyle) !important;
+}
+.article-detail.cat-book .takeaway-mechanism-row .hero-badge-label {
+  color: var(--accent-book) !important;
 }
 
 /* Global target scroll offset to clear floating headers */
@@ -3753,7 +3753,7 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   display: flex;
   flex-direction: column;
   gap: var(--space-1);
-  flex: 1 1 320px;
+  width: 100%;
 }
 
 .published-badge {
@@ -4404,86 +4404,39 @@ a.pipeline-badge-link:hover {
   color: oklch(0.55 0.12 75);
 }
 
-/* CSS-Only Segmented Tabs for Summaries Takeaway Box */
-.scrappy-tabs {
+/* Stacked Takeaway Block Layout */
+.takeaway-stacked {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  margin-top: var(--space-2);
-  margin-bottom: var(--space-2);
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4) !important;
 }
-.tabs-nav {
+
+.takeaway-analogy-row,
+.takeaway-mechanism-row {
   display: flex;
-  background-color: var(--bg-surface-alt);
-  padding: 4px;
-  border-radius: var(--radius-button);
-  border: 1px solid var(--border-color);
-  margin-bottom: var(--space-2);
+  flex-direction: column;
   gap: var(--space-1);
 }
-.tab-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  flex: 1;
-  padding: 8px var(--space-2);
-  cursor: pointer;
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-ink-muted);
-  border-radius: var(--radius-button);
-  transition: all var(--transition-fast);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  min-height: 48px; /* Mobile tap target compliance */
-  user-select: none;
-  border: 1px solid transparent;
-  background: transparent;
-}
-.tab-btn:hover {
-  color: var(--text-ink);
-  background-color: rgba(0, 0, 0, 0.02);
-}
-body[data-theme="dark"] .tab-btn:hover {
-  background-color: rgba(255, 255, 255, 0.02);
+
+.takeaway-analogy-row .hero-badge-label {
+  color: var(--accent-synapse) !important;
 }
 
-/* Active Tab Selection */
-.tab-btn.active {
-  background-color: var(--bg-paper) !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
-  color: var(--text-ink) !important;
-  border: 1px solid var(--border-color) !important;
-}
-
-/* Category dynamic styling for active tabs */
-.cat-biology .tab-btn.active {
+.article-detail.cat-biology .takeaway-mechanism-row .hero-badge-label {
   color: var(--accent-biology) !important;
-  border-color: oklch(0.55 0.18 250 / 0.3) !important;
-  background-color: oklch(0.55 0.18 250 / 0.05) !important;
 }
-.cat-lifestyle .tab-btn.active {
+.article-detail.cat-lifestyle .takeaway-mechanism-row .hero-badge-label {
   color: oklch(0.45 0.13 140) !important;
-  border-color: oklch(0.62 0.15 140 / 0.3) !important;
-  background-color: oklch(0.62 0.15 140 / 0.05) !important;
 }
-.cat-book .tab-btn.active {
+.article-detail.cat-book .takeaway-mechanism-row .hero-badge-label {
   color: oklch(0.55 0.12 75) !important;
-  border-color: oklch(0.70 0.16 75 / 0.3) !important;
-  background-color: oklch(0.70 0.16 75 / 0.05) !important;
 }
 
-.tab-panel {
-  display: none !important;
-}
-.tab-panel.active {
-  display: block !important;
-  animation: tabFadeIn var(--transition-fast) ease-in-out;
-}
-@keyframes tabFadeIn {
-  from { opacity: 0; transform: translateY(1px); }
-  to { opacity: 1; transform: translateY(0); }
+.takeaway-separator {
+  height: 1px;
+  background-color: var(--border-color);
+  width: 100%;
 }
 
 /* Detail page kicker styles */
@@ -4532,11 +4485,23 @@ body[data-theme="dark"] .tab-btn:hover {
     align-items: stretch !important;
     gap: var(--space-2) !important;
   }
-  .read-article-btn,
-  .backlog-votes {
+  .card-footer-new {
+    flex-direction: column !important;
+    align-items: stretch !important;
+    gap: var(--space-2) !important;
+  }
+  .card-footer-left {
+    width: 100% !important;
+  }
+  .card-footer-right {
+    width: 100% !important;
+  }
+  .card-footer-right .read-article-btn,
+  .card-footer-right .backlog-votes {
     width: 100% !important;
     justify-content: center !important;
     min-height: 48px !important;
-    margin-top: var(--space-2) !important;
+    margin-left: 0 !important;
+    margin-top: 0 !important;
   }
 }
