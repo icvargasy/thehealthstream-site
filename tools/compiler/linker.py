@@ -16,11 +16,22 @@ def clear_popover_cache():
 
 # Robust HTML tag split pattern supporting quotes in attributes and comments
 HTML_TAG_SPLIT_REGEX = re.compile(r"(<!--.*?-->|<(?:[^>\"']|\"[^\"]*\"|'[^']*')*>)")
+def inject_simple_links(
+    html_content: str,
+    vocabulary: Dict[str, Any],
+    current_term: str,
+    base_path: str = "./",
+) -> str:
+    """Wraps jargon terms inside definition snippets in simple anchor links.
 
-def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_term: str) -> str:
-    """Wraps jargon terms inside definition snippets in simple external anchor links.
+    Links resolve at compile time using the provided base_path, so no
+    placeholder substitution is needed at runtime.
 
-    These links target _blank (new tab) and are styled with a clean ↗ icon.
+    Args:
+        html_content: HTML string to process.
+        vocabulary: Glossary dictionary.
+        current_term: The term whose definition is being rendered (excluded from linking).
+        base_path: Relative path prefix to the site root (e.g. './' or '../').
     """
     if not vocabulary:
         return html_content
@@ -29,7 +40,7 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
     current_aliases = set()
     if current_term in vocabulary:
         current_aliases = {alias.lower() for alias in vocabulary[current_term].get("aliases", [])}
-    
+
     phrase_to_canonical = {}
     for term, details in vocabulary.items():
         term_lower = term.lower()
@@ -52,10 +63,10 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
 
     tokens = HTML_TAG_SPLIT_REGEX.split(html_content)
     skip_depth = 0
-    
+
     for i in range(len(tokens)):
         token = tokens[i]
-        
+
         if token.startswith("<"):
             tag_lower = token.lower().strip()
             if re.match(r"^</a[\s>]", tag_lower):
@@ -68,14 +79,14 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
         if skip_depth > 0:
             continue
 
-        def replace_callback(match: re.Match) -> str:
+        # Capture base_path in closure via default argument to avoid late-binding.
+        def replace_callback(match: re.Match, _bp: str = base_path) -> str:
             matched_text = match.group(1)
             matched_lower = matched_text.lower()
             canonical_key = phrase_to_canonical.get(matched_lower, matched_text)
             slug = slugify(canonical_key)
-            
             return (
-                f'<a href="{{{{base_path}}}}vocabulary/{slug}.html" '
+                f'<a href="{_bp}vocabulary/{slug}.html" '
                 f'target="_blank" class="popover-nested-link">{matched_text}&nbsp;↗</a>'
             )
 
@@ -84,15 +95,25 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
     return "".join(tokens)
 
 
-def _get_compiled_definition(canonical_key: str, vocabulary: Dict[str, Any]) -> str:
+def _get_compiled_definition(
+    canonical_key: str,
+    vocabulary: Dict[str, Any],
+    base_path: str = "./",
+) -> str:
     """Pre-compiles and caches popover content for a canonical term.
 
-    Prefers the vulgarized_analogy (systems analogy) field so popovers surface
-    an intuitive mental model rather than the formal academic definition.
-    Falls back to the definition field if no analogy is present.
+    The cache key includes base_path so root-level and vocabulary sub-pages
+    each get correctly resolved link URLs without sharing stale entries.
+
+    Args:
+        canonical_key: The canonical term string from the vocabulary.
+        vocabulary: The full glossary dictionary.
+        base_path: Relative path prefix to the site root (e.g. './' for root
+            pages, '../' for pages inside a sub-directory like vocabulary/).
     """
-    if canonical_key in _POPOVER_CACHE:
-        return _POPOVER_CACHE[canonical_key]
+    cache_key = f"{base_path}|{canonical_key}"
+    if cache_key in _POPOVER_CACHE:
+        return _POPOVER_CACHE[cache_key]
 
     vocab_item = vocabulary[canonical_key]
     analogy = vocab_item.get("vulgarized_analogy", "")
@@ -105,17 +126,27 @@ def _get_compiled_definition(canonical_key: str, vocabulary: Dict[str, Any]) -> 
     if is_analogy:
         content_html = f'<span class="popover-analogy-badge" style="display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-synapse); margin-bottom: 4px;">💡 Systems Analogy</span>{content_html}'
 
-    content_html = inject_simple_links(content_html, vocabulary, canonical_key)
+    content_html = inject_simple_links(content_html, vocabulary, canonical_key, base_path)
     escaped_content = html.escape(content_html, quote=True)
-    _POPOVER_CACHE[canonical_key] = escaped_content
+    _POPOVER_CACHE[cache_key] = escaped_content
     return escaped_content
 
 
-def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
+def inject_jargon_links(
+    html_content: str,
+    vocabulary: Dict[str, Any],
+    base_path: str = "./",
+) -> str:
     """Scans HTML content and wraps jargon terms in hover popover spans.
 
     Only targets raw text nodes, ignoring HTML attributes, tag names, or
     text already nested inside anchor tags, code blocks, scripts, or existing jargon terms.
+
+    Args:
+        html_content: HTML string to process.
+        vocabulary: Glossary dictionary.
+        base_path: Relative path prefix to the site root. Forwarded to
+            _get_compiled_definition so popover nested links resolve correctly.
     """
     if not vocabulary:
         return html_content
@@ -129,29 +160,29 @@ def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
     sorted_phrases = sorted(phrase_to_canonical.keys(), key=len, reverse=True)
     if not sorted_phrases:
         return html_content
-        
+
     escaped_phrases = [re.escape(phrase) for phrase in sorted_phrases]
     pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
     pattern = re.compile(pattern_str, re.IGNORECASE)
 
     tokens = HTML_TAG_SPLIT_REGEX.split(html_content)
     skip_depth = 0
-    
+
     for i in range(len(tokens)):
         token = tokens[i]
-        
+
         if token.startswith("<"):
             tag_lower = token.lower().strip()
-            
+
             if re.match(r"^</(a|span|code|pre|script|style)[\s>]", tag_lower):
                 if skip_depth > 0:
                     skip_depth -= 1
                 continue
-                
+
             is_anchor = bool(re.match(r"^<a[\s/>]", tag_lower))
             is_jargon = "jargon-term" in tag_lower
             is_code = bool(re.match(r"^<(code|pre|script|style)[\s/>]", tag_lower))
-            
+
             if is_anchor or is_jargon or is_code:
                 skip_depth += 1
             continue
@@ -159,13 +190,19 @@ def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:
         if skip_depth > 0:
             continue
 
-        def replace_callback(match: re.Match) -> str:
+        # Capture mutable closure vars via default args to avoid late-binding.
+        def replace_callback(
+            match: re.Match,
+            _vocab: Dict[str, Any] = vocabulary,
+            _p2c: Dict[str, str] = phrase_to_canonical,
+            _bp: str = base_path,
+        ) -> str:
             matched_text = match.group(1)
             matched_lower = matched_text.lower()
-            canonical_key = phrase_to_canonical.get(matched_lower, matched_text)
-            definition = _get_compiled_definition(canonical_key, vocabulary)
+            canonical_key = _p2c.get(matched_lower, matched_text)
+            definition = _get_compiled_definition(canonical_key, _vocab, _bp)
             slug = slugify(canonical_key)
-            
+
             return (
                 f'<span class="jargon-term" '
                 f'tabindex="0" role="button" aria-haspopup="dialog" '

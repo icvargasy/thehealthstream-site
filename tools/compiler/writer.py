@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from typing import Dict, List, Any
 import markdown
-from .linker import slugify
+from .linker import slugify, inject_jargon_links
 
 
 def _infer_bib_tag(bib: Dict[str, Any]) -> str:
@@ -272,10 +272,6 @@ def render_backlog_card(
 
     desc = item.get("description", "")
     if vocabulary and desc:
-        try:
-            from compiler.linker import inject_jargon_links
-        except ModuleNotFoundError:
-            from tools.compiler.linker import inject_jargon_links
         desc = inject_jargon_links(desc, vocabulary)
     
     tag_name = "li" if as_list_item else "div"
@@ -302,10 +298,6 @@ def render_backlog_card(
 
     analogy = item.get("systems_analogy", "")
     if vocabulary and analogy:
-        try:
-            from compiler.linker import inject_jargon_links
-        except ModuleNotFoundError:
-            from tools.compiler.linker import inject_jargon_links
         analogy = inject_jargon_links(analogy, vocabulary)
 
     analogy_html = ""
@@ -429,10 +421,6 @@ def render_article_card(
 
     analogy_hook = node.get("systems_analogy_hook", "")
     if vocabulary and analogy_hook:
-        try:
-            from compiler.linker import inject_jargon_links
-        except ModuleNotFoundError:
-            from tools.compiler.linker import inject_jargon_links
         analogy_hook = inject_jargon_links(analogy_hook, vocabulary)
 
     analogy_html = ""
@@ -893,10 +881,6 @@ def compile_detail_page(
     hook = node["hook_question"]
     takeaway = node["takeaway_pill"]
     if vocabulary:
-        try:
-            from compiler.linker import inject_jargon_links
-        except ModuleNotFoundError:
-            from tools.compiler.linker import inject_jargon_links
         hook = inject_jargon_links(hook, vocabulary)
         takeaway = inject_jargon_links(takeaway, vocabulary)
 
@@ -1075,10 +1059,6 @@ def compile_detail_page(
     # 3. Compile markdown content for Tabbed Reading Pane
     overview_html = markdown.markdown(node["reading_modes"]["overview_3min"])
     if vocabulary:
-        try:
-            from compiler.linker import inject_jargon_links
-        except ModuleNotFoundError:
-            from tools.compiler.linker import inject_jargon_links
         overview_html = inject_jargon_links(overview_html, vocabulary)
     
     deep_dive_parts = []
@@ -1086,10 +1066,6 @@ def compile_detail_page(
         heading_html = f"<h3>{item['heading']}</h3>"
         body_html = markdown.markdown(item["body"])
         if vocabulary:
-            try:
-                from compiler.linker import inject_jargon_links
-            except ModuleNotFoundError:
-                from tools.compiler.linker import inject_jargon_links
             body_html = inject_jargon_links(body_html, vocabulary)
         deep_dive_parts.append(f"<section class='deep-dive-section'>{heading_html}{body_html}</section>")
     deep_dive_html = "\n".join(deep_dive_parts)
@@ -1171,6 +1147,7 @@ def compile_detail_page(
             f'  </ul>'
             f'</div>'
         )
+
 
     accordion_html = (
         f'<section class="evidence-section detail-section" id="evidence-section">'
@@ -1503,11 +1480,8 @@ def compile_vocabulary_detail_page(
         local_vocab = vocabulary.copy() if vocabulary else {}
         if term in local_vocab:
             del local_vocab[term]
-        try:
-            from compiler.linker import inject_jargon_links
-        except ModuleNotFoundError:
-            from tools.compiler.linker import inject_jargon_links
-        definition = inject_jargon_links(definition, local_vocab)
+        if vocabulary and definition:
+            definition = inject_jargon_links(definition, local_vocab)
     
     lexicon_icon = (
         '<svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">'
@@ -1997,11 +1971,7 @@ def compile_static_content_page(
         raise FileNotFoundError(f"Content Markdown file missing at: {md_filepath}") from e
 
     compiled_body = markdown.markdown(md_content, extensions=["sane_lists", "tables", "fenced_code"])
-    if vocabulary:
-        try:
-            from compiler.linker import inject_jargon_links
-        except ModuleNotFoundError:
-            from tools.compiler.linker import inject_jargon_links
+    if vocabulary and compiled_body:
         compiled_body = inject_jargon_links(compiled_body, vocabulary)
     
     form_html = ""

@@ -251,10 +251,8 @@ function initializeJargonPopovers() {
     const slug = term.getAttribute("data-slug") || "";
     const canonicalKey = term.getAttribute("data-term") || "";
     const matchedText = term.getAttribute("data-matched-text") || term.innerText || "";
-    const basePath = typeof window.BASE_PATH !== "undefined" ? window.BASE_PATH : "";
-    const href = `${basePath}vocabulary/${slug}.html`;
-
-    const parsedDefinition = definition.replace(/\{\{BASE_PATH\}\}|%7B%7BBASE_PATH%7D%7D/gi, basePath);
+    const href = `vocabulary/${slug}.html`;
+    const parsedDefinition = definition;
 
     let aliasHtml = "";
     if (canonicalKey && matchedText && matchedText.trim().toLowerCase() !== canonicalKey.trim().toLowerCase()) {

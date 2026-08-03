@@ -6,8 +6,47 @@ systems biology content nodes, glossary definitions, translations, and backlog i
 
 import json
 import os
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Set
 from .utils import load_json_file
+
+# Lazily cached tag allowlist — populated on first validation call.
+_VALID_TAGS_CACHE: Set[str] = set()
+
+
+def _load_valid_tags() -> Set[str]:
+    """Loads the valid tag set from src/tags.json.
+
+    Searches upward from this file to locate tags.json so the validator works
+    regardless of the working directory. Falls back to a hardcoded minimal set
+    if the file cannot be found (e.g. in isolated unit tests).
+
+    Returns:
+        A set of lowercase tag strings that are considered valid.
+    """
+    global _VALID_TAGS_CACHE
+    if _VALID_TAGS_CACHE:
+        return _VALID_TAGS_CACHE
+
+    # Walk up to find tags.json relative to this file
+    here = os.path.dirname(os.path.abspath(__file__))
+    candidate = os.path.join(here, "..", "..", "src", "tags.json")
+    candidate = os.path.normpath(candidate)
+    if os.path.isfile(candidate):
+        try:
+            with open(candidate, "r", encoding="utf-8") as f:
+                tags_data = json.load(f)
+            _VALID_TAGS_CACHE = {k.lower() for k in tags_data.keys()}
+            return _VALID_TAGS_CACHE
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    # Fallback — keeps existing nodes valid if tags.json is unreachable
+    _VALID_TAGS_CACHE = {
+        "biology", "lifestyle", "book", "longevity", "metabolism",
+        "circadian", "sleep", "exercise", "fasting", "mitochondria",
+        "supplements", "fgf21",
+    }
+    return _VALID_TAGS_CACHE
 
 
 def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
@@ -49,8 +88,8 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
             f"Validation Error in {file_path}: Invalid type '{node_data['type']}'. Valid types: {valid_types}"
         )
 
-    # Validate tag entries
-    valid_tags = {"biology", "lifestyle", "book", "longevity", "metabolism", "circadian", "sleep", "exercise", "fasting", "mitochondria", "supplements", "fgf21"}
+    # Validate tag entries against the authoritative tags.json registry
+    valid_tags = _load_valid_tags()
     for t in node_data["tags"]:
         if not isinstance(t, str) or t.lower() not in valid_tags:
             raise ValueError(f"Validation Error in {file_path}: Unregistered or invalid tag '{t}'. Valid tags: {valid_tags}")
@@ -210,7 +249,7 @@ def validate_backlog_item(item_data: Dict[str, Any], item_id: str = "") -> None:
         )
 
     if "tags" in item_data and isinstance(item_data["tags"], list):
-        valid_tags = {"biology", "lifestyle", "book", "longevity", "metabolism", "circadian", "sleep", "exercise", "fasting", "mitochondria", "supplements", "fgf21"}
+        valid_tags = _load_valid_tags()
         for t in item_data["tags"]:
             if not isinstance(t, str) or t.lower() not in valid_tags:
                 raise ValueError(f"Validation Error in Backlog Item '{target_id}': Unregistered or invalid tag '{t}'. Valid tags: {valid_tags}")

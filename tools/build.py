@@ -8,7 +8,16 @@ import os
 import re
 import sys
 from typing import Any, Dict, List
-from compiler.reader import load_json_file, load_and_validate_all_nodes
+
+# Ensure 'compiler' package is importable regardless of whether this script is
+# invoked directly (python tools/build.py) or imported by the test suite
+# (PYTHONPATH=. pytest tests/). One path insert here eliminates all downstream
+# try/except ModuleNotFoundError dual-import blocks.
+_TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+if _TOOLS_DIR not in sys.path:
+    sys.path.insert(0, _TOOLS_DIR)
+
+from compiler.reader import load_json_file, load_and_validate_all_nodes, validate_backlog_item
 from compiler.linker import inject_jargon_links, slugify
 from compiler.writer import (
     compile_base_layout,
@@ -143,10 +152,6 @@ def run_build() -> None:
 
         print("Reading backlog data...")
         backlog = load_json_file(backlog_path)
-        try:
-            from compiler.reader import validate_backlog_item
-        except ModuleNotFoundError:
-            from tools.compiler.reader import validate_backlog_item
         for item in backlog:
             validate_backlog_item(item, item.get("id", ""))
 
@@ -493,9 +498,11 @@ def run_build() -> None:
 
     # 10.5 Compile category filter pages
     print("Compiling category pages (category-*.html)...")
-    # Derive categories from the actual types present in loaded nodes rather than
-    # a hardcoded list, so a new content type is never silently omitted.
-    categories = sorted({n["type"] for n in nodes})
+    # Union node-derived types with the template-declared set so sidebar links
+    # never point to missing pages (e.g. 'book' when there are no published book
+    # articles yet). New content types still auto-appear when first published.
+    _TEMPLATE_CATEGORIES = {"biology", "lifestyle", "book"}
+    categories = sorted({n["type"] for n in nodes} | _TEMPLATE_CATEGORIES)
     for cat in categories:
         base_layout_cat = compile_base_layout(
             template_content=template_content,
