@@ -1083,7 +1083,7 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap: var(--space-1.5, 6px);
   font-size: 0.85rem;
   color: var(--text-ink-muted);
 }
@@ -1091,7 +1091,8 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
 .bib-item {
   position: relative;
   padding-left: var(--space-3);
-  line-height: 1.5;
+  line-height: 1.45;
+  margin-bottom: 0;
 }
 
 .bib-item::before {
@@ -1477,14 +1478,19 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
 
 .detail-grade-badge {
   font-family: var(--font-body);
-  font-size: var(--font-size-label);
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: var(--radius-pill);
+  padding: 2px 7px;
+  border-radius: var(--radius-button, 4px);
   display: inline-flex;
   align-items: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin-right: 6px;
+  background: transparent !important;
+  background-color: transparent !important;
   transition: opacity var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -1498,24 +1504,21 @@ button.detail-grade-badge:hover {
 }
 
 .detail-grade-badge.grade-high {
-  background-color: oklch(0.62 0.15 140 / 0.1);
-  color: oklch(0.45 0.13 140);
-  border: 1px solid oklch(0.62 0.15 140 / 0.25);
+  color: #16a34a;
+  border: 1px solid #16a34a;
 }
 .detail-grade-badge.grade-moderate {
-  background-color: oklch(0.70 0.16 75 / 0.1);
-  color: oklch(0.48 0.12 75);
-  border: 1px solid oklch(0.70 0.16 75 / 0.25);
+  color: #0284c7;
+  border: 1px solid #0284c7;
 }
 .detail-grade-badge.grade-low {
-  background-color: oklch(0.68 0.16 15 / 0.08);
-  color: oklch(0.68 0.16 15);
-  border: 1px solid oklch(0.68 0.16 15 / 0.25);
+  color: #d97706;
+  border: 1px solid #d97706;
 }
-.detail-grade-badge.grade-very-low {
-  background-color: oklch(0.60 0.16 15 / 0.08);
-  color: oklch(0.50 0.14 15);
-  border: 1px solid oklch(0.60 0.16 15 / 0.25);
+.detail-grade-badge.grade-very-low,
+.detail-grade-badge.grade-very {
+  color: #dc2626;
+  border: 1px solid #dc2626;
 }
 
 .detail-grade-badge.tier-consensus-core {
@@ -1690,8 +1693,6 @@ button.detail-grade-badge:hover {
 .grade-debates {
   margin-top: var(--space-3);
   margin-bottom: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px dashed var(--border-color);
 }
 
 .debates-title {
@@ -1714,8 +1715,9 @@ button.detail-grade-badge:hover {
 }
 
 .debates-bullet-list {
-  list-style: disc;
-  padding-left: var(--space-4);
+  list-style: none;
+  padding-left: 0;
+  margin-left: 0;
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
@@ -1734,31 +1736,33 @@ button.detail-grade-badge:hover {
   font-weight: 700;
   letter-spacing: 0.04em;
   padding: 2px 8px;
-  border-radius: var(--radius-pill);
+  border-radius: var(--radius-button, 4px);
   text-transform: uppercase;
   display: inline-flex;
   align-items: center;
   white-space: nowrap;
   vertical-align: middle;
-  margin-right: 4px;
+  margin-right: 6px;
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 .stance-badge.stance-supporting {
-  background-color: rgba(22, 163, 74, 0.1);
-  color: #16a34a;
-  border: 1px solid rgba(22, 163, 74, 0.25);
+  background-color: transparent !important;
+  color: #0d9488;
+  border: 1px solid #0d9488;
 }
 
 .stance-badge.stance-counter {
-  background-color: rgba(217, 119, 6, 0.1);
-  color: #d97706;
-  border: 1px solid rgba(217, 119, 6, 0.25);
+  background-color: transparent !important;
+  color: #e11d48;
+  border: 1px solid #e11d48;
 }
 
 .stance-badge.stance-nuanced {
-  background-color: rgba(99, 102, 241, 0.1);
-  color: #6366f1;
-  border: 1px solid rgba(99, 102, 241, 0.25);
+  background-color: transparent !important;
+  color: #7c3aed;
+  border: 1px solid #7c3aed;
 }
 
 .debate-position-title {
@@ -3253,7 +3257,31 @@ a.pipeline-badge:hover {
   color: var(--text-ink-muted);
 }
 
+.bib-tag-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.25;
+  padding: 2px 7px;
+  border-radius: var(--radius-button, 4px);
+  background: transparent !important;
+  background-color: transparent !important;
+  color: var(--color-citation, #0284c7);
+  border: 1px solid rgba(2, 132, 199, 0.4);
+  white-space: nowrap;
+  vertical-align: middle;
+  margin-left: 3px;
+  margin-right: 3px;
+  text-decoration: none;
+}
+
 .citation-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  vertical-align: middle;
   color: var(--color-citation);
   text-decoration: underline;
   text-decoration-thickness: 1px;
@@ -3261,8 +3289,16 @@ a.pipeline-badge:hover {
   font-weight: 500;
   transition: color var(--transition-fast);
 }
-.citation-link:hover {
-  color: var(--color-citation-hover);
+
+.citation-link .bib-tag-badge {
+  color: var(--color-citation, #0284c7);
+  border-color: rgba(2, 132, 199, 0.4);
+  text-decoration: none;
+}
+
+.citation-link:hover .bib-tag-badge {
+  color: var(--color-citation-hover, #0369a1);
+  border-color: var(--color-citation-hover, #0369a1);
 }
 
 .evidence-bib-link {
@@ -3416,15 +3452,22 @@ a.pipeline-badge:hover {
   color: var(--accent-synapse);
   text-decoration: none;
   font-weight: 600;
-  margin-left: 4px;
+  margin-left: 0;
+  transition: color var(--transition-fast);
+}
+
+.popover-more-link:hover,
+.popover-glossary-link:hover {
+  text-decoration: underline;
 }
 
 .grade-popover-links {
   margin-top: var(--space-2);
   display: flex;
-  gap: var(--space-3);
+  flex-direction: column;
+  gap: 6px;
   font-size: 0.8rem;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
   border-top: 1px dashed var(--border-color);
   padding-top: var(--space-2);
 }
@@ -3488,8 +3531,9 @@ a.pipeline-badge:hover {
 /* Category tag link on detail page header */
 .detail-header .category-tag,
 .article-detail .category-tag {
-  display: inline-block;
-  margin-bottom: var(--space-2);
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 0;
 }
 
 /* Vocabulary detail page */
@@ -4520,15 +4564,36 @@ a.pipeline-badge-link:hover {
   margin-bottom: var(--space-2);
   flex-wrap: wrap;
 }
-.detail-topic-subtitle,
-.detail-topic-subtitle-link {
+.detail-kicker-row .category-tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding: 3px 9px;
+  border-radius: var(--radius-button, 4px);
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  box-sizing: border-box;
+  vertical-align: middle;
+}
+.detail-kicker-row .detail-topic-subtitle,
+.detail-kicker-row .detail-topic-subtitle-link {
   font-family: var(--font-system);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.05em;
   color: var(--accent-synapse);
   text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+  margin: 0 !important;
+  padding: 3px 0;
+  box-sizing: border-box;
+  vertical-align: middle;
 }
 .detail-topic-subtitle-link {
   cursor: pointer;

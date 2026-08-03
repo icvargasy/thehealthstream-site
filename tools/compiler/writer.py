@@ -830,7 +830,7 @@ def resolve_citation_numbers(html_content: str, bibliography: List[Dict[str, Any
             content = match.group(2)
             suffix = match.group(3)
             if "class=\"citation-link" in prefix:
-                new_content = f"[{num}] {tag}"
+                new_content = f'[{num}] <span class="bib-tag-badge">{tag}</span>'
             else:
                 new_content = content.replace(ref_id, num)
             return f"{prefix}{new_content}{suffix}"
@@ -916,7 +916,7 @@ def compile_detail_page(
             f'</div>'
         )
     rationale = er["rationale"]
-    grade_lower = grade.lower()
+    grade_lower = grade.lower().replace(" ", "-")
     
     debates_html = ""
     if er.get("debate_sides"):
@@ -936,13 +936,13 @@ def compile_detail_page(
                     raw_stance = "counter" if idx == 1 else "nuanced"
 
             if raw_stance == "supporting":
-                stance_badge_html = f'<span class="stance-badge stance-supporting">{SUPPORTING_STANCE_SVG} Supporting</span>'
+                stance_badge_html = f'{SUPPORTING_STANCE_SVG} Supporting'
                 stance_slug = "supporting"
             elif raw_stance in ("counter", "against", "critical"):
-                stance_badge_html = f'<span class="stance-badge stance-counter">{COUNTER_STANCE_SVG} Counter</span>'
+                stance_badge_html = f'{COUNTER_STANCE_SVG} Counter'
                 stance_slug = "counter"
             else:
-                stance_badge_html = f'<span class="stance-badge stance-nuanced">{NUANCED_STANCE_SVG} Nuanced</span>'
+                stance_badge_html = f'{NUANCED_STANCE_SVG} Nuanced'
                 stance_slug = "nuanced"
 
             # Linkify author names using bibliography links
@@ -1000,9 +1000,7 @@ def compile_detail_page(
             f'</div>'
         )
 
-    debate_link_html = ""
-    if er.get("debate_sides"):
-        debate_link_html = f' <a href="#evidence-section" class="popover-debate-link">debates</a>'
+    jump_label = "Jump to key debates & evidence" if er.get("debate_sides") else "Jump to evidence registry"
 
     if grade_lower in ("high", "moderate"):
         tier_label = "Proven"
@@ -1034,10 +1032,10 @@ def compile_detail_page(
         f'      <button class="grade-popover-close" aria-label="Close details">&times;</button>'
         f'    </div>'
         f'    <p class="grade-popover-note">'
-        f'      {tier_desc}{debate_link_html}'
-        f'      <a href="#evidence-section" class="popover-more-link">more...</a>'
+        f'      {tier_desc}'
         f'    </p>'
         f'    <div class="grade-popover-links">'
+        f'      <a href="#evidence-section" class="popover-more-link">{jump_label} &darr;</a>'
         f'      <a href="vocabulary/grade.html" class="popover-glossary-link">GRADE Rating Methodology &rarr;</a>'
         f'    </div>'
         f'  </div>'
@@ -1080,18 +1078,11 @@ def compile_detail_page(
     
     # 4. Evidence Row-List (Tabular Middle-Ground, Responsive)
     grade_details_card = (
-        f'<div class="evidence-grade-details-card grade-{grade_lower}" style="margin-top: var(--space-3); margin-bottom: var(--space-4);">'
-        f'  <div class="evidence-grade-details-header" style="display: flex; align-items: center; justify-content: space-between; padding-top: var(--space-2); padding-bottom: var(--space-2); border-bottom: none;">'
-        f'    <strong style="font-family: var(--font-body); font-weight: 700; font-size: 1.05rem; color: var(--text-ink);">GRADE Evidence Rating</strong>'
-        f'    <span class="detail-grade-badge grade-{grade_lower}">{grade} — {tier_label}</span>'
-        f'  </div>'
-
-        f'  <div class="evidence-grade-note" style="margin-top: var(--space-1); margin-bottom: var(--space-3); font-size: 0.8rem; color: var(--text-ink-muted); line-height: 1.4;">'
-        f'    The GRADE (Grading of Recommendations, Assessment, Development, and Evaluation) system is a standardized framework for rating the quality of scientific evidence. Ratings scale from High to Very Low quality.'
-        f'  </div>'
-        f'  <p class="evidence-grade-rationale" style="margin-top: var(--space-2);"><strong>Rationale:</strong> {rationale}</p>'
-        f'  {debates_html}'
+        f'<div class="evidence-grade-summary" style="margin-top: var(--space-2); margin-bottom: var(--space-4); line-height: 1.6;">'
+        f'  <span class="detail-grade-badge grade-{grade_lower}">{grade} — {tier_label}</span> '
+        f'  <span style="color: var(--text-ink-muted);">{rationale}</span>'
         f'</div>'
+        f'{debates_html}'
     )
 
     evidence_items = []
@@ -1144,20 +1135,16 @@ def compile_detail_page(
                     tag = "LinkedIn Commentary"
                 else:
                     tag = "Empirical Study"
-            title = bib.get("title", "")
-            
-            title_html = f'<strong>"{title}"</strong> ' if title else ""
-            
             cite_item = ""
             if link:
-                cite_item += f'{title_html}<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
+                cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
             else:
-                cite_item += f'{title_html}<span class="evidence-bib-text">{text}</span>'
+                cite_item += f'<span class="evidence-bib-text">{text}</span>'
                 
-            bib_links.append(f'<li class="bib-item" id="{bib_id}" style="margin-bottom: var(--space-3);">[{idx}] {cite_item}</li>')
+            bib_links.append(f'<li class="bib-item" id="{bib_id}">[{idx}] <span class="bib-tag-badge">{tag}</span> {cite_item}</li>')
             
         bibliography_html = (
-            f'<div class="evidence-bibliography" style="margin-top: var(--space-4); border-top: 1px solid var(--border-color); padding-top: var(--space-3);">'
+            f'<div class="evidence-bibliography" style="margin-top: var(--space-4);">'
             f'  <h3 class="evidence-subtitle" style="margin-bottom: var(--space-3);">References &amp; Evidence Registry</h3>'
             f'  <ul class="bib-list" style="list-style: none; padding-left: 0;">'
             f'    {"".join(bib_links)}'

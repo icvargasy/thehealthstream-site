@@ -382,9 +382,8 @@ def test_compile_detail_page() -> None:
     assert "Evidence Level:" in compiled
     assert "High" in compiled
     assert "GRADE Rating Methodology &rarr;" in compiled
-    assert "popover-debate-link" not in compiled
     assert "popover-more-link" in compiled
-    assert "more..." in compiled
+    assert "Jump to evidence registry" in compiled
     # Verify Schema.org FAQPage injection
     assert 'application/ld+json' in compiled
     assert '"@type": "FAQPage"' in compiled
