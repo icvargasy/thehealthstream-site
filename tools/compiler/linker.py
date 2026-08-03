@@ -85,20 +85,26 @@ def inject_simple_links(html_content: str, vocabulary: Dict[str, Any], current_t
 
 
 def _get_compiled_definition(canonical_key: str, vocabulary: Dict[str, Any]) -> str:
-    """Pre-compiles and caches popover HTML definitions for a canonical term."""
+    """Pre-compiles and caches popover content for a canonical term.
+
+    Prefers the vulgarized_analogy (systems analogy) field so popovers surface
+    an intuitive mental model rather than the formal academic definition.
+    Falls back to the definition field if no analogy is present.
+    """
     if canonical_key in _POPOVER_CACHE:
         return _POPOVER_CACHE[canonical_key]
 
     vocab_item = vocabulary[canonical_key]
-    raw_def = vocab_item.get("definition", "")
-    definition_html = markdown.markdown(raw_def).strip()
-    if definition_html.startswith("<p>") and definition_html.endswith("</p>"):
-        definition_html = definition_html[3:-4]
+    # Prefer systems analogy; fall back to formal definition
+    raw_content = vocab_item.get("vulgarized_analogy", "") or vocab_item.get("definition", "")
+    content_html = markdown.markdown(raw_content).strip()
+    if content_html.startswith("<p>") and content_html.endswith("</p>"):
+        content_html = content_html[3:-4]
 
-    definition_html = inject_simple_links(definition_html, vocabulary, canonical_key)
-    escaped_def = html.escape(definition_html, quote=True)
-    _POPOVER_CACHE[canonical_key] = escaped_def
-    return escaped_def
+    content_html = inject_simple_links(content_html, vocabulary, canonical_key)
+    escaped_content = html.escape(content_html, quote=True)
+    _POPOVER_CACHE[canonical_key] = escaped_content
+    return escaped_content
 
 
 def inject_jargon_links(html_content: str, vocabulary: Dict[str, Any]) -> str:

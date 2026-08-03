@@ -276,6 +276,10 @@ def render_backlog_card(
         f'</div>'
     )
 
+    hook_q = item["hook_question"]
+    if hook_q.strip().lower() == item["title"].strip().lower():
+        hook_q = item.get("description", hook_q)
+
     card_html = (
         f'<{tag_name} id="{item["id"]}" class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}" data-grade="{grade_clean}" data-tier="{tier_slug}">'
         f'  <div class="feed-card-header">'
@@ -284,7 +288,7 @@ def render_backlog_card(
         f'        <span class="card-topic-subtitle">{item["title"]}</span>'
         f'      </div>'
         f'      <h2 class="card-title">'
-        f'        <span class="card-title-link">{item["hook_question"]}</span>'
+        f'        <span class="card-title-link">{hook_q}</span>'
         f'      </h2>'
         f'      <div style="display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;">'
         f'        <a href="{category_url}" class="category-tag">{category_label}</a>'
@@ -1128,6 +1132,7 @@ def compile_detail_page(
             connections_html = (
                 f'<section class="connections-section detail-section" id="connections-section" aria-labelledby="connections-title">'
                 f'  <h2 id="connections-title" class="detail-section-title">Connected Circuits</h2>'
+                f'  <p class="connections-intro">These nodes share a direct mechanistic relationship with this decoding. As the graph expands, this section will surface uplevel context, base-level mechanisms, and lateral readings — linking articles organically by pathway rather than by category.</p>'
                 f'  <ul class="connections-list">'
                 f'    {"".join(conn_items)}'
                 f'  </ul>'
