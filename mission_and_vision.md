@@ -28,6 +28,15 @@ Long-term objectives, roadmap phasing, and validation milestones for the static 
     *   *Decoupled Core*: All decoded pathways, jargon definitions, and GRADE evidence reviews remain 100% free, open-access, and paywall-free under Creative Commons/MIT.
     *   *Strategic Monetization Boundaries*: Future monetization is restricted to value-add utilities (biometric protocol calculators), third-party lab diagnostic referrals, and community supporters (GitHub Sponsors).
     *   *Mandatory Disclosure*: Editorial choices and evidence grades are 100% decoupled from financial incentives. Any commercial partner or affiliate link carries explicit visual disclosure tags (`[Partner Referral]`).
+*   **Pillar 5: Systems Analogy Rule (3-Element Structural Mapping)**:
+    *   Enforce a mandatory 3-element mapping for all analogy blocks across biological, lifestyle, and frontier entries:
+        `[Target Mechanism/System]` → `[Everyday Systems Parallel]` → `[Behavior / Failure Mode]`.
+    *   Ensure the everyday system is instantly recognizable without domain-specific technical knowledge.
+*   **Pillar 6: Frontier Science & Content Expansion Vision**:
+    *   Expand content reach across three systemic domains: *Biological Pathways*, *Lifestyle Protocols*, and *Frontier / Emerging Science* (pre-clinical longevity research, early human trials, systems biology paradigms).
+    *   Maintain epistemic transparency by dual-tiering graph connections:
+        *   **Tier 1 (Curated / Established)**: Supported by High/Moderate GRADE certainty. Rendered in 1–2 line format with directional badges.
+        *   **Tier 2 (Frontier / Emerging Hypotheses)**: Early-stage research or speculative connections. Rendered as 1-line entries with an `Emerging Hypothesis` tag and an **`Endorse Connection →`** link pre-filling community proposals.
 *   **Zero-Runtime & Zero-Cost Architecture**: Compiles statically to GitHub Pages without server execution. Uses Google Forms/Sheets for background backlog upvoting (`no-cors`) and Giscus for static comments.
 *   **3-Tier Metaphor & Complexity Ceilings**:
     *   *Level 1 (Single Molecule / State)*: Max 20 words.

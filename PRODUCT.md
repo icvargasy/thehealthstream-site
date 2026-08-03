@@ -38,9 +38,20 @@ Clicking a feed card performs a clean page transition to the optimized static de
 *   **Tabbed Reading Pane**: Allows users to toggle between:
     *   `[ 3-Min Overview ]`: Summarizes the biological circuit using simple analogies and outlines the justified lifestyle protocol.
     *   `[ Deep-Dive Mechanism ]`: Details the specific molecular pathway steps (maximum of 4 sections).
-*   **Static Adjacency Links**: Displays directed network connection links (e.g., *Inhibits: mTOR*) generated from the entry's JSON edge schema to support lateral browsing.
 *   **Interactive Jargon Popovers**: Dotted underline terms mapped in `src/vocabulary.json` trigger a mobile-friendly interactive popover on click/tap, displaying a brief definition and a link to the dedicated `/vocabulary.html` page.
 *   **Evidence & Data Accordion**: A click-to-expand section at the bottom containing clinical study metrics, primary sources (PubMed/DOI links), and bibliography reference lists.
+
+### 3.4. Circuit Graph Topology & Related Circuits Widget
+The platform builds an in-memory directed graph ($G = (V, E)$) during static compilation, laying database-ready foundations for future graph database migrations:
+*   **3-Directional Schema**: Each entry frontmatter declares directed edges:
+    `related_circuits: { upstream: [...], downstream: [...], similar: [...] }`.
+*   **Frontier Expansion Heuristics**:
+    1.  *Broad Domain Scope*: Decodes pathways across biological mechanisms, lifestyle protocols, and frontier/emerging science (longevity models, pre-prints).
+    2.  *Hard Caps & Edge Pruning*: Max 5 directional connections per category per node to preserve high signal-to-noise ratio. New entries displace weaker links based on effect size.
+    3.  *Tiered Render UI*:
+        *   **Tier 1 (Curated / Established)**: 1–2 line format with directional badge (`Upstream`, `Downstream`, `Similar`), title link, and mechanistic summary.
+        *   **Tier 2 (Frontier / Hypothesized)**: Compact 1-line format with `Emerging Hypothesis` badge and an **`Endorse Connection →`** link.
+    4.  *Pre-filled Community Submissions*: Clicking `Endorse Connection →` routes to `./submit-proposal.html?source={id}&target={target}&type={type}`, pre-filling form inputs via client-side `URLSearchParams`.
 
 ---
 
