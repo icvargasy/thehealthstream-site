@@ -1099,7 +1099,7 @@ def test_full_build_internal_relative_links_and_anchors() -> None:
                 continue
 
             parts = href.split("#")
-            rel_path = parts[0]
+            rel_path = parts[0].split("?")[0]
             fragment = parts[1] if len(parts) > 1 else None
 
             if rel_path:
@@ -1344,6 +1344,60 @@ def test_debate_stance_cards_in_writer() -> None:
     assert "stance-badge" in html_out
     assert "Supporting" in html_out
     assert "Counter" in html_out
+
+
+def test_related_circuits_3_directional_rendering() -> None:
+    """Confirms that compile_detail_page renders 3-directional connections and Endorse Connection links."""
+    from tools.compiler.writer import compile_detail_page, render_related_circuits_section
+
+    nodes_sample = [
+        {"slug": "source-node", "title": "Source Node Title", "type": "biology"},
+        {"slug": "upstream-node", "title": "Upstream Cause Title", "type": "lifestyle"},
+        {"slug": "frontier-node", "title": "Frontier Target Title", "type": "biology"}
+    ]
+
+    node_data = {
+        "slug": "source-node",
+        "type": "biology",
+        "title": "Source Node Title",
+        "hook_question": "Does source work?",
+        "takeaway_pill": "Pill takeaway",
+        "epistemic_rating": {"grade": "High", "rationale": "Clear data", "debate_sides": []},
+        "tags": ["biology"],
+        "reading_modes": {"overview_3min": "Text", "deep_dive": []},
+        "related_circuits": {
+            "upstream": [
+                {
+                    "target": "upstream-node",
+                    "mechanism": "Primary driver mechanism",
+                    "tier": "curated"
+                }
+            ],
+            "similar": [
+                {
+                    "target": "frontier-node",
+                    "mechanism": "Hypothesized parallel",
+                    "tier": "hypothesized"
+                }
+            ]
+        },
+        "evidence_table": [],
+        "bibliography": []
+    }
+
+    rendered_html = render_related_circuits_section(node_data, nodes_sample)
+
+    # Check 3-directional headings & badges
+    assert "Upstream Causes & Drivers" in rendered_html
+    assert "badge-upstream" in rendered_html
+    assert "Upstream Cause Title" in rendered_html
+    assert "Primary driver mechanism" in rendered_html
+
+    # Check Tier 2 emerging hypothesis & Endorse Connection link
+    assert "Emerging Hypothesis" in rendered_html
+    assert "Endorse Connection &rarr;" in rendered_html
+    assert "submit-proposal.html?source=source-node&amp;target=frontier-node&amp;type=similar" in rendered_html or "submit-proposal.html?source=source-node&target=frontier-node&type=similar" in rendered_html
+
 
 
 

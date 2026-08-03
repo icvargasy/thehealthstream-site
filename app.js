@@ -657,6 +657,31 @@ function initializeProposalSubmission() {
     if (emailInput) emailInput.value = savedEmail;
   }
 
+  // Auto-fill connection endorsement details from URL query parameters
+  try {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paramSource = urlParams.get("source");
+    const paramTarget = urlParams.get("target");
+    const paramType = urlParams.get("type");
+
+    if (paramSource || paramTarget) {
+      const questionInput = form.querySelector("#form-question");
+      if (questionInput) {
+        let prefillMsg = "";
+        if (paramSource && paramTarget && paramType) {
+          prefillMsg = `[Connection Endorsement]: Endorsing ${paramType.toUpperCase()} relationship between "${paramSource}" and "${paramTarget}".`;
+        } else if (paramSource) {
+          prefillMsg = `[Pathway Proposal]: Proposing a new circuit connection for entry "${paramSource}".`;
+        }
+        if (prefillMsg && !questionInput.value) {
+          questionInput.value = prefillMsg;
+        }
+      }
+    }
+  } catch (err) {
+    // Ignore URL search param parsing errors gracefully
+  }
+
   // Handle custom dynamic behaviour for the "Other" category text box
   const otherRadio = form.querySelector("#category-other-radio");
   const otherText = form.querySelector("#category-other-text");

@@ -47,13 +47,29 @@
       }
     ]
   },
-  "edges": [
-    {
-      "target": "omega3-dha-dementia-trial",
-      "type": "activates",
-      "mechanism": "Microbial shifts induced by ADF reduce neuroinflammation, enabling brain membranes to integrate DHA and support synaptic plasticity."
-    }
-  ],
+  "related_circuits": {
+    "upstream": [
+      {
+        "target": "gut-dysbiosis-lps-microglial-priming",
+        "mechanism": "Gut dysbiosis translocates endotoxins across permeable barriers, driving baseline microglial priming reversed by fasting.",
+        "tier": "curated"
+      }
+    ],
+    "downstream": [
+      {
+        "target": "omega3-dha-dementia-trial",
+        "mechanism": "Fasting-induced microbial shifts reduce neuroinflammation, enabling brain membranes to integrate structural DHA.",
+        "tier": "curated"
+      }
+    ],
+    "similar": [
+      {
+        "target": "exercise-induced-brain-pad-reversal",
+        "mechanism": "Intermittent exercise clears metabolic waste via vascular and glymphatic transport pathways, paralleling fasting-induced debris clearance.",
+        "tier": "hypothesized"
+      }
+    ]
+  },
   "evidence_table": [
     {
       "study": "Mela et al., 2025",
