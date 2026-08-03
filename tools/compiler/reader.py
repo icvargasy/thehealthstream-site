@@ -67,7 +67,6 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
         "epistemic_rating": dict,
         "tags": list,
         "reading_modes": dict,
-        "edges": list,
         "evidence_table": list,
         "bibliography": list,
     }
@@ -155,19 +154,35 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
                     f"Validation Error in {file_path}: Field '{sub_key}' in reading_modes.deep_dive[{idx}] must be a string"
                 )
 
-    # Validate edges
-    for idx, edge in enumerate(node_data["edges"]):
-        if not isinstance(edge, dict):
-            raise ValueError(f"Validation Error in {file_path}: edges[{idx}] must be an object")
-        for sub_key in ["target", "type", "mechanism"]:
-            if sub_key not in edge:
-                raise ValueError(
-                    f"Validation Error in {file_path}: Missing field '{sub_key}' in edges[{idx}]"
-                )
-            if not isinstance(edge[sub_key], str):
-                raise ValueError(
-                    f"Validation Error in {file_path}: Field '{sub_key}' in edges[{idx}] must be a string"
-                )
+    # Validate edges or related_circuits
+    if "related_circuits" not in node_data and "edges" not in node_data:
+        raise ValueError(f"Validation Error in {file_path}: Missing required field 'related_circuits' or 'edges'")
+
+    if "edges" not in node_data:
+        node_data["edges"] = []
+
+    if node_data["edges"]:
+        for idx, edge in enumerate(node_data["edges"]):
+            if not isinstance(edge, dict):
+                raise ValueError(f"Validation Error in {file_path}: edges[{idx}] must be an object")
+            for sub_key in ["target", "type", "mechanism"]:
+                if sub_key not in edge:
+                    raise ValueError(
+                        f"Validation Error in {file_path}: Missing field '{sub_key}' in edges[{idx}]"
+                    )
+                if not isinstance(edge[sub_key], str):
+                    raise ValueError(
+                        f"Validation Error in {file_path}: Field '{sub_key}' in edges[{idx}] must be a string"
+                    )
+
+    if "related_circuits" in node_data:
+        rc = node_data["related_circuits"]
+        if not isinstance(rc, dict):
+            raise ValueError(f"Validation Error in {file_path}: Field 'related_circuits' must be an object")
+        for dir_key in ("upstream", "downstream", "similar"):
+            if dir_key in rc:
+                if not isinstance(rc[dir_key], list):
+                    raise ValueError(f"Validation Error in {file_path}: Field 'related_circuits.{dir_key}' must be a list")
 
     # Validate optional or recommended fields
     systems_analogy = node_data.get("systems_analogy_hook", "")

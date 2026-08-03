@@ -107,6 +107,138 @@ def get_category_mechanism_label(cat: str) -> str:
     return labels.get(cat, "Empirical Mechanism")
 
 
+def render_related_circuits_section(
+    node: Dict[str, Any],
+    nodes: List[Dict[str, Any]],
+    base_path: str = "./",
+) -> str:
+    """Renders the Related Circuits section on article detail pages.
+
+    Supports both explicit 3-directional `related_circuits` ({upstream, downstream, similar})
+    and legacy `edges` lists. Displays Tier 1 (curated) and Tier 2 (hypothesized) connections,
+    including `Endorse Connection ->` community actions for Tier 2 links.
+
+    Args:
+        node: Target node dictionary.
+        nodes: Complete list of node dictionaries for title/type lookup.
+        base_path: Path prefix for relative links.
+
+    Returns:
+        HTML section string, or empty string if no connections are defined.
+    """
+    if not nodes:
+        return ""
+
+    slug_map = {n["slug"]: {"title": n["title"], "type": n["type"]} for n in nodes}
+    node_slug = node.get("slug", "")
+
+    grouped: Dict[str, List[Dict[str, Any]]] = {
+        "upstream": [],
+        "downstream": [],
+        "similar": []
+    }
+
+    raw_rc = node.get("related_circuits")
+    if raw_rc and isinstance(raw_rc, dict):
+        for dir_key in ("upstream", "downstream", "similar"):
+            items = raw_rc.get(dir_key, [])
+            for item in items[:5]:  # Hard cap max 5 per directional category
+                if isinstance(item, str):
+                    grouped[dir_key].append({
+                        "target": item,
+                        "mechanism": "",
+                        "tier": "curated"
+                    })
+                elif isinstance(item, dict) and "target" in item:
+                    grouped[dir_key].append({
+                        "target": item["target"],
+                        "mechanism": item.get("mechanism", ""),
+                        "tier": item.get("tier", "curated")
+                    })
+    elif node.get("edges") and isinstance(node["edges"], list):
+        for edge in node["edges"][:5]:
+            grouped["downstream"].append({
+                "target": edge.get("target", ""),
+                "mechanism": f"{edge.get('type', 'relates to')}: {edge.get('mechanism', '')}",
+                "tier": "curated"
+            })
+
+    total_connections = sum(len(v) for v in grouped.values())
+    if total_connections == 0:
+        return ""
+
+    direction_labels = {
+        "upstream": {"label": "Upstream Causes & Drivers", "badge": "upstream"},
+        "downstream": {"label": "Downstream Effects & Outcomes", "badge": "downstream"},
+        "similar": {"label": "Peer & Parallel Circuits", "badge": "similar"}
+    }
+
+    dir_blocks = []
+    for dir_key, items in grouped.items():
+        if not items:
+            continue
+
+        dir_info = direction_labels[dir_key]
+        item_html_list = []
+
+        for item in items:
+            target_slug = item["target"]
+            target_info = slug_map.get(
+                target_slug,
+                {"title": target_slug.replace("-", " ").title(), "type": "biology"}
+            )
+            target_title = target_info["title"]
+            target_type = target_info["type"]
+            tier = item["tier"].lower()
+            mechanism = item["mechanism"]
+
+            if tier in ("curated", "tier1", "established"):
+                mech_str = f' <span class="connection-mechanism">— {mechanism}</span>' if mechanism else ""
+                item_html_list.append(
+                    f'<li class="connection-item conn-tier1">'
+                    f'  <span class="connection-type-badge badge-{dir_info["badge"]}">{dir_key.capitalize()}</span>'
+                    f'  <a href="{base_path}{target_slug}.html" class="connection-link conn-cat-{target_type}">{target_title}</a>'
+                    f'  {mech_str}'
+                    f'</li>'
+                )
+            else:
+                proposal_url = f'{base_path}submit-proposal.html?source={node_slug}&target={target_slug}&type={dir_key}'
+                item_html_list.append(
+                    f'<li class="connection-item conn-tier2">'
+                    f'  <span class="connection-type-badge badge-frontier">Emerging Hypothesis</span>'
+                    f'  <a href="{base_path}{target_slug}.html" class="connection-link conn-cat-{target_type}">{target_title}</a>'
+                    f'  <a href="{proposal_url}" class="endorse-link" title="Support or submit evidence for this proposed connection">Endorse Connection &rarr;</a>'
+                    f'</li>'
+                )
+
+        dir_blocks.append(
+            f'<div class="connection-group group-{dir_key}">'
+            f'  <h3 class="connection-group-title">{dir_info["label"]}</h3>'
+            f'  <ul class="connections-list">'
+            f'    {"".join(item_html_list)}'
+            f'  </ul>'
+            f'</div>'
+        )
+
+    cta_url = f'{base_path}submit-proposal.html?source={node_slug}'
+    cta_html = (
+        f'<div class="connections-footer-cta">'
+        f'  <a href="{cta_url}" class="connection-submit-link">Propose / Endorse a Pathway Connection &rarr;</a>'
+        f'</div>'
+    )
+
+    return (
+        f'<section class="connections-section detail-section" id="connections-section" aria-labelledby="connections-title">'
+        f'  <h2 id="connections-title" class="detail-section-title">Pathway Connections &amp; Related Circuits</h2>'
+        f'  <p class="connections-intro">Decoded nodes share direct systemic relationships. Upstream causes, downstream outputs, and parallel mechanisms are indexed below. Explore established pathways or endorse emerging frontier connections.</p>'
+        f'  <div class="connections-grid">'
+        f'    {"".join(dir_blocks)}'
+        f'  </div>'
+        f'  {cta_html}'
+        f'</section>'
+    )
+
+
 def compile_base_layout(
     template_content: str,
     translations: Dict[str, Any],
@@ -1109,34 +1241,8 @@ def compile_detail_page(
         f'</section>'
     )
     
-    # 5. Directed Connections Links Block (Systemic Circuit Integration)
-    connections_html = ""
-    if node.get("edges") and nodes:
-        slug_map = {n["slug"]: {"title": n["title"], "type": n["type"]} for n in nodes}
-        conn_items = []
-        for edge in node["edges"]:
-            target_slug = edge["target"]
-            target_info = slug_map.get(target_slug)
-            if target_info:
-                target_title = target_info["title"]
-                conn_item = (
-                    f'<li>'
-                    f'  <span class="connection-type">{edge["type"]}</span>'
-                    f'  <a href="{target_slug}.html" class="connection-link conn-cat-{target_info["type"]}">{target_title}</a> '
-                    f'  <span class="connection-mechanism">{edge["mechanism"]}</span>'
-                    f'</li>'
-                )
-                conn_items.append(conn_item)
-        if conn_items:
-            connections_html = (
-                f'<section class="connections-section detail-section" id="connections-section" aria-labelledby="connections-title">'
-                f'  <h2 id="connections-title" class="detail-section-title">Pathway Connections</h2>'
-                f'  <p class="connections-intro">These nodes share a direct mechanistic relationship with this decoding. As the graph expands, this section will surface uplevel context, base-level mechanisms, and lateral readings — linking articles organically by pathway rather than by category.</p>'
-                f'  <ul class="connections-list">'
-                f'    {"".join(conn_items)}'
-                f'  </ul>'
-                f'</section>'
-            )
+    # 5. Directed Connections Links Block (Systemic Circuit Integration & Related Circuits)
+    connections_html = render_related_circuits_section(node, nodes, base_path="")
 
     # 5.5. Giscus Comment Widget
     giscus_html = ""
