@@ -1537,12 +1537,14 @@ def compile_vocabulary_detail_page(
 
     # Vulgarized Analogy Callout
     analogy = vocab_item.get("vulgarized_analogy", "")
+    # Vulgarized Analogy Callout (Flat Inline Evidence/Debate Pattern)
+    analogy = vocab_item.get("vulgarized_analogy", "")
     analogy_html = ""
     if analogy:
         analogy_html = (
-            f'<div class="vocab-analogy">'
-            f'  <span class="vocab-analogy-label">Systems Analogy</span>'
-            f'  <p>{analogy}</p>'
+            f'<div class="vocab-analogy vocab-flat-analogy" style="margin-top: var(--space-3); margin-bottom: var(--space-4); padding-left: var(--space-3); border-left: 2px solid var(--accent-synapse);">'
+            f'  <span class="hero-badge-label" style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-synapse);">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy</strong></span>'
+            f'  <p style="margin-top: 4px; line-height: 1.55; color: var(--text-ink); font-style: italic;">{analogy}</p>'
             f'</div>'
         )
 
@@ -1550,37 +1552,36 @@ def compile_vocabulary_detail_page(
     citations = vocab_item.get("citations", [])
     if citations:
         citations_links = []
-        for citation in citations:
+        for idx, citation in enumerate(citations, start=1):
             text = citation.get("text", "")
             link = citation.get("link", "")
             quote = citation.get("defining_quote", "")
             page = citation.get("quote_page", "")
             tag = _infer_bib_tag(citation)
 
-            tag_slug = slugify(tag)
-            tag_badge = f'<span class="source-tag-badge {tag_slug}">{tag}</span>'
+            tag_badge = f'<span class="bib-tag-badge">{tag}</span>'
             
-            cite_item = f'{tag_badge}'
+            cite_item = ""
             if link:
-                cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="vocab-citation-link">{text} ↗</a>'
+                cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
             else:
-                cite_item += f'<span class="vocab-citation-text">{text}</span>'
+                cite_item += f'<span class="evidence-bib-text">{text}</span>'
                 
             if page:
                 cite_item += f' <span class="vocab-quote-meta">({page})</span>'
                 
             if quote:
                 cite_item += (
-                    f'<blockquote class="vocab-quote">'
+                    f'<blockquote class="vocab-quote" style="margin-top: 4px; margin-bottom: 0; font-size: 0.85rem; color: var(--text-ink-muted); font-style: italic; border-left: 2px solid var(--border-color); padding-left: 10px;">'
                     f'  "{quote}"'
                     f'</blockquote>'
                 )
                 
-            citations_links.append(f'<li>{cite_item}</li>')
+            citations_links.append(f'<li class="bib-item" style="margin-bottom: var(--space-2.5);">[{idx}] {tag_badge} {cite_item}</li>')
         citations_html = (
-            f'<div class="vocab-detail-citations">'
-            f'  <h4>Scientific Sources & Verbatim Definitions</h4>'
-            f'  <ul>'
+            f'<div class="evidence-bibliography" style="margin-top: var(--space-4);">'
+            f'  <h4 class="evidence-subtitle" style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--space-2);">Scientific Sources & Verbatim Definitions</h4>'
+            f'  <ul class="bib-list" style="list-style: none; padding-left: 0;">'
             f'    {"".join(citations_links)}'
             f'  </ul>'
             f'</div>'

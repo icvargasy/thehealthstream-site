@@ -1094,16 +1094,9 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
 
 .bib-item {
   position: relative;
-  padding-left: var(--space-3);
+  padding-left: 0;
   line-height: 1.45;
   margin-bottom: 0;
-}
-
-.bib-item::before {
-  content: "•";
-  position: absolute;
-  left: 0;
-  color: var(--accent-synapse);
 }
 
 /* Jargon Glossary Page layout */
@@ -1459,10 +1452,6 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
   color: var(--bg-surface);
 }
 
-.article-detail .bib-item::before {
-  color: var(--accent-synapse);
-}
-
 /* GRADE Popover Styles */
 .detail-grade-container {
   position: relative;
@@ -1581,10 +1570,6 @@ button.detail-grade-badge:hover {
   font-size: 0.88rem;
   line-height: 1.5;
   color: var(--text-ink);
-}
-
-.article-detail .bib-item::before {
-  color: var(--page-accent);
 }
 
 /* Reading Tabs */
@@ -2756,18 +2741,12 @@ a.pipeline-badge:hover {
 
 .static-page .article-body-text li {
   position: relative;
-  padding-left: var(--space-4);
+  padding-left: 0;
   line-height: 1.55;
 }
 
 .static-page .article-body-text li::before {
-  content: "•";
-  color: var(--accent-synapse);
-  font-weight: bold;
-  font-size: 1.2rem;
-  position: absolute;
-  left: 0;
-  top: -2px;
+  content: none;
 }
 
 /* Old qa-takeaway-card styling removed */
