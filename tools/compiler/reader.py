@@ -49,6 +49,12 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
             f"Validation Error in {file_path}: Invalid type '{node_data['type']}'. Valid types: {valid_types}"
         )
 
+    # Validate tag entries
+    valid_tags = {"biology", "lifestyle", "book", "longevity", "metabolism", "circadian", "sleep", "exercise", "fasting", "mitochondria", "supplements", "fgf21"}
+    for t in node_data["tags"]:
+        if not isinstance(t, str) or t.lower() not in valid_tags:
+            raise ValueError(f"Validation Error in {file_path}: Unregistered or invalid tag '{t}'. Valid tags: {valid_tags}")
+
     # Validate epistemic rating
     er = node_data["epistemic_rating"]
     for er_key, er_type in [("grade", str), ("rationale", str), ("debate_sides", list)]:
@@ -202,6 +208,12 @@ def validate_backlog_item(item_data: Dict[str, Any], item_id: str = "") -> None:
         raise ValueError(
             f"Validation Error in Backlog Item '{target_id}': Invalid grade '{item_data['grade']}'. Valid levels: {valid_grades}"
         )
+
+    if "tags" in item_data and isinstance(item_data["tags"], list):
+        valid_tags = {"biology", "lifestyle", "book", "longevity", "metabolism", "circadian", "sleep", "exercise", "fasting", "mitochondria", "supplements", "fgf21"}
+        for t in item_data["tags"]:
+            if not isinstance(t, str) or t.lower() not in valid_tags:
+                raise ValueError(f"Validation Error in Backlog Item '{target_id}': Unregistered or invalid tag '{t}'. Valid tags: {valid_tags}")
 
 
 

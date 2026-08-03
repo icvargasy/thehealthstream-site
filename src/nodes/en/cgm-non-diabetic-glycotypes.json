@@ -9,11 +9,13 @@
     "debate_sides": [
       {
         "position": "Subclinical Metabolic Discovery",
-        "arguments": "Advocates argue that monitoring glycemic fluctuations in healthy people reveals early-stage insulin resistance and postprandial spikes that standard clinical markers (like fasting glucose or HbA1c) fail to detect, allowing for preventative lifestyle adjustments."
+        "arguments": "Advocates argue that monitoring glycemic fluctuations in healthy people reveals early-stage insulin resistance and postprandial spikes that standard clinical markers (like fasting glucose or HbA1c) fail to detect, allowing for preventative lifestyle adjustments.",
+        "citations": ["ref1"]
       },
       {
         "position": "Diagnostic Over-Monitoring & Lifestyle Stress",
-        "arguments": "Critics contend that continuous tracking in non-diabetic individuals creates unnecessary anxiety, encourages extreme dietary restrictions, and lacks evidence showing that mitigating transient spikes in healthy populations actually extends healthspan."
+        "arguments": "Critics contend that continuous tracking in non-diabetic individuals creates unnecessary anxiety, encourages extreme dietary restrictions, and lacks evidence showing that mitigating transient spikes in healthy populations actually extends healthspan.",
+        "citations": ["ref2"]
       }
     ]
   },
@@ -46,6 +48,13 @@
       "sample": "n=57 healthy, non-diabetic individuals",
       "outcome": "Continuous glucose monitoring classified individuals into low, moderate, and severe spiking 'glucotypes'. Many participants who were clinically healthy experienced spikes that reached prediabetic levels.",
       "link": "https://doi.org/10.1371/journal.pbio.2005143"
+    },
+    {
+      "study": "Shah et al., 2021",
+      "design": "Consensus Literature Review",
+      "sample": "Critical review of continuous glucose monitoring utility in non-diabetic cohorts",
+      "outcome": "Concludes that routine CGM tracking in normoglycemic adults lacks evidence of long-term clinical benefit and may induce food anxiety.",
+      "link": "https://doi.org/10.2337/dci21-0010"
     }
   ],
   "bibliography": [
@@ -55,6 +64,13 @@
       "title": "Glucotypes reveal new patterns of glucose dysregulation in subclinical populations",
       "text": "Hall H, et al. Glucotypes reveal new patterns of glucose dysregulation in subclinical populations. PLOS Biol. 2018;16(7):e2005143.",
       "link": "https://doi.org/10.1371/journal.pbio.2005143"
+    },
+    {
+      "id": "ref2",
+      "tag": "Consensus Review",
+      "title": "Continuous Glucose Monitoring in Individuals Without Diabetes: A Critical Review of Clinical Utility",
+      "text": "Shah VN, et al. Continuous Glucose Monitoring in Individuals Without Diabetes: A Critical Review of Clinical Utility. Diabetes Care. 2021;44(8):1750-1756.",
+      "link": "https://doi.org/10.2337/dci21-0010"
     }
   ],
   "systems_analogy_hook": "Installing a real-time water flow meter to log temporary pressure spikes that standard daily pressure checks miss."

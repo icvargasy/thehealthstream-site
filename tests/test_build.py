@@ -1269,4 +1269,78 @@ def test_backlog_hook_question_schema_parity() -> None:
         )
 
 
+def test_tag_schema_validation() -> None:
+    """Verifies that validate_backlog_item rejects unregistered tags."""
+    from tools.compiler.reader import validate_backlog_item
+    invalid_item = {
+        "id": "test-invalid-tag",
+        "title": "Invalid Tag Entry",
+        "hook_question": "Does invalid tag fail?",
+        "description": "Description...",
+        "category": "biology",
+        "systems_analogy": "Analogy...",
+        "grade": "Low",
+        "tags": ["invalid_tag_name_xyz"]
+    }
+    with pytest.raises(ValueError, match="Unregistered or invalid tag"):
+        validate_backlog_item(invalid_item, "test-invalid-tag")
+
+
+def test_popover_analogy_badge_in_linker() -> None:
+    """Verifies that _get_compiled_definition prepends Systems Analogy badge for terms with vulgarized_analogy."""
+    from tools.compiler.linker import _get_compiled_definition, clear_popover_cache
+    clear_popover_cache()
+    vocab = {
+        "autophagy": {
+            "definition": "Formal cellular degradation process.",
+            "vulgarized_analogy": "A city fleet recycling old car parts.",
+            "aliases": []
+        }
+    }
+    compiled = _get_compiled_definition("autophagy", vocab)
+    assert "popover-analogy-badge" in compiled
+    assert "Systems Analogy" in compiled
+
+
+def test_debate_stance_cards_in_writer() -> None:
+    """Verifies that scientific debates are rendered as stance cards with badges."""
+    from tools.compiler.writer import compile_detail_page
+    layout_html = "<html><head></head><body>{{content}}</body></html>"
+    node = {
+        "slug": "ampk-activation",
+        "type": "biology",
+        "title": "AMPK Activation",
+        "hook_question": "Does constant snacking block energy?",
+        "takeaway_pill": "Fasting activates AMPK.",
+        "epistemic_rating": {
+            "grade": "High",
+            "rationale": "Strong evidence.",
+            "debate_sides": [
+                {
+                    "position": "Proponent View",
+                    "arguments": "Advocates argue that fasting triggers clearance."
+                },
+                {
+                    "position": "Critical View",
+                    "arguments": "Critics contend that extreme fasting risks muscle loss."
+                }
+            ]
+        },
+        "tags": ["biology", "metabolism"],
+        "reading_modes": {
+            "overview_3min": "Overview text",
+            "deep_dive": [{"heading": "Molecular Axis", "body": "Body text"}]
+        },
+        "edges": [],
+        "evidence_table": [],
+        "bibliography": [{"id": "ref1", "text": "Study 2023", "link": "http://example.com"}]
+    }
+    html_out = compile_detail_page(layout_html, node, {"en": {}})
+    assert "debate-bullet-item" in html_out
+    assert "stance-badge" in html_out
+    assert "Supporting" in html_out
+    assert "Counter" in html_out
+
+
+
 

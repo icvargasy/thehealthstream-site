@@ -270,7 +270,7 @@ function initializeJargonPopovers() {
       <div class="popover-term-title" style="font-weight: 700; color: var(--accent-synapse); font-size: 0.95rem; margin-bottom: var(--space-1);">${canonicalKey}</div>
       ${aliasHtml}
       <div class="popover-def">${parsedDefinition}</div>
-      <a href="${href}" class="popover-link">View in Glossary &rarr;</a>
+      <a href="${href}" class="popover-link">Formal Definition &rarr;</a>
     `;
 
     positionPopover(term);

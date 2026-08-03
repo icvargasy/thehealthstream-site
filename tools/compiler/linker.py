@@ -95,11 +95,15 @@ def _get_compiled_definition(canonical_key: str, vocabulary: Dict[str, Any]) -> 
         return _POPOVER_CACHE[canonical_key]
 
     vocab_item = vocabulary[canonical_key]
-    # Prefer systems analogy; fall back to formal definition
-    raw_content = vocab_item.get("vulgarized_analogy", "") or vocab_item.get("definition", "")
+    analogy = vocab_item.get("vulgarized_analogy", "")
+    is_analogy = bool(analogy)
+    raw_content = analogy or vocab_item.get("definition", "")
     content_html = markdown.markdown(raw_content).strip()
     if content_html.startswith("<p>") and content_html.endswith("</p>"):
         content_html = content_html[3:-4]
+
+    if is_analogy:
+        content_html = f'<span class="popover-analogy-badge" style="display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-synapse); margin-bottom: 4px;">💡 Systems Analogy</span>{content_html}'
 
     content_html = inject_simple_links(content_html, vocabulary, canonical_key)
     escaped_content = html.escape(content_html, quote=True)

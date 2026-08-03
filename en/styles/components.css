@@ -1713,6 +1713,67 @@ button.detail-grade-badge:hover {
   padding-left: 0;
 }
 
+.debates-bullet-list {
+  list-style: disc;
+  padding-left: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  margin-top: var(--space-3);
+}
+
+.debate-bullet-item {
+  position: relative;
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-ink);
+}
+
+.stance-badge {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin-right: 4px;
+}
+
+.stance-badge.stance-supporting {
+  background-color: rgba(22, 163, 74, 0.1);
+  color: #16a34a;
+  border: 1px solid rgba(22, 163, 74, 0.25);
+}
+
+.stance-badge.stance-counter {
+  background-color: rgba(217, 119, 6, 0.1);
+  color: #d97706;
+  border: 1px solid rgba(217, 119, 6, 0.25);
+}
+
+.stance-badge.stance-nuanced {
+  background-color: rgba(99, 102, 241, 0.1);
+  color: #6366f1;
+  border: 1px solid rgba(99, 102, 241, 0.25);
+}
+
+.debate-position-title {
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-ink);
+}
+
+.debate-argument-text {
+  font-size: 0.92rem;
+  line-height: 1.6;
+  color: var(--text-ink);
+}
+
 .debates-list li {
   font-size: 0.9rem;
   line-height: 1.5;

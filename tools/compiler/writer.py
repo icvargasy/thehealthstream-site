@@ -47,6 +47,36 @@ CLINICAL_MECHANISM_SVG = (
     '</svg>'
 )
 
+SUPPORTING_STANCE_SVG = (
+    '<svg class="stance-icon-svg stance-supporting-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block; flex-shrink: 0;">'
+    '<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>'
+    '<path d="m9 12 2 2 4-4"></path>'
+    '</svg>'
+)
+
+COUNTER_STANCE_SVG = (
+    '<svg class="stance-icon-svg stance-counter-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block; flex-shrink: 0;">'
+    '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3z"></path>'
+    '<line x1="12" y1="9" x2="12" y2="13"></line>'
+    '<line x1="12" y1="17" x2="12.01" y2="17"></line>'
+    '</svg>'
+)
+
+NUANCED_STANCE_SVG = (
+    '<svg class="stance-icon-svg stance-nuanced-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block; flex-shrink: 0;">'
+    '<path d="M12 3v18"></path>'
+    '<path d="M5 7h14"></path>'
+    '<path d="M5 7l-2 5h4l-2-5z"></path>'
+    '<path d="M19 7l-2 5h4l-2-5z"></path>'
+    '</svg>'
+)
+
 
 def get_category_mechanism_label(cat: str) -> str:
     """Returns category-specific takeaway badge label (e.g. Biological Mechanism, Protocol Mechanism, Curated Synthesis)."""
@@ -773,22 +803,36 @@ def compile_feed_page(
 
 
 def resolve_citation_numbers(html_content: str, bibliography: List[Dict[str, Any]]) -> str:
-    """Replaces citation link placeholders like [ref1] with sequential numbers like [1]."""
+    """Replaces citation link placeholders like [ref1] with sequential numbers and source labels like [1] Empirical Study."""
     if not bibliography:
         return html_content
     
-    # Map of ref_id -> sequential number
-    ref_map = {bib["id"]: str(idx) for idx, bib in enumerate(bibliography, 1)}
+    bib_lookup = {}
+    for idx, bib in enumerate(bibliography, 1):
+        bib_id = bib.get("id", "")
+        tag = bib.get("tag", bib.get("type", None))
+        if not tag:
+            link_lower = (bib.get("link") or "").lower()
+            text_lower = (bib.get("text") or "").lower()
+            if "macmillanlearning" in link_lower or "books.google" in link_lower or "principles of biochemistry" in text_lower or "epidemiology of chronic disease" in text_lower or "2nd ed" in text_lower or "8th ed" in text_lower:
+                tag = "Book / Monograph"
+            elif "linkedin.com" in link_lower:
+                tag = "LinkedIn Commentary"
+            else:
+                tag = "Empirical Study"
+        bib_lookup[bib_id] = (str(idx), tag)
     
-    for ref_id, num in ref_map.items():
+    for ref_id, (num, tag) in bib_lookup.items():
         pattern = re.compile(rf'(<a\s+href=["\']#{re.escape(ref_id)}["\'][^>]*>)([^<]*)(</a>)', re.IGNORECASE)
         
         def replace_callback(match: re.Match) -> str:
             prefix = match.group(1)
             content = match.group(2)
             suffix = match.group(3)
-            # Replaces occurrences of the ID inside the anchor tag text with the index number
-            new_content = content.replace(ref_id, num)
+            if "class=\"citation-link" in prefix:
+                new_content = f"[{num}] {tag}"
+            else:
+                new_content = content.replace(ref_id, num)
             return f"{prefix}{new_content}{suffix}"
             
         html_content = pattern.sub(replace_callback, html_content)
@@ -877,10 +921,30 @@ def compile_detail_page(
     debates_html = ""
     if er.get("debate_sides"):
         debate_items = []
-        for side in er["debate_sides"]:
+        for idx, side in enumerate(er["debate_sides"]):
             pos_text = side["position"]
             args_text = side["arguments"]
             
+            # Determine stance
+            raw_stance = (side.get("stance") or "").lower().strip()
+            if not raw_stance:
+                if idx == 0 or "advocate" in args_text.lower() or "support" in pos_text.lower() or "discovery" in pos_text.lower():
+                    raw_stance = "supporting"
+                elif "critic" in args_text.lower() or "risk" in pos_text.lower() or "over-monitoring" in pos_text.lower() or "stress" in pos_text.lower() or "anxiety" in args_text.lower():
+                    raw_stance = "counter"
+                else:
+                    raw_stance = "counter" if idx == 1 else "nuanced"
+
+            if raw_stance == "supporting":
+                stance_badge_html = f'<span class="stance-badge stance-supporting">{SUPPORTING_STANCE_SVG} Supporting</span>'
+                stance_slug = "supporting"
+            elif raw_stance in ("counter", "against", "critical"):
+                stance_badge_html = f'<span class="stance-badge stance-counter">{COUNTER_STANCE_SVG} Counter</span>'
+                stance_slug = "counter"
+            else:
+                stance_badge_html = f'<span class="stance-badge stance-nuanced">{NUANCED_STANCE_SVG} Nuanced</span>'
+                stance_slug = "nuanced"
+
             # Linkify author names using bibliography links
             for bib in node.get("bibliography", []):
                 names_to_check = ["Amine Zorgani", "Frank Bernier", "Dilpriya K. Mangat"]
@@ -893,23 +957,26 @@ def compile_detail_page(
             # Auto-citation injection for debates if not already present
             if not re.search(r'href=["\']#ref', args_text):
                 injected_citations = []
-                # Check for specific commentaries/authors
-                for bib in node.get("bibliography", []):
-                    # Extract name keyword (e.g. "Bernier", "Mangat", "Zorgani")
-                    author_keyword = ""
-                    if "bernier" in bib.get("text", "").lower():
-                        author_keyword = "bernier"
-                    elif "mangat" in bib.get("text", "").lower():
-                        author_keyword = "mangat"
-                    elif "zorgani" in bib.get("text", "").lower():
-                        author_keyword = "zorgani"
-                    
-                    if author_keyword and (author_keyword in pos_text.lower() or author_keyword in args_text.lower()):
-                        injected_citations.append(f'<a href="#{bib["id"]}" class="citation-link">[{bib["id"]}]</a>')
+                # Support explicit citations array on debate side object
+                side_cites = side.get("citations", [])
+                if side_cites:
+                    for cid in side_cites:
+                        injected_citations.append(f'<a href="#{cid}" class="citation-link">[{cid}]</a>')
+                else:
+                    for bib in node.get("bibliography", []):
+                        author_keyword = ""
+                        if "bernier" in bib.get("text", "").lower():
+                            author_keyword = "bernier"
+                        elif "mangat" in bib.get("text", "").lower():
+                            author_keyword = "mangat"
+                        elif "zorgani" in bib.get("text", "").lower():
+                            author_keyword = "zorgani"
+                        
+                        if author_keyword and (author_keyword in pos_text.lower() or author_keyword in args_text.lower()):
+                            injected_citations.append(f'<a href="#{bib["id"]}" class="citation-link">[{bib["id"]}]</a>')
                 
-                # If no author commentaries matched, fallback to primary study ref1
-                if not injected_citations and node.get("bibliography"):
-                    # Default to the first reference (usually ref1)
+                # Only inject primary ref1 into supporting stance if no citations matched
+                if not injected_citations and node.get("bibliography") and raw_stance == "supporting":
                     primary_ref_id = node["bibliography"][0]["id"]
                     injected_citations.append(f'<a href="#{primary_ref_id}" class="citation-link">[{primary_ref_id}]</a>')
                 
@@ -917,16 +984,17 @@ def compile_detail_page(
                     args_text += " " + " ".join(injected_citations)
             
             item = (
-                f'<li>'
-                f'  <strong>Position:</strong> {pos_text}<br>'
-                f'  <strong>Arguments:</strong> {args_text}'
+                f'<li class="debate-bullet-item stance-{stance_slug}">'
+                f'  <span class="stance-badge stance-{stance_slug}">{stance_badge_html}</span> '
+                f'  <strong class="debate-position-title">{pos_text}</strong> &mdash; '
+                f'  <span class="debate-argument-text">{args_text}</span>'
                 f'</li>'
             )
             debate_items.append(item)
         debates_html = (
             f'<div class="grade-debates">'
             f'  <h3 class="debates-title">Key Scientific Debates</h3>'
-            f'  <ul class="debates-list">'
+            f'  <ul class="debates-bullet-list">'
             f'    {"".join(debate_items)}'
             f'  </ul>'
             f'</div>'
@@ -1001,7 +1069,7 @@ def compile_detail_page(
 
     body_html = (
         f'<section id="overview-section" class="detail-section overview-section">'
-        f'  <h2 class="detail-section-title">Circuit Overview</h2>'
+        f'  <h2 class="detail-section-title">Core Summary</h2>'
         f'  <div class="article-body-text">{overview_html}</div>'
         f'</section>'
         f'<section id="deepdive-section" class="detail-section deep-dive-section">'
@@ -1078,16 +1146,13 @@ def compile_detail_page(
                     tag = "Empirical Study"
             title = bib.get("title", "")
             
-            tag_slug = slugify(tag)
-            tag_badge = f'<span class="source-tag-badge {tag_slug}">{tag}</span>'
-            
             title_html = f'<strong>"{title}"</strong> ' if title else ""
             
             cite_item = ""
             if link:
-                cite_item += f'{tag_badge}{title_html}<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
+                cite_item += f'{title_html}<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
             else:
-                cite_item += f'{tag_badge}{title_html}<span class="evidence-bib-text">{text}</span>'
+                cite_item += f'{title_html}<span class="evidence-bib-text">{text}</span>'
                 
             bib_links.append(f'<li class="bib-item" id="{bib_id}" style="margin-bottom: var(--space-3);">[{idx}] {cite_item}</li>')
             
@@ -1131,7 +1196,7 @@ def compile_detail_page(
         if conn_items:
             connections_html = (
                 f'<section class="connections-section detail-section" id="connections-section" aria-labelledby="connections-title">'
-                f'  <h2 id="connections-title" class="detail-section-title">Connected Circuits</h2>'
+                f'  <h2 id="connections-title" class="detail-section-title">Pathway Connections</h2>'
                 f'  <p class="connections-intro">These nodes share a direct mechanistic relationship with this decoding. As the graph expands, this section will surface uplevel context, base-level mechanisms, and lateral readings — linking articles organically by pathway rather than by category.</p>'
                 f'  <ul class="connections-list">'
                 f'    {"".join(conn_items)}'
