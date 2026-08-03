@@ -2,7 +2,7 @@ import re
 import html
 import markdown
 from typing import Dict, Any
-from .utils import slugify
+from .utils import slugify, SYNAPSE_LOGO_SVG
 
 # Global cache for compiled popover HTML definitions to prevent O(M x N x V) re-rendering
 _POPOVER_CACHE: Dict[str, str] = {}
@@ -124,7 +124,7 @@ def _get_compiled_definition(
         content_html = content_html[3:-4]
 
     if is_analogy:
-        content_html = f'<span class="popover-analogy-badge" style="display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-synapse); margin-bottom: 4px;">💡 Systems Analogy</span>{content_html}'
+        content_html = f'<span class="popover-analogy-badge" style="display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-synapse); margin-bottom: 4px;">{SYNAPSE_LOGO_SVG} Systems Analogy</span>{content_html}'
 
     content_html = inject_simple_links(content_html, vocabulary, canonical_key, base_path)
     escaped_content = html.escape(content_html, quote=True)

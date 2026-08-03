@@ -68,3 +68,20 @@ def save_json_file(file_path: str, data: Any) -> None:
             f.write("\n")
     except Exception as e:
         raise RuntimeError(f"Error saving JSON to {file_path}: {e}") from e
+
+
+SYNAPSE_LOGO_SVG = (
+    '<svg class="systems-analogy-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 4px; display: inline-block;">'
+    '<path d="M12 22V3"></path>'
+    '<path d="M12 18c3 0 5-2 5-4"></path>'
+    '<path d="M12 18c-3 0-5-2-5-4"></path>'
+    '<path d="M12 12c4.5 0 7-2.5 7-5"></path>'
+    '<path d="M12 12c-4.5 0-7-2.5-7-5"></path>'
+    '<circle cx="12" cy="3" r="1.5" fill="currentColor"></circle>'
+    '<circle cx="19" cy="7" r="1.5" fill="currentColor"></circle>'
+    '<circle cx="5" cy="7" r="1.5" fill="currentColor"></circle>'
+    '</svg>'
+)
+

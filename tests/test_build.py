@@ -1298,6 +1298,7 @@ def test_popover_analogy_badge_in_linker() -> None:
     }
     compiled = _get_compiled_definition("autophagy", vocab)
     assert "popover-analogy-badge" in compiled
+    assert "systems-analogy-icon" in compiled
     assert "Systems Analogy" in compiled
 
 
