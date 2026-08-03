@@ -210,21 +210,24 @@ def inject_direct_links(html_content: str, vocabulary: Dict[str, Any], current_t
     pattern_str = r"(?<![\w-])(" + "|".join(escaped_phrases) + r")(?![\w-])"
     pattern = re.compile(pattern_str, re.IGNORECASE)
 
-    tokens = re.split(r"(<[^>]+>)", html_content)
-    in_link = False
-    
+    # Use the same robust HTML tokenizer as inject_jargon_links to handle
+    # attributes containing '>' (e.g. SVG viewBox, inline style).
+    tokens = HTML_TAG_SPLIT_REGEX.split(html_content)
+    skip_depth = 0
+
     for i in range(len(tokens)):
         token = tokens[i]
-        
+
         if token.startswith("<"):
-            tag_lower = token.lower()
-            if re.match(r"^<a[\s/>]", tag_lower):
-                in_link = True
-            elif tag_lower == "</a>":
-                in_link = False
+            tag_lower = token.lower().strip()
+            if re.match(r"^</a[\s>]", tag_lower):
+                if skip_depth > 0:
+                    skip_depth -= 1
+            elif re.match(r"^<a[\s/>]", tag_lower):
+                skip_depth += 1
             continue
 
-        if in_link:
+        if skip_depth > 0:
             continue
 
         def replace_callback(match: re.Match) -> str:

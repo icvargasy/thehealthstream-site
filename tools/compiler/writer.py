@@ -14,6 +14,38 @@ from typing import Dict, List, Any
 import markdown
 from .linker import slugify
 
+
+def _infer_bib_tag(bib: Dict[str, Any]) -> str:
+    """Infers a bibliography source type tag from URL and text heuristics.
+
+    Used as a fallback when a bibliography item does not carry an explicit
+    'tag' field. Centralises the heuristic to avoid copy-paste across
+    resolve_citation_numbers, compile_detail_page, and compile_vocabulary_detail_page.
+
+    Args:
+        bib: A bibliography item dictionary with optional 'tag', 'link', and 'text' keys.
+
+    Returns:
+        A human-readable source type string, e.g. 'Book / Monograph'.
+    """
+    tag = bib.get("tag") or bib.get("type")
+    if tag:
+        return tag
+    link_lower = (bib.get("link") or "").lower()
+    text_lower = (bib.get("text") or "").lower()
+    if (
+        "macmillanlearning" in link_lower
+        or "books.google" in link_lower
+        or "principles of biochemistry" in text_lower
+        or "epidemiology of chronic disease" in text_lower
+        or "2nd ed" in text_lower
+        or "8th ed" in text_lower
+    ):
+        return "Book / Monograph"
+    if "linkedin.com" in link_lower:
+        return "LinkedIn Commentary"
+    return "Empirical Study"
+
 TAG_PILL_ICON_SVG = (
     '<svg class="tag-pill-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" '
     'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
@@ -118,7 +150,9 @@ def compile_base_layout(
         replacements[f"{{{{label_{key}}}}}"] = str(value)
 
     replacements["{{base_path}}"] = base_path
-    replacements["{{canonical_url}}"] = "https://varga.github.io/thehealthstream/"
+    replacements["{{canonical_url}}"] = translations.get("en", {}).get(
+        "site_url", "https://varga.github.io/thehealthstream/"
+    ).rstrip("/") + "/"
     replacements["{{og_type}}"] = "website"
     replacements["{{nav_active_feed}}"] = "active" if active_nav == "feed" else ""
     replacements["{{nav_active_vocab}}"] = "active" if active_nav == "vocab" else ""
@@ -814,16 +848,7 @@ def resolve_citation_numbers(html_content: str, bibliography: List[Dict[str, Any
     bib_lookup = {}
     for idx, bib in enumerate(bibliography, 1):
         bib_id = bib.get("id", "")
-        tag = bib.get("tag", bib.get("type", None))
-        if not tag:
-            link_lower = (bib.get("link") or "").lower()
-            text_lower = (bib.get("text") or "").lower()
-            if "macmillanlearning" in link_lower or "books.google" in link_lower or "principles of biochemistry" in text_lower or "epidemiology of chronic disease" in text_lower or "2nd ed" in text_lower or "8th ed" in text_lower:
-                tag = "Book / Monograph"
-            elif "linkedin.com" in link_lower:
-                tag = "LinkedIn Commentary"
-            else:
-                tag = "Empirical Study"
+        tag = _infer_bib_tag(bib)
         bib_lookup[bib_id] = (str(idx), tag)
     
     for ref_id, (num, tag) in bib_lookup.items():
@@ -1129,16 +1154,7 @@ def compile_detail_page(
             bib_id = bib.get("id", "")
             text = bib.get("text", "")
             link = bib.get("link", "")
-            tag = bib.get("tag", bib.get("type", None))
-            if not tag:
-                link_lower = (link or "").lower()
-                text_lower = (text or "").lower()
-                if "macmillanlearning" in link_lower or "books.google" in link_lower or "principles of biochemistry" in text_lower or "epidemiology of chronic disease" in text_lower or "2nd ed" in text_lower or "8th ed" in text_lower:
-                    tag = "Book / Monograph"
-                elif "linkedin.com" in link_lower:
-                    tag = "LinkedIn Commentary"
-                else:
-                    tag = "Empirical Study"
+            tag = _infer_bib_tag(bib)
             cite_item = ""
             if link:
                 cite_item += f'<a href="{link}" target="_blank" rel="noopener noreferrer" class="evidence-bib-link">{text} ↗</a>'
@@ -1312,13 +1328,13 @@ def compile_detail_page(
             "name": "The Healthstream Editorial Board"
         })
 
-    import json
     scholarly_data = {
         "@context": "https://schema.org",
         "@type": "ScholarlyArticle",
         "headline": node["title"],
         "description": node["hook_question"],
-        "datePublished": "2026-07-16T18:00:00Z",
+        "url": f"https://thehealthstream.com/{node['slug']}.html",
+        "datePublished": node.get("metadata", {}).get("published_at", node.get("metadata", {}).get("created_at", "")),
         "author": authors_schema,
         "citation": citations_schema
     }
@@ -1602,17 +1618,8 @@ def compile_vocabulary_detail_page(
             link = citation.get("link", "")
             quote = citation.get("defining_quote", "")
             page = citation.get("quote_page", "")
-            tag = citation.get("tag", citation.get("type", None))
-            if not tag:
-                link_lower = (link or "").lower()
-                text_lower = (text or "").lower()
-                if "macmillanlearning" in link_lower or "books.google" in link_lower or "principles of biochemistry" in text_lower or "epidemiology of chronic disease" in text_lower or "2nd ed" in text_lower or "8th ed" in text_lower:
-                    tag = "Book / Monograph"
-                elif "linkedin.com" in link_lower:
-                    tag = "LinkedIn Commentary"
-                else:
-                    tag = "Empirical Study"
-            
+            tag = _infer_bib_tag(citation)
+
             tag_slug = slugify(tag)
             tag_badge = f'<span class="source-tag-badge {tag_slug}">{tag}</span>'
             

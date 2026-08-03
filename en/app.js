@@ -39,7 +39,6 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeCardClicks();
   initializeLexiconVerification();
   initializeVisitorOnboarding();
-  initializeTabs();
 });
 
 /**
@@ -1385,21 +1384,14 @@ function initializeLexiconVerification() {
     }
 
     try {
-      const verified = JSON.parse(localStorage.getItem("verified_terms") || "[]");
+      const stored = safeStorage.getItem("verified_terms");
+      const verified = stored ? JSON.parse(stored) : [];
       if (!verified.includes(term)) {
         verified.push(term);
-        localStorage.setItem("verified_terms", JSON.stringify(verified));
+        safeStorage.setItem("verified_terms", JSON.stringify(verified));
       }
     } catch (err) {
       console.warn("Could not save verification state:", err);
     }
   });
-}
-
-/**
- * Handles client-side toggling for Segmented Tabs in article takeaways.
- * @returns {void}
- */
-function initializeTabs() {
-  // Tabs removed.
 }

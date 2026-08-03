@@ -15,6 +15,8 @@ from compiler.writer import (
     compile_feed_page,
     compile_detail_page,
     compile_vocabulary_page,
+    compile_vocabulary_detail_page,
+    compile_vocabulary_taxonomy_page,
     compile_tag_page,
     compile_category_page,
     compile_backlog_page,
@@ -24,6 +26,11 @@ from compiler.writer import (
     generate_robots_txt,
     generate_search_index,
 )
+
+# Minimum number of backlog records permitted before the build fails.
+# Intent: prevent accidental deletion of backlog data. Update when a deliberate
+# shrink is warranted.
+BACKLOG_FLOOR: int = 28
 
 
 def _build_mentions_map(
@@ -144,8 +151,11 @@ def run_build() -> None:
             validate_backlog_item(item, item.get("id", ""))
 
         # Database Mutation Policy size validation check (fails compile if database shrinks)
-        if len(backlog) < 28:
-            raise ValueError(f"Build Error: Backlog registry has shrunk to {len(backlog)} records! Expected at least 28.")
+        if len(backlog) < BACKLOG_FLOOR:
+            raise ValueError(
+                f"Build Error: Backlog registry has shrunk to {len(backlog)} records! "
+                f"Expected at least {BACKLOG_FLOOR}. Update BACKLOG_FLOOR if this is intentional."
+            )
 
 
         print("Reading jargon vocabulary...")
@@ -239,8 +249,6 @@ def run_build() -> None:
     print("Compiling individual jargon detail pages under vocabulary/...")
     vocab_dest_dir = os.path.join(output_dir, "vocabulary")
     os.makedirs(vocab_dest_dir, exist_ok=True)
-    
-    from compiler.writer import compile_vocabulary_detail_page
 
     for term, vocab_item in vocabulary.items():
         slug = slugify(term)
@@ -265,16 +273,14 @@ def run_build() -> None:
 
     # 5.6 Compile vocabulary taxonomy filter pages
     print("Compiling vocabulary taxonomy pages under vocabulary/...")
-    from compiler.writer import compile_vocabulary_taxonomy_page
-
-    taxonomies = {}
+    taxonomies: Dict[str, List[str]] = {}
     for term, vocab_item in vocabulary.items():
         tax = vocab_item.get("taxonomy", "")
         if tax:
             if tax not in taxonomies:
                 taxonomies[tax] = []
             taxonomies[tax].append(term)
-            
+
     for tax_name, tax_terms in taxonomies.items():
         tax_slug = slugify(tax_name)
         base_layout_tax = compile_base_layout(
@@ -487,7 +493,9 @@ def run_build() -> None:
 
     # 10.5 Compile category filter pages
     print("Compiling category pages (category-*.html)...")
-    categories = ["biology", "lifestyle", "book"]
+    # Derive categories from the actual types present in loaded nodes rather than
+    # a hardcoded list, so a new content type is never silently omitted.
+    categories = sorted({n["type"] for n in nodes})
     for cat in categories:
         base_layout_cat = compile_base_layout(
             template_content=template_content,
@@ -518,8 +526,8 @@ def run_build() -> None:
     site_url = translations.get("en", {}).get("site_url", "https://varga.github.io/thehealthstream").rstrip("/")
     vocab_slugs = [slugify(term) for term in vocabulary.keys()]
     generate_sitemap(output_dir, nodes, list(seen_tags.keys()), site_url, vocab_slugs=vocab_slugs)
-    
-    # 12. Generate robots.txt
+
+    # 13. Generate robots.txt
     print("Generating robots.txt...")
     generate_robots_txt(output_dir, site_url)
 
