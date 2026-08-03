@@ -9,15 +9,25 @@
     "debate_sides": [
       {
         "position": "Isolated Supplement Target Engagement (Frank Bernier's Critique)",
-        "arguments": "Daily high-dose supplementation (2g/day) achieves successful brain target engagement (17% increase in CSF DHA) <a href=\"#ref1\" class=\"citation-link\">[ref1]</a>, but nutrition is not pharma with softer branding; hitting a biological target in isolation does not guarantee clinical cognitive improvement when independent variables like vascular health, APOE4 status, and metabolic baseline are unaddressed <a href=\"#ref_post_bernier\" class=\"citation-link\">[ref_post_bernier]</a>."
+        "arguments": "Daily high-dose supplementation (2g/day) achieves successful brain target engagement (17% increase in CSF DHA) <a href=\"#ref1\" class=\"citation-link\">[ref1]</a>, but nutrition is not pharma with softer branding; hitting a biological target in isolation does not guarantee clinical cognitive improvement when independent variables like vascular health, APOE4 status, and metabolic baseline are unaddressed <a href=\"#ref_post_bernier\" class=\"citation-link\">[ref_post_bernier]</a>.",
+        "stance": "supporting",
+        "citations": [
+          "ref_post_bernier"
+        ]
       },
       {
         "position": "Systemic/Multi-Factorial Prevention (Dr. Dilpriya K. Mangat's Protocol)",
-        "arguments": "Cognitive resilience and dementia prevention are built through a combination of lifestyle habits (e.g., physical activity, quality sleep, blood pressure control, social connection, and nutritious eating patterns) <a href=\"#ref_post_mangat\" class=\"citation-link\">[ref_post_mangat]</a> rather than a single 'hero ingredient' supplement."
+        "arguments": "Cognitive resilience and dementia prevention are built through a combination of lifestyle habits (e.g., physical activity, quality sleep, blood pressure control, social connection, and nutritious eating patterns) <a href=\"#ref_post_mangat\" class=\"citation-link\">[ref_post_mangat]</a> rather than a single 'hero ingredient' supplement.",
+        "stance": "counter",
+        "citations": [
+          "ref_post_mangat"
+        ]
       },
       {
         "position": "Nutrient Synergism / Homocysteine Co-factor",
-        "arguments": "DHA incorporation and synaptic signaling depend on healthy blood-brain barrier transport, which is actively impaired by elevated homocysteine levels. Clinical trials like <a href=\"#ref2\" class=\"citation-link\">VITACOG [ref2]</a> indicate that B-vitamin cofactors are required to resolve homocysteine blockages before DHA target engagement can translate to cognitive benefits."
+        "arguments": "DHA incorporation and synaptic signaling depend on healthy blood-brain barrier transport, which is actively impaired by elevated homocysteine levels. Clinical trials like <a href=\"#ref2\" class=\"citation-link\">VITACOG [ref2]</a> indicate that B-vitamin cofactors are required to resolve homocysteine blockages before DHA target engagement can translate to cognitive benefits.",
+        "stance": "nuanced",
+        "citations": []
       }
     ]
   },

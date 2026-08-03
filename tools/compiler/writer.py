@@ -939,15 +939,7 @@ def compile_detail_page(
             args_text = side["arguments"]
             
             # Determine stance
-            raw_stance = (side.get("stance") or "").lower().strip()
-            if not raw_stance:
-                if idx == 0 or "advocate" in args_text.lower() or "support" in pos_text.lower() or "discovery" in pos_text.lower():
-                    raw_stance = "supporting"
-                elif "critic" in args_text.lower() or "risk" in pos_text.lower() or "over-monitoring" in pos_text.lower() or "stress" in pos_text.lower() or "anxiety" in args_text.lower():
-                    raw_stance = "counter"
-                else:
-                    raw_stance = "counter" if idx == 1 else "nuanced"
-
+            raw_stance = (side.get("stance") or "supporting").lower().strip()
             if raw_stance == "supporting":
                 stance_badge_html = f'{SUPPORTING_STANCE_SVG} Supporting'
                 stance_slug = "supporting"
@@ -958,41 +950,12 @@ def compile_detail_page(
                 stance_badge_html = f'{NUANCED_STANCE_SVG} Nuanced'
                 stance_slug = "nuanced"
 
-            # Linkify author names using bibliography links
-            for bib in node.get("bibliography", []):
-                names_to_check = ["Amine Zorgani", "Frank Bernier", "Dilpriya K. Mangat"]
-                for name in names_to_check:
-                    if name.lower() in bib.get("text", "").lower() and name.lower() in pos_text.lower():
-                        pattern = re.compile(re.escape(name), re.IGNORECASE)
-                        linked_name = f'<a href="{bib["link"]}" target="_blank" class="debate-author-link">{name}</a>'
-                        pos_text = pattern.sub(linked_name, pos_text)
-            
-            # Auto-citation injection for debates if not already present
+            # Render explicit debate side citations if not already formatted in args_text
             if not re.search(r'href=["\']#ref', args_text):
-                injected_citations = []
-                # Support explicit citations array on debate side object
-                side_cites = side.get("citations", [])
-                if side_cites:
-                    for cid in side_cites:
-                        injected_citations.append(f'<a href="#{cid}" class="citation-link">[{cid}]</a>')
-                else:
-                    for bib in node.get("bibliography", []):
-                        author_keyword = ""
-                        if "bernier" in bib.get("text", "").lower():
-                            author_keyword = "bernier"
-                        elif "mangat" in bib.get("text", "").lower():
-                            author_keyword = "mangat"
-                        elif "zorgani" in bib.get("text", "").lower():
-                            author_keyword = "zorgani"
-                        
-                        if author_keyword and (author_keyword in pos_text.lower() or author_keyword in args_text.lower()):
-                            injected_citations.append(f'<a href="#{bib["id"]}" class="citation-link">[{bib["id"]}]</a>')
-                
-                # Only inject primary ref1 into supporting stance if no citations matched
-                if not injected_citations and node.get("bibliography") and raw_stance == "supporting":
-                    primary_ref_id = node["bibliography"][0]["id"]
-                    injected_citations.append(f'<a href="#{primary_ref_id}" class="citation-link">[{primary_ref_id}]</a>')
-                
+                injected_citations = [
+                    f'<a href="#{cid}" class="citation-link">[{cid}]</a>'
+                    for cid in side.get("citations", [])
+                ]
                 if injected_citations:
                     args_text += " " + " ".join(injected_citations)
             

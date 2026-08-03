@@ -56,7 +56,7 @@ def test_validate_node_valid() -> None:
                 "link": "http://ncbi.nlm.nih.gov",
             }
         ],
-        "bibliography": [{"id": "ref1", "text": "Smith 2023 details.", "link": "http://ncbi.nlm.nih.gov"}],
+        "bibliography": [{"id": "ref1", "text": "Smith 2023 details.", "link": "http://ncbi.nlm.nih.gov", "tag": "Empirical Study"}],
     }
     # Should run without raising any exceptions
     validate_node(valid_node, "test_file.json")
@@ -1317,11 +1317,15 @@ def test_debate_stance_cards_in_writer() -> None:
             "debate_sides": [
                 {
                     "position": "Proponent View",
-                    "arguments": "Advocates argue that fasting triggers clearance."
+                    "arguments": "Advocates argue that fasting triggers clearance.",
+                    "stance": "supporting",
+                    "citations": ["ref1"]
                 },
                 {
                     "position": "Critical View",
-                    "arguments": "Critics contend that extreme fasting risks muscle loss."
+                    "arguments": "Critics contend that extreme fasting risks muscle loss.",
+                    "stance": "counter",
+                    "citations": []
                 }
             ]
         },
@@ -1332,7 +1336,7 @@ def test_debate_stance_cards_in_writer() -> None:
         },
         "edges": [],
         "evidence_table": [],
-        "bibliography": [{"id": "ref1", "text": "Study 2023", "link": "http://example.com"}]
+        "bibliography": [{"id": "ref1", "text": "Study 2023", "link": "http://example.com", "tag": "Empirical Study"}]
     }
     html_out = compile_detail_page(layout_html, node, {"en": {}})
     assert "debate-bullet-item" in html_out

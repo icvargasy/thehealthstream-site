@@ -9,11 +9,17 @@
     "debate_sides": [
       {
         "position": "Direct Translocation Pathway",
-        "arguments": "Proponents suggest that systemic LPS directly crosses a compromised blood-brain barrier, interacting with microglia to prime them for an overactive inflammatory response."
+        "arguments": "Proponents suggest that systemic LPS directly crosses a compromised blood-brain barrier, interacting with microglia to prime them for an overactive inflammatory response.",
+        "stance": "supporting",
+        "citations": [
+          "ref1"
+        ]
       },
       {
         "position": "Indirect Cytokine Cascade Relay",
-        "arguments": "Opposing views maintain that LPS initiates a peripheral inflammatory cascade that communicates with the brain via vagal afferents or systemic endothelial cells, priming microglia without direct bacterial component entry into the brain."
+        "arguments": "Opposing views maintain that LPS initiates a peripheral inflammatory cascade that communicates with the brain via vagal afferents or systemic endothelial cells, priming microglia without direct bacterial component entry into the brain.",
+        "stance": "counter",
+        "citations": []
       }
     ]
   },

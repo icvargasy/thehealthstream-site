@@ -10,12 +10,18 @@
       {
         "position": "Subclinical Metabolic Discovery",
         "arguments": "Advocates argue that monitoring glycemic fluctuations in healthy people reveals early-stage insulin resistance and postprandial spikes that standard clinical markers (like fasting glucose or HbA1c) fail to detect, allowing for preventative lifestyle adjustments.",
-        "citations": ["ref1"]
+        "citations": [
+          "ref1"
+        ],
+        "stance": "supporting"
       },
       {
         "position": "Diagnostic Over-Monitoring & Lifestyle Stress",
         "arguments": "Critics contend that continuous tracking in non-diabetic individuals creates unnecessary anxiety, encourages extreme dietary restrictions, and lacks evidence showing that mitigating transient spikes in healthy populations actually extends healthspan.",
-        "citations": ["ref2"]
+        "citations": [
+          "ref2"
+        ],
+        "stance": "counter"
       }
     ]
   },

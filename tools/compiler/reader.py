@@ -110,18 +110,27 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
             f"Validation Error in {file_path}: Invalid GRADE level '{er['grade']}'. Valid levels: {valid_grades}"
         )
 
+    valid_stances = {"supporting", "counter", "nuanced"}
     for idx, side in enumerate(er["debate_sides"]):
         if not isinstance(side, dict):
             raise ValueError(f"Validation Error in {file_path}: epistemic_rating.debate_sides[{idx}] must be an object")
-        for sub_key in ["position", "arguments"]:
+        for sub_key in ["position", "arguments", "stance", "citations"]:
             if sub_key not in side:
                 raise ValueError(
                     f"Validation Error in {file_path}: Missing field '{sub_key}' in epistemic_rating.debate_sides[{idx}]"
                 )
-            if not isinstance(side[sub_key], str):
-                raise ValueError(
-                    f"Validation Error in {file_path}: Field '{sub_key}' in epistemic_rating.debate_sides[{idx}] must be a string"
-                )
+        if not isinstance(side["position"], str) or not isinstance(side["arguments"], str):
+            raise ValueError(
+                f"Validation Error in {file_path}: 'position' and 'arguments' in epistemic_rating.debate_sides[{idx}] must be strings"
+            )
+        if not isinstance(side["stance"], str) or side["stance"].lower().strip() not in valid_stances:
+            raise ValueError(
+                f"Validation Error in {file_path}: Invalid stance '{side['stance']}' in epistemic_rating.debate_sides[{idx}]. Valid stances: {valid_stances}"
+            )
+        if not isinstance(side["citations"], list) or not all(isinstance(c, str) for c in side["citations"]):
+            raise ValueError(
+                f"Validation Error in {file_path}: Field 'citations' in epistemic_rating.debate_sides[{idx}] must be a list of strings"
+            )
 
     # Validate reading modes
     rm = node_data["reading_modes"]
@@ -190,14 +199,14 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
     for idx, item in enumerate(node_data["bibliography"]):
         if not isinstance(item, dict):
             raise ValueError(f"Validation Error in {file_path}: bibliography[{idx}] must be an object")
-        for sub_key in ["id", "text", "link"]:
+        for sub_key in ["id", "text", "link", "tag"]:
             if sub_key not in item:
                 raise ValueError(
                     f"Validation Error in {file_path}: Missing field '{sub_key}' in bibliography[{idx}]"
                 )
-            if not isinstance(item[sub_key], str):
+            if not isinstance(item[sub_key], str) or not item[sub_key].strip():
                 raise ValueError(
-                    f"Validation Error in {file_path}: Field '{sub_key}' in bibliography[{idx}] must be a string"
+                    f"Validation Error in {file_path}: Field '{sub_key}' in bibliography[{idx}] must be a non-empty string"
                 )
 
 

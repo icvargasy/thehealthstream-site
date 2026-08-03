@@ -10,12 +10,18 @@
       {
         "position": "Aerobic Volume and Cardiovascular Perfusion",
         "arguments": "Proponents argue that the primary driver of brain age reversal is elevated cerebral blood flow and vascular compliance, which preserves gray matter density and clears waste through the glymphatic system.",
-        "citations": ["ref1"]
+        "citations": [
+          "ref1"
+        ],
+        "stance": "supporting"
       },
       {
         "position": "Neuromotor and Cognitive Complexity",
         "arguments": "Alternative views suggest that structural brain age is better preserved by complex, multi-planar physical tasks that require active motor planning and cognitive engagement, rather than isolated, repetitive aerobic volume alone.",
-        "citations": ["ref2"]
+        "citations": [
+          "ref2"
+        ],
+        "stance": "counter"
       }
     ]
   },

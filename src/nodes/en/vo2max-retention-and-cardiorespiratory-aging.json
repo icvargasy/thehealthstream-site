@@ -9,11 +9,17 @@
     "debate_sides": [
       {
         "position": "Central Cardiac & Vascular Adaptation (Lundy & Louisa Nicola Perspective)",
-        "arguments": "Sustained high-volume endurance protocol preserves left ventricular stroke volume, microvascular capillarization, and peripheral oxygen extraction into advanced age <a href=\"#ref1\" class=\"citation-link\">[ref1]</a> <a href=\"#ref_post_nicola\" class=\"citation-link\">[ref_post_nicola]</a>, resulting in a substantially higher baseline cardiorespiratory reserve across decades."
+        "arguments": "Sustained high-volume endurance protocol preserves left ventricular stroke volume, microvascular capillarization, and peripheral oxygen extraction into advanced age <a href=\"#ref1\" class=\"citation-link\">[ref1]</a> <a href=\"#ref_post_nicola\" class=\"citation-link\">[ref_post_nicola]</a>, resulting in a substantially higher baseline cardiorespiratory reserve across decades.",
+        "stance": "supporting",
+        "citations": [
+          "ref1"
+        ]
       },
       {
         "position": "Selection Bias & Extreme Volume Fibrosis Concerns",
-        "arguments": "Cross-sectional cohorts of multi-marathoners may reflect genetic survival bias. Additionally, clinicians debate whether extreme endurance volumes carry non-linear risks for transient volume overload and patchy myocardial fibrosis in susceptible subgroups <a href=\"#ref_okeefe\" class=\"citation-link\">[ref_okeefe]</a>."
+        "arguments": "Cross-sectional cohorts of multi-marathoners may reflect genetic survival bias. Additionally, clinicians debate whether extreme endurance volumes carry non-linear risks for transient volume overload and patchy myocardial fibrosis in susceptible subgroups <a href=\"#ref_okeefe\" class=\"citation-link\">[ref_okeefe]</a>.",
+        "stance": "counter",
+        "citations": []
       }
     ]
   },
