@@ -1020,31 +1020,39 @@ def compile_detail_page(
         )
 
     mech_label = get_category_mechanism_label(node.get("type", ""))
+
+    clean_analogy = (analogy_hook or "").strip()
+    clean_analogy = re.sub(r"^<p[^>]*>", "", clean_analogy, flags=re.IGNORECASE)
+    clean_analogy = re.sub(r"</p>$", "", clean_analogy, flags=re.IGNORECASE).strip()
+
+    clean_takeaway = (takeaway or "").strip()
+    clean_takeaway = re.sub(r"^<p[^>]*>", "", clean_takeaway, flags=re.IGNORECASE)
+    clean_takeaway = re.sub(r"</p>$", "", clean_takeaway, flags=re.IGNORECASE).strip()
+
     if analogy_hook:
         takeaway_block_html = (
-            f'<div class="detail-hero-takeaway">'
-            f'  <blockquote class="qa-takeaway-block detail-takeaway-block takeaway-stacked">'
-            f'    <div class="takeaway-analogy-row">'
-            f'      <span class="hero-badge-label">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy</strong></span>'
-            f'      <p class="hero-analogy-text">{analogy_hook}</p>'
-            f'    </div>'
-            f'    <div class="takeaway-separator"></div>'
-            f'    <div class="takeaway-mechanism-row">'
-            f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong></span>'
-            f'      <p class="hero-clinical-text">{takeaway}</p>'
-            f'    </div>'
-            f'  </blockquote>'
+            f'<div class="detail-hero-takeaway" style="margin-top: var(--space-3); margin-bottom: var(--space-4);">'
+            f'  <ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">'
+            f'    <li class="takeaway-analogy-row" style="line-height: 1.6; list-style: none;">'
+            f'      <span class="takeaway-badge badge-systems-analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</span>'
+            f'      <span class="hero-analogy-text" style="font-size: 0.95rem; color: var(--text-ink); font-style: italic; display: inline;">{clean_analogy}</span>'
+            f'    </li>'
+            f'    <li class="takeaway-mechanism-row" style="line-height: 1.6; list-style: none;">'
+            f'      <span class="takeaway-badge badge-formal-definition">{CLINICAL_MECHANISM_SVG} {mech_label}</span>'
+            f'      <span class="hero-clinical-text" style="font-size: 0.95rem; color: var(--text-ink); display: inline;">{clean_takeaway}</span>'
+            f'    </li>'
+            f'  </ul>'
             f'</div>'
         )
     else:
         takeaway_block_html = (
-            f'<div class="detail-hero-takeaway">'
-            f'  <blockquote class="qa-takeaway-block detail-takeaway-block">'
-            f'    <div class="detail-hero-clinical-box">'
-            f'      <span class="hero-badge-label">{CLINICAL_MECHANISM_SVG} <strong>{mech_label.upper()}</strong></span>'
-            f'      <p class="hero-clinical-text">{takeaway}</p>'
-            f'    </div>'
-            f'  </blockquote>'
+            f'<div class="detail-hero-takeaway" style="margin-top: var(--space-3); margin-bottom: var(--space-4);">'
+            f'  <ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">'
+            f'    <li class="takeaway-mechanism-row" style="line-height: 1.6; list-style: none;">'
+            f'      <span class="takeaway-badge badge-formal-definition">{CLINICAL_MECHANISM_SVG} {mech_label}</span>'
+            f'      <span class="hero-clinical-text" style="font-size: 0.95rem; color: var(--text-ink); display: inline;">{clean_takeaway}</span>'
+            f'    </li>'
+            f'  </ul>'
             f'</div>'
         )
     rationale = er["rationale"]
@@ -1537,7 +1545,7 @@ def compile_vocabulary_detail_page(
         if term in local_vocab:
             del local_vocab[term]
         if vocabulary and definition:
-            definition = inject_jargon_links(definition, local_vocab)
+            definition = inject_jargon_links(definition, local_vocab, base_path="../")
     
     lexicon_icon = (
         '<svg class="connection-icon-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0; vertical-align: middle; margin-right: 4px;">'
@@ -1570,42 +1578,42 @@ def compile_vocabulary_detail_page(
         m_type = m.get("type", "biology")
         
         if m_type == "lexicon":
-            taxonomy_val = m.get("taxonomy", "concept").upper()
+            taxonomy_val = m.get("taxonomy", "concept").title()
             tag_html = (
                 f'<a href="{slug}" class="connection-item-link topic-lexicon cat-lexicon">'
                 f'  {lexicon_icon}'
+                f'  <span class="category-tag" style="background: transparent; background-color: transparent; border: 1px solid currentColor; color: inherit; text-transform: none;">{taxonomy_val}</span>'
                 f'  <span class="connection-title">{title}</span>'
-                f'  <span class="category-tag">{taxonomy_val}</span>'
                 f'</a>'
             )
         elif m.get("in_pipeline"):
-            category_label = labels.get(f"category_{m_type}", m_type).upper()
+            category_label = labels.get(f"category_{m_type}", m_type).title()
             tag_html = (
                 f'<a href="../{slug}" class="connection-item-link topic-{m_type} cat-{m_type}">'
                 f'  {pipeline_icon}'
+                f'  <span class="category-tag" style="background: transparent; background-color: transparent; border: 1px solid currentColor; color: inherit; text-transform: none;">{category_label}</span>'
                 f'  <span class="connection-title">{title}</span>'
-                f'  <span class="category-tag">{category_label}</span>'
                 f'</a>'
             )
         else:
-            category_label = labels.get(f"category_{m_type}", m_type).upper()
+            category_label = labels.get(f"category_{m_type}", m_type).title()
             tag_html = (
                 f'<a href="../{slug}" class="connection-item-link topic-{m_type} cat-{m_type}">'
                 f'  {article_icon}'
+                f'  <span class="category-tag" style="background: transparent; background-color: transparent; border: 1px solid currentColor; color: inherit; text-transform: none;">{category_label}</span>'
                 f'  <span class="connection-title">{title}</span>'
-                f'  <span class="category-tag">{category_label}</span>'
                 f'</a>'
             )
-        connections_html.append(tag_html)
+        connections_html.append(f'<li class="vocab-connection-item" style="list-style: none;">{tag_html}</li>')
 
     connections_html_section = ""
     if connections_html:
         connections_html_section = (
-            f'<div class="vocab-connections-section">'
-            f'  <h3>Mentioned In</h3>'
-            f'  <div class="vocab-connections-list">'
+            f'<div class="vocab-connections-section" style="margin-top: var(--space-4); margin-bottom: var(--space-4);">'
+            f'  <h3 class="vocab-section-title" style="font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-ink); margin-bottom: var(--space-2.5);">Mentioned In</h3>'
+            f'  <ul class="vocab-connections-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 5px;">'
             f'    {"".join(connections_html)}'
-            f'  </div>'
+            f'  </ul>'
             f'</div>'
         )
 
@@ -1628,18 +1636,37 @@ def compile_vocabulary_detail_page(
     if taxonomy:
         taxonomy_badge_html = f'<a href="taxonomy-{slugify(taxonomy)}.html" class="vocab-taxonomy-badge">Type: {taxonomy}</a>'
 
-    # Vulgarized Analogy Callout
+    # Systems Analogy & Formal Definition List
     analogy = vocab_item.get("vulgarized_analogy", "")
-    # Vulgarized Analogy Callout (Flat Inline Evidence/Debate Pattern)
-    analogy = vocab_item.get("vulgarized_analogy", "")
-    analogy_html = ""
+    def_list_items = []
     if analogy:
-        analogy_html = (
-            f'<div class="vocab-analogy vocab-flat-analogy" style="margin-top: var(--space-3); margin-bottom: var(--space-4); padding-left: var(--space-3); border-left: 2px solid var(--accent-synapse);">'
-            f'  <span class="hero-badge-label" style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-synapse);">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy</strong></span>'
-            f'  <p style="margin-top: 4px; line-height: 1.55; color: var(--text-ink); font-style: italic;">{analogy}</p>'
-            f'</div>'
+        clean_vocab_analogy = analogy.strip()
+        clean_vocab_analogy = re.sub(r"^<p[^>]*>", "", clean_vocab_analogy, flags=re.IGNORECASE)
+        clean_vocab_analogy = re.sub(r"</p>$", "", clean_vocab_analogy, flags=re.IGNORECASE).strip()
+        def_list_items.append(
+            f'<li class="vocab-def-item" style="line-height: 1.6; list-style: none;">'
+            f'  <span class="takeaway-badge badge-systems-analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</span>'
+            f'  <span class="analogy-text" style="font-size: 0.95rem; color: var(--text-ink); font-style: italic; display: inline;">{clean_vocab_analogy}</span>'
+            f'</li>'
         )
+
+    # Strip paragraph wrapper if present so text stays on exact same line as Formal Definition label
+    clean_def = definition.strip()
+    clean_def_inner = re.sub(r"^<p[^>]*>", "", clean_def, flags=re.IGNORECASE)
+    clean_def_inner = re.sub(r"</p>$", "", clean_def_inner, flags=re.IGNORECASE).strip()
+
+    def_list_items.append(
+        f'<li class="vocab-def-item" style="line-height: 1.6; list-style: none;">'
+        f'  <span class="takeaway-badge badge-formal-definition">{CLINICAL_MECHANISM_SVG} Formal Definition</span>'
+        f'  <span class="vocab-definition-text" style="font-size: 1rem; color: var(--text-ink); display: inline;">{clean_def_inner}</span>'
+        f'</li>'
+    )
+
+    definitions_block_html = (
+        f'<ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin-top: var(--space-3); margin-bottom: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3);">'
+        f'  {"".join(def_list_items)}'
+        f'</ul>'
+    )
 
     citations_html = ""
     citations = vocab_item.get("citations", [])
@@ -1661,19 +1688,20 @@ def compile_vocabulary_detail_page(
                 cite_item += f'<span class="evidence-bib-text">{text}</span>'
                 
             if page:
-                cite_item += f' <span class="vocab-quote-meta">({page})</span>'
+                page_str = f"{page}" if str(page).lower().startswith("page") else f"Page {page}"
+                cite_item += f' <span class="vocab-quote-meta" style="color: var(--text-ink-muted); font-size: 0.82rem;">({page_str})</span>'
                 
             if quote:
                 cite_item += (
-                    f'<blockquote class="vocab-quote" style="margin-top: 4px; margin-bottom: 0; font-size: 0.85rem; color: var(--text-ink-muted); font-style: italic; border-left: 2px solid var(--border-color); padding-left: 10px;">'
+                    f'<blockquote class="vocab-quote" style="margin-top: 6px; margin-bottom: 0; font-size: 0.85rem; color: var(--text-ink-muted); font-style: italic; border-left: 2px solid var(--border-color); padding-left: 12px; margin-left: 0;">'
                     f'  "{quote}"'
                     f'</blockquote>'
                 )
                 
-            citations_links.append(f'<li class="bib-item" style="margin-bottom: var(--space-2.5);">[{idx}] {tag_badge} {cite_item}</li>')
+            citations_links.append(f'<li class="bib-item" style="margin-bottom: var(--space-3);">[{idx}] {tag_badge} {cite_item}</li>')
         citations_html = (
             f'<div class="evidence-bibliography" style="margin-top: var(--space-4);">'
-            f'  <h4 class="evidence-subtitle" style="font-family: var(--font-display); font-size: 1.1rem; margin-bottom: var(--space-2);">Scientific Sources & Verbatim Definitions</h4>'
+            f'  <h3 class="vocab-section-title" style="font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-ink); margin-bottom: var(--space-2.5);">Scientific Sources & Literature Citations</h3>'
             f'  <ul class="bib-list" style="list-style: none; padding-left: 0;">'
             f'    {"".join(citations_links)}'
             f'  </ul>'
@@ -1686,13 +1714,13 @@ def compile_vocabulary_detail_page(
         filtered_aliases = [a for a in aliases if a.lower() != term.lower()]
         if filtered_aliases:
             alias_items = [
-                f'<span style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: var(--selected-bg); color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 8px; border-radius: var(--radius-pill);">{a}</span>'
+                f'<span style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: transparent; color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 8px; border-radius: var(--radius-pill);">{a}</span>'
                 for a in filtered_aliases
             ]
             aliases_html = (
                 f'<div class="vocab-detail-aliases" style="display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); align-items: center;">'
                 f'  <span style="font-size: 0.8rem; color: var(--text-ink-muted); font-weight: 600; margin-right: var(--space-2);">Aliases:</span>'
-                f'  {" ".join(alias_items)}'
+                f'  {"".join(alias_items)}'
                 f'</div>'
             )
 
@@ -1708,8 +1736,7 @@ def compile_vocabulary_detail_page(
         f'    </div>'
         f'    {aliases_html}'
         f'  </header>'
-        f'  {analogy_html}'
-        f'  <p class="vocab-definition">{definition}</p>'
+        f'  {definitions_block_html}'
         f'  {connections_html_section}'
         f'  {citations_html}'
         f'</article>'

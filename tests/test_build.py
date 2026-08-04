@@ -305,7 +305,7 @@ def test_compile_vocabulary_detail_page_with_citations() -> None:
     compiled = compile_vocabulary_detail_page(layout, term, vocab_item, mentions, translations)
     assert "SIRT1" in compiled
     assert "A cellular maintenance sirtuin" in compiled
-    assert "Scientific Sources & Verbatim Definitions" in compiled
+    assert "Scientific Sources & Literature Citations" in compiled or "Scientific Sources &amp; Literature Citations" in compiled
     assert "Cantó et al., 2009" in compiled
     assert "https://doi.org/10.1016/j.tem.2009.03.008" in compiled
 
@@ -1397,6 +1397,54 @@ def test_related_circuits_3_directional_rendering() -> None:
     assert "Emerging Hypothesis" in rendered_html
     assert "Endorse Connection &rarr;" in rendered_html
     assert "submit-proposal.html?source=source-node&amp;target=frontier-node&amp;type=similar" in rendered_html or "submit-proposal.html?source=source-node&target=frontier-node&type=similar" in rendered_html
+
+
+def test_compile_vocabulary_detail_page_flat_layout() -> None:
+    """Verifies that compile_vocabulary_detail_page generates unboxed flat analogy and article-consistent sections."""
+    from tools.compiler.writer import compile_vocabulary_detail_page
+
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+    term = "AMPK"
+    vocab_item = {
+        "definition": "AMP-activated protein kinase enzyme.",
+        "vulgarized_analogy": "The master fuel gauge monitoring energy balance.",
+        "taxonomy": "protein",
+        "verification_status": "verified_human",
+        "aliases": ["AMP-ACTIVATED PROTEIN KINASE"],
+        "citations": [
+            {
+                "text": "Hardie DG, et al. AMPK.",
+                "link": "https://doi.org/10.1007/test",
+                "defining_quote": "AMPK acts as the central regulator.",
+                "quote_page": "189"
+            }
+        ]
+    }
+    mentions = [
+        {"title": "EGCG", "slug": "egcg.html", "type": "lexicon", "taxonomy": "molecule"}
+    ]
+    translations = {"en": {}}
+
+    compiled = compile_vocabulary_detail_page(layout, term, vocab_item, mentions, translations)
+
+    # Check unboxed flat definitions list
+    assert "vocab-definitions-list" in compiled
+    assert "Systems Analogy" in compiled
+    assert "Formal Definition" in compiled
+    assert "The master fuel gauge monitoring energy balance." in compiled
+
+    # Check header badges
+    assert "Back to Lexicon" in compiled
+    assert "Type: protein" in compiled
+    assert "Aliases:" in compiled
+
+    # Check evidence & citations sections
+    assert "Mentioned In" in compiled
+    assert "Scientific Sources &amp; Literature Citations" in compiled or "Scientific Sources & Literature Citations" in compiled
+    assert "[1]" in compiled
+    assert "Hardie DG, et al. AMPK." in compiled
+    assert "AMPK acts as the central regulator." in compiled
+
 
 
 

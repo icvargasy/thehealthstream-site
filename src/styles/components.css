@@ -3197,19 +3197,80 @@ a.pipeline-badge:hover {
   border-color: oklch(0.70 0.16 75 / 0.25) !important;
 }
 
-/* Badge coloring inside the takeaway rows */
-.takeaway-analogy-row .hero-badge-label {
+/* Unordered Takeaway & Definition List (Bulletless List) */
+.vocab-definitions-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: var(--space-3) 0 var(--space-4) 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-3) !important;
+}
+
+.takeaway-analogy-row,
+.takeaway-mechanism-row,
+.vocab-def-item {
+  list-style: none !important;
+  line-height: 1.6 !important;
+  display: block !important;
+}
+
+/* Takeaway & Definition Badges - Outlined Pill around Label Text Only */
+.takeaway-badge,
+.badge-systems-analogy,
+.badge-formal-definition {
+  font-size: 0.7rem !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  background-color: transparent !important;
+  padding: 2px 8px !important;
+  border-radius: var(--radius-pill) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  vertical-align: middle !important;
+  margin-right: var(--space-2) !important;
+  white-space: nowrap !important;
+}
+
+.badge-systems-analogy {
   color: var(--accent-synapse) !important;
+  border: 1px solid var(--selected-border) !important;
 }
-.article-detail.cat-biology .takeaway-mechanism-row .hero-badge-label {
+
+.badge-formal-definition {
+  color: var(--text-ink) !important;
+  border: 1px solid var(--text-ink) !important;
+}
+
+.article-detail.cat-biology .takeaway-mechanism-row .badge-formal-definition {
   color: var(--accent-biology) !important;
+  border-color: var(--accent-biology) !important;
 }
-.article-detail.cat-lifestyle .takeaway-mechanism-row .hero-badge-label {
+.article-detail.cat-lifestyle .takeaway-mechanism-row .badge-formal-definition {
   color: var(--accent-lifestyle) !important;
+  border-color: var(--accent-lifestyle) !important;
 }
-.article-detail.cat-book .takeaway-mechanism-row .hero-badge-label {
+.article-detail.cat-book .takeaway-mechanism-row .badge-formal-definition {
   color: var(--accent-book) !important;
+  border-color: var(--accent-book) !important;
 }
+
+.hero-analogy-text,
+.hero-clinical-text,
+.vocab-definition-text,
+.analogy-text {
+  display: inline !important;
+  font-size: 0.95rem !important;
+  color: var(--text-ink) !important;
+}
+
+.hero-analogy-text,
+.analogy-text {
+  font-style: italic !important;
+}
+
 
 /* Global target scroll offset to clear floating headers */
 :target {
@@ -4725,12 +4786,42 @@ a.pipeline-badge-link:hover {
   .card-footer-right {
     width: 100% !important;
   }
-  .card-footer-right .read-article-btn,
-  .card-footer-right .backlog-votes {
-    width: 100% !important;
-    justify-content: center !important;
-    min-height: 48px !important;
-    margin-left: 0 !important;
-    margin-top: 0 !important;
-  }
+/* Interactive vs Visibility-only Label Rules (Design System) */
+.badge-formal-definition {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: transparent;
+  color: var(--text-ink);
+  border: 1px solid var(--text-ink);
+  padding: 2px 8px;
+  border-radius: var(--radius-pill);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  vertical-align: middle;
+  margin-right: var(--space-2);
+}
+
+.pipeline-badge,
+a.pipeline-badge-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px !important;
+  border-radius: var(--radius-pill) !important;
+  border: 1px solid oklch(0.43 0.16 18 / 0.28) !important;
+  background-color: oklch(0.43 0.16 18 / 0.14) !important;
+  color: var(--accent-synapse) !important;
+}
+
+a.pipeline-badge-link:hover {
+  background-color: var(--accent-synapse) !important;
+  border-color: var(--accent-synapse) !important;
+  color: var(--bg-paper) !important;
 }

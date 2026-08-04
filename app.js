@@ -251,7 +251,8 @@ function initializeJargonPopovers() {
     const slug = term.getAttribute("data-slug") || "";
     const canonicalKey = term.getAttribute("data-term") || "";
     const matchedText = term.getAttribute("data-matched-text") || term.innerText || "";
-    const href = `vocabulary/${slug}.html`;
+    const isInsideVocabularyDir = window.location.pathname.includes('/vocabulary/');
+    const href = isInsideVocabularyDir ? `${slug}.html` : `vocabulary/${slug}.html`;
     const parsedDefinition = definition;
 
     let aliasHtml = "";

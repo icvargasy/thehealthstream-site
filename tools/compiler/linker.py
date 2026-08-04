@@ -124,7 +124,10 @@ def _get_compiled_definition(
         content_html = content_html[3:-4]
 
     if is_analogy:
-        content_html = f'<span class="popover-analogy-badge" style="display: block; font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--accent-synapse); margin-bottom: 4px;">{SYNAPSE_LOGO_SVG} Systems Analogy</span>{content_html}'
+        content_html = (
+            f'<span class="popover-analogy-badge" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background-color: transparent; color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 6px; border-radius: var(--radius-pill); margin-right: 6px; vertical-align: middle;">{SYNAPSE_LOGO_SVG} Systems Analogy</span>'
+            f'<span style="font-style: italic; display: inline;">{content_html}</span>'
+        )
 
     content_html = inject_simple_links(content_html, vocabulary, canonical_key, base_path)
     escaped_content = html.escape(content_html, quote=True)
