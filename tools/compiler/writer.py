@@ -1032,7 +1032,7 @@ def compile_detail_page(
     if analogy_hook:
         takeaway_block_html = (
             f'<div class="detail-hero-takeaway" style="margin-top: var(--space-3); margin-bottom: var(--space-4);">'
-            f'  <ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">'
+            f'  <ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2);">'
             f'    <li class="takeaway-analogy-row" style="line-height: 1.6; list-style: none;">'
             f'      <span class="takeaway-badge badge-systems-analogy">{SYNAPSE_LOGO_SVG} Systems Analogy</span>'
             f'      <span class="hero-analogy-text" style="font-size: 0.95rem; color: var(--text-ink); font-style: italic; display: inline;">{clean_analogy}</span>'
@@ -1047,7 +1047,7 @@ def compile_detail_page(
     else:
         takeaway_block_html = (
             f'<div class="detail-hero-takeaway" style="margin-top: var(--space-3); margin-bottom: var(--space-4);">'
-            f'  <ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-3);">'
+            f'  <ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2);">'
             f'    <li class="takeaway-mechanism-row" style="line-height: 1.6; list-style: none;">'
             f'      <span class="takeaway-badge badge-formal-definition">{CLINICAL_MECHANISM_SVG} {mech_label}</span>'
             f'      <span class="hero-clinical-text" style="font-size: 0.95rem; color: var(--text-ink); display: inline;">{clean_takeaway}</span>'
@@ -1663,7 +1663,7 @@ def compile_vocabulary_detail_page(
     )
 
     definitions_block_html = (
-        f'<ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin-top: var(--space-3); margin-bottom: var(--space-4); display: flex; flex-direction: column; gap: var(--space-3);">'
+        f'<ul class="vocab-definitions-list" style="list-style: none; padding-left: 0; margin-top: var(--space-3); margin-bottom: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);">'
         f'  {"".join(def_list_items)}'
         f'</ul>'
     )

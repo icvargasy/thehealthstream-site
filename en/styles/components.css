@@ -758,9 +758,9 @@ a.tag-pill:focus-visible {
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 0;
-  background: transparent;
-  border: none;
+  padding: 2px 8px !important;
+  border-radius: var(--radius-pill) !important;
+  background: transparent !important;
   cursor: default;
   height: auto;
   line-height: 1;
@@ -772,17 +772,23 @@ a.tag-pill:focus-visible {
   height: 12px;
 }
 
-/* Tier Colors (Text & Icon only, no bubble backgrounds) */
+/* Tier Colors (Outlined border, no bubble background fill) */
 .evidence-tier-badge.tier-consensus-core {
-  color: var(--tier-consensus-text);
+  color: var(--tier-consensus-text) !important;
+  border: 1px solid var(--tier-consensus-text) !important;
+  background: transparent !important;
 }
 
 .evidence-tier-badge.tier-emerging-frontier {
-  color: var(--tier-frontier-text);
+  color: var(--tier-frontier-text) !important;
+  border: 1px solid var(--tier-frontier-text) !important;
+  background: transparent !important;
 }
 
 .evidence-tier-badge.tier-exploratory-sandbox {
-  color: var(--tier-sandbox-text);
+  color: var(--tier-sandbox-text) !important;
+  border: 1px solid var(--tier-sandbox-text) !important;
+  background: transparent !important;
 }
 
 
@@ -1499,24 +1505,24 @@ button.detail-grade-badge:hover {
 .detail-grade-badge.tier-consensus-core,
 .detail-grade-badge.grade-high,
 .detail-grade-badge.grade-moderate {
-  background-color: var(--tier-consensus-bg);
-  color: var(--tier-consensus-text);
-  border: 1px solid var(--tier-consensus-border);
+  background-color: transparent !important;
+  color: var(--tier-consensus-text) !important;
+  border: 1px solid var(--tier-consensus-text) !important;
 }
 
 .detail-grade-badge.tier-emerging-frontier,
 .detail-grade-badge.grade-low {
-  background-color: var(--tier-frontier-bg);
-  color: var(--tier-frontier-text);
-  border: 1px solid var(--tier-frontier-border);
+  background-color: transparent !important;
+  color: var(--tier-frontier-text) !important;
+  border: 1px solid var(--tier-frontier-text) !important;
 }
 
 .detail-grade-badge.tier-exploratory-sandbox,
 .detail-grade-badge.grade-very-low,
 .detail-grade-badge.grade-very {
-  background-color: var(--tier-sandbox-bg);
-  color: var(--tier-sandbox-text);
-  border: 1px solid var(--tier-sandbox-border);
+  background-color: transparent !important;
+  color: var(--tier-sandbox-text) !important;
+  border: 1px solid var(--tier-sandbox-text) !important;
 }
 
 
@@ -1644,23 +1650,23 @@ button.detail-grade-badge:hover {
 .grade-badge.grade-high,
 .grade-badge.grade-moderate,
 .grade-badge.tier-consensus-core {
-  background-color: var(--tier-consensus-bg);
-  color: var(--tier-consensus-text);
-  border: 1px solid var(--tier-consensus-border);
+  background-color: transparent !important;
+  color: var(--tier-consensus-text) !important;
+  border: 1px solid var(--tier-consensus-text) !important;
 }
 
 .grade-badge.grade-low,
 .grade-badge.tier-emerging-frontier {
-  background-color: var(--tier-frontier-bg);
-  color: var(--tier-frontier-text);
-  border: 1px solid var(--tier-frontier-border);
+  background-color: transparent !important;
+  color: var(--tier-frontier-text) !important;
+  border: 1px solid var(--tier-frontier-text) !important;
 }
 
 .grade-badge.grade-very-low,
 .grade-badge.tier-exploratory-sandbox {
-  background-color: var(--tier-sandbox-bg);
-  color: var(--tier-sandbox-text);
-  border: 1px solid var(--tier-sandbox-border);
+  background-color: transparent !important;
+  color: var(--tier-sandbox-text) !important;
+  border: 1px solid var(--tier-sandbox-text) !important;
 }
 
 .grade-rationale {
@@ -2209,14 +2215,14 @@ body[data-theme="dark"] .backlog-item.cat-book {
 .pipeline-badge {
   font-family: var(--font-body);
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 2px 8px;
-  border-radius: 12px;
-  border: 1px solid var(--border-color);
-  background-color: var(--bg-surface-alt);
-  color: var(--text-ink-muted);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--selected-border);
+  background-color: var(--selected-bg);
+  color: var(--accent-synapse);
   display: inline-flex;
   align-items: center;
   line-height: 1;
@@ -3201,10 +3207,10 @@ a.pipeline-badge:hover {
 .vocab-definitions-list {
   list-style: none !important;
   padding-left: 0 !important;
-  margin: var(--space-3) 0 var(--space-4) 0 !important;
+  margin: var(--space-2) 0 var(--space-3) 0 !important;
   display: flex !important;
   flex-direction: column !important;
-  gap: var(--space-3) !important;
+  gap: var(--space-2) !important;
 }
 
 .takeaway-analogy-row,
@@ -3241,8 +3247,8 @@ a.pipeline-badge:hover {
 }
 
 .badge-formal-definition {
-  color: var(--text-ink) !important;
-  border: 1px solid var(--text-ink) !important;
+  color: var(--text-ink-muted) !important;
+  border: 1px solid var(--text-ink-muted) !important;
   background-color: transparent !important;
 }
 
