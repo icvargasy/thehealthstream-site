@@ -125,7 +125,7 @@ def _get_compiled_definition(
 
     if is_analogy:
         content_html = (
-            f'<span class="popover-analogy-badge" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background-color: transparent; color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 6px; border-radius: var(--radius-pill); margin-right: 6px; vertical-align: middle;">{SYNAPSE_LOGO_SVG} Systems Analogy</span>'
+            f'<span class="popover-analogy-badge" style="display: inline-flex; align-items: center; gap: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; background-color: transparent; color: var(--accent-synapse); border: 1px solid var(--accent-synapse); padding: 2px 6px; border-radius: var(--radius-pill); margin-right: 6px; vertical-align: middle;">{SYNAPSE_LOGO_SVG} Systems Analogy</span>'
             f'<span style="font-style: italic; display: inline;">{content_html}</span>'
         )
 

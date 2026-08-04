@@ -3236,25 +3236,14 @@ a.pipeline-badge:hover {
 
 .badge-systems-analogy {
   color: var(--accent-synapse) !important;
-  border: 1px solid var(--selected-border) !important;
+  border: 1px solid var(--accent-synapse) !important;
+  background-color: transparent !important;
 }
 
 .badge-formal-definition {
   color: var(--text-ink) !important;
   border: 1px solid var(--text-ink) !important;
-}
-
-.article-detail.cat-biology .takeaway-mechanism-row .badge-formal-definition {
-  color: var(--accent-biology) !important;
-  border-color: var(--accent-biology) !important;
-}
-.article-detail.cat-lifestyle .takeaway-mechanism-row .badge-formal-definition {
-  color: var(--accent-lifestyle) !important;
-  border-color: var(--accent-lifestyle) !important;
-}
-.article-detail.cat-book .takeaway-mechanism-row .badge-formal-definition {
-  color: var(--accent-book) !important;
-  border-color: var(--accent-book) !important;
+  background-color: transparent !important;
 }
 
 .hero-analogy-text,
