@@ -3259,7 +3259,8 @@ a.pipeline-badge:hover {
   white-space: nowrap !important;
 }
 
-.badge-systems-analogy {
+.badge-systems-analogy,
+.analogy-badge-label {
   color: var(--accent-synapse) !important;
   border: 1px solid var(--accent-synapse) !important;
   background-color: transparent !important;
