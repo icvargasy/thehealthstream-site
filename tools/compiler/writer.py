@@ -1421,6 +1421,57 @@ def compile_detail_page(
     return html
 
 
+def render_vocab_card(
+    term: str,
+    vocab_item: Dict[str, Any],
+    base_path: str = "vocabulary/",
+) -> str:
+    """Renders a standardized vocabulary jargon card for index and taxonomy lists.
+
+    Args:
+        term: Canonical jargon term string.
+        vocab_item: Dictionary containing term definition, taxonomy, verification_status.
+        base_path: Relative path prefix to detail page (e.g. 'vocabulary/' or '').
+
+    Returns:
+        Formatted HTML string for the jargon card.
+    """
+    slug = slugify(term)
+    definition = vocab_item.get("definition", "")
+    clean_def = definition.replace("**", "")
+    short_def = clean_def[:100].strip() + "..." if len(clean_def) > 100 else clean_def
+    taxonomy = vocab_item.get("taxonomy", "").strip()
+
+    status = vocab_item.get("verification_status", "ai_generated")
+    blue_tick_svg_small = (
+        '<svg class="verified-tick-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">'
+        '  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>'
+        '  <polyline points="22 4 12 14.01 9 11.01"></polyline>'
+        '</svg>'
+    )
+    if status == "verified_human":
+        tick_badge = f'<span class="verified-human-tick" title="Verified Human" aria-label="Verified Human">{blue_tick_svg_small}</span>'
+    else:
+        tick_badge = f'<span class="unverified-tick-badge" title="AI-compiled draft — Pending human review" aria-label="Pending Verification" style="font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-ink-muted); opacity: 0.75; padding: 1px 6px; border: 1px dashed var(--border-color); border-radius: var(--radius-button);">Pending Verification</span>'
+
+    taxonomy_badge = ""
+    if taxonomy:
+        taxonomy_badge = f'<span class="vocab-card-taxonomy-tag">Type: {taxonomy}</span>'
+
+    return (
+        f'<div class="vocab-card" id="{slug}" data-taxonomy="{taxonomy.lower()}">'
+        f'  <h3 class="vocab-title" style="display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-2);">'
+        f'    <a href="{base_path}{slug}.html" class="vocab-card-link">{term}</a>'
+        f'    {tick_badge}'
+        f'  </h3>'
+        f'  <p class="vocab-teaser">{short_def}</p>'
+        f'  <div class="vocab-card-footer" style="display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-2.5); flex-wrap: wrap; gap: var(--space-1);">'
+        f'    {taxonomy_badge}'
+        f'  </div>'
+        f'</div>'
+    )
+
+
 def compile_vocabulary_page(
     layout_html: str,
     vocabulary: Dict[str, Any],
@@ -1466,34 +1517,7 @@ def compile_vocabulary_page(
         if first_letter not in groups:
             groups[first_letter] = []
             
-        slug = slugify(term)
-        
-        # Truncate definition to 100 characters + ... (stripping ** bold formatting markers)
-        definition = vocabulary[term].get("definition", "")
-        clean_def = definition.replace("**", "")
-        short_def = clean_def[:100].strip() + "..." if len(clean_def) > 100 else clean_def
-        
-        status = vocabulary[term].get("verification_status", "ai_generated")
-        blue_tick_svg_small = (
-            '<svg class="verified-tick-svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle;">'
-            '  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>'
-            '  <polyline points="22 4 12 14.01 9 11.01"></polyline>'
-            '</svg>'
-        )
-        if status == "verified_human":
-            tick_badge = f'<span class="verified-human-tick" title="Verified Human" aria-label="Verified Human">{blue_tick_svg_small}</span>'
-        else:
-            tick_badge = f'<span class="unverified-tick-badge" title="AI-compiled draft — Pending human review" aria-label="Pending Verification" style="font-size: 0.68rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-ink-muted); opacity: 0.75; padding: 1px 6px; border: 1px dashed var(--border-color); border-radius: var(--radius-button);">Pending Verification</span>'
-            
-        card_html = (
-            f'<div class="vocab-card" id="{slug}">'
-            f'  <h3 class="vocab-title" style="display: flex; align-items: center; justify-content: space-between; margin-bottom: var(--space-2);">'
-            f'    <a href="vocabulary/{slug}.html" class="vocab-card-link">{term}</a>'
-            f'    {tick_badge}'
-            f'  </h3>'
-            f'  <p class="vocab-teaser">{short_def}</p>'
-            f'</div>'
-        )
+        card_html = render_vocab_card(term, vocabulary[term], base_path="vocabulary/")
         groups[first_letter].append(card_html)
         
     # Generate sticky alphabetical navigation links
@@ -1821,19 +1845,7 @@ def compile_vocabulary_taxonomy_page(
     
     cards_html = []
     for term in sorted(terms):
-        slug = slugify(term)
-        definition = vocabulary[term].get("definition", "")
-        clean_def = definition.replace("**", "")
-        short_def = clean_def[:100].strip() + "..." if len(clean_def) > 100 else clean_def
-        
-        card_html = (
-            f'<div class="vocab-card" id="{slug}">'
-            f'  <h3 class="vocab-title">'
-            f'    <a href="{slug}.html" class="vocab-card-link">{term} &rarr;</a>'
-            f'  </h3>'
-            f'  <p class="vocab-teaser">{short_def}</p>'
-            f'</div>'
-        )
+        card_html = render_vocab_card(term, vocabulary[term], base_path="")
         cards_html.append(card_html)
         
     book_open_svg = (

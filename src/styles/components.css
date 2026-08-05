@@ -2235,6 +2235,7 @@ body[data-theme="dark"] .backlog-item.cat-book {
 }
 
 .vocab-alias-tag,
+.vocab-card-taxonomy-tag,
 .popover-alias-badge {
   font-size: 0.62rem;
   font-weight: 500;
