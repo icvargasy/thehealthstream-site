@@ -1483,7 +1483,7 @@ button.detail-grade-badge:hover {
 .detail-grade-badge.tier-emerging-frontier,
 .detail-grade-badge.grade-low {
   background-color: var(--accent-lifestyle) !important;
-  color: var(--text-ink) !important;
+  color: white !important;
   border: 1px solid var(--accent-lifestyle) !important;
 }
 
@@ -3243,6 +3243,7 @@ a.pipeline-badge:hover {
 /* Takeaway & Definition Badges - Outlined Pill around Label Text Only */
 .takeaway-badge,
 .badge-systems-analogy,
+.analogy-badge-label,
 .badge-formal-definition {
   font-size: 0.7rem !important;
   font-weight: 700 !important;
