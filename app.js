@@ -258,10 +258,11 @@ function initializeJargonPopovers() {
     let aliasHtml = "";
     if (canonicalKey && matchedText && matchedText.trim().toLowerCase() !== canonicalKey.trim().toLowerCase()) {
       aliasHtml = `
-        <div class="popover-alias-badge" style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: var(--selected-bg); color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 6px; border-radius: var(--radius-pill); align-self: flex-start; margin-top: calc(-1 * var(--space-1)); margin-bottom: var(--space-1);">
+        <div class="popover-alias-badge">
           Alias: ${matchedText}
         </div>
       `;
+
     }
 
     popover.innerHTML = `

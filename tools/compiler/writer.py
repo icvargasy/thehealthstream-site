@@ -1714,15 +1714,16 @@ def compile_vocabulary_detail_page(
         filtered_aliases = [a for a in aliases if a.lower() != term.lower()]
         if filtered_aliases:
             alias_items = [
-                f'<span style="font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; background-color: transparent; color: var(--accent-synapse); border: 1px solid var(--selected-border); padding: 2px 8px; border-radius: var(--radius-pill);">{a}</span>'
+                f'<span class="vocab-alias-tag">{a}</span>'
                 for a in filtered_aliases
             ]
             aliases_html = (
-                f'<div class="vocab-detail-aliases" style="display: flex; flex-wrap: wrap; gap: var(--space-1); margin-top: var(--space-2); align-items: center;">'
-                f'  <span style="font-size: 0.8rem; color: var(--text-ink-muted); font-weight: 600; margin-right: var(--space-2);">Aliases:</span>'
+                f'<div class="vocab-detail-aliases">'
+                f'  <span class="vocab-alias-label">Aliases:</span>'
                 f'  {"".join(alias_items)}'
                 f'</div>'
             )
+
 
     content_html = (
         f'<article class="vocab-detail-page">'

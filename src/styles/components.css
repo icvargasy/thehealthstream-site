@@ -2170,7 +2170,45 @@ body[data-theme="dark"] .backlog-item.cat-book {
   display: block;
 }
 
+/* Lexicon Alias Badges & Tags (Subtle, Low Visual Dominance) */
+
+.vocab-detail-aliases {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1);
+  margin-top: var(--space-1);
+  align-items: center;
+}
+
+.vocab-alias-label {
+  font-size: 0.7rem;
+  color: var(--text-ink-muted);
+  font-weight: 500;
+  margin-right: 4px;
+}
+
+.vocab-alias-tag,
+.popover-alias-badge {
+  font-size: 0.62rem;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  background-color: var(--bg-surface-alt);
+  color: var(--text-ink-muted);
+  border: 1px solid var(--border-color);
+  padding: 1px 6px;
+  border-radius: var(--radius-pill);
+  opacity: 0.85;
+}
+
+.popover-alias-badge {
+  align-self: flex-start;
+  margin-top: calc(-1 * var(--space-1));
+  margin-bottom: var(--space-1);
+}
+
 a.pipeline-badge {
+
   cursor: pointer;
   text-decoration: none;
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
