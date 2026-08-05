@@ -1421,3 +1421,59 @@ function initializeLexiconVerification() {
     }
   });
 }
+
+/**
+ * Handles client-side taxonomy filtering on the main Lexicon page (vocabulary.html).
+ * Shows/hides vocab cards and section groups based on the selected taxonomy classification pill.
+ * @returns {void}
+ */
+function initializeVocabTaxonomyFilter() {
+  const filterBtns = document.querySelectorAll(".vocab-tax-filter-btn");
+  const vocabCards = document.querySelectorAll(".vocab-card");
+  const vocabSections = document.querySelectorAll(".vocab-section");
+  const vocabNavLinks = document.querySelectorAll(".vocab-nav-link");
+  if (!filterBtns.length || !vocabCards.length) return;
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      filterBtns.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+
+      const filterVal = btn.getAttribute("data-tax-filter");
+
+      // 1. Show/hide individual cards
+      vocabCards.forEach((card) => {
+        const cardTax = card.getAttribute("data-taxonomy") || "";
+        if (filterVal === "all" || cardTax === filterVal) {
+          card.style.display = "";
+        } else {
+          card.style.display = "none";
+        }
+      });
+
+      // 2. Hide empty alphabetical section containers
+      const activeSectionIds = new Set();
+      vocabSections.forEach((section) => {
+        const visibleCards = section.querySelectorAll('.vocab-card:not([style*="display: none"])');
+        if (visibleCards.length === 0) {
+          section.style.display = "none";
+        } else {
+          section.style.display = "";
+          activeSectionIds.add(section.id.toLowerCase());
+        }
+      });
+
+      // 3. Dim or highlight alphabetical nav links
+      vocabNavLinks.forEach((link) => {
+        const targetLetter = (link.getAttribute("href") || "").replace("#", "").toLowerCase();
+        if (filterVal === "all" || activeSectionIds.has(targetLetter)) {
+          link.style.opacity = "1";
+          link.style.pointerEvents = "auto";
+        } else {
+          link.style.opacity = "0.25";
+          link.style.pointerEvents = "none";
+        }
+      });
+    });
+  });
+}

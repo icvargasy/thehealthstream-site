@@ -1460,14 +1460,14 @@ def render_vocab_card(
 
     return (
         f'<div class="vocab-card" id="{slug}" data-taxonomy="{taxonomy.lower()}">'
-        f'  <h3 class="vocab-title" style="display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-2);">'
+        f'  <h3 class="vocab-title" style="display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); margin-bottom: var(--space-2); flex-wrap: wrap;">'
         f'    <a href="{base_path}{slug}.html" class="vocab-card-link">{term}</a>'
-        f'    {tick_badge}'
+        f'    <div class="vocab-title-badges" style="display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;">'
+        f'      {taxonomy_badge}'
+        f'      {tick_badge}'
+        f'    </div>'
         f'  </h3>'
         f'  <p class="vocab-teaser">{short_def}</p>'
-        f'  <div class="vocab-card-footer" style="display: flex; align-items: center; justify-content: space-between; margin-top: var(--space-2.5); flex-wrap: wrap; gap: var(--space-1);">'
-        f'    {taxonomy_badge}'
-        f'  </div>'
         f'</div>'
     )
 
@@ -1544,14 +1544,6 @@ def compile_vocabulary_page(
         '  <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>'
         '</svg>'
     )
-    legend_note = (
-        '<p class="vocab-legend-note" style="font-size: 0.82rem; color: var(--text-ink-muted); margin-top: var(--space-2); margin-bottom: 0; font-style: italic; opacity: 0.85;">'
-        '  <span style="display: inline-flex; align-items: center; vertical-align: middle; margin-right: 4px;">'
-        '    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>'
-        '  </span>'
-        '  Terms with a blue checkmark have been human-reviewed. Terms marked "Pending Verification" are AI-compiled drafts awaiting review.'
-        '</p>'
-    )
     # Collect taxonomy counts for interactive filter bar
     tax_counts: Dict[str, int] = {}
     for term_data in vocabulary.values():
@@ -1566,7 +1558,7 @@ def compile_vocabulary_page(
         )
 
     taxonomy_filter_bar_html = (
-        f'<div class="vocab-taxonomy-filter-bar" style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); margin-bottom: var(--space-2); flex-wrap: wrap;">'
+        f'<div class="vocab-taxonomy-filter-bar" style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2.5); margin-bottom: var(--space-1); flex-wrap: wrap;">'
         f'  <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-ink-muted); text-transform: uppercase; letter-spacing: 0.04em;">Filter by Type:</span>'
         f'  <div class="vocab-tax-toggle-container" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">'
         f'    {"".join(tax_buttons)}'
@@ -1578,7 +1570,7 @@ def compile_vocabulary_page(
         title=labels.get("vocabulary_header", "Jargon Glossary Index"),
         description=labels.get("vocabulary_desc", ""),
         icon_svg=book_open_svg,
-        extra_controls_html=f"{legend_note}{taxonomy_filter_bar_html}",
+        extra_controls_html=taxonomy_filter_bar_html,
         extra_header_class="vocab-feed-intro",
     )
     vocab_html = (
