@@ -1475,24 +1475,24 @@ button.detail-grade-badge:hover {
 .detail-grade-badge.tier-consensus-core,
 .detail-grade-badge.grade-high,
 .detail-grade-badge.grade-moderate {
-  background-color: var(--accent-synapse) !important;
-  color: white !important;
-  border: 1px solid var(--accent-synapse) !important;
+  background-color: transparent !important;
+  color: var(--tier-consensus-text) !important;
+  border: 1px solid var(--tier-consensus-text) !important;
 }
 
 .detail-grade-badge.tier-emerging-frontier,
 .detail-grade-badge.grade-low {
-  background-color: var(--accent-lifestyle) !important;
-  color: white !important;
-  border: 1px solid var(--accent-lifestyle) !important;
+  background-color: transparent !important;
+  color: var(--tier-frontier-text) !important;
+  border: 1px solid var(--tier-frontier-text) !important;
 }
 
 .detail-grade-badge.tier-exploratory-sandbox,
 .detail-grade-badge.grade-very-low,
 .detail-grade-badge.grade-very {
-  background-color: var(--bg-surface-alt) !important;
-  color: var(--text-ink-muted) !important;
-  border: 1px solid var(--border-color) !important;
+  background-color: transparent !important;
+  color: var(--tier-sandbox-text) !important;
+  border: 1px solid var(--tier-sandbox-text) !important;
 }
 
 
@@ -1717,8 +1717,8 @@ button.detail-grade-badge:hover {
 
 .stance-badge.stance-nuanced {
   background-color: transparent !important;
-  color: #7c3aed;
-  border: 1px solid #7c3aed;
+  color: #d97706;
+  border: 1px solid #d97706;
 }
 
 .debate-position-title {
