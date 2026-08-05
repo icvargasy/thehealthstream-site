@@ -1207,7 +1207,7 @@ def compile_detail_page(
     # 4. Evidence Row-List (Tabular Middle-Ground, Responsive)
     grade_details_card = (
         f'<div class="evidence-grade-summary" style="margin-top: var(--space-2); margin-bottom: var(--space-4); line-height: 1.6;">'
-        f'  <span class="detail-grade-badge tier-{tier_slug} grade-{grade_lower}">{grade} — {tier_label}</span> '
+        f'  <span class="section-grade-badge tier-{tier_slug} grade-{grade_lower}">{grade} — {tier_label}</span> '
         f'  <span style="color: var(--text-ink-muted);">{rationale}</span>'
         f'</div>'
         f'{debates_html}'

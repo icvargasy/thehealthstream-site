@@ -1445,51 +1445,98 @@ body[data-theme="dark"] .article-detail a.tag-pill:focus-visible {
   letter-spacing: 0.05em;
 }
 
+/* Top Header Evidence Level Badge (Clickable button -> Solid Background Fill) */
 .detail-grade-badge {
   font-family: var(--font-body);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
-  padding: 2px 7px;
-  border-radius: var(--radius-button, 4px);
+  padding: 3px 9px;
+  border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
+  gap: 4px;
   white-space: nowrap;
   vertical-align: middle;
-  margin-right: 6px;
-  background: transparent !important;
-  background-color: transparent !important;
-  transition: opacity var(--transition-fast), transform var(--transition-fast);
-}
-
-button.detail-grade-badge {
+  margin-left: 4px;
   cursor: pointer;
+  border: none;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
 }
 
-button.detail-grade-badge:hover {
-  opacity: 0.9;
+.detail-grade-badge:hover {
+  opacity: 0.92;
   transform: translateY(-1px);
 }
 
 .detail-grade-badge.tier-consensus-core,
 .detail-grade-badge.grade-high,
 .detail-grade-badge.grade-moderate {
-  background-color: transparent !important;
-  color: var(--tier-consensus-text) !important;
+  background-color: var(--tier-consensus-text) !important;
+  color: white !important;
   border: 1px solid var(--tier-consensus-text) !important;
 }
 
 .detail-grade-badge.tier-emerging-frontier,
 .detail-grade-badge.grade-low {
-  background-color: transparent !important;
-  color: var(--tier-frontier-text) !important;
+  background-color: var(--tier-frontier-text) !important;
+  color: white !important;
   border: 1px solid var(--tier-frontier-text) !important;
 }
 
 .detail-grade-badge.tier-exploratory-sandbox,
 .detail-grade-badge.grade-very-low,
 .detail-grade-badge.grade-very {
+  background-color: var(--tier-sandbox-text) !important;
+  color: white !important;
+  border: 1px solid var(--tier-sandbox-text) !important;
+}
+
+/* Within Section Static Grade Label (Static indicator -> Transparent Background Outline) */
+.section-grade-badge,
+.grade-badge {
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 8px !important;
+  border-radius: var(--radius-pill) !important;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  margin-right: 6px;
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+.section-grade-badge.tier-consensus-core,
+.section-grade-badge.grade-high,
+.section-grade-badge.grade-moderate,
+.grade-badge.tier-consensus-core,
+.grade-badge.grade-high,
+.grade-badge.grade-moderate {
+  background-color: transparent !important;
+  color: var(--tier-consensus-text) !important;
+  border: 1px solid var(--tier-consensus-text) !important;
+}
+
+.section-grade-badge.tier-emerging-frontier,
+.section-grade-badge.grade-low,
+.grade-badge.tier-emerging-frontier,
+.grade-badge.grade-low {
+  background-color: transparent !important;
+  color: var(--tier-frontier-text) !important;
+  border: 1px solid var(--tier-frontier-text) !important;
+}
+
+.section-grade-badge.tier-exploratory-sandbox,
+.section-grade-badge.grade-very-low,
+.section-grade-badge.grade-very,
+.grade-badge.tier-exploratory-sandbox,
+.grade-badge.grade-very-low {
   background-color: transparent !important;
   color: var(--tier-sandbox-text) !important;
   border: 1px solid var(--tier-sandbox-text) !important;
