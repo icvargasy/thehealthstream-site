@@ -97,6 +97,39 @@ NUANCED_STANCE_SVG = (
 )
 
 
+def render_page_header(
+    title: str,
+    description: str = "",
+    icon_svg: str = "",
+    extra_controls_html: str = "",
+    extra_header_class: str = "",
+) -> str:
+    """Renders a standardized page header intro section across pages.
+
+    Args:
+        title: Main page heading string.
+        description: Paragraph subtitle/tagline string.
+        icon_svg: Optional leading SVG icon string.
+        extra_controls_html: Optional extra controls HTML (e.g. search/filter inputs, legend notes).
+        extra_header_class: Optional additional CSS class for header element.
+
+    Returns:
+        The formatted HTML string for the header section.
+    """
+    header_class = f"feed-intro {extra_header_class}".strip()
+    icon_part = f"{icon_svg}" if icon_svg else ""
+    desc_part = f"  <p>{description}</p>" if description else ""
+    controls_part = f"  {extra_controls_html}" if extra_controls_html else ""
+
+    return (
+        f'<header class="{header_class}">'
+        f'  <h1 class="page-title">{icon_part}<span>{title}</span></h1>'
+        f'{desc_part}'
+        f'{controls_part}'
+        f'</header>'
+    )
+
+
 def get_category_mechanism_label(cat: str) -> str:
     """Returns category-specific takeaway badge label (e.g. Biological Mechanism, Protocol Mechanism, Curated Synthesis)."""
     labels = {
@@ -1495,12 +1528,15 @@ def compile_vocabulary_page(
         '  Terms with a blue checkmark have been human-reviewed. Terms marked "Pending Verification" are AI-compiled drafts awaiting review.'
         '</p>'
     )
+    header_html = render_page_header(
+        title=labels.get("vocabulary_header", "Jargon Glossary Index"),
+        description=labels.get("vocabulary_desc", ""),
+        icon_svg=book_open_svg,
+        extra_controls_html=legend_note,
+        extra_header_class="vocab-feed-intro",
+    )
     vocab_html = (
-        f'<header class="feed-intro vocab-feed-intro">'
-        f'  <h1 class="page-title">{book_open_svg}<span>{labels.get("vocabulary_header", "Jargon Glossary Index")}</span></h1>'
-        f'  <p>{labels.get("vocabulary_desc", "")}</p>'
-        f'  {legend_note}'
-        f'</header>'
+        f'{header_html}'
         f'{vocab_nav_html}'
         f'<div class="vocab-container">'
         f'  {"".join(vocab_sections)}'
@@ -2007,11 +2043,13 @@ def compile_backlog_page(
         '  <path d="M18 9a9 9 0 0 1-9 9"></path>'
         '</svg>'
     )
+    header_html = render_page_header(
+        title=labels.get("backlog_title", "Proposed Backlog"),
+        description=labels.get("backlog_desc", ""),
+        icon_svg=git_branch_svg,
+    )
     content_html = (
-        f'<header class="feed-intro">'
-        f'  <h1 class="page-title">{git_branch_svg}<span>{labels.get("backlog_title", "Proposed Backlog")}</span></h1>'
-        f'  <p>{labels.get("backlog_desc", "")}</p>'
-        f'</header>'
+        f'{header_html}'
         f'{cta_html}'
         f'<ul class="feed-cards backlog-list" id="backlog-list-container">'
         f'  {"".join(backlog_items)}'
