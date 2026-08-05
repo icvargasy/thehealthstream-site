@@ -2207,6 +2207,52 @@ body[data-theme="dark"] .backlog-item.cat-book {
   margin-bottom: var(--space-1);
 }
 
+/* Button Primitives (Structural Geometry + Dynamic Contextual Theme Styling) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--accent-synapse);
+  color: white;
+  border: 1px solid var(--accent-synapse);
+  padding: 6px 14px;
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform var(--transition-fast), background-color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.btn-primary:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.btn-interactive {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  background-color: var(--bg-paper);
+  border: 1px solid var(--border-color);
+  color: var(--text-ink);
+  padding: 6px 12px;
+  border-radius: var(--radius-button);
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+}
+
+.btn-interactive:hover:not(:disabled) {
+  border-color: var(--accent-synapse);
+  background-color: var(--selected-bg);
+  color: var(--accent-synapse);
+}
+
 a.pipeline-badge {
 
   cursor: pointer;
