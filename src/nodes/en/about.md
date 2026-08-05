@@ -7,9 +7,9 @@ We view the human body not as a collection of isolated symptoms, but as an inter
 
 Health and longevity research moves continuously from raw hypothesis to clinical consensus. We evaluate all scientific research against the GRADE framework, classifying evidence certainty across three constructive confidence tiers &mdash; High / Moderate (Proven), Low (Promising), and Very Low (Untested):
 
-- <span class="detail-grade-badge tier-consensus-core">PROVEN</span> Strong, proven science backed by clinical studies in humans.
-- <span class="detail-grade-badge tier-emerging-frontier">PROMISING</span> Promising science shown in early tests or animal studies, awaiting larger trials.
-- <span class="detail-grade-badge tier-exploratory-sandbox">UNTESTED</span> Experimental or unproven ideas based on biofeedback or theoretical concepts.
+- <span class="evidence-tier-badge tier-consensus-core">PROVEN</span> Strong, proven science backed by clinical studies in humans.
+- <span class="evidence-tier-badge tier-emerging-frontier">PROMISING</span> Promising science shown in early tests or animal studies, awaiting larger trials.
+- <span class="evidence-tier-badge tier-exploratory-sandbox">UNTESTED</span> Experimental or unproven ideas based on biofeedback or theoretical concepts.
 
 
 
