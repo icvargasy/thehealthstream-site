@@ -399,9 +399,9 @@ body.left-collapsed .header-brand-container {
 .guide-mock-pipeline-badge {
   font-size: 0.55rem;
   font-weight: 700;
-  color: var(--text-ink-muted);
-  background-color: var(--bg-surface-alt);
-  border: 1px dashed var(--border-color);
+  color: var(--accent-synapse);
+  background-color: oklch(0.43 0.16 18 / 0.20);
+  border: 1px solid oklch(0.43 0.16 18 / 0.35);
   padding: 1.5px 4px;
   border-radius: 3px;
   letter-spacing: 0.03em;
@@ -624,53 +624,63 @@ body.left-collapsed .header-brand-container {
   text-transform: uppercase;
   letter-spacing: 0.05em;
   padding: 2px 8px;
-  border-radius: 12px;
+  border-radius: var(--radius-pill);
   display: inline-flex;
   align-items: center;
   line-height: 1;
-  border: 1px solid transparent;
+  border: 1px solid oklch(0.43 0.16 18 / 0.35);
+  background-color: oklch(0.43 0.16 18 / 0.18);
+  color: var(--accent-synapse);
   box-sizing: border-box;
 }
 
 a.category-tag {
   cursor: pointer;
   text-decoration: none;
-  transition: background-color var(--transition-fast), color var(--transition-fast);
+  transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
 .cat-biology .category-tag {
-  background-color: oklch(0.55 0.18 250 / 0.08);
+  background-color: oklch(0.55 0.18 250 / 0.18);
+  border: 1px solid oklch(0.55 0.18 250 / 0.35);
   color: oklch(0.55 0.18 250);
 }
 .cat-biology a.category-tag:hover {
   background-color: oklch(0.55 0.18 250) !important;
+  border-color: oklch(0.55 0.18 250) !important;
   color: var(--bg-paper) !important;
 }
 
 .cat-lifestyle .category-tag {
-  background-color: oklch(0.62 0.15 140 / 0.08);
+  background-color: oklch(0.62 0.15 140 / 0.18);
+  border: 1px solid oklch(0.62 0.15 140 / 0.35);
   color: oklch(0.50 0.12 140);
 }
 .cat-lifestyle a.category-tag:hover {
   background-color: oklch(0.50 0.12 140) !important;
+  border-color: oklch(0.50 0.12 140) !important;
   color: var(--bg-paper) !important;
 }
 
 .cat-book .category-tag {
-  background-color: oklch(0.70 0.16 75 / 0.08);
+  background-color: oklch(0.70 0.16 75 / 0.18);
+  border: 1px solid oklch(0.70 0.16 75 / 0.35);
   color: oklch(0.55 0.12 75);
 }
 .cat-book a.category-tag:hover {
   background-color: oklch(0.55 0.12 75) !important;
+  border-color: oklch(0.55 0.12 75) !important;
   color: var(--bg-paper) !important;
 }
 
 .cat-lexicon .category-tag {
-  background-color: oklch(0.60 0.18 15 / 0.08);
+  background-color: oklch(0.60 0.18 15 / 0.18);
+  border: 1px solid oklch(0.60 0.18 15 / 0.35);
   color: oklch(0.55 0.18 15);
 }
 .cat-lexicon a.category-tag:hover {
   background-color: oklch(0.55 0.18 15) !important;
+  border-color: oklch(0.55 0.18 15) !important;
   color: var(--bg-paper) !important;
 }
 
@@ -716,18 +726,23 @@ a.category-tag {
   margin-top: var(--space-2);
 }
 
+/* Unified Transversal Neutral Slate Topic Tag Boxes */
 .tag-pill {
-  font-size: var(--font-size-label);
+  font-family: var(--font-body);
+  font-size: 0.65rem;
   font-weight: 600;
-  background-color: var(--selected-bg);
-  border: 1px solid var(--selected-border);
-  padding: 2px 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  background-color: oklch(0.35 0.03 260 / 0.08);
+  border: 1px solid oklch(0.35 0.03 260 / 0.28);
+  padding: 2px 8px;
   border-radius: var(--radius-pill);
-  color: var(--accent-synapse);
+  color: oklch(0.35 0.03 260);
   text-decoration: none;
   display: inline-flex;
   align-items: center;
-  gap: 2px;
+  gap: 3px;
+  line-height: 1;
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
@@ -742,9 +757,9 @@ a.tag-pill {
 
 a.tag-pill:hover,
 a.tag-pill:focus-visible {
-  background-color: var(--accent-synapse);
-  border-color: var(--accent-synapse);
-  color: var(--bg-surface);
+  background-color: oklch(0.35 0.03 260);
+  border-color: oklch(0.35 0.03 260);
+  color: var(--bg-paper);
   outline: none;
 }
 
@@ -792,75 +807,17 @@ a.tag-pill:focus-visible {
 }
 
 
-
-/* Color coordination for tags based on category */
-.cat-biology .tag-pill {
-  background-color: oklch(0.55 0.18 250 / 0.08);
-  border-color: oklch(0.55 0.18 250 / 0.20);
-  color: oklch(0.55 0.18 250);
-}
-.cat-biology a.tag-pill:hover,
-.cat-biology a.tag-pill:focus-visible {
-  background-color: oklch(0.55 0.18 250);
-  border-color: oklch(0.55 0.18 250);
-  color: var(--bg-surface);
+/* Dark Theme Overrides for Transversal Topic Tags */
+body[data-theme="dark"] .tag-pill {
+  background-color: oklch(0.85 0.02 260 / 0.10);
+  border: 1px solid oklch(0.85 0.02 260 / 0.30);
+  color: oklch(0.85 0.02 260);
 }
 
-.cat-lifestyle .tag-pill {
-  background-color: oklch(0.62 0.15 140 / 0.08);
-  border-color: oklch(0.62 0.15 140 / 0.20);
-  color: oklch(0.50 0.12 140);
-}
-.cat-lifestyle a.tag-pill:hover,
-.cat-lifestyle a.tag-pill:focus-visible {
-  background-color: oklch(0.50 0.12 140);
-  border-color: oklch(0.50 0.12 140);
-  color: var(--bg-surface);
-}
-
-.cat-book .tag-pill {
-  background-color: oklch(0.70 0.16 75 / 0.08);
-  border-color: oklch(0.70 0.16 75 / 0.20);
-  color: oklch(0.55 0.12 75);
-}
-.cat-book a.tag-pill:hover,
-.cat-book a.tag-pill:focus-visible {
-  background-color: oklch(0.55 0.12 75);
-  border-color: oklch(0.55 0.12 75);
-  color: var(--bg-surface);
-}
-
-/* Dark Theme Overrides for category tags */
-body[data-theme="dark"] .cat-biology .tag-pill {
-  background-color: oklch(0.65 0.16 250 / 0.10);
-  border-color: oklch(0.65 0.16 250 / 0.25);
-  color: oklch(0.65 0.16 250);
-}
-body[data-theme="dark"] .cat-biology a.tag-pill:hover {
-  background-color: oklch(0.65 0.16 250);
-  border-color: oklch(0.65 0.16 250);
-  color: var(--bg-paper);
-}
-
-body[data-theme="dark"] .cat-lifestyle .tag-pill {
-  background-color: oklch(0.68 0.14 140 / 0.10);
-  border-color: oklch(0.68 0.14 140 / 0.25);
-  color: oklch(0.68 0.14 140);
-}
-body[data-theme="dark"] .cat-lifestyle a.tag-pill:hover {
-  background-color: oklch(0.68 0.14 140);
-  border-color: oklch(0.68 0.14 140);
-  color: var(--bg-paper);
-}
-
-body[data-theme="dark"] .cat-book .tag-pill {
-  background-color: oklch(0.72 0.13 75 / 0.10);
-  border-color: oklch(0.72 0.13 75 / 0.25);
-  color: oklch(0.72 0.13 75);
-}
-body[data-theme="dark"] .cat-book a.tag-pill:hover {
-  background-color: oklch(0.72 0.13 75);
-  border-color: oklch(0.72 0.13 75);
+body[data-theme="dark"] a.tag-pill:hover,
+body[data-theme="dark"] a.tag-pill:focus-visible {
+  background-color: oklch(0.85 0.02 260);
+  border-color: oklch(0.85 0.02 260);
   color: var(--bg-paper);
 }
 
@@ -1446,16 +1403,29 @@ body[data-theme="dark"] .cat-book a.tag-pill:hover {
 }
 
 .article-detail .tag-pill {
-  background-color: var(--selected-bg);
-  border-color: var(--selected-border);
-  color: var(--accent-synapse);
+  background-color: oklch(0.35 0.03 260 / 0.08);
+  border: 1px solid oklch(0.35 0.03 260 / 0.28);
+  color: oklch(0.35 0.03 260);
 }
 
 .article-detail a.tag-pill:hover,
 .article-detail a.tag-pill:focus-visible {
-  background-color: var(--accent-synapse);
-  border-color: var(--accent-synapse);
-  color: var(--bg-surface);
+  background-color: oklch(0.35 0.03 260);
+  border-color: oklch(0.35 0.03 260);
+  color: var(--bg-paper);
+}
+
+body[data-theme="dark"] .article-detail .tag-pill {
+  background-color: oklch(0.85 0.02 260 / 0.10);
+  border: 1px solid oklch(0.85 0.02 260 / 0.30);
+  color: oklch(0.85 0.02 260);
+}
+
+body[data-theme="dark"] .article-detail a.tag-pill:hover,
+body[data-theme="dark"] .article-detail a.tag-pill:focus-visible {
+  background-color: oklch(0.85 0.02 260);
+  border-color: oklch(0.85 0.02 260);
+  color: var(--bg-paper);
 }
 
 /* GRADE Popover Styles */
@@ -4285,19 +4255,20 @@ a.pipeline-badge-link:hover {
   color: var(--text-ink) !important;
 }
 
-/* Style the In the Pipeline status badge itself to be dashed and muted */
+/* Style the In the Pipeline status badge itself to have solid border and visible background */
 .pipeline-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  border: 1px dashed var(--border-color) !important;
-  background-color: transparent !important;
-  border-radius: 4px !important;
-  padding: 2px 6px !important;
-  font-size: 0.72rem !important;
+  border: 1px solid oklch(0.43 0.16 18 / 0.35) !important;
+  background-color: oklch(0.43 0.16 18 / 0.20) !important;
+  border-radius: var(--radius-pill) !important;
+  padding: 2px 8px !important;
+  font-size: 0.65rem !important;
   font-weight: 600 !important;
+  letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
-  color: var(--text-ink-muted) !important;
+  color: var(--accent-synapse) !important;
   text-decoration: none !important;
 }
 
@@ -4810,8 +4781,8 @@ a.pipeline-badge-link {
   text-transform: uppercase;
   padding: 2px 8px !important;
   border-radius: var(--radius-pill) !important;
-  border: 1px solid oklch(0.43 0.16 18 / 0.28) !important;
-  background-color: oklch(0.43 0.16 18 / 0.14) !important;
+  border: 1px solid oklch(0.43 0.16 18 / 0.35) !important;
+  background-color: oklch(0.43 0.16 18 / 0.20) !important;
   color: var(--accent-synapse) !important;
 }
 
