@@ -1877,16 +1877,23 @@ def compile_vocabulary_taxonomy_page(
         '</svg>'
     )
     
+    back_link_html = (
+        f'<a href="../vocabulary.html" class="vocab-back-link" style="display: inline-block; margin-bottom: var(--space-2);">'
+        f'  &larr; Back to Lexicon'
+        f'</a>'
+    )
+    header_html = render_page_header(
+        title=f"Lexicon Taxonomy: {taxonomy_capitalized}",
+        description=f"<strong>Definition:</strong> {tax_desc}",
+        icon_svg=book_open_svg,
+        extra_controls_html=back_link_html,
+        extra_header_class="vocab-taxonomy-header",
+    )
+    
     content_html = (
         f'<article class="vocab-taxonomy-page">'
-        f'  <header class="feed-intro">'
-        f'    <a href="../vocabulary.html" class="vocab-back-link">'
-        f'      &larr; Back to Lexicon'
-        f'    </a>'
-        f'    <h1 class="page-title">{book_open_svg}<span>Lexicon Taxonomy: {taxonomy_capitalized}</span></h1>'
-        f'    <p class="tag-description"><strong>Definition:</strong> {tax_desc}</p>'
-        f'  </header>'
-        f'  <div class="vocab-container">'
+        f'  {header_html}'
+        f'  <div class="vocab-container" style="margin-top: var(--space-3);">'
         f'    <div class="vocab-grid">'
         f'      {"".join(cards_html)}'
         f'    </div>'
