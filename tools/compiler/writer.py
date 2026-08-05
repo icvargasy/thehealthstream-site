@@ -394,7 +394,7 @@ def render_backlog_card(
         desc = inject_jargon_links(desc, vocabulary)
     
     tag_name = "li" if as_list_item else "div"
-    card_class = f"backlog-item backlog-card-compact {category_class}" if as_list_item else f"feed-card pipeline-card-merged {category_class}"
+    card_class = f"backlog-item feed-card pipeline-card-merged {category_class}" if as_list_item else f"feed-card pipeline-card-merged {category_class}"
     
     git_branch_svg = (
         '<svg class="pipeline-icon-svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
@@ -2012,7 +2012,7 @@ def compile_backlog_page(
         f'  <p>{labels.get("backlog_desc", "")}</p>'
         f'</header>'
         f'{cta_html}'
-        f'<ul class="backlog-list">'
+        f'<ul class="feed-cards backlog-list" id="backlog-list-container">'
         f'  {"".join(backlog_items)}'
         f'</ul>'
     )

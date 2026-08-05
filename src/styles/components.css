@@ -2132,44 +2132,9 @@ body[data-theme="dark"] .backlog-item.cat-book {
   border-style: solid !important;
   border-color: var(--backlog-accent, var(--accent-synapse)) !important;
 }
-.backlog-item.backlog-card-compact {
-  border: 1px solid var(--border-color) !important;
-  background-color: var(--sb-bg) !important;
-  border-radius: var(--radius-card) !important;
-  padding: 16px 20px !important;
-  gap: 8px !important;
-  list-style: none;
-  cursor: default !important;
-}
 
-.pipeline-card-merged {
-  border: 1px solid var(--border-color) !important;
-  background-color: var(--sb-bg) !important;
-  border-radius: var(--radius-card) !important;
-  padding: 12px 16px !important;
-  gap: 8px !important;
-  list-style: none;
-  cursor: default !important;
-}
-
-.pipeline-card-merged:hover,
-.backlog-item.backlog-card-compact:hover {
-  transform: none !important;
-  box-shadow: none !important;
-  border-color: var(--border-color) !important;
-}
-
-.pipeline-card-merged .card-title-link,
-.backlog-item.backlog-card-compact .card-title-link {
-  font-family: var(--font-display) !important;
-  font-size: 1.25rem !important;
-  font-weight: 700 !important;
-  cursor: default !important;
-  pointer-events: none !important;
-  color: var(--text-ink) !important;
-  text-decoration: none !important;
-}
 .backlog-item .qa-question-text {
+
   font-size: 0.9rem;
   line-height: 1.45;
 }
