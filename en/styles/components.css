@@ -341,7 +341,7 @@ body.left-collapsed .header-brand-container {
   flex-direction: column;
   gap: 8px;
   flex: 1;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.03);
+  box-shadow: var(--shadow-sm, 0 1px 6px rgba(0, 0, 0, 0.03));
 }
 
 /* In the Pipeline Mock: Shaded Gray Background & Dashed Border — same thickness as real cards */
