@@ -38,6 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeFeedFilters();
   initializeCardClicks();
   initializeLexiconVerification();
+  initializeVocabTaxonomyFilter();
   initializeVisitorOnboarding();
 });
 

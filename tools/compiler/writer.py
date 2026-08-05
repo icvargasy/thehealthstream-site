@@ -1552,11 +1552,33 @@ def compile_vocabulary_page(
         '  Terms with a blue checkmark have been human-reviewed. Terms marked "Pending Verification" are AI-compiled drafts awaiting review.'
         '</p>'
     )
+    # Collect taxonomy counts for interactive filter bar
+    tax_counts: Dict[str, int] = {}
+    for term_data in vocabulary.values():
+        tax = term_data.get("taxonomy", "").strip().lower()
+        if tax:
+            tax_counts[tax] = tax_counts.get(tax, 0) + 1
+
+    tax_buttons = [f'<button class="vocab-tax-filter-btn active" data-tax-filter="all">All <span class="toggle-badge">({len(vocabulary)})</span></button>']
+    for tax_name in sorted(tax_counts.keys()):
+        tax_buttons.append(
+            f'<button class="vocab-tax-filter-btn" data-tax-filter="{tax_name}">{tax_name.capitalize()} <span class="toggle-badge">({tax_counts[tax_name]})</span></button>'
+        )
+
+    taxonomy_filter_bar_html = (
+        f'<div class="vocab-taxonomy-filter-bar" style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-3); margin-bottom: var(--space-2); flex-wrap: wrap;">'
+        f'  <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-ink-muted); text-transform: uppercase; letter-spacing: 0.04em;">Filter by Type:</span>'
+        f'  <div class="vocab-tax-toggle-container" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">'
+        f'    {"".join(tax_buttons)}'
+        f'  </div>'
+        f'</div>'
+    )
+
     header_html = render_page_header(
         title=labels.get("vocabulary_header", "Jargon Glossary Index"),
         description=labels.get("vocabulary_desc", ""),
         icon_svg=book_open_svg,
-        extra_controls_html=legend_note,
+        extra_controls_html=f"{legend_note}{taxonomy_filter_bar_html}",
         extra_header_class="vocab-feed-intro",
     )
     vocab_html = (

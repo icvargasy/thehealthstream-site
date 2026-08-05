@@ -2255,6 +2255,37 @@ body[data-theme="dark"] .backlog-item.cat-book {
   margin-bottom: var(--space-1);
 }
 
+/* Lexicon Taxonomy Filter Pills */
+.vocab-tax-filter-btn {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-color);
+  background-color: var(--bg-paper);
+  color: var(--text-ink-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.vocab-tax-filter-btn:hover {
+  border-color: var(--accent-synapse);
+  color: var(--accent-synapse);
+  background-color: var(--selected-bg);
+}
+
+.vocab-tax-filter-btn.active {
+  background-color: var(--accent-synapse);
+  color: white;
+  border-color: var(--accent-synapse);
+}
+
+.vocab-tax-filter-btn.active .toggle-badge {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: white;
+}
+
 /* Button Primitives (Structural Geometry + Dynamic Contextual Theme Styling) */
 .btn-primary {
   display: inline-flex;
