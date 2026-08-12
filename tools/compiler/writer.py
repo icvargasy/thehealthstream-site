@@ -103,6 +103,7 @@ def render_page_header(
     icon_svg: str = "",
     extra_controls_html: str = "",
     extra_header_class: str = "",
+    top_controls_html: str = "",
 ) -> str:
     """Renders a standardized page header intro section across pages.
 
@@ -112,6 +113,7 @@ def render_page_header(
         icon_svg: Optional leading SVG icon string.
         extra_controls_html: Optional extra controls HTML (e.g. search/filter inputs, legend notes).
         extra_header_class: Optional additional CSS class for header element.
+        top_controls_html: Optional controls HTML rendered above page title (e.g. back navigation link).
 
     Returns:
         The formatted HTML string for the header section.
@@ -120,9 +122,11 @@ def render_page_header(
     icon_part = f"{icon_svg}" if icon_svg else ""
     desc_part = f"  <p>{description}</p>" if description else ""
     controls_part = f"  {extra_controls_html}" if extra_controls_html else ""
+    top_part = f"  {top_controls_html}" if top_controls_html else ""
 
     return (
         f'<header class="{header_class}">'
+        f'{top_part}'
         f'  <h1 class="page-title">{icon_part}<span>{title}</span></h1>'
         f'{desc_part}'
         f'{controls_part}'
@@ -1558,9 +1562,9 @@ def compile_vocabulary_page(
         )
 
     taxonomy_filter_bar_html = (
-        f'<div class="vocab-taxonomy-filter-bar" style="display: flex; align-items: center; gap: var(--space-2); margin-top: var(--space-2.5); margin-bottom: var(--space-1); flex-wrap: wrap;">'
-        f'  <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-ink-muted); text-transform: uppercase; letter-spacing: 0.04em;">Filter by Type:</span>'
-        f'  <div class="vocab-tax-toggle-container" style="display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">'
+        f'<div class="vocab-taxonomy-filter-bar">'
+        f'  <span class="vocab-tax-label">Filter by Type:</span>'
+        f'  <div class="vocab-tax-toggle-container">'
         f'    {"".join(tax_buttons)}'
         f'  </div>'
         f'</div>'
@@ -1857,11 +1861,40 @@ def compile_vocabulary_taxonomy_page(
     
     tax_desc = taxonomy_descriptions.get(taxonomy_name.lower(), f"All glossary entries classified as metabolic or biological {taxonomy_name}s.")
     
-    cards_html = []
-    for term in sorted(terms):
-        card_html = render_vocab_card(term, vocabulary[term], base_path="")
-        cards_html.append(card_html)
-        
+    # Render active-letter navigation conditionally for larger taxonomy categories (>= 15 terms)
+    show_letter_nav = len(terms) >= 15
+
+    if show_letter_nav:
+        groups: Dict[str, List[str]] = {}
+        for term in sorted(terms):
+            first_letter = term[0].upper() if term else "#"
+            if not first_letter.isalpha():
+                first_letter = "#"
+            if first_letter not in groups:
+                groups[first_letter] = []
+            card_html = render_vocab_card(term, vocabulary[term], base_path="")
+            groups[first_letter].append(card_html)
+
+        nav_links = [f'<a href="#{l.lower()}" class="vocab-nav-link">{l}</a>' for l in sorted(groups.keys())]
+        tax_nav_html = f'<nav class="vocab-nav" aria-label="Alphabetical Index">{"".join(nav_links)}</nav>'
+
+        vocab_sections = []
+        for letter in sorted(groups.keys()):
+            section_html = (
+                f'<section class="vocab-section" id="{letter.lower()}">'
+                f'  <h2 class="vocab-letter-header">{letter}</h2>'
+                f'  <div class="vocab-grid">'
+                f'    {"".join(groups[letter])}'
+                f'  </div>'
+                f'</section>'
+            )
+            vocab_sections.append(section_html)
+        cards_container_html = f'<div class="vocab-container">{"".join(vocab_sections)}</div>'
+    else:
+        tax_nav_html = ""
+        cards_html = [render_vocab_card(term, vocabulary[term], base_path="") for term in sorted(terms)]
+        cards_container_html = f'<div class="vocab-container" style="margin-top: var(--space-3);"><div class="vocab-grid">{"".join(cards_html)}</div></div>'
+
     book_open_svg = (
         '<svg class="page-title-icon" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: var(--space-2); color: var(--accent-synapse);">'
         '  <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>'
@@ -1870,7 +1903,7 @@ def compile_vocabulary_taxonomy_page(
     )
     
     back_link_html = (
-        f'<a href="../vocabulary.html" class="vocab-back-link" style="display: inline-block; margin-bottom: var(--space-2);">'
+        f'<a href="../vocabulary.html" class="vocab-back-link">'
         f'  &larr; Back to Lexicon'
         f'</a>'
     )
@@ -1878,18 +1911,15 @@ def compile_vocabulary_taxonomy_page(
         title=f"Lexicon Taxonomy: {taxonomy_capitalized}",
         description=f"<strong>Definition:</strong> {tax_desc}",
         icon_svg=book_open_svg,
-        extra_controls_html=back_link_html,
+        top_controls_html=back_link_html,
         extra_header_class="vocab-taxonomy-header",
     )
     
     content_html = (
         f'<article class="vocab-taxonomy-page">'
         f'  {header_html}'
-        f'  <div class="vocab-container" style="margin-top: var(--space-3);">'
-        f'    <div class="vocab-grid">'
-        f'      {"".join(cards_html)}'
-        f'    </div>'
-        f'  </div>'
+        f'  {tax_nav_html}'
+        f'  {cards_container_html}'
         f'</article>'
     )
     

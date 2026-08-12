@@ -2256,16 +2256,42 @@ body[data-theme="dark"] .backlog-item.cat-book {
 }
 
 /* Lexicon Taxonomy Filter Pills */
+.vocab-taxonomy-filter-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-top: var(--space-1.5);
+  margin-bottom: var(--space-1);
+  flex-wrap: wrap;
+}
+
+.vocab-tax-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text-ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  flex-shrink: 0;
+}
+
+.vocab-tax-toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
 .vocab-tax-filter-btn {
   font-family: var(--font-body);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 600;
-  padding: 3px 10px;
+  padding: 2px 8px;
   border-radius: var(--radius-pill);
   border: 1px solid var(--border-color);
   background-color: var(--bg-paper);
   color: var(--text-ink-muted);
   cursor: pointer;
+  line-height: 1.3;
   transition: all var(--transition-fast);
 }
 
@@ -2780,17 +2806,18 @@ a.pipeline-badge:hover {
 
 /* Alphabetical Lexicon / Glossary Page Styling */
 .vocab-section {
-  margin-bottom: var(--space-5);
+  margin-bottom: var(--space-3.5);
   animation: slideDown 0.3s ease-out;
+  scroll-margin-top: 52px;
 }
 
 .vocab-letter-header {
   font-family: var(--font-display);
-  font-size: 2.2rem;
+  font-size: 1.5rem;
   color: var(--accent-synapse);
   border-bottom: 2px solid var(--border-color);
-  padding-bottom: var(--space-1);
-  margin-bottom: var(--space-4);
+  padding-bottom: 2px;
+  margin-bottom: var(--space-2.5);
   font-weight: 800;
   transition: color var(--transition-normal), border-bottom-color var(--transition-normal);
 }
@@ -2836,36 +2863,41 @@ a.pipeline-badge:hover {
 /* Sticky Alphabetical Lexicon Navigation */
 .vocab-nav {
   position: sticky;
-  top: -16px;
+  top: 0;
   background-color: var(--sb-bg);
   z-index: 10;
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-1);
-  padding: var(--space-2) 0;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 2px;
+  padding: 6px 0;
   border-bottom: 1px solid var(--border-color);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2.5);
   justify-content: center;
+  align-items: center;
   transition: background-color var(--transition-normal), border-bottom-color var(--transition-normal);
+}
+
+.vocab-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .vocab-nav-link {
   font-weight: 700;
   color: var(--text-ink);
   text-decoration: none;
-  padding: 6px 14px;
+  padding: 3px 7px;
   border-radius: var(--radius-button);
-  font-size: 1.3rem;
+  font-size: 0.85rem;
+  letter-spacing: 0.02em;
   transition: background-color var(--transition-fast), color var(--transition-fast);
+  flex-shrink: 0;
 }
 
 .vocab-nav-link:hover {
   background-color: var(--selected-bg);
   color: var(--accent-synapse);
-}
-
-.vocab-section {
-  scroll-margin-top: 48px;
 }
 
 /* Executive Static Page Layouts */
@@ -3800,7 +3832,7 @@ a.pipeline-badge:hover {
   align-items: center;
   gap: 4px;
   color: var(--accent-synapse);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-1.5);
   text-decoration: none;
 }
 
