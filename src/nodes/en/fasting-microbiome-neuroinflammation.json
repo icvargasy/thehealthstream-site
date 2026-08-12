@@ -2,7 +2,7 @@
   "type": "biology",
   "title": "Fasting, Microbiome Shifts, and Neuroinflammation",
   "hook_question": "Can fasting on alternate days alter your gut bacteria to reduce brain inflammation?",
-  "takeaway_pill": "A 2025 RCT (n=96) shows Alternate Day Fasting improves cognition and reduces neuroinflammation. Fecal transplants into mice confirmed this protection is microbiome-dependent, driving microglial debris clearance and suppressing inflammatory signaling.",
+  "takeaway_pill": "A 2025 RCT shows Alternate Day Fasting improves cognition and reduces brain inflammation via gut bacteria shifts.",
   "epistemic_rating": {
     "grade": "High",
     "rationale": "This grading is supported by a randomized clinical trial (RCT) in human cohorts, combined with causal in vivo verification in rodent models via fecal microbiota transplants (FMT) and ex vivo microglial cytokine assays.",

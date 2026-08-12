@@ -36,7 +36,7 @@
     "id": "luteolin-kynurenine-ahr-axis",
     "title": "Luteolin Gut-Brain Kynurenine Axis",
     "description": "How does dietary luteolin reshape gut microbial tryptophan metabolism to suppress kynurenine-AhR signaling and protect hippocampal mitochondria?",
-    "takeaway_pill": "Dietary luteolin reshapes microbial tryptophan metabolism, suppressing kynurenine-driven AhR signaling and protecting hippocampal mitochondria from high-fat diet oxidative stress.",
+    "takeaway_pill": "Dietary luteolin reshapes gut microbial chemistry, suppressing toxic inflammatory signaling and protecting brain cells from high-fat diet stress.",
     "category": "biology",
     "grade": "Low",
     "votes": 0,
@@ -101,7 +101,7 @@
     "id": "microbiome-creatine-bifidobacterium-axis",
     "title": "Bifidobacterium-Creatine Axis in Brain Bioenergetics",
     "description": "How does Bifidobacterium pseudolongum acetate production drive Slc6a8 histone acetylation to restore intestinal creatine absorption and brain energy?",
-    "takeaway_pill": "Bifidobacterium pseudolongum acetate production upregulates intestinal Slc6a8 transporters via histone acetylation, rescuing systemic creatine absorption and hippocampal energy metabolism.",
+    "takeaway_pill": "Bifidobacterium acetate production boosts intestinal nutrient transporters, rescuing gut absorption and brain energy metabolism.",
     "category": "biology",
     "grade": "Low",
     "votes": 0,
@@ -112,7 +112,7 @@
     ],
     "created_at": "2026-07-23",
     "systems_analogy": "A rail terminal operator installing high-capacity loading cranes to transport raw fuel into central power stations.",
-    "hook_question": "Could the right gut bacteria be the missing link in how your brain gets its energy?"
+    "hook_question": "Can gut bacteria improve how your brain gets energy?"
   },
   {
     "id": "sports-diversity-hormetic-longevity",
@@ -166,7 +166,7 @@
     "id": "exerkine-blood-brain-barrier-signaling",
     "title": "Exerkine Blood-Brain Barrier Signaling",
     "description": "How do muscle-derived secretome factors (exerkines) cross the blood-brain barrier to modulate microglial neuroinflammation and synaptic plasticity?",
-    "takeaway_pill": "Muscle contraction releases systemic exerkines that cross the blood-brain barrier to suppress microglial neuroinflammation and upregulate hippocampal BDNF neuroplasticity.",
+    "takeaway_pill": "Exercise releases chemical signals that cross the blood-brain barrier to calm brain inflammation and boost memory capacity.",
     "category": "biology",
     "grade": "Low",
     "votes": 0,
@@ -193,7 +193,7 @@
     ],
     "created_at": "2026-07-23",
     "systems_analogy": "A high-efficiency turbocharger delivering four times the output per unit of fuel consumed by standard engines.",
-    "hook_question": "Does one minute of intense exercise carry the same metabolic benefit as nine minutes of moderate effort?"
+    "hook_question": "Does one minute of intense exercise equal nine minutes of moderate effort?"
   },
   {
     "id": "advanced-glycation-endproducts-collagen-stiffness",
@@ -249,7 +249,7 @@
     "id": "dietary-cadmium-nephrotoxicity-dmt1-transporters",
     "title": "Dietary Cadmium Nephrotoxicity via Metal Mimicry",
     "description": "How does dietary cadmium hijack divalent metal transporter 1 (DMT1) and ZIP8 receptors to accumulate in proximal renal tubules and trigger oxidative stress?",
-    "takeaway_pill": "Cadmium acts as a molecular mimic to hijack intestinal DMT1 and renal ZIP8 transporters, leading to bioaccumulation in the proximal renal tubules and chronic cellular injury.",
+    "takeaway_pill": "Dietary cadmium hijacks gut transporters to accumulate in kidney tubules, driving chronic cell injury over time.",
     "category": "biology",
     "grade": "Low",
     "votes": 0,
@@ -313,7 +313,7 @@
     "id": "cyclic-sighing-parasympathetic-vagal-tone",
     "title": "Cyclic Sighing Autonomic Vagal Modulation",
     "description": "Does daily cyclic sighing breathwork stimulate parasympathetic vagal output to reduce acute respiratory rates and physiological arousal?",
-    "takeaway_pill": "A 5-minute daily practice of cyclic sighing (double inhale followed by extended exhale) stimulates the vagus nerve to reduce immediate respiratory rates and calm the autonomic system.",
+    "takeaway_pill": "A 5-minute daily practice of cyclic sighing stimulates the vagus nerve to calm the nervous system and lower breathing rate.",
     "category": "lifestyle",
     "grade": "Very Low",
     "votes": 0,
@@ -339,7 +339,7 @@
     ],
     "created_at": "2026-07-23",
     "systems_analogy": "A research foundation testing prototype regional traffic lights to determine which designs prevent city congestion.",
-    "hook_question": "Is there a systematic way to catch the early biological signals of physical frailty before they become visible?"
+    "hook_question": "Can we catch early biological signals of frailty before symptoms show?"
   },
   {
     "id": "dermal-bisphenol-absorption-thermal-receipts",
@@ -388,13 +388,13 @@
     ],
     "created_at": "2026-06-15",
     "systems_analogy": "Chemical waste from gut bacteria damaging cells and triggering early disease growth.",
-    "hook_question": "Why are gut cancers now striking adults under 50 at rates once seen only in the elderly?"
+    "hook_question": "Why are gut cancers striking adults under 50 at record rates?"
   },
   {
     "id": "vitamin-microbiome-bidirectional-loop",
     "title": "Vitamin-Microbiome Bidirectional Loop",
     "description": "How do gut microbial communities synthesize and exchange vitamin cofactors to regulate systemic host metabolism?",
-    "takeaway_pill": "Gut microbes synthesize essential B and K vitamins while dietary vitamins alter microbial diversity. This bidirectional exchange modulates short-chain fatty acid production, mitochondrial bioenergetics, and systemic host metabolic homeostasis.",
+    "takeaway_pill": "Gut microbes produce essential vitamins while dietary nutrients shape microbial balance, stabilizing host energy metabolism.",
     "category": "biology",
     "grade": "Low",
     "votes": 0,
@@ -405,13 +405,13 @@
     ],
     "created_at": "2026-06-15",
     "systems_analogy": "Gut bacteria producing essential vitamins while the body provides a healthy gut environment.",
-    "hook_question": "Are your gut bacteria and your diet quietly shaping each other's chemistry in a feedback loop?"
+    "hook_question": "Do gut bacteria and diet shape each other's chemistry?"
   },
   {
     "id": "periodontal-pathology-and-alzheimers-link",
     "title": "Periodontal Pathology and Alzheimer's Link",
     "description": "Does Porphyromonas gingivalis migration from the gum line to the hippocampus drive amyloid-beta, tau, and ubiquitin neurodegeneration?",
-    "takeaway_pill": "Porphyromonas gingivalis secretes toxic gingipain proteases that breach the blood-brain barrier. Hippocampal pathogen translocation triggers microglial neuroinflammation, tau hyperphosphorylation, and amyloid-beta accumulation, linking chronic periodontitis to Alzheimer's pathology.",
+    "takeaway_pill": "Gum disease bacteria release toxic enzymes that breach the blood-brain barrier, triggering brain inflammation and accelerating Alzheimer's pathology.",
     "category": "biology",
     "grade": "Low",
     "votes": 0,
@@ -427,7 +427,7 @@
     "id": "phytochemical-regulation-of-aging-pathways",
     "title": "Phytochemical Regulation of Aging Pathways",
     "description": "How do dietary plant compounds (xenohormetic signals like sulforaphane, EGCG, and resveratrol) regulate Nrf2, AMPK, and SIRT1 pathways?",
-    "takeaway_pill": "Dietary phytochemicals act as mild xenohormetic stressors, upregulating Nrf2 antioxidant defenses, activating AMPK bioenergetic sensing, and stimulating SIRT1 sirtuin signaling to clear damaged cellular components and retard physiological aging.",
+    "takeaway_pill": "Dietary plant compounds act as mild stressors that activate antioxidant defenses and energy sensors to clean damaged cells.",
     "category": "biology",
     "grade": "Low",
     "votes": 0,
@@ -439,13 +439,13 @@
     ],
     "created_at": "2026-06-15",
     "systems_analogy": "Controlled fire drills in a manufacturing plant that condition emergency response crews for major industrial threats.",
-    "hook_question": "Could plant compounds in everyday food be activating the same cellular defense systems as caloric restriction?"
+    "hook_question": "Can plant compounds activate the same defense systems as fasting?"
   },
   {
     "id": "when-the-body-says-no-summary",
     "title": "When the Body Says No (Gabor Maté)",
     "description": "How does chronic, hidden stress and emotional suppression downregulate immune function and trigger autoimmune and cardiovascular pathologies?",
-    "takeaway_pill": "Dr. Gabor Maté synthesizes clinical evidence demonstrating how chronic emotional suppression overactivates the HPA axis. Persistent cortisol elevation and autonomic strain disinhibit inflammatory pathways, driving autoimmune destruction and cardiovascular damage.",
+    "takeaway_pill": "Chronic emotional stress elevates cortisol and triggers persistent physical inflammation, accelerating tissue damage and heart disease risk.",
     "category": "book",
     "grade": "Very Low",
     "votes": 0,

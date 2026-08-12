@@ -2,7 +2,7 @@
   "type": "biology",
   "title": "Gut Dysbiosis & Microglial Priming in Alzheimer's",
   "hook_question": "Could a damaged gut lining quietly set off the brain inflammation that drives Alzheimer's?",
-  "takeaway_pill": "Preclinical models demonstrate that gut dysbiosis-driven gut barrier leakage enables the systemic translocation of bacterial lipopolysaccharide (LPS), priming microglia via TLR4 receptor activation to accelerate neuroinflammation.",
+  "takeaway_pill": "Gut dysbiosis breaches the intestinal barrier, releasing bacterial toxins that trigger brain inflammation and accelerate Alzheimer's disease.",
   "epistemic_rating": {
     "grade": "Low",
     "rationale": "The evidence is grounded in animal model assays demonstrating gut-to-brain LPS translocation and post-mortem human brain tissue evaluations linking Gram-negative bacterial components to amyloid plaques, though direct in vivo transport kinetics in living human subjects remain correlational.",

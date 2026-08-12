@@ -2,7 +2,7 @@
   "type": "lifestyle",
   "title": "Exercise-Induced Brain Age Reversal (Brain-PAD)",
   "hook_question": "Can a year of regular exercise actually make your brain biologically younger?",
-  "takeaway_pill": "A 12-month RCT showed that consistent aerobic and resistance training (150+ minutes per week) reduces brain-predicted age difference (brain-PAD) by 0.95 to 1.8 years on structural MRI, reversing markers of biological brain aging.",
+  "takeaway_pill": "12 months of consistent exercise reduces structural brain age by 1 to 2 years on quantitative MRI scans.",
   "epistemic_rating": {
     "grade": "Moderate",
     "rationale": "This grading is based on clinical trials measuring brain age gaps (brain-PAD) via machine-learning analysis of structural MRI scans before and after standardized exercise protocols, though long-term clinical dementia prevention endpoints require larger phase 3 cohorts.",

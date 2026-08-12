@@ -24,14 +24,31 @@ Our register is precise and professional (HBR/Toastmasters level), blending rele
 *   **Parallel Structure**: Use rhythmic, measured phrasing (e.g. "rule of three") to give structural weight to conclusions.
     *   *Example*: *"To reset our circadian clock, to stabilize morning glucose, and to protect deep sleep, we must design our interaction with light."*
 
-### 2.4 Unified Systems Analogy Guidelines (Set 1 Standard)
-All systems analogies—whether in article hooks (`systems_analogy_hook`), backlog topics (`systems_analogy`), or lexicon definitions (`vulgarized_analogy`)—must comply with the Set 1 Standard:
-*   **Plain-English Functional Impact First**: Explain what the concept, pathway, or molecule does in vivid, direct human terms understandable to a **14-year-old (Flesch-Kincaid Grade 6–8)**. Focus on human functional meaning rather than literal machine gadgetry.
+### 2.4 The Healthstream Master Copy Standard
+All content generated for **Card Teasers** (backlog proposals & summary decodings) and **Lexicon Entries** must obey the Master Copy Standard:
+
+#### 1. Universal Master Core (Applies to All Copy)
+*   **Adolescent Comprehension Floor (Grade 6–8)**: Understandable instantly to a 14-year-old with zero scientific or engineering background. Speak to an intelligent peer in direct plain English.
 *   **The Double-Jargon Ban**: 
-    *   *No Biological Textbook Jargon*: `macrophage`, `deacetylase`, `phosphorylation`, `transfection`, `microglial`.
-    *   *No Pseudo-Engineering Jargon*: `volumetric`, `throughput`, `municipal security patrol`, `hazmat deployment`, `governor switch`, `infrastructure`.
-*   **Single-Sentence Crispness (Max 15–20 Words)**: Exactly 1 single, punchy sentence. No semicolons, no nested relative clauses.
-*   **Natural Register**: Write with a natural flow (*"The brain's cleanup crew that sweeps up damaged cells..."*). Avoid forcing rigid formulaic prefixes like *"Like a..."* or *"It acts like a..."*.
+    *   *No Biological Textbook Jargon*: `macrophage`, `deacetylase`, `phosphorylation`, `transfection`, `microglial`, `tryptophan`, `AhR`.
+    *   *No Pseudo-Engineering / Research Jargon*: `volumetric`, `throughput`, `municipal security patrol`, `hazmat deployment`, `dose-response`, `non-linear multipliers`, `infrastructure`.
+*   **Single-Sentence Economy**: Exactly 1 single sentence per component.
+*   **Human Functional Impact First**: Focus on real human actions, outcomes, benefits, or risks rather than abstract machine gadgetry or research-speak.
+
+#### 2. Component Scoping & Word-Count Ceilings
+
+##### A. Card Teasers (Backlog Proposals & Summary Decodings)
+*   **Question Hook** (`hook_question`): Curiosity-driven Title. Form: Question (`Can / Does / Could / Why`). Ceiling: **$\leq 15$ words**.
+    *   *Example*: *"Can a year of regular exercise actually make your brain biologically younger?"*
+*   **Systems Analogy** (`systems_analogy_hook` / `systems_analogy`): 1-sentence mental model. Ceiling: **$\leq 20$ words**.
+    *   *Example*: *"A powerful water pump keeping building plumbing clean and flowing at full pressure."*
+*   **Takeaway Pill** (`takeaway_pill`): Evidence-rated clinical trial verdict. Ceiling: **$\leq 25$ words**.
+    *   *Example*: *"12 months of consistent exercise reduces structural brain age by 1 to 2 years on quantitative MRI scans."*
+
+##### B. Lexicon Entries (Vocabulary Definitions)
+*   **Scientific Definition** (`definition`): Objective, HBR-style 1-sentence explanation. Ceiling: **$\leq 20$ words**.
+*   **Systems Analogy** (`vulgarized_analogy`): Plain-English 1-sentence mental model. Ceiling: **$\leq 20$ words**.
+    *   *Example*: *"The brain's cleanup crew that sweeps up damaged cells and keeps the peace."*
 
 ---
 
