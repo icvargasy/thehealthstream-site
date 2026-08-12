@@ -1,7 +1,7 @@
 {
   "healthspan": {
     "definition": "The period of life spent free from chronic disease, disability, and functional decline.",
-    "vulgarized_analogy": "The portion of a vehicle's life where it runs smoothly without engine trouble, rather than just the total years before it goes to the scrap yard.",
+    "vulgarized_analogy": "The years you live feeling healthy, energetic, and active, not just the years on your clock.",
     "taxonomy": "concept",
     "aliases": [
       "health span",
@@ -36,7 +36,7 @@
   },
   "cardiorespiratory fitness": {
     "definition": "The capacity of the respiratory and circulatory systems to supply oxygen to working muscles during sustained exertion (often measured via VO2 max).",
-    "vulgarized_analogy": "The volumetric throughput and pumping capacity of a water cooling system under full engine load.",
+    "vulgarized_analogy": "How efficiently your heart and lungs deliver fuel during a long run.",
     "taxonomy": "concept",
     "aliases": [
       "aerobic base training"
@@ -94,7 +94,7 @@
   },
   "microglia": {
     "definition": "The resident macrophage-like immune cells of the central nervous system, responsible for clearing debris, pruning synapses, and mediating **neuroinflammation**.",
-    "vulgarized_analogy": "A municipal security patrol sweeping cellular debris before panic triggers collateral infrastructure damage.",
+    "vulgarized_analogy": "The brain's cleanup crew that sweeps up damaged cells and keeps the peace.",
     "taxonomy": "organism",
     "aliases": [
       "microglial cells",
@@ -114,7 +114,7 @@
   },
   "neuroinflammation": {
     "definition": "An inflammatory response within the brain or spinal cord, characterized by the activation of **microglia**, release of pro-inflammatory cytokines, and potential synaptic degradation.",
-    "vulgarized_analogy": "A citywide emergency siren and hazmat deployment that blocks major thoroughfares and damages storefronts while hunting down a minor disturbance.",
+    "vulgarized_analogy": "A fire alarm stuck on high volume that starts damaging the building it's trying to protect.",
     "taxonomy": "process",
     "aliases": [
       "brain inflammation",
@@ -173,7 +173,7 @@
   },
   "FMT": {
     "definition": "Fecal Microbiota Transplant; the transfer of a processed **microbiota** ecosystem from a healthy donor into the gastrointestinal tract of a recipient to restore metabolic and immunological homeostasis.",
-    "vulgarized_analogy": "Reseeding a depleted, weed-choked garden bed with rich, organic compost harvested from a flourishing forest ecosystem to restore natural soil health.",
+    "vulgarized_analogy": "Reseeding a weed-choked garden bed with rich organic compost to restore healthy soil balance.",
     "taxonomy": "process",
     "aliases": [
       "fecal microbiota transplant",
@@ -194,7 +194,7 @@
   },
   "cognitive function": {
     "definition": "The neurological processes of memory, attention, executive control, and reasoning, mediated by synaptic density and coordinated brain networks.",
-    "vulgarized_analogy": "The central dispatch office's coordination efficiency, throughput capacity, and retrieval speed under heavy municipal demand.",
+    "vulgarized_analogy": "How smoothly your brain processes thoughts, remembers information, and solves daily problems.",
     "taxonomy": "process",
     "aliases": [
       "cognition",
@@ -255,7 +255,7 @@
   },
   "blood-brain barrier": {
     "definition": "A highly selective semipermeable **membrane** border of endothelial cells that prevents solutes in the circulating blood from non-selectively crossing into the extracellular fluid of the central nervous system.",
-    "vulgarized_analogy": "A high-security customs border control post at an international port that inspects every incoming cargo crate before admitting it to the capital.",
+    "vulgarized_analogy": "A strict security checkpoint at the brain's entrance that lets good nutrients in and keeps toxins out.",
     "taxonomy": "concept",
     "aliases": [
       "BBB",
@@ -483,7 +483,7 @@
   },
   "sulforaphane": {
     "definition": "An **organosulfur** compound found in cruciferous vegetables that acts as a potent indirect **antioxidant** by inducing the **Nrf2** cellular defense **pathway**.",
-    "vulgarized_analogy": "A harmless simulated smoke alarm that triggers municipal fire crews to run comprehensive safety inspections.",
+    "vulgarized_analogy": "A plant compound that turns on your body's natural antioxidant defense system.",
     "taxonomy": "molecule",
     "aliases": [],
     "citations": [
@@ -498,7 +498,7 @@
   },
   "resveratrol": {
     "definition": "A dietary **polyphenol** found in red grape skins that acts as an activator of the **SIRT1** deacetylase, mimicking some **physiological** aspects of caloric restriction.",
-    "vulgarized_analogy": "An emergency governor switch that signals factory managers to accelerate structural maintenance and energy conservation.",
+    "vulgarized_analogy": "A plant polyphenol that signals your cells to enter energy-saving mode.",
     "taxonomy": "molecule",
     "aliases": [],
     "citations": [
@@ -568,7 +568,7 @@
   },
   "autophagy": {
     "definition": "An evolutionary conserved lysosomal **degradation pathway** that recycles damaged **organelles**, **misfolded proteins**, and **intracellular** pathogens to maintain cellular quality control.",
-    "vulgarized_analogy": "A municipal recycling fleet that sweeps through city streets, collecting worn-out vehicles, breaking them down, and repurposing their metal for new builds.",
+    "vulgarized_analogy": "The cell's self-cleaning cycle that recycles old parts to make fresh energy.",
     "taxonomy": "process",
     "aliases": [
       "autophagy",
@@ -768,7 +768,7 @@
   },
   "upregulate": {
     "definition": "The process by which a cell increases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals.",
-    "vulgarized_analogy": "Throttle acceleration; boosting the frequency and throughput of a specific system task.",
+    "vulgarized_analogy": "Increasing the production speed of a specific cellular protein or signal.",
     "taxonomy": "process",
     "aliases": [
       "upregulating",
@@ -806,7 +806,7 @@
   },
   "pathogen": {
     "definition": "Any microorganism (bacteria, virus, fungus, or parasite) capable of causing disease or **chronic** inflammatory damage in a host organism.",
-    "vulgarized_analogy": "An invasive pest species infiltrating municipal water reservoirs to disrupt city operations.",
+    "vulgarized_analogy": "A harmful germ or bacteria that causes disease in the body.",
     "taxonomy": "organism",
     "aliases": [
       "pathogens",
@@ -1039,7 +1039,7 @@
   },
   "organelles": {
     "definition": "Specialized, **membrane**-bound cellular structures (e.g. mitochondria, lysosomes) that perform distinct **metabolism** or structural duties.",
-    "vulgarized_analogy": "Separate hardware sub-units (hard drives, cooling pumps) dedicated to specific infrastructure tasks.",
+    "vulgarized_analogy": "Specialized internal cell parts that handle specific jobs like power generation or waste recycling.",
     "taxonomy": "concept",
     "aliases": [
       "organelle",
@@ -1347,7 +1347,7 @@
   },
   "neurons": {
     "definition": "Electrically excitable cells of the nervous system specialized for receiving, processing, and transmitting information via chemical and electrical signals.",
-    "vulgarized_analogy": "The central dispatch stations and telegraph relays that coordinate municipal traffic and communication.",
+    "vulgarized_analogy": "Specialized nerve cells that transmit electrical signals throughout your brain and body.",
     "taxonomy": "organism",
     "aliases": [
       "neuron",
@@ -2090,7 +2090,7 @@
   },
   "dementia": {
     "definition": "A clinical syndrome characterized by a progressive decline in **cognitive function**, memory, and daily reasoning ability, typically caused by underlying **neurodegeneration**.",
-    "vulgarized_analogy": "A progressive collapse of a city's communication grid, where severed cables isolate municipal districts and erase shared records.",
+    "vulgarized_analogy": "A progressive decline in memory and thinking skills that interferes with daily living.",
     "taxonomy": "condition",
     "aliases": [
       "dementia",

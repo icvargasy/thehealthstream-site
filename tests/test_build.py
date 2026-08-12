@@ -998,8 +998,8 @@ def test_dynamic_analogy_purity_noun_subject_and_3tier_ceilings() -> None:
             if len(alias_clean) > 2 and alias_clean not in ignore_words:
                 dynamic_jargon_terms.add(alias_clean)
 
-    # Additional explicit medical/biological suffix regex
-    bio_suffix_regex = re.compile(r"\b\w+(?:itis|cyte|phage|ase|ome|genic|vascular|tropic|blast|some|emia|pathic)\b", re.IGNORECASE)
+    # Additional explicit medical/biological suffix regex (excluding non-bio everyday words like 'home')
+    bio_suffix_regex = re.compile(r"\b(?!home\b)\w+(?:itis|cyte|phage|ase|ome|genic|vascular|tropic|blast|some|emia|pathic)\b", re.IGNORECASE)
 
     # Imperative / Action verb blacklist at position 0
     bare_action_verb_regex = re.compile(r"^(Restructures|Regulates|Activates|Clears|Triggers|Modulates|Prevents|Reduces|Enhances|Improves|Accelerates|Drives|Inhibits|Promotes|Suppresses|Alters)\b", re.IGNORECASE)

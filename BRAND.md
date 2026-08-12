@@ -24,11 +24,14 @@ Our register is precise and professional (HBR/Toastmasters level), blending rele
 *   **Parallel Structure**: Use rhythmic, measured phrasing (e.g. "rule of three") to give structural weight to conclusions.
     *   *Example*: *"To reset our circadian clock, to stabilize morning glucose, and to protect deep sleep, we must design our interaction with light."*
 
-### 2.3 Relational Authenticity & Empathy (Brené Brown)
-*   **Empathy for Human Friction**: Acknowledge that protocol modifications carry real physical and social friction. Ground mechanical advice in human realities (e.g., emotional cravings during extended fasts or evening blue-light exposure).
-*   **Mechanical Precision**: Use direct, active verbs. Avoid weak helper constructs:
-    *   *Prohibited*: *"AMPK serves to regulate cellular energy."*
-    *   *Approved*: *"AMPK regulates cellular energy."*
+### 2.4 Unified Systems Analogy Guidelines (Set 1 Standard)
+All systems analogies—whether in article hooks (`systems_analogy_hook`), backlog topics (`systems_analogy`), or lexicon definitions (`vulgarized_analogy`)—must comply with the Set 1 Standard:
+*   **Plain-English Functional Impact First**: Explain what the concept, pathway, or molecule does in vivid, direct human terms understandable to a **14-year-old (Flesch-Kincaid Grade 6–8)**. Focus on human functional meaning rather than literal machine gadgetry.
+*   **The Double-Jargon Ban**: 
+    *   *No Biological Textbook Jargon*: `macrophage`, `deacetylase`, `phosphorylation`, `transfection`, `microglial`.
+    *   *No Pseudo-Engineering Jargon*: `volumetric`, `throughput`, `municipal security patrol`, `hazmat deployment`, `governor switch`, `infrastructure`.
+*   **Single-Sentence Crispness (Max 15–20 Words)**: Exactly 1 single, punchy sentence. No semicolons, no nested relative clauses.
+*   **Natural Register**: Write with a natural flow (*"The brain's cleanup crew that sweeps up damaged cells..."*). Avoid forcing rigid formulaic prefixes like *"Like a..."* or *"It acts like a..."*.
 
 ---
 
