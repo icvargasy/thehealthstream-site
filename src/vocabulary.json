@@ -154,7 +154,7 @@
   },
   "Alternate Day Fasting": {
     "definition": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete fasting or severe caloric restriction.",
-    "vulgarized_analogy": "A scheduled shutdown of the system's power grid that forces the engine to burn backup fuel and run self-clean cycles.",
+    "vulgarized_analogy": "A scheduled grid shutdown that forces the engine to burn backup fuel and run self-cleaning cycles.",
     "taxonomy": "process",
     "aliases": [
       "ADF",
@@ -216,7 +216,7 @@
   },
   "homocysteine": {
     "definition": "A sulfur-containing **amino acid** intermediary in folate and methionine **metabolism**, whose accumulation is associated with neurotoxicity, **blood-brain barrier** leakage, and cognitive decline.",
-    "vulgarized_analogy": "A toxic byproduct built up by a congested recycling loop that corrodes the **blood-brain barrier** plumbing and blocks nutrient transport.",
+    "vulgarized_analogy": "A toxic byproduct built up by a congested recycling loop that corrodes structural plumbing and blocks nutrient transport.",
     "taxonomy": "molecule",
     "aliases": [
       "homocysteine levels",
@@ -787,7 +787,7 @@
   },
   "downregulate": {
     "definition": "The process by which a cell decreases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway**.",
-    "vulgarized_analogy": "Throttling down; applying the brakes or reducing task priority to conserve system resources.",
+    "vulgarized_analogy": "Throttling down by applying the brakes or reducing task priority to conserve system resources.",
     "taxonomy": "process",
     "aliases": [
       "downregulating",
@@ -1643,7 +1643,7 @@
   },
   "noxious": {
     "definition": "Physiologically harmful, destructive, or toxic to living cells and tissues.",
-    "vulgarized_analogy": "Corrosive or damaging; introducing voltage overloads or system hazards.",
+    "vulgarized_analogy": "Corrosive or damaging elements that introduce voltage overloads or system hazards.",
     "taxonomy": "concept",
     "aliases": [
       "noxious agents",
@@ -1734,7 +1734,7 @@
   },
   "tau": {
     "definition": "A microtubule-associated protein synthesized in **neurons** that stabilizes axonal structures, whose hyperphosphorylation drives **neurofibrillary** tangles.",
-    "vulgarized_analogy": "The hardware brackets that hold structural framing beams together; if they collapse, they tangle and block the tracks.",
+    "vulgarized_analogy": "Hardware brackets that hold structural framing beams together, which block the tracks if they collapse.",
     "taxonomy": "protein",
     "aliases": [
       "tau protein",
@@ -1817,7 +1817,7 @@
   },
   "randomized controlled trial": {
     "definition": "Randomized Controlled Trial; a gold-standard clinical study design where participants are randomly assigned to either an experimental group or a **placebo**/control group to measure treatment efficacy.",
-    "vulgarized_analogy": "A double-blind agricultural plot test where crop fields are randomly assigned different soil treatments without farmhands knowing which is which.",
+    "vulgarized_analogy": "A blind field test where crop plots are randomly assigned different soil treatments without workers knowing which is which.",
     "taxonomy": "framework",
     "aliases": [
       "rct",
@@ -2181,7 +2181,7 @@
   },
   "brain-PAD": {
     "definition": "Brain-predicted age difference; the gap between an individual's chronological age and their estimated biological brain age derived from structural MRI scans.",
-    "vulgarized_analogy": "The difference between how many miles a car has driven and the actual wear-and-tear condition of its engine components.",
+    "vulgarized_analogy": "The difference between a car's mileage and the actual wear-and-tear condition of its engine.",
     "taxonomy": "concept",
     "aliases": [
       "brain-predicted age difference",
@@ -2240,7 +2240,7 @@
   },
   "continuous glucose monitoring": {
     "definition": "Continuous glucose monitoring (CGM); the tracking of interstitial fluid glucose levels in real-time to observe glycemic variability and patterns of metabolic regulation.",
-    "vulgarized_analogy": "Installing a dashboard pressure gauge that logs real-time water flow rates instead of checking the reservoir level once a day.",
+    "vulgarized_analogy": "A dashboard pressure gauge logging real-time fuel flow rates instead of checking the tank once daily.",
     "taxonomy": "process",
     "aliases": [
       "continuous glucose monitoring",
