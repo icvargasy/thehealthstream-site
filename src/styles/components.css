@@ -4953,3 +4953,63 @@ a.pipeline-badge-link:hover {
   border-color: var(--accent-synapse) !important;
   color: var(--bg-paper) !important;
 }
+
+/* Category Lens List (About Page) */
+.category-lens-list {
+  list-style: none !important;
+  padding-left: 0 !important;
+  margin: var(--space-3) 0 var(--space-4) 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.category-lens-item {
+  list-style: none !important;
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+  line-height: 1.6;
+}
+
+.category-lens-item svg {
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.category-lens-item.cat-biology-lens a {
+  color: var(--cat-biology-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+.category-lens-item.cat-biology-lens a:hover {
+  text-decoration: underline;
+}
+.category-lens-item.cat-biology-lens svg {
+  color: var(--cat-biology-text);
+}
+
+.category-lens-item.cat-lifestyle-lens a {
+  color: var(--cat-lifestyle-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+.category-lens-item.cat-lifestyle-lens a:hover {
+  text-decoration: underline;
+}
+.category-lens-item.cat-lifestyle-lens svg {
+  color: var(--cat-lifestyle-text);
+}
+
+.category-lens-item.cat-book-lens a {
+  color: var(--cat-book-text);
+  font-weight: 700;
+  text-decoration: none;
+}
+.category-lens-item.cat-book-lens a:hover {
+  text-decoration: underline;
+}
+.category-lens-item.cat-book-lens svg {
+  color: var(--cat-book-text);
+}
+
