@@ -6,8 +6,43 @@ systems biology content nodes, glossary definitions, translations, and backlog i
 
 import json
 import os
+import re
 from typing import Any, Dict, List, Set
 from .utils import load_json_file
+
+BARE_ACTION_VERB_REGEX = re.compile(
+    r"^(Restructures|Regulates|Activates|Clears|Triggers|Modulates|Prevents|Reduces|Enhances|Improves|Accelerates|Drives|Inhibits|Promotes|Suppresses|Alters)\b",
+    re.IGNORECASE,
+)
+
+
+def validate_systems_analogy(analogy: str, context: str) -> None:
+    """Validates that a systems analogy complies with the universal Systems Analogy Protocol.
+
+    Enforces:
+        1. Single sentence length constraint (<= 25 words).
+        2. Concrete noun subject (must not start with a bare action verb).
+
+    Args:
+        analogy: The analogy string to validate.
+        context: Description of the calling source (file, term, or item ID).
+
+    Raises:
+        ValueError: If the analogy violates length or grammatical subject constraints.
+    """
+    if not analogy or not isinstance(analogy, str):
+        return
+    text = analogy.strip()
+    words = text.split()
+    if len(words) > 25:
+        raise ValueError(
+            f"Validation Error in {context}: Systems analogy exceeds universal 25-word ceiling ({len(words)} words): '{text}'"
+        )
+    match_verb = BARE_ACTION_VERB_REGEX.match(text)
+    if match_verb:
+        raise ValueError(
+            f"Validation Error in {context}: Systems analogy must start with a concrete noun subject, not bare action verb '{match_verb.group(0)}': '{text}'"
+        )
 
 # Lazily cached tag allowlist — populated on first validation call.
 _VALID_TAGS_CACHE: Set[str] = set()
@@ -187,14 +222,7 @@ def validate_node(node_data: Dict[str, Any], file_path: str) -> None:
     # Validate optional or recommended fields
     systems_analogy = node_data.get("systems_analogy_hook", "")
     if systems_analogy:
-        # Linter check for forbidden technical biological/chemical jargon in analogy blocks
-        forbidden_analogy_jargon = {"phosphorylation", "deacetylase", "transfection", "transducer"}
-        analogy_words = set(systems_analogy.lower().split())
-        forbidden_found = forbidden_analogy_jargon.intersection(analogy_words)
-        if forbidden_found:
-            raise ValueError(
-                f"Validation Error in {file_path}: Systems Analogy contains forbidden technical jargon: {forbidden_found}. Analogies must use everyday accessible mental models."
-            )
+        validate_systems_analogy(systems_analogy, file_path)
 
     # Validate evidence table elements
     for idx, item in enumerate(node_data["evidence_table"]):
@@ -266,6 +294,8 @@ def validate_backlog_item(item_data: Dict[str, Any], item_id: str = "") -> None:
         if val is None or (isinstance(val, str) and not val.strip()):
             raise ValueError(f"Validation Error in Backlog Item '{target_id}': Empty required field '{key}'")
 
+    validate_systems_analogy(item_data["systems_analogy"], f"Backlog Item '{target_id}'")
+
     valid_grades = {"High", "Moderate", "Low", "Very Low"}
     if item_data["grade"] not in valid_grades:
         raise ValueError(
@@ -289,6 +319,10 @@ def validate_vocabulary_item(item_data: Dict[str, Any], term: str) -> None:
     """
     if not isinstance(item_data, dict):
         raise ValueError(f"Validation Error in Vocabulary term '{term}': Entry must be a JSON object")
+
+    vulgarized_analogy = item_data.get("vulgarized_analogy", "")
+    if vulgarized_analogy:
+        validate_systems_analogy(vulgarized_analogy, f"Vocabulary term '{term}'")
 
     status = item_data.get("verification_status")
     if not status or status not in {"verified_human", "ai_generated"}:

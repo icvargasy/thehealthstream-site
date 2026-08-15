@@ -53,7 +53,7 @@
   },
   "GRADE": {
     "definition": "Grading of Recommendations, Assessment, Development, and Evaluation; a standardized framework for rating the quality of scientific evidence from High to Very Low.",
-    "vulgarized_analogy": "An industry inspection framework that rates build quality from precision-certified down to unvetted home assembly.",
+    "vulgarized_analogy": "A standardized rating system that grades medical study evidence from high quality down to very low.",
     "taxonomy": "framework",
     "aliases": [
       "GRADE system",
@@ -154,7 +154,7 @@
   },
   "Alternate Day Fasting": {
     "definition": "A dietary protocol alternating between 24-hour periods of ad libitum eating and 24-hour periods of complete fasting or severe caloric restriction.",
-    "vulgarized_analogy": "A scheduled grid shutdown that forces the engine to burn backup fuel and run self-cleaning cycles.",
+    "vulgarized_analogy": "A diet schedule alternating between normal eating days and fasting days to trigger cell cleanup.",
     "taxonomy": "process",
     "aliases": [
       "ADF",
@@ -173,7 +173,7 @@
   },
   "FMT": {
     "definition": "Fecal Microbiota Transplant; the transfer of a processed **microbiota** ecosystem from a healthy donor into the gastrointestinal tract of a recipient to restore metabolic and immunological homeostasis.",
-    "vulgarized_analogy": "Reseeding a weed-choked garden bed with rich organic compost to restore healthy soil balance.",
+    "vulgarized_analogy": "Transferring healthy donor microbes into a patient gut to restore a balanced bacterial community.",
     "taxonomy": "process",
     "aliases": [
       "fecal microbiota transplant",
@@ -216,7 +216,7 @@
   },
   "homocysteine": {
     "definition": "A sulfur-containing **amino acid** intermediary in **folate** and **vitamin B12** dependent **methionine** **metabolism**, whose accumulation is associated with neurotoxicity, **blood-brain barrier** leakage, and cognitive decline.",
-    "vulgarized_analogy": "A toxic byproduct built up by a congested recycling loop that corrodes structural plumbing and blocks nutrient transport.",
+    "vulgarized_analogy": "An amino acid byproduct that can irritate blood vessels when recycling vitamins run low.",
     "taxonomy": "molecule",
     "aliases": [
       "homocysteine levels",
@@ -235,7 +235,7 @@
   },
   "gut-brain axis": {
     "definition": "The bidirectional **biochemical** communication network linking the gastrointestinal tract and its resident **microbiota** with the central nervous system.",
-    "vulgarized_analogy": "A two-way express shipping highway linking a rural agricultural hub directly with city hall.",
+    "vulgarized_analogy": "A direct two-way communication hotline connecting your gut and your brain.",
     "taxonomy": "process",
     "aliases": [
       "gut-brain",
@@ -255,7 +255,7 @@
   },
   "blood-brain barrier": {
     "definition": "A highly selective semipermeable **membrane** border of endothelial cells that prevents solutes in the circulating blood from non-selectively crossing into the extracellular fluid of the central nervous system.",
-    "vulgarized_analogy": "A strict security checkpoint at the brain's entrance that lets good nutrients in and keeps toxins out.",
+    "vulgarized_analogy": "A strict security checkpoint protecting the brain, letting nutrients in while blocking toxins.",
     "taxonomy": "concept",
     "aliases": [
       "BBB",
@@ -274,7 +274,7 @@
   },
   "microbiota": {
     "definition": "The collective community of microorganisms (bacteria, fungi, archaea, and viruses) residing within a specific ecological niche, such as the human gastrointestinal tract. *Note: While 'microbiota' refers to the physical population of microbes and 'microbiome' refers to their collective genomes and habitat, they are functionally used interchangeably in clinical literature.*",
-    "vulgarized_analogy": "A sprawling internal ecosystem of specialized biological workers processing raw harvests into essential regional nutrients.",
+    "vulgarized_analogy": "A busy community of trillions of helpful bacteria living in your digestive tract.",
     "taxonomy": "organism",
     "aliases": [
       "microbiome",
@@ -296,7 +296,7 @@
   },
   "colorectal cancer": {
     "definition": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts, genotoxic **colibactin**, and **microbiota** mutations.",
-    "vulgarized_analogy": "A catastrophic construction overrun where rogue building crews ignore architectural boundaries, multiplying uncontrollably and destroying surrounding tissue.",
+    "vulgarized_analogy": "An uncontrolled growth of abnormal cells forming tumors in the colon or rectum.",
     "taxonomy": "condition",
     "aliases": [
       "colorectal cancer",
@@ -315,7 +315,7 @@
   },
   "colibactin": {
     "definition": "A genotoxic chemical **metabolite** produced by Escherichia coli strains carrying the *pks* **pathogenicity** island, which induces double-strand **DNA** breaks and mutational signatures in host mucosal cells.",
-    "vulgarized_analogy": "Corrosive shears introduced by invasive pests that slice structural master blueprints on the factory floor, causing defect propagation.",
+    "vulgarized_analogy": "A bacterial toxin that damages cell DNA and increases the risk of colon tumors.",
     "taxonomy": "molecule",
     "aliases": [
       "genotoxic colibactin",
@@ -333,7 +333,7 @@
   },
   "gut dysbiosis": {
     "definition": "An imbalance or maladaptive alteration in the composition, diversity, or functional activity of the gastrointestinal **microbiota**, leading to mucosal barrier degradation and systemic inflammation.",
-    "vulgarized_analogy": "An overgrown farm field where aggressive weeds choke out beneficial crops, disrupting the region's food supply.",
+    "vulgarized_analogy": "An unhealthy imbalance where harmful gut bacteria outnumber the beneficial, protective microbes.",
     "taxonomy": "condition",
     "aliases": [
       "dysbiosis",
@@ -353,7 +353,7 @@
   },
   "folate": {
     "definition": "Vitamin B9; an essential **coenzyme** cofactor in one-carbon **metabolism** synthesized by gut bacteria, critical for **DNA** synthesis, repair, and methylation.",
-    "vulgarized_analogy": "A standardized template stamp used by printing press operators to format and bind new structural pages.",
+    "vulgarized_analogy": "An essential B-vitamin required to make new DNA and build healthy red blood cells.",
     "taxonomy": "molecule",
     "aliases": [
       "vitamin B9",
@@ -371,7 +371,7 @@
   },
   "Vitamin B12": {
     "definition": "Cobalamin; a complex water-soluble vitamin synthesized exclusively by bacteria, acting as a **coenzyme** in **methionine** synthesis and **myelin sheath** maintenance.",
-    "vulgarized_analogy": "A specialized ignition key required to start assembly line generators and maintain insulating sleeves on power transmission lines.",
+    "vulgarized_analogy": "An essential vitamin needed to keep your nerves healthy and produce red blood cells.",
     "taxonomy": "molecule",
     "aliases": [
       "B12",
@@ -391,7 +391,7 @@
   },
   "Porphyromonas gingivalis": {
     "definition": "A gram-negative, **anaerobic** oral **pathogen** and keystone species in chronic **periodontitis**, linked to systemic inflammation and postmortem brain **pathology**.",
-    "vulgarized_analogy": "Invasive pests nesting in peripheral water mains (the gums) and traveling upstream into the city's central water reservoir (the brain).",
+    "vulgarized_analogy": "A harmful mouth bacterium from infected gums that can travel through the bloodstream.",
     "taxonomy": "organism",
     "aliases": [
       "Porphyromonas gingivalis",
@@ -410,7 +410,7 @@
   },
   "gingipains": {
     "definition": "Toxic **cysteine** protease **enzymes** secreted by **Porphyromonas gingivalis** that degrade neuronal **proteins**, trigger **microglia** activation, and drive **tau** **phosphorylation** (targeted by **atuzaginstat**).",
-    "vulgarized_analogy": "Acidic shears secreted by invasive bacteria that slice through structural support cables and dissolve tissue scaffolding.",
+    "vulgarized_analogy": "Toxic bacterial enzymes that chop up healthy tissues and evade the immune system.",
     "taxonomy": "molecule",
     "aliases": [
       "gingipain",
@@ -429,7 +429,7 @@
   },
   "atuzaginstat": {
     "definition": "COR388; an experimental, brain-penetrant small-molecule inhibitor of **Porphyromonas gingivalis** Lys-**gingipains**, developed to block **neurodegeneration** in Alzheimer's.",
-    "vulgarized_analogy": "A custom-fitted safety cap that locks onto bacterial shears, neutralizing their ability to cut structural cables.",
+    "vulgarized_analogy": "An experimental medicine designed to block toxic bacterial enzymes and protect brain tissue.",
     "taxonomy": "molecule",
     "aliases": [
       "atuzaginstat",
@@ -447,7 +447,7 @@
   },
   "all-cause mortality": {
     "definition": "Death from any cause in a population within a specified time period; a primary epidemiologic endpoint.",
-    "vulgarized_analogy": "The total system failure rate across all components, regardless of whether failure started in the engine, wiring, or cooling.",
+    "vulgarized_analogy": "The risk of dying from any medical cause over a given period.",
     "taxonomy": "concept",
     "aliases": [
       "all cause mortality",
@@ -465,7 +465,7 @@
   },
   "xenohormesis": {
     "definition": "The hypothesis that animals have evolved to respond to stress-induced chemical signals synthesized by plants, using them as early warnings to **upregulate** endogenous defense mechanisms.",
-    "vulgarized_analogy": "An early warning radar interface where a device reads distress signals from neighboring units to prepare for incoming environmental load.",
+    "vulgarized_analogy": "How eating stressed plants gives our bodies early chemical cues to activate cellular defenses.",
     "taxonomy": "concept",
     "aliases": [
       "xenohormesis",
@@ -513,7 +513,7 @@
   },
   "EGCG": {
     "definition": "Epigallocatechin gallate; the primary green tea **polyphenol** under investigation for modulating **AMPK** signaling and reducing **oxidative stress**.",
-    "vulgarized_analogy": "An auxiliary throttle that interfaces with cellular energy sensors to stimulate clearing routines.",
+    "vulgarized_analogy": "A green tea compound that activates cellular cleanup and protects cells from stress.",
     "taxonomy": "molecule",
     "aliases": [
       "EGCG",
@@ -531,7 +531,7 @@
   },
   "SIRT1": {
     "definition": "Sirtuin 1; an NAD+-dependent **protein** deacetylase that acts as a key metabolic sensor regulating chromatin silencing, DNA repair, and mitochondrial biogenesis.",
-    "vulgarized_analogy": "A quality-control manager that walks the production line, repairing damaged instructions and shutting down inefficient modules.",
+    "vulgarized_analogy": "A vigilant repair crew fixing damaged parts and turning off wasted energy when food supply is low.",
     "taxonomy": "protein",
     "aliases": [
       "SIRT1",
@@ -550,7 +550,7 @@
   },
   "AMPK": {
     "definition": "AMP-activated **protein** kinase; a conserved master energy sensor that regulates glucose and lipid **metabolism**, and triggers **autophagy** under low energy status.",
-    "vulgarized_analogy": "The master fuel gauge monitoring energy balance and switching factory operations into conservation and cleanup mode.",
+    "vulgarized_analogy": "A phone entering low-power battery saver mode when energy runs low to conserve power and clear junk.",
     "taxonomy": "protein",
     "aliases": [
       "AMP-activated protein kinase",
@@ -568,7 +568,7 @@
   },
   "autophagy": {
     "definition": "An evolutionary conserved lysosomal **degradation pathway** that recycles damaged **organelles**, **misfolded proteins**, and **intracellular** pathogens to maintain cellular quality control.",
-    "vulgarized_analogy": "The cell's self-cleaning cycle that recycles old parts to make fresh energy.",
+    "vulgarized_analogy": "A household recycling routine that clears out broken clutter to make space and fresh supplies.",
     "taxonomy": "process",
     "aliases": [
       "autophagy",
@@ -587,7 +587,7 @@
   },
   "Nrf2": {
     "definition": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **gene expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**.",
-    "vulgarized_analogy": "The master coordinator of emergency response protocols that runs diagnostics and activates anti-corrosion defense shields.",
+    "vulgarized_analogy": "A master smoke alarm switch that turns on all the body natural defense shields against stress.",
     "taxonomy": "protein",
     "aliases": [
       "Nrf2",
@@ -605,7 +605,7 @@
   },
   "protein": {
     "definition": "A large biomolecule composed of one or more **amino acid** chains **folded** into a specific 3D structure that dictates its biological activity.",
-    "vulgarized_analogy": "A specialized machine component manufactured from raw materials according to specific blueprints to perform a physical task.",
+    "vulgarized_analogy": "A specialized molecular tool built according to your genetic instructions to do work in the body.",
     "taxonomy": "molecule",
     "aliases": [
       "proteins",
@@ -623,7 +623,7 @@
   },
   "DNA": {
     "definition": "Deoxyribonucleic acid; the double-stranded helical molecule containing the genetic instructions governing growth, development, and cellular function.",
-    "vulgarized_analogy": "The master architectural vault housing the complete, sealed set of physical blueprints for building and operating the entire city.",
+    "vulgarized_analogy": "The master instruction manual stored in every cell that tells your body how to grow and function.",
     "taxonomy": "molecule",
     "aliases": [
       "deoxyribonucleic acid",
@@ -642,7 +642,7 @@
   },
   "gene expression": {
     "definition": "The multi-step process by which information encoded in a **gene** is synthesized into functional **proteins** or **RNA** products.",
-    "vulgarized_analogy": "Unrolling a specific architectural blueprint on the factory floor to manufacture a specialized structural machine.",
+    "vulgarized_analogy": "Reading a specific genetic recipe and using it to cook a needed protein.",
     "taxonomy": "process",
     "aliases": [
       "protein expression",
@@ -660,7 +660,7 @@
   },
   "pathway": {
     "definition": "A linked series of **biochemical** reactions occurring within a cell, activated by specific triggers to achieve a **physiological** endpoint.",
-    "vulgarized_analogy": "A linked assembly line pipeline that routes raw materials through sequential processing stations to output a finished component.",
+    "vulgarized_analogy": "A step-by-step assembly line where each chemical reaction hands off its product to the next.",
     "taxonomy": "process",
     "aliases": [
       "pathways",
@@ -679,7 +679,7 @@
   },
   "enzymes": {
     "definition": "Biological catalysts (usually **proteins**) that significantly accelerate the rate of specific **biochemical** reactions without being consumed.",
-    "vulgarized_analogy": "High-speed helper tools that clamp components together, making assembly lines run a million times faster.",
+    "vulgarized_analogy": "Specialized helpers that speed up chemical reactions without getting used up themselves.",
     "taxonomy": "molecule",
     "aliases": [
       "enzyme"
@@ -696,7 +696,7 @@
   },
   "metabolite": {
     "definition": "Any small-molecule intermediate or end-product **synthesized** during cellular **metabolism**, acting as energy currency or signaling cofactors.",
-    "vulgarized_analogy": "Fuel packets, exhaust fumes, or message logs released during assembly line activity.",
+    "vulgarized_analogy": "Tiny leftovers or building blocks created whenever your body breaks down food or chemicals.",
     "taxonomy": "molecule",
     "aliases": [
       "metabolites",
@@ -714,7 +714,7 @@
   },
   "physiological": {
     "definition": "Relating to the normal, healthy functioning of living organisms and their organs, tissues, or cells.",
-    "vulgarized_analogy": "Operating within normal hardware specifications and load thresholds.",
+    "vulgarized_analogy": "How your body works when all organs and systems are healthy and balanced.",
     "taxonomy": "concept",
     "aliases": [
       "physiology",
@@ -733,7 +733,7 @@
   },
   "pathology": {
     "definition": "The structural and functional deviations from the normal **physiological** state, characterizing diseases or **chronic** degeneration.",
-    "vulgarized_analogy": "Hardware wear, software corruption, or structural defects that cause system instability.",
+    "vulgarized_analogy": "Damage or disease that disrupts how your body normally functions.",
     "taxonomy": "concept",
     "aliases": [
       "pathologies"
@@ -750,7 +750,7 @@
   },
   "endogenous": {
     "definition": "Originating or **synthesized** internally within an organism, tissue, or cell rather than introduced from an external source.",
-    "vulgarized_analogy": "Native scripts and files hosted locally inside the system, rather than downloaded updates.",
+    "vulgarized_analogy": "Substances made naturally inside your own body rather than absorbed from food or medicine.",
     "taxonomy": "concept",
     "aliases": [
       "endogenous defense",
@@ -824,7 +824,7 @@
   },
   "pathogenicity": {
     "definition": "The qualitative ability of a **pathogen** to infect a host, evade immunological defenses, and cause structural or metabolic damage.",
-    "vulgarized_analogy": "The malicious payload potential or virus capability rating.",
+    "vulgarized_analogy": "The ability of a microbe to infect a host and cause active disease.",
     "taxonomy": "concept",
     "aliases": [
       "pathogenicity island",
@@ -842,7 +842,7 @@
   },
   "anaerobic": {
     "definition": "Relating to, requiring, or living in an environment that is entirely free of oxygen.",
-    "vulgarized_analogy": "Systems optimized to run in oxygen-free vacuum chambers.",
+    "vulgarized_analogy": "Short bursts of high-intensity activity powered without relying on inhaled oxygen.",
     "taxonomy": "concept",
     "aliases": [
       "anaerobe",
@@ -860,7 +860,7 @@
   },
   "periodontitis": {
     "definition": "A **chronic** inflammatory gum disease driven by dysbiotic oral plaque, resulting in **alveolar bone resorption** and systemic bacterial leakage.",
-    "vulgarized_analogy": "Corrosive rust that starts at the peripheral port connectors and degrades the hardware chassis.",
+    "vulgarized_analogy": "A severe gum infection that damages the soft tissue and bone supporting your teeth.",
     "taxonomy": "condition",
     "aliases": [
       "gum disease",
@@ -895,7 +895,7 @@
   },
   "methionine": {
     "definition": "An essential **sulfur**-containing **amino acid** that acts as a fundamental initiator of **protein** translation and a precursor to the universal methyl donor SAM.",
-    "vulgarized_analogy": "The default 'Start' token used to initiate compilation scripts and generate index markers.",
+    "vulgarized_analogy": "An essential building block that acts as the starting piece when building new proteins.",
     "taxonomy": "molecule",
     "aliases": [
       "methionine synthesis",
@@ -913,7 +913,7 @@
   },
   "cysteine": {
     "definition": "A **sulfur**-containing semi-essential **amino acid** critical for **protein folding** via disulfide bonds and a key precursor to the **antioxidant** glutathione.",
-    "vulgarized_analogy": "Specialized structural linkers that weld machinery sections together to prevent folding failure.",
+    "vulgarized_analogy": "An amino acid building block needed to make the body master antioxidant shield.",
     "taxonomy": "molecule",
     "aliases": [
       "cysteine protease"
@@ -930,7 +930,7 @@
   },
   "polyphenol": {
     "definition": "A structurally diverse class of natural plant compounds characterized by multiple **phenol rings**, widely investigated for modulating cellular survival pathways.",
-    "vulgarized_analogy": "Specialized tuning chemicals derived from surrounding botanical systems that clean up cellular circuits.",
+    "vulgarized_analogy": "Natural plant compounds that help protect human cells against oxidation and inflammation.",
     "taxonomy": "molecule",
     "aliases": [
       "polyphenols",
@@ -948,7 +948,7 @@
   },
   "oxidative stress": {
     "definition": "An imbalance between the production of **reactive oxygen species** (ROS) and cellular **antioxidant** defenses, leading to **DNA** damage and **lipid peroxidation**.",
-    "vulgarized_analogy": "Acidic rust accumulation caused by exhaust leakage that corrodes motherboard circuits.",
+    "vulgarized_analogy": "Cellular wear and tear caused by an overload of reactive chemicals damaging cell parts.",
     "taxonomy": "process",
     "aliases": [
       "oxidative damage",
@@ -967,7 +967,7 @@
   },
   "antioxidant": {
     "definition": "A molecule capable of neutralizing **reactive oxygen species** (ROS) and **free radicals**, thereby protecting cellular structures from oxidative degradation.",
-    "vulgarized_analogy": "Anti-rust coating applied to metal components to prevent chemical corrosion.",
+    "vulgarized_analogy": "Protective shields that neutralize harmful reactive chemicals before they can damage cells.",
     "taxonomy": "molecule",
     "aliases": [
       "antioxidants",
@@ -985,7 +985,7 @@
   },
   "organosulfur": {
     "definition": "Organic chemical compounds containing **sulfur** atoms, found in foods like garlic and broccoli, known for inducing cellular defense genes.",
-    "vulgarized_analogy": "A specific class of fire-alarm test chemicals used to trigger security drills.",
+    "vulgarized_analogy": "Pungent compounds found in garlic and onions that activate the body natural antioxidant defenses.",
     "taxonomy": "molecule",
     "aliases": [
       "organosulfur compound"
@@ -1002,7 +1002,7 @@
   },
   "lysosomal": {
     "definition": "Relating to lysosomes; acidic cellular **organelles** containing digestive **enzymes** responsible for degrading and recycling cellular waste.",
-    "vulgarized_analogy": "Acidic incinerator chambers inside the facility designed to break down trash.",
+    "vulgarized_analogy": "The cell stomach compartments that dissolve broken waste into reusable raw materials.",
     "taxonomy": "concept",
     "aliases": [
       "lysosome",
@@ -1020,7 +1020,7 @@
   },
   "degradation pathway": {
     "definition": "A regulated biochemical pipeline (such as **autophagy** or proteasomal clearance) designed to break down damaged **proteins** and **organelles**.",
-    "vulgarized_analogy": "A systematic shredding and salvage pipeline designed to dissolve obsolete modules and reclaim metals.",
+    "vulgarized_analogy": "An organized recycling pipeline that breaks down old, damaged cell parts into fresh raw materials.",
     "taxonomy": "process",
     "aliases": [
       "cellular degradation",
@@ -1058,7 +1058,7 @@
   },
   "misfolded proteins": {
     "definition": "Proteins that have failed to fold into their correct 3D shape, rendering them non-functional and prone to aggregating into toxic clumps that disrupt **cell viability**.",
-    "vulgarized_analogy": "Warped or bent machine parts that fail to fit and jam the conveyor belt, causing system halts.",
+    "vulgarized_analogy": "Twisted or misshapen puzzle pieces that cannot do their job and clutter up the cell.",
     "taxonomy": "molecule",
     "aliases": [
       "misfolded",
@@ -1077,7 +1077,7 @@
   },
   "intracellular": {
     "definition": "Occurring, located, or operating entirely within the boundary of a cell **membrane**.",
-    "vulgarized_analogy": "Internal operations happening inside a secure, closed network container.",
+    "vulgarized_analogy": "Processes and reactions occurring completely inside the walls of a single cell.",
     "taxonomy": "concept",
     "aliases": [
       "intracellular pathogens",
@@ -1096,7 +1096,7 @@
   },
   "Nuclear factor": {
     "definition": "A **DNA**-binding transcription factor **protein** that translocates to the cell **nucleus** to control transcription and coordinate **physiological** adaptations.",
-    "vulgarized_analogy": "A senior manager who enters the master archives room to stamp new production orders.",
+    "vulgarized_analogy": "A protein messenger that enters the cell command center to switch specific genes on or off.",
     "taxonomy": "protein",
     "aliases": [
       "nuclear factor",
@@ -1114,7 +1114,7 @@
   },
   "cytoprotective": {
     "definition": "Physiological processes or compounds that shield cells from **noxious** agents, **oxidative stress**, or **apoptotic** triggers.",
-    "vulgarized_analogy": "Hardening protocols that shield hardware modules from voltage spikes or acid corrosion.",
+    "vulgarized_analogy": "Natural cellular shields that protect your body from stress, toxins, and premature wear.",
     "taxonomy": "concept",
     "aliases": [
       "cytoprotective genes",
@@ -1132,7 +1132,7 @@
   },
   "detoxification": {
     "definition": "The **physiological** conversion and elimination of toxic **endogenous** **metabolites** or **xenobiotic** compounds from cells and tissues.",
-    "vulgarized_analogy": "The purging and flushing of corrosive chemical wastes out of the pipeline network.",
+    "vulgarized_analogy": "The liver and cellular process of neutralizing and removing toxic chemicals from the body.",
     "taxonomy": "process",
     "aliases": [
       "phase II detoxification",
@@ -1150,7 +1150,7 @@
   },
   "amino acid": {
     "definition": "A small organic compound containing both an amino and a carboxyl group, acting as the fundamental monomeric building block of **proteins**.",
-    "vulgarized_analogy": "A single standard hardware bolt or brick used to assemble large machinery systems.",
+    "vulgarized_analogy": "A single standard building block linked together in chains to make proteins.",
     "taxonomy": "molecule",
     "aliases": [
       "amino acids",
@@ -1168,7 +1168,7 @@
   },
   "protein folding": {
     "definition": "The physical process by which a polypeptide chain folds into its functional 3D conformation from its linear **amino acid** sequence.",
-    "vulgarized_analogy": "The automated assembly of a flat blueprint sheet into a fully functional 3D machine component.",
+    "vulgarized_analogy": "The precise 3D origami process where a protein chain folds into its active working shape.",
     "taxonomy": "process",
     "aliases": [
       "folded",
@@ -1187,7 +1187,7 @@
   },
   "RNA": {
     "definition": "Ribonucleic acid; a single-stranded nucleic acid molecule synthesized from **DNA** that acts as a template for **protein** translation.",
-    "vulgarized_analogy": "A working blueprint copy printed from the central vault and carried directly onto the workshop floor to guide component assembly.",
+    "vulgarized_analogy": "A temporary photocopy of a single instruction page used to build a specific cell part.",
     "taxonomy": "molecule",
     "aliases": [
       "ribonucleic acid",
@@ -1207,7 +1207,7 @@
   },
   "biochemical": {
     "definition": "Relating to the chemical processes, compounds, and pathways occurring within living organisms.",
-    "vulgarized_analogy": "Relating to the internal chemical factory operations and fluid dynamics of the system.",
+    "vulgarized_analogy": "Relating to the natural chemical processes and reactions happening inside living organisms.",
     "taxonomy": "concept",
     "aliases": [
       "biochemistry",
@@ -1226,7 +1226,7 @@
   },
   "synthesized": {
     "definition": "The biological or chemical production of complex compounds (such as **proteins** or **metabolites**) from simpler precursors.",
-    "vulgarized_analogy": "Manufactured or assembled on the factory production line.",
+    "vulgarized_analogy": "Built or produced naturally inside the body from simpler raw materials.",
     "taxonomy": "process",
     "aliases": [
       "synthesize",
@@ -1245,7 +1245,7 @@
   },
   "metabolism": {
     "definition": "The complete set of life-sustaining chemical reactions in cells, including catabolism (energy release) and anabolism (molecular synthesis).",
-    "vulgarized_analogy": "The overall power grid and manufacturing economy of the factory floor.",
+    "vulgarized_analogy": "The process of turning the food you eat into fuel to run, think, and grow.",
     "taxonomy": "process",
     "aliases": [
       "metabolic rate",
@@ -1263,7 +1263,7 @@
   },
   "gene": {
     "definition": "A specific sequence of **DNA** nucleotides containing the genetic instructions required to synthesize a single functional **protein** or **RNA** molecule.",
-    "vulgarized_analogy": "A single architectural schematic stored in the central factory blueprint vault.",
+    "vulgarized_analogy": "A single recipe in the cell master cookbook that codes for one specific protein.",
     "taxonomy": "molecule",
     "aliases": [
       "genes"
@@ -1280,7 +1280,7 @@
   },
   "oligodendrocytes": {
     "definition": "Specialized glial cells of the central nervous system that wrap around **axons** to form the insulating **myelin sheath**.",
-    "vulgarized_analogy": "The utility technicians dedicated to wrapping high-speed insulation tape around exposed data lines.",
+    "vulgarized_analogy": "Helper cells that wrap protective insulation around nerve fibers to keep brain signals fast.",
     "taxonomy": "organism",
     "aliases": [
       "oligodendrocyte"
@@ -1297,7 +1297,7 @@
   },
   "axons": {
     "definition": "The long, slender projection of a **neuron** that conducts electrical impulses (action potentials) away from the cell body to target cells.",
-    "vulgarized_analogy": "The primary copper wire leading out of the processor to transmit data to external components.",
+    "vulgarized_analogy": "Long transmission cables that carry electrical messages from one brain cell to another.",
     "taxonomy": "concept",
     "aliases": [
       "axon"
@@ -1314,7 +1314,7 @@
   },
   "microtubule": {
     "definition": "Tubular cytoskeletal structures composed of tubulin dimers, essential for maintaining cell shape, enabling **intracellular** transport, and anchoring **tau**.",
-    "vulgarized_analogy": "The structural metal beams that support the ceiling and serve as tracks for cargo carts.",
+    "vulgarized_analogy": "Tiny structural highway tracks inside cells that support their shape and transport cellular cargo.",
     "taxonomy": "molecule",
     "aliases": [
       "microtubules",
@@ -1332,7 +1332,7 @@
   },
   "cytoskeleton": {
     "definition": "A dynamic network of **protein** filaments (including **microtubules**) that provides structural support, shapes the cell, and facilitates movement.",
-    "vulgarized_analogy": "The structural scaffolding and frame of the building that keeps it from collapsing.",
+    "vulgarized_analogy": "An internal network of support fibers that gives a cell its physical shape and strength.",
     "taxonomy": "concept",
     "aliases": [],
     "citations": [
@@ -1347,7 +1347,7 @@
   },
   "neurons": {
     "definition": "Electrically excitable cells of the nervous system specialized for receiving, processing, and transmitting information via chemical and electrical signals.",
-    "vulgarized_analogy": "Specialized nerve cells that transmit electrical signals throughout your brain and body.",
+    "vulgarized_analogy": "Specialized nerve cells that transmit electrical and chemical messages across your brain and body.",
     "taxonomy": "organism",
     "aliases": [
       "neuron",
@@ -1366,7 +1366,7 @@
   },
   "neurofibrillary": {
     "definition": "Relating to neurofibrillary tangles; pathological aggregates of hyperphosphorylated **tau** **protein** found inside **neurons** in Alzheimer's disease.",
-    "vulgarized_analogy": "A tangled pile of old cable clamps that has collapsed inside the CPU chassis, short-circuiting connections.",
+    "vulgarized_analogy": "Tangled clusters of twisted fibers inside brain cells that disrupt normal cellular messaging.",
     "taxonomy": "condition",
     "aliases": [
       "neurofibrillary tangles",
@@ -1384,7 +1384,7 @@
   },
   "phosphate": {
     "definition": "An inorganic chemical group consisting of a phosphorus atom bonded to four oxygen atoms, utilized to store energy and toggle **protein** activity.",
-    "vulgarized_analogy": "The physical toggle plug used to flip a circuit switch to the active position.",
+    "vulgarized_analogy": "A tiny mineral tag added to proteins to switch their activity on or off.",
     "taxonomy": "molecule",
     "aliases": [
       "phosphate group",
@@ -1402,7 +1402,7 @@
   },
   "covalent": {
     "definition": "A strong chemical bond formed by the sharing of one or more pairs of electrons between atoms.",
-    "vulgarized_analogy": "A heavy-duty weld that permanently fuses two metal components together.",
+    "vulgarized_analogy": "A strong chemical bond where two atoms share electrons to stay tightly linked.",
     "taxonomy": "concept",
     "aliases": [
       "covalent bond",
@@ -1420,7 +1420,7 @@
   },
   "chronic": {
     "definition": "A condition or pathological state that persists over a long period (typically months or years) and is slow to resolve.",
-    "vulgarized_analogy": "A persistent, low-grade background leak that steadily degrades system performance over months.",
+    "vulgarized_analogy": "A long-lasting health condition or symptom that persists over months or years.",
     "taxonomy": "concept",
     "aliases": [
       "chronically",
@@ -1438,7 +1438,7 @@
   },
   "dysbiotic oral plaque": {
     "definition": "A pathological oral biofilm where pathogenic bacteria like **Porphyromonas gingivalis** dominate, triggering periodontal inflammation and tissue destruction.",
-    "vulgarized_analogy": "A colony of corrosive rust-secreting microbes that builds up around port connectors.",
+    "vulgarized_analogy": "A sticky film of harmful bacteria building up on teeth and irritating the gums.",
     "taxonomy": "condition",
     "aliases": [
       "dental plaque",
@@ -1457,7 +1457,7 @@
   },
   "alveolar bone resorption": {
     "definition": "The pathological osteoclast-mediated breakdown and loss of the alveolar jawbone surrounding teeth, driven by **chronic** periodontitis.",
-    "vulgarized_analogy": "The slow corrosion and loss of the mounting brackets holding the data ports in place.",
+    "vulgarized_analogy": "The gradual loss of jawbone tissue that anchors and stabilizes your teeth.",
     "taxonomy": "process",
     "aliases": [
       "bone resorption",
@@ -1476,7 +1476,7 @@
   },
   "catalytic": {
     "definition": "Relating to catalysis; the process of accelerating a chemical reaction rate by lowering the activation energy barrier.",
-    "vulgarized_analogy": "Operating as an efficiency accelerator that speeds up tasks without being consumed.",
+    "vulgarized_analogy": "Helping a chemical reaction happen much faster without being used up in the process.",
     "taxonomy": "concept",
     "aliases": [
       "catalyst",
@@ -1495,7 +1495,7 @@
   },
   "sulfur": {
     "definition": "A chemical element (S) essential for life, acting as a crucial component of **amino acids** (cysteine and methionine) and cofactor structures.",
-    "vulgarized_analogy": "A specialized structural alloy component necessary for heavy-duty welding and energy transfer.",
+    "vulgarized_analogy": "An essential mineral used by cells to build proteins and powerful antioxidant shields.",
     "taxonomy": "molecule",
     "aliases": [
       "sulfur atoms",
@@ -1513,7 +1513,7 @@
   },
   "phenol rings": {
     "definition": "A chemical structure consisting of a hydroxyl group bonded directly to an aromatic benzene ring, found in antioxidants and plant **polyphenols**.",
-    "vulgarized_analogy": "A circular metal shield configuration that absorbs and neutralizes electrical surges before they reach circuits.",
+    "vulgarized_analogy": "A circular chemical structure found in plant antioxidants that absorbs and neutralizes reactive sparks.",
     "taxonomy": "molecule",
     "aliases": [
       "phenol ring",
@@ -1531,7 +1531,7 @@
   },
   "reactive oxygen species": {
     "definition": "Highly reactive oxygen-containing chemicals (such as hydrogen peroxide and superoxide) that can damage DNA, lipids, and **proteins**.",
-    "vulgarized_analogy": "Unstable sparks or chemical exhaust leaks that corrode nearby metal housing and wiring.",
+    "vulgarized_analogy": "Natural chemical exhaust sparks that cause damage if the body cannot clear them fast enough.",
     "taxonomy": "molecule",
     "aliases": [
       "ROS",
@@ -1549,7 +1549,7 @@
   },
   "lipid peroxidation": {
     "definition": "The oxidative degradation of lipids in **membranes**, where **free radicals** abstract electrons from lipids, leading to cell membrane damage.",
-    "vulgarized_analogy": "The chemical corrosion and rusting of the protective outer casing of data cables, leading to short circuits.",
+    "vulgarized_analogy": "Damage to the oily outer layer of cell membranes caused by unmanaged reactive sparks.",
     "taxonomy": "process",
     "aliases": [
       "lipid damage",
@@ -1567,7 +1567,7 @@
   },
   "free radicals": {
     "definition": "Atoms or molecules with an unpaired valence electron, making them highly reactive and capable of inducing oxidative damage.",
-    "vulgarized_analogy": "Loose, highly charged copper wires that flap around, sparking and damaging whatever they touch.",
+    "vulgarized_analogy": "Unstable spark-like particles that bump into cell walls and damage healthy cell components.",
     "taxonomy": "molecule",
     "aliases": [
       "free radical",
@@ -1585,7 +1585,7 @@
   },
   "membrane": {
     "definition": "A selective lipid bilayer boundary wrapping cells and **organelles**, maintaining homeostasis and regulating resource traffic.",
-    "vulgarized_analogy": "The secure perimeter fence wrapping the facility to filter incoming and outgoing traffic.",
+    "vulgarized_analogy": "A protective outer skin wrapping the cell that controls what goes in and out.",
     "taxonomy": "concept",
     "aliases": [
       "cell membrane",
@@ -1607,7 +1607,7 @@
   },
   "cell viability": {
     "definition": "A measure of the proportion of live, healthy, and functionally active cells within a given population.",
-    "vulgarized_analogy": "The health rating indicating the percentage of functional, online server nodes in the system.",
+    "vulgarized_analogy": "The percentage of living, healthy cells actively functioning in a tissue or sample.",
     "taxonomy": "concept",
     "aliases": [
       "cell survival",
@@ -1626,7 +1626,7 @@
   },
   "nucleus": {
     "definition": "The membrane-bound organelle within eukaryotic cells hosting the **DNA** chromosomes and coordinating **gene expression**.",
-    "vulgarized_analogy": "The high-security central archive room housing the master software database.",
+    "vulgarized_analogy": "The cell central command center storing the master genetic instruction manual.",
     "taxonomy": "concept",
     "aliases": [
       "cell nucleus"
@@ -1643,7 +1643,7 @@
   },
   "noxious": {
     "definition": "Physiologically harmful, destructive, or toxic to living cells and tissues.",
-    "vulgarized_analogy": "Corrosive or damaging elements that introduce voltage overloads or system hazards.",
+    "vulgarized_analogy": "Harmful or irritating substances that can injure cells or trigger pain signals.",
     "taxonomy": "concept",
     "aliases": [
       "noxious agents",
@@ -1662,7 +1662,7 @@
   },
   "apoptotic": {
     "definition": "Relating to apoptosis; the programmed cell death pathway that safely eliminates damaged or obsolete cells without causing inflammation.",
-    "vulgarized_analogy": "Relating to the automated, clean self-destruct sequence that shuts down a damaged server without corrupting the network.",
+    "vulgarized_analogy": "A planned, orderly self-cleanup process where damaged or unneeded cells quietly dismantle themselves.",
     "taxonomy": "process",
     "aliases": [
       "apoptosis",
@@ -1680,7 +1680,7 @@
   },
   "xenobiotic": {
     "definition": "A chemical compound (such as a drug, toxin, or pesticide) that is foreign to a biological system and must be neutralized.",
-    "vulgarized_analogy": "An unverified external file format introduced into the network that must be isolated and deleted.",
+    "vulgarized_analogy": "Foreign chemical compounds like drugs, pollutants, or pesticides entering the body from outside.",
     "taxonomy": "molecule",
     "aliases": [
       "xenobiotics",
@@ -1698,7 +1698,7 @@
   },
   "epidemiological studies": {
     "definition": "Research observing the distribution, patterns, and determinants of health and disease conditions in defined populations.",
-    "vulgarized_analogy": "Large-scale telemetry analytics monitoring the crash rates of thousands of hardware units in the field.",
+    "vulgarized_analogy": "Large population health studies tracking how lifestyle patterns influence long-term disease risk.",
     "taxonomy": "framework",
     "aliases": [
       "retrospective cohort study",
@@ -1716,7 +1716,7 @@
   },
   "myelin sheath": {
     "definition": "An insulating layer of lipids and proteins produced by **oligodendrocytes** wrapped around nerve fibers (**axons**) that accelerates action potential propagation.",
-    "vulgarized_analogy": "The rubber insulation wrapped around electrical wires to prevent short circuits and signal loss.",
+    "vulgarized_analogy": "A layer of protective insulation wrapped around nerves that keeps electrical signals traveling fast.",
     "taxonomy": "concept",
     "aliases": [
       "myelin",
@@ -1734,7 +1734,7 @@
   },
   "tau": {
     "definition": "A microtubule-associated protein synthesized in **neurons** that stabilizes axonal structures, whose hyperphosphorylation drives **neurofibrillary** tangles.",
-    "vulgarized_analogy": "Hardware brackets that hold structural framing beams together, which block the tracks if they collapse.",
+    "vulgarized_analogy": "Internal structural ties that keep brain cell tracks straight, causing blockages when tangled.",
     "taxonomy": "protein",
     "aliases": [
       "tau protein",
@@ -1752,7 +1752,7 @@
   },
   "phosphorylation": {
     "definition": "A reversible **biochemical** modification where a **phosphate** group is **covalently** attached to a **protein**, regulating its activity.",
-    "vulgarized_analogy": "Plugging in a physical adapter module that flips a machine's switch to the 'ON' state.",
+    "vulgarized_analogy": "Attaching a tiny chemical tag to a protein to switch its activity on or off.",
     "taxonomy": "process",
     "aliases": [
       "phosphorylated",
@@ -1770,7 +1770,7 @@
   },
   "neurodegeneration": {
     "definition": "The progressive structural and functional loss of **neurons**, culminating in **cognitive function** decline and dementia.",
-    "vulgarized_analogy": "A steady, irreversible breakdown of hardware terminals that causes network slowdown and ultimate failure.",
+    "vulgarized_analogy": "A progressive loss of nerve cells that gradually impairs memory, movement, and thinking.",
     "taxonomy": "condition",
     "aliases": [
       "neurological decline"
@@ -1787,7 +1787,7 @@
   },
   "catabolism": {
     "definition": "The metabolic breakdown of complex molecules into simpler ones, releasing chemical energy (ATP).",
-    "vulgarized_analogy": "Dismantling a complex machine to salvage individual parts and raw energy.",
+    "vulgarized_analogy": "Breaking down stored food and tissues to release energy for your body to use.",
     "taxonomy": "process",
     "aliases": [],
     "citations": [
@@ -1802,7 +1802,7 @@
   },
   "anabolism": {
     "definition": "The metabolic synthesis of complex molecules from simpler precursors, requiring chemical energy input.",
-    "vulgarized_analogy": "Using structural plans and electrical energy to assemble a custom high-tech terminal.",
+    "vulgarized_analogy": "Using energy to build and repair body tissues, muscles, and cellular structures.",
     "taxonomy": "process",
     "aliases": [],
     "citations": [
@@ -1817,7 +1817,7 @@
   },
   "randomized controlled trial": {
     "definition": "Randomized Controlled Trial; a gold-standard clinical study design where participants are randomly assigned to either an experimental group or a **placebo**/control group to measure treatment efficacy.",
-    "vulgarized_analogy": "A blind field test where crop plots are randomly assigned different soil treatments without workers knowing which is which.",
+    "vulgarized_analogy": "A gold-standard medical experiment comparing a treatment group against a control group chosen by chance.",
     "taxonomy": "framework",
     "aliases": [
       "rct",
@@ -1838,7 +1838,7 @@
   },
   "omega-3 fatty acids": {
     "definition": "A family of polyunsaturated fatty acids (including **DHA** and EPA) essential for structural integrity, **membrane** fluidity, and inflammatory modulation.",
-    "vulgarized_analogy": "The high-grade structural building blocks and anti-friction lubricants required to keep the system's wiring flexible and cool.",
+    "vulgarized_analogy": "Essential healthy fats that keep cell walls flexible and reduce inflammation throughout the body.",
     "taxonomy": "molecule",
     "aliases": [
       "omega-3",
@@ -1859,7 +1859,7 @@
   },
   "placebo": {
     "definition": "An inactive substance or procedure designed to mimic the experimental treatment, used as a control in clinical trials to isolate psychological expectation from physical effect.",
-    "vulgarized_analogy": "A dummy fuel additive or inert fluid used during engine testing that flows through pipes without driving combustion.",
+    "vulgarized_analogy": "An inactive sugar pill or sham treatment used in medical trials to test real medicine effects.",
     "taxonomy": "concept",
     "aliases": [
       "placebo group",
@@ -1878,7 +1878,7 @@
   },
   "ATP": {
     "definition": "Adenosine triphosphate; the primary chemical energy currency within cells, synthesized by **mitochondria** to power physiological operations.",
-    "vulgarized_analogy": "The universal electricity grid voltage or battery charge unit required to power every single piece of machinery in the facility.",
+    "vulgarized_analogy": "The universal battery charge unit that powers every single movement and thought in your body.",
     "taxonomy": "molecule",
     "aliases": [
       "adenosine triphosphate",
@@ -1897,7 +1897,7 @@
   },
   "statistical difference": {
     "definition": "A mathematical determination that a measured difference between experimental groups is unlikely to have occurred by random chance, typically denoted by a p-value < 0.05.",
-    "vulgarized_analogy": "An automated error-log filter that separates meaningful server latency spikes from normal baseline background noise.",
+    "vulgarized_analogy": "A mathematical check confirming a real experimental effect rather than pure random chance.",
     "taxonomy": "concept",
     "aliases": [
       "statistical significance",
@@ -1917,7 +1917,7 @@
   },
   "MRI": {
     "definition": "Magnetic Resonance Imaging; a non-invasive medical imaging technique that uses strong magnetic fields and radio waves to generate detailed structural scans of tissues and organs.",
-    "vulgarized_analogy": "A full-disk storage drive diagnostic scan that maps the hardware block structure without needing to open the server chassis.",
+    "vulgarized_analogy": "A magnetic body scanner that takes high-resolution internal pictures without using harmful radiation.",
     "taxonomy": "framework",
     "aliases": [
       "mri",
@@ -1937,7 +1937,7 @@
   },
   "phosphatidylcholine": {
     "definition": "A class of phospholipids incorporating choline, forming a major structural component of cell **membranes** and facilitating lipid transport.",
-    "vulgarized_analogy": "The foundational sheet metal and structural framework used to mount and house electrical circuits in the main server racks.",
+    "vulgarized_analogy": "A primary building block of cell membranes that keeps cellular walls flexible and watertight.",
     "taxonomy": "molecule",
     "aliases": [
       "lecithin",
@@ -1955,7 +1955,7 @@
   },
   "cerebrospinal fluid": {
     "definition": "Cerebrospinal fluid; the clear fluid surrounding the brain and spinal cord, acting as a physical cushion, waste-clearance medium, and biomarker registry.",
-    "vulgarized_analogy": "The liquid coolant loop wrapping the motherboard that absorbs physical shocks and constantly flushes out cellular thermal waste.",
+    "vulgarized_analogy": "A protective liquid cushion that surrounds the brain and washes away daily metabolic waste.",
     "taxonomy": "molecule",
     "aliases": [
       "csf",
@@ -1974,7 +1974,7 @@
   },
   "autoimmune pathology": {
     "definition": "A state of disease where the immune system mistakenly targets and destroys the body's own healthy cells and tissues.",
-    "vulgarized_analogy": "A corrupted firewall security routine that begins classifying internal system data packets as external malicious attacks.",
+    "vulgarized_analogy": "A confused immune system mistakenly attacking the body healthy tissues and organs.",
     "taxonomy": "condition",
     "aliases": [
       "autoimmune disease",
@@ -1995,7 +1995,7 @@
   },
   "amyloid-beta": {
     "definition": "A protein peptide that can accumulate in the brain, forming sticky plaques associated with **neurodegeneration** and Alzheimer's disease progression.",
-    "vulgarized_analogy": "A build-up of industrial dust and slag in the exhaust channels that can clog system ventilation and trigger localized overheating.",
+    "vulgarized_analogy": "Sticky protein clumps that pile up between brain cells and disrupt normal brain communication.",
     "taxonomy": "protein",
     "aliases": [
       "amyloid-beta",
@@ -2015,7 +2015,7 @@
   },
   "NAD+": {
     "definition": "Nicotinamide adenine dinucleotide; an essential coenzyme present in all living cells, acting as a critical electron carrier in metabolic redox reactions and sirtuin activation.",
-    "vulgarized_analogy": "The system's active electron shipping cargo container that moves chemical power cells to the generator turbines.",
+    "vulgarized_analogy": "A reusable chemical delivery shuttle that carries energy packets to fuel cellular engines.",
     "taxonomy": "molecule",
     "aliases": [
       "NAD",
@@ -2034,7 +2034,7 @@
   },
   "kinase": {
     "definition": "An enzyme that catalyzes the transfer of a phosphate group from **ATP** to a specific substrate molecule, acting as a crucial regulator of cellular signaling cascades.",
-    "vulgarized_analogy": "A physical command switch or relay switch that forwards the system toggle state down the communication line.",
+    "vulgarized_analogy": "A molecular light switch that turns target proteins on or off by tagging them.",
     "taxonomy": "protein",
     "aliases": [
       "kinase",
@@ -2054,7 +2054,7 @@
   },
   "VO2 max": {
     "definition": "The maximal rate of oxygen consumption measured during incremental exercise, reflecting aerobic physical fitness and cardiovascular efficiency.",
-    "vulgarized_analogy": "The absolute maximum airflow intake capacity of the engine under full throttle and peak performance load.",
+    "vulgarized_analogy": "The maximum amount of oxygen your body can use during all-out hard physical exercise.",
     "taxonomy": "concept",
     "aliases": [
       "VO2max",
@@ -2090,7 +2090,7 @@
   },
   "dementia": {
     "definition": "A clinical syndrome characterized by a progressive decline in **cognitive function**, memory, and daily reasoning ability, typically caused by underlying **neurodegeneration**.",
-    "vulgarized_analogy": "A progressive decline in memory and thinking skills that interferes with daily living.",
+    "vulgarized_analogy": "A progressive decline in memory and thinking skills that interferes with daily activities and independence.",
     "taxonomy": "condition",
     "aliases": [
       "dementia",
@@ -2108,7 +2108,7 @@
   },
   "stroke volume": {
     "definition": "The volume of blood pumped out of the left ventricle of the heart during a single cardiac contraction.",
-    "vulgarized_analogy": "The liquid volume ejected per stroke cycle of a central hydraulic pump.",
+    "vulgarized_analogy": "The amount of blood your heart pumps out into the body with each single beat.",
     "taxonomy": "concept",
     "aliases": [
       "stroke volume",
@@ -2126,12 +2126,11 @@
   },
   "mitochondria": {
     "definition": "Double-membrane-bound organelles found in most eukaryotic organisms, responsible for generating adenosine triphosphate (**ATP**), which serves as a source of chemical energy.",
-    "vulgarized_analogy": "The cell's local power stations combusting fuel sources to produce standardized energy charge packs.",
+    "vulgarized_analogy": "Tiny rechargeable battery packs inside cells that turn food into instant energy for your body.",
     "taxonomy": "molecule",
     "aliases": [
       "mitochondrion"
     ],
-
     "citations": [
       {
         "text": "Nelson DL, Cox MM. Lehninger Principles of Biochemistry. 8th ed. 2021.",
@@ -2144,7 +2143,7 @@
   },
   "glucotypes": {
     "definition": "Distinct physiological classifications of glucose dynamics and variability based on continuous glucose monitoring data in subclinical populations.",
-    "vulgarized_analogy": "Categorizations of how a vehicle's fuel consumption behaves under different speeds and road conditions.",
+    "vulgarized_analogy": "Personal patterns of how your blood sugar spikes and dips after eating different meals.",
     "taxonomy": "concept",
     "aliases": [
       "glucotype",
@@ -2162,7 +2161,7 @@
   },
   "LPS": {
     "definition": "Lipopolysaccharide; a major component of the outer membrane of Gram-negative bacteria that acts as a potent endotoxin, inducing microglial activation and systemic inflammatory cascades.",
-    "vulgarized_analogy": "Toxic exhaust soot leaking from surrounding factory chimneys that triggers regional security alarms.",
+    "vulgarized_analogy": "Irritating bacterial wall fragments leaking into the bloodstream that trigger inflammatory fire alarms.",
     "taxonomy": "molecule",
     "aliases": [
       "lipopolysaccharide",
@@ -2181,7 +2180,7 @@
   },
   "brain-PAD": {
     "definition": "Brain-predicted age difference; the gap between an individual's chronological age and their estimated biological brain age derived from structural MRI scans.",
-    "vulgarized_analogy": "The difference between a car's mileage and the actual wear-and-tear condition of its engine.",
+    "vulgarized_analogy": "The difference between your actual birthday age and how youthful and sharp your brain scans look.",
     "taxonomy": "concept",
     "aliases": [
       "brain-predicted age difference",
@@ -2200,7 +2199,7 @@
   },
   "short-chain fatty acids": {
     "definition": "Short-chain fatty acids (SCFAs) like acetate, propionate, and butyrate produced by gut microbial fermentation of dietary fibers, acting as signaling molecules that regulate metabolism, barrier integrity, and immune polarization.",
-    "vulgarized_analogy": "Local power grid maintenance signals generated by waste recycling units that help secure external security checkpoints.",
+    "vulgarized_analogy": "Healthy fuel packets produced by friendly gut bacteria that nourish and strengthen your gut lining.",
     "taxonomy": "molecule",
     "aliases": [
       "short-chain fatty acids",
@@ -2222,7 +2221,7 @@
   },
   "TLR4": {
     "definition": "Toll-like receptor 4; a cell-surface pattern recognition receptor that binds to bacterial LPS and triggers the intracellular MyD88/NF-kB pathway, driving inflammatory cytokine expression.",
-    "vulgarized_analogy": "An external alarm sensor on the city wall that alerts the central dispatch room when toxic contaminants touch the barrier.",
+    "vulgarized_analogy": "A tripwire alarm on cell surfaces that alerts the immune system to bacterial invaders.",
     "taxonomy": "protein",
     "aliases": [
       "Toll-like receptor 4",
@@ -2240,7 +2239,7 @@
   },
   "continuous glucose monitoring": {
     "definition": "Continuous glucose monitoring (CGM); the tracking of interstitial fluid glucose levels in real-time to observe glycemic variability and patterns of metabolic regulation.",
-    "vulgarized_analogy": "A dashboard pressure gauge logging real-time fuel flow rates instead of checking the tank once daily.",
+    "vulgarized_analogy": "A wearable sensor tracking real-time blood sugar changes throughout the day and night.",
     "taxonomy": "process",
     "aliases": [
       "continuous glucose monitoring",
@@ -2259,7 +2258,7 @@
   },
   "glycemic variability": {
     "definition": "The rate and magnitude of fluctuations in blood glucose concentrations over a given time interval, serving as a marker of glucose regulation and metabolic stress.",
-    "vulgarized_analogy": "The severity of pressure spikes and drops within a water pipe system over the course of a day.",
+    "vulgarized_analogy": "The up-and-down rollercoaster swings in your blood sugar levels between meals.",
     "taxonomy": "concept",
     "aliases": [
       "glycemic variability",
@@ -2278,7 +2277,7 @@
   },
   "intestinal barrier": {
     "definition": "The mucosal epithelial layer and associated tight junction complexes of the gastrointestinal tract that selectively regulate nutrient absorption while blocking pathogens and macromolecules.",
-    "vulgarized_analogy": "A physical perimeter gate that lets authorized transport trucks enter the compound while keeping external contaminants out.",
+    "vulgarized_analogy": "A single-cell protective wall lining your gut that lets nutrients in while blocking harmful bacteria.",
     "taxonomy": "concept",
     "aliases": [
       "intestinal barrier",

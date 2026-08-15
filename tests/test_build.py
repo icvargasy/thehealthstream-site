@@ -813,7 +813,7 @@ def test_vocabulary_no_adjective_alias_collisions() -> None:
 
 
 def test_vocabulary_analogy_word_ceilings() -> None:
-    """Verifies that all vulgarized analogies in vocabulary.json satisfy 3-Tier word count ceilings."""
+    """Verifies that all vulgarized analogies in vocabulary.json satisfy universal 25-word ceiling."""
     import json
     with open("src/vocabulary.json", "r", encoding="utf-8") as f:
         vocab = json.load(f)
@@ -822,7 +822,7 @@ def test_vocabulary_analogy_word_ceilings() -> None:
         analogy = data.get("vulgarized_analogy", "")
         if analogy:
             word_count = len(analogy.split())
-            assert word_count <= 45, f"Analogy for '{term}' exceeds Level 3 maximum 45-word ceiling ({word_count} words)"
+            assert word_count <= 25, f"Analogy for '{term}' exceeds universal 25-word ceiling ({word_count} words)"
 
 
 def test_accessibility_attributes_compilation() -> None:
@@ -973,14 +973,14 @@ def test_validate_vocabulary_item_ai_generated_default() -> None:
     assert item_data.get("verification_status") == "ai_generated"
 
 
-def test_dynamic_analogy_purity_noun_subject_and_3tier_ceilings() -> None:
-    """Dynamic first-principles enforcer for Systems Analogy Purity across current and future entries.
+def test_dynamic_analogy_purity_noun_subject_and_universal_ceiling() -> None:
+    """Dynamic first-principles enforcer for Systems Analogy Protocol across current and future entries.
 
     Checks:
     1. Zero Biological/Clinical Jargon: Dynamically matches terms/aliases from src/vocabulary.json
        plus biological suffix patterns (-itis, -cyte, -phage, -ase, -ome, -genic, -vascular, -tropic, -blast, -some, -emia).
     2. Explicit Noun Subject: Analogies cannot start with bare action verbs (e.g. Restructures, Activates, Regulates).
-    3. Context-Aware 3-Tier Ceilings: Level 1 (Vocab <= 25 words), Level 2 (Card <= 35 words), Level 3 (Node <= 45 words).
+    3. Universal Ceiling: <= 25 words across vocabulary, backlog cards, and content nodes.
     """
     import glob, json, os, re
 
@@ -1019,9 +1019,9 @@ def test_dynamic_analogy_purity_noun_subject_and_3tier_ceilings() -> None:
         if not analogy:
             continue
 
-        # Ceiling check (Level 2/3 Card/Popover ceiling: <= 35 words)
+        # Ceiling check (Universal ceiling: <= 25 words)
         words = analogy.split()
-        assert len(words) <= 35, f"Node analogy in '{filepath}' exceeds Level 2 ceiling of 35 words ({len(words)} words)"
+        assert len(words) <= 25, f"Node analogy in '{filepath}' exceeds universal ceiling of 25 words ({len(words)} words)"
 
         # Explicit Noun Subject check
         match_verb = bare_action_verb_regex.match(analogy)
@@ -1047,17 +1047,19 @@ def test_dynamic_analogy_purity_noun_subject_and_3tier_ceilings() -> None:
             if not analogy:
                 continue
             words = analogy.split()
-            assert len(words) <= 35, f"Backlog analogy for '{item.get('id')}' exceeds Level 2 ceiling of 35 words ({len(words)} words)"
+            assert len(words) <= 25, f"Backlog analogy for '{item.get('id')}' exceeds universal ceiling of 25 words ({len(words)} words)"
             match_verb = bare_action_verb_regex.match(analogy)
             assert not match_verb, f"Backlog analogy for '{item.get('id')}' starts with bare action verb '{match_verb.group(0)}'"
 
-    # C. Audit Vocabulary Analogies (Level 1 ceiling <= 30 words)
+    # C. Audit Vocabulary Analogies (Universal ceiling <= 25 words)
     for term, data in vocab_data.items():
         v_analogy = data.get("vulgarized_analogy", "").strip()
         if not v_analogy:
             continue
         words = v_analogy.split()
-        assert len(words) <= 30, f"Vocabulary analogy for '{term}' exceeds Level 1 ceiling of 30 words ({len(words)} words)"
+        assert len(words) <= 25, f"Vocabulary analogy for '{term}' exceeds universal ceiling of 25 words ({len(words)} words)"
+        match_verb = bare_action_verb_regex.match(v_analogy)
+        assert not match_verb, f"Vocabulary analogy for '{term}' starts with bare action verb '{match_verb.group(0)}'"
 
 
 def test_full_build_internal_relative_links_and_anchors() -> None:
