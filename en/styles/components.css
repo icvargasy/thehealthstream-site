@@ -4954,62 +4954,124 @@ a.pipeline-badge-link:hover {
   color: var(--bg-paper) !important;
 }
 
+/* Standard unordered lists on static prose pages */
+.static-page .article-body-text ul:not(.category-lens-list) {
+  list-style: disc !important;
+  padding-left: var(--space-4) !important;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin-top: var(--space-2);
+  margin-bottom: var(--space-3);
+}
+
+.static-page .article-body-text ul:not(.category-lens-list) li {
+  list-style: disc !important;
+  line-height: 1.6;
+  padding-left: var(--space-1);
+}
+
+.static-page .article-body-text ul:not(.category-lens-list) li::before {
+  content: none !important;
+}
+
 /* Category Lens List (About Page) */
-.category-lens-list {
+.static-page .article-body-text ul.category-lens-list {
   list-style: none !important;
   padding-left: 0 !important;
   margin: var(--space-3) 0 var(--space-4) 0 !important;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3);
+  display: flex !important;
+  flex-direction: column !important;
+  gap: var(--space-3) !important;
 }
 
-.category-lens-item {
+.static-page .article-body-text ul.category-lens-list li.category-lens-item {
   list-style: none !important;
-  display: flex;
-  align-items: flex-start;
-  gap: var(--space-2);
-  line-height: 1.6;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  gap: var(--space-2) !important;
+  line-height: 1.6 !important;
+  padding-left: 0 !important;
+  margin: 0 !important;
 }
 
-.category-lens-item svg {
-  flex-shrink: 0;
-  margin-top: 3px;
+.static-page .article-body-text ul.category-lens-list li.category-lens-item::before {
+  content: none !important;
+  display: none !important;
 }
 
-.category-lens-item.cat-biology-lens a {
-  color: var(--cat-biology-text);
-  font-weight: 700;
-  text-decoration: none;
-}
-.category-lens-item.cat-biology-lens a:hover {
-  text-decoration: underline;
-}
-.category-lens-item.cat-biology-lens svg {
-  color: var(--cat-biology-text);
+.static-page .article-body-text ul.category-lens-list li.category-lens-item svg {
+  flex-shrink: 0 !important;
+  width: 18px !important;
+  height: 18px !important;
+  margin-top: 4px !important;
+  display: inline-block !important;
 }
 
-.category-lens-item.cat-lifestyle-lens a {
-  color: var(--cat-lifestyle-text);
-  font-weight: 700;
-  text-decoration: none;
-}
-.category-lens-item.cat-lifestyle-lens a:hover {
-  text-decoration: underline;
-}
-.category-lens-item.cat-lifestyle-lens svg {
-  color: var(--cat-lifestyle-text);
+.static-page .article-body-text ul.category-lens-list li.category-lens-item span {
+  flex: 1 1 auto;
 }
 
-.category-lens-item.cat-book-lens a {
-  color: var(--cat-book-text);
-  font-weight: 700;
-  text-decoration: none;
+/* Biology Lens (Light & Base) */
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-biology-lens a.category-lens-title {
+  color: oklch(0.55 0.18 250) !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
 }
-.category-lens-item.cat-book-lens a:hover {
-  text-decoration: underline;
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-biology-lens a.category-lens-title:hover {
+  text-decoration: underline !important;
 }
-.category-lens-item.cat-book-lens svg {
-  color: var(--cat-book-text);
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-biology-lens svg {
+  color: oklch(0.55 0.18 250) !important;
+  stroke: oklch(0.55 0.18 250) !important;
 }
+
+/* Lifestyle Lens (Light & Base) */
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-lifestyle-lens a.category-lens-title {
+  color: oklch(0.45 0.13 140) !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+}
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-lifestyle-lens a.category-lens-title:hover {
+  text-decoration: underline !important;
+}
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-lifestyle-lens svg {
+  color: oklch(0.45 0.13 140) !important;
+  stroke: oklch(0.45 0.13 140) !important;
+}
+
+/* Book Lens (Light & Base) */
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-book-lens a.category-lens-title {
+  color: oklch(0.55 0.12 75) !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+}
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-book-lens a.category-lens-title:hover {
+  text-decoration: underline !important;
+}
+.static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-book-lens svg {
+  color: oklch(0.55 0.12 75) !important;
+  stroke: oklch(0.55 0.12 75) !important;
+}
+
+/* Dark Theme Overrides */
+body[data-theme="dark"] .static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-biology-lens a.category-lens-title,
+body[data-theme="dark"] .static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-biology-lens svg {
+  color: oklch(0.68 0.16 250) !important;
+  stroke: oklch(0.68 0.16 250) !important;
+}
+
+body[data-theme="dark"] .static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-lifestyle-lens a.category-lens-title,
+body[data-theme="dark"] .static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-lifestyle-lens svg {
+  color: oklch(0.65 0.14 140) !important;
+  stroke: oklch(0.65 0.14 140) !important;
+}
+
+body[data-theme="dark"] .static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-book-lens a.category-lens-title,
+body[data-theme="dark"] .static-page .article-body-text ul.category-lens-list li.category-lens-item.cat-book-lens svg {
+  color: oklch(0.70 0.15 75) !important;
+  stroke: oklch(0.70 0.15 75) !important;
+}
+
 
