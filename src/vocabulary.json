@@ -215,7 +215,7 @@
     "verification_status": "verified_human"
   },
   "homocysteine": {
-    "definition": "A sulfur-containing **amino acid** intermediary in folate and methionine **metabolism**, whose accumulation is associated with neurotoxicity, **blood-brain barrier** leakage, and cognitive decline.",
+    "definition": "A sulfur-containing **amino acid** intermediary in **folate** and **vitamin B12** dependent **methionine** **metabolism**, whose accumulation is associated with neurotoxicity, **blood-brain barrier** leakage, and cognitive decline.",
     "vulgarized_analogy": "A toxic byproduct built up by a congested recycling loop that corrodes structural plumbing and blocks nutrient transport.",
     "taxonomy": "molecule",
     "aliases": [
@@ -295,7 +295,7 @@
     "verification_status": "verified_human"
   },
   "colorectal cancer": {
-    "definition": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts and **microbiota** mutations.",
+    "definition": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts, genotoxic **colibactin**, and **microbiota** mutations.",
     "vulgarized_analogy": "A catastrophic construction overrun where rogue building crews ignore architectural boundaries, multiplying uncontrollably and destroying surrounding tissue.",
     "taxonomy": "condition",
     "aliases": [
@@ -409,7 +409,7 @@
     "verification_status": "verified_human"
   },
   "gingipains": {
-    "definition": "Toxic **cysteine** protease **enzymes** secreted by **Porphyromonas gingivalis** that degrade neuronal **proteins**, trigger **microglia** activation, and drive **tau** **phosphorylation**.",
+    "definition": "Toxic **cysteine** protease **enzymes** secreted by **Porphyromonas gingivalis** that degrade neuronal **proteins**, trigger **microglia** activation, and drive **tau** **phosphorylation** (targeted by **atuzaginstat**).",
     "vulgarized_analogy": "Acidic shears secreted by invasive bacteria that slice through structural support cables and dissolve tissue scaffolding.",
     "taxonomy": "molecule",
     "aliases": [
@@ -1715,7 +1715,7 @@
     "verification_status": "verified_human"
   },
   "myelin sheath": {
-    "definition": "An insulating layer of lipids and proteins wrapped around nerve fibers (**axons**) that accelerates action potential propagation.",
+    "definition": "An insulating layer of lipids and proteins produced by **oligodendrocytes** wrapped around nerve fibers (**axons**) that accelerates action potential propagation.",
     "vulgarized_analogy": "The rubber insulation wrapped around electrical wires to prevent short circuits and signal loss.",
     "taxonomy": "concept",
     "aliases": [

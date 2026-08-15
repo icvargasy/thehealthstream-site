@@ -18,7 +18,8 @@ if _TOOLS_DIR not in sys.path:
     sys.path.insert(0, _TOOLS_DIR)
 
 from compiler.reader import load_json_file, load_and_validate_all_nodes, validate_backlog_item
-from compiler.linker import inject_jargon_links, slugify
+from compiler.linker import inject_jargon_links, slugify, build_lexicon_matcher
+from compiler.utils import extract_searchable_text
 from compiler.writer import (
     compile_base_layout,
     compile_feed_page,
@@ -66,57 +67,42 @@ def _build_mentions_map(
         and optionally 'in_pipeline' (bool, True for backlog items).
     """
     mentions: Dict[str, List[Dict[str, Any]]] = {term: [] for term in vocabulary.keys()}
+    global_matcher = build_lexicon_matcher(vocabulary)
 
+    # 1. Article Nodes
     for n in nodes:
-        overview_text = n["reading_modes"]["overview_3min"]
-        deep_dive_text = " ".join([item["body"] for item in n["reading_modes"]["deep_dive"]])
-        combined_text = f"{n['title']} {n['hook_question']} {n['takeaway_pill']} {overview_text} {deep_dive_text}"
-        for term, details in vocabulary.items():
-            phrases_to_check = [term] + details.get("aliases", [])
-            matched = any(
-                re.search(r"(?<![-\w])" + re.escape(phrase) + r"(?![-\w])", combined_text, re.IGNORECASE)
-                for phrase in phrases_to_check
-            )
-            if matched:
-                mentions[term].append({
+        full_text = extract_searchable_text(n)
+        for canonical in global_matcher.search_in_text(full_text):
+            if canonical in mentions:
+                mentions[canonical].append({
                     "title": n["title"],
                     "slug": f"{n['slug']}.html",
-                    "type": n["type"]
+                    "type": n.get("type", "biology"),
                 })
 
+    # 2. Backlog Items
     for item in (backlog or []):
-        combined_text = f"{item['title']} {item['description']}"
-        for term, details in vocabulary.items():
-            phrases_to_check = [term] + details.get("aliases", [])
-            matched = any(
-                re.search(r"(?<![-\w])" + re.escape(phrase) + r"(?![-\w])", combined_text, re.IGNORECASE)
-                for phrase in phrases_to_check
-            )
-            if matched:
-                mentions[term].append({
+        full_text = extract_searchable_text(item)
+        for canonical in global_matcher.search_in_text(full_text):
+            if canonical in mentions:
+                mentions[canonical].append({
                     "title": item["title"],
-                    "slug": f"backlog.html#{item['id']}",
-                    "type": item["category"],
-                    "in_pipeline": True
+                    "slug": f"backlog.html#{item.get('id', '')}",
+                    "type": item.get("category", "biology"),
+                    "in_pipeline": True,
                 })
 
-    # Lexicon-to-lexicon mentions
+    # 3. Lexicon-to-lexicon mentions
     for other_term, other_details in vocabulary.items():
-        combined_text = f"{other_details.get('definition', '')} {other_details.get('vulgarized_analogy', '')}"
-        for term, details in vocabulary.items():
-            if term == other_term:
-                continue
-            phrases_to_check = [term] + details.get("aliases", [])
-            matched = any(
-                re.search(r"(?<![-\w])" + re.escape(phrase) + r"(?![-\w])", combined_text, re.IGNORECASE)
-                for phrase in phrases_to_check
-            )
-            if matched:
-                mentions[term].append({
+        term_matcher = build_lexicon_matcher(vocabulary, exclude_term=other_term)
+        full_text = extract_searchable_text(other_details)
+        for canonical in term_matcher.search_in_text(full_text):
+            if canonical in mentions:
+                mentions[canonical].append({
                     "title": other_term,
                     "slug": f"{slugify(other_term)}.html",
                     "type": "lexicon",
-                    "taxonomy": other_details.get("taxonomy", "concept")
+                    "taxonomy": other_details.get("taxonomy", "concept"),
                 })
 
     return mentions

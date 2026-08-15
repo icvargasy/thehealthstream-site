@@ -1451,6 +1451,95 @@ def test_compile_vocabulary_detail_page_flat_layout() -> None:
     assert "AMPK acts as the central regulator." in compiled
 
 
+def test_morphological_variants_generation() -> None:
+    """Verifies singular, plural, irregular, and hyphen morphological expansions."""
+    from tools.compiler.linker import get_morphological_variants
+
+    # Regular plural/singular derivations
+    assert "metabolic dysregulations" in get_morphological_variants("metabolic dysregulation")
+    assert "metabolic dysregulation" in get_morphological_variants("metabolic dysregulations")
+    assert "oligodendrocyte" in get_morphological_variants("oligodendrocytes")
+    assert "oligodendrocytes" in get_morphological_variants("oligodendrocyte")
+    assert "glucotypes" in get_morphological_variants("glucotype")
+    assert "variabilities" in get_morphological_variants("variability")
+
+    # Irregular derivations
+    assert "dysbioses" in get_morphological_variants("dysbiosis")
+    assert "dysbiosis" in get_morphological_variants("dysbioses")
+    assert "microglial" in get_morphological_variants("microglia")
+    assert "cytoskeletal" in get_morphological_variants("cytoskeleton")
+    assert "xenohormetic" in get_morphological_variants("xenohormesis")
+
+    # Hyphen / space alternates
+    assert "gut-brain axis" in get_morphological_variants("gut brain axis")
+    assert "gut brain axis" in get_morphological_variants("gut-brain axis")
+
+    # Short uppercase acronyms must NOT be stemmed or pluralized
+    assert get_morphological_variants("DNA") == {"DNA"}
+    assert get_morphological_variants("RNA") == {"RNA"}
+    assert get_morphological_variants("GRADE") == {"GRADE"}
+    assert get_morphological_variants("ATP") == {"ATP"}
+
+
+def test_case_sensitive_acronym_isolation() -> None:
+    """Verifies that short uppercase acronyms do not falsely match lowercase words."""
+    from tools.compiler.linker import build_lexicon_matcher
+
+    vocab = {
+        "GRADE": {"definition": "Standardized evidence evaluation framework.", "aliases": []},
+        "healthspan": {"definition": "Period of life spent free from disease.", "aliases": []},
+    }
+    cs_pat, cs_map, ci_pat, ci_map = build_lexicon_matcher(vocab)
+
+    test_text = "We evaluate the evidence grade using standard metrics. We need high GRADE rigor."
+    cs_matches = [m.group(1) for m in cs_pat.finditer(test_text)] if cs_pat else []
+    assert cs_matches == ["GRADE"]
+    assert "grade" not in cs_matches
+
+
+def test_deep_text_harvester_exhaustiveness() -> None:
+    """Ensures nested fields (citations, debate arguments, evidence tables) are captured."""
+    from tools.compiler.utils import extract_searchable_text
+
+    node_payload = {
+        "title": "Sample Study",
+        "reading_modes": {"overview_3min": "Overview text.", "deep_dive": []},
+        "evidence_table": [{"outcome": "Target colibactin reduction observed."}],
+        "epistemic_rating": {
+            "debate_sides": [{"arguments": "Discussing atuzaginstat efficacy."}]
+        }
+    }
+    extracted = extract_searchable_text(node_payload)
+    assert "colibactin" in extracted
+    assert "atuzaginstat" in extracted
+
+
+def test_zero_orphans_without_hardcoded_exemptions() -> None:
+    """Ensures all 124 terms in the live corpus pass consistency audit with zero hardcoded exemptions."""
+    import os
+    from tools.compiler.utils import load_json_file
+    from tools.build import _build_mentions_map
+
+    vocab = load_json_file("src/vocabulary.json")
+    backlog = load_json_file("src/backlog.json", default_empty=[])
+    nodes = []
+    nodes_dir = "src/nodes/en"
+    if os.path.exists(nodes_dir):
+        for f in os.listdir(nodes_dir):
+            if f.endswith(".json"):
+                n = load_json_file(os.path.join(nodes_dir, f))
+                n["slug"] = f.replace(".json", "")
+                nodes.append(n)
+
+    mentions = _build_mentions_map(nodes, backlog, vocab)
+    orphans = [term for term, m_list in mentions.items() if len(m_list) == 0]
+
+    assert len(orphans) == 0, f"Unreferenced orphan terms detected in live corpus: {orphans}"
+    assert len(mentions["metabolic syndrome"]) >= 1
+    assert any("cgm-non-diabetic-glycotypes" in m["slug"] for m in mentions["metabolic syndrome"])
+
+
+
 
 
 

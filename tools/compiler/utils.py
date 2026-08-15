@@ -85,3 +85,32 @@ SYNAPSE_LOGO_SVG = (
     '</svg>'
 )
 
+
+def extract_searchable_text(payload: Any) -> str:
+    """Recursively aggregates all text strings from structured dictionaries and lists.
+
+    Excludes non-content metadata keys such as 'link', 'slug', 'id', 'created_at', 'votes'.
+
+    Args:
+        payload: JSON-like payload (dict, list, string, or primitive).
+
+    Returns:
+        Space-separated aggregated string of all content text.
+    """
+    if isinstance(payload, str):
+        return payload
+    if isinstance(payload, (int, float, bool)):
+        return str(payload)
+    if isinstance(payload, list):
+        return " ".join(extract_searchable_text(item) for item in payload if item)
+    if isinstance(payload, dict):
+        ignored_keys = {"link", "slug", "id", "created_at", "votes", "type", "tag", "taxonomy", "verification_status"}
+        chunks = [
+            extract_searchable_text(v)
+            for k, v in payload.items()
+            if k not in ignored_keys and v
+        ]
+        return " ".join(chunk for chunk in chunks if chunk)
+    return ""
+
+
