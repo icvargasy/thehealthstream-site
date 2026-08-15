@@ -36,10 +36,13 @@ from compiler.writer import (
     generate_search_index,
 )
 
-# Minimum number of backlog records permitted before the build fails.
-# Intent: prevent accidental deletion of backlog data. Update when a deliberate
-# shrink is warranted.
-BACKLOG_FLOOR: int = 28
+# Minimum combined inventory baseline (published content nodes + backlog proposals).
+# Intent: Prevents accidental truncation or bulk deletion of registry data.
+# When a backlog item is published into a node, total inventory stays constant,
+# avoiding manual code updates on publication.
+MIN_TOTAL_INVENTORY: int = 34
+
+
 
 
 def _build_mentions_map(
@@ -155,31 +158,26 @@ def run_build() -> None:
         for item in backlog:
             validate_backlog_item(item, item.get("id", ""))
 
-        # Database Mutation Policy size validation check (fails compile if database shrinks)
-        if len(backlog) < BACKLOG_FLOOR:
-            raise ValueError(
-                f"Build Error: Backlog registry has shrunk to {len(backlog)} records! "
-                f"Expected at least {BACKLOG_FLOOR}. Update BACKLOG_FLOOR if this is intentional."
-            )
+        print("Loading and validating content nodes...")
+        nodes = load_and_validate_all_nodes(nodes_dir)
+        print(f"Loaded {len(nodes)} articles successfully.")
 
+        # Combined Inventory Safeguard (nodes + backlog)
+        total_inventory = len(nodes) + len(backlog)
+        if total_inventory < MIN_TOTAL_INVENTORY:
+            raise ValueError(
+                f"Build Error: Combined content inventory (published nodes + backlog) has shrunk to {total_inventory}! "
+                f"Expected at least {MIN_TOTAL_INVENTORY} items ({len(nodes)} nodes + {len(backlog)} backlog). "
+                f"Update MIN_TOTAL_INVENTORY if this is intentional."
+            )
 
         print("Reading jargon vocabulary...")
         vocabulary = load_json_file(vocabulary_path)
 
         print("Reading tag registry...")
         tags_registry = load_json_file(tags_path)
-    except FileNotFoundError as e:
-        print(f"Error: Required config data file missing: {e}")
-        sys.exit(1)
-    except ValueError as e:
-        print(f"Error: Malformed JSON in configuration data: {e}")
-        sys.exit(1)
 
-    # 2. Ingest and validate all articles
-    try:
-        print("Loading and validating content nodes...")
-        nodes = load_and_validate_all_nodes(nodes_dir)
-        print(f"Loaded {len(nodes)} articles successfully.")
+
     except FileNotFoundError as e:
         print(f"Error: Source nodes directory not found: {e}")
         sys.exit(1)

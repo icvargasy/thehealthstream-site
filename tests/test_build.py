@@ -791,20 +791,25 @@ def test_link_checker_cache() -> None:
 
 
 def test_vocabulary_no_adjective_alias_collisions() -> None:
-    """Verifies that no raw adjective aliases exist in vocabulary.json (Gemini Rule 5.5)."""
+    """Verifies that no raw adjective aliases exist in vocabulary.json dynamically."""
     import json
+    import re
     with open("src/vocabulary.json", "r", encoding="utf-8") as f:
         vocab = json.load(f)
-    
-    forbidden_adjective_aliases = [
-        "microglial", "xenohormetic", "pathological", "metabolic",
-        "oligodendroglial", "axonal", "cytoskeletal", "neuronal",
-        "nuclear", "epidemiological", "neurodegenerative", "catabolic", "anabolic"
-    ]
+
+    # Dynamic adjective suffix pattern (-al, -ic, -ous, -ar, -ary, -ive)
+    adj_suffix_regex = re.compile(r"^[a-z]{5,}(?:al|ic|ous|ar|ary|ive)$", re.IGNORECASE)
+    # Valid single-word noun terms/aliases that happen to match adjective suffixes
+    valid_noun_exceptions = {"chemical", "molecule", "receptor", "factor", "microbiome", "lipophilic", "polyphenol"}
+
     for term, data in vocab.items():
         aliases = [a.lower() for a in data.get("aliases", [])]
-        for forbidden in forbidden_adjective_aliases:
-            assert forbidden not in aliases, f"Forbidden raw adjective alias detected: '{forbidden}' under term '{term}'"
+        for alias in aliases:
+            if " " in alias or alias in valid_noun_exceptions:
+                continue
+            if adj_suffix_regex.match(alias):
+                assert False, f"Forbidden raw adjective alias detected: '{alias}' under term '{term}'"
+
 
 
 def test_vocabulary_analogy_word_ceilings() -> None:

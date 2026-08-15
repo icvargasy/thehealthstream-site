@@ -38,10 +38,10 @@ def load_vocab_jargon() -> Set[str]:
     with open(vocab_path, "r", encoding="utf-8") as f:
         vocab = json.load(f)
 
-    for term_name in vocab:
+    for term_name, details in vocab.items():
         t_clean = term_name.strip()
         t_lower = t_clean.lower()
-        if t_lower in COMMON_EXCLUSIONS:
+        if t_lower in COMMON_EXCLUSIONS or details.get("auto_link") is False:
             continue
 
         # Add uppercase acronyms (AMPK, DHA, SCFA) or long scientific single-words (>= 8 chars)
@@ -49,12 +49,13 @@ def load_vocab_jargon() -> Set[str]:
             jargon_set.add(t_lower)
 
         # Add aliases that fit the same rule
-        for alias in vocab[term_name].get("aliases", []):
+        for alias in details.get("aliases", []):
             a_clean = alias.strip()
             a_lower = a_clean.lower()
             if a_lower not in COMMON_EXCLUSIONS:
                 if a_clean.isupper() or (len(a_clean) >= 8 and " " not in a_clean):
                     jargon_set.add(a_lower)
+
 
     return jargon_set
 
