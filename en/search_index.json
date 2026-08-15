@@ -141,7 +141,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A sulfur-containing **amino acid** intermediary in folate and methionine **metabolism**, whose accumulation is associated with neurotoxicity, **blood-brain barrier** leakage, and cognitive decline."
+    "teaser": "A sulfur-containing **amino acid** intermediary in **folate** and **vitamin B12** dependent **methionine** **metabolism**, whose accumulation is associated with neurotoxicity, **blood-brain barrier** leakage, and cognitive decline."
   },
   {
     "title": "gut-brain axis",
@@ -173,7 +173,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts and **microbiota** mutations."
+    "teaser": "A malignancy originating in the colon or rectum, increasingly observed as sporadic early-onset cases in adults under 50, linked to dietary shifts, genotoxic **colibactin**, and **microbiota** mutations.",
+    "in_pipeline": true
   },
   {
     "title": "colibactin",
@@ -213,7 +214,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A gram-negative, **anaerobic** oral **pathogen** and keystone species in chronic **periodontitis**, linked to systemic inflammation and postmortem brain **pathology**."
+    "teaser": "A gram-negative, **anaerobic** oral **pathogen** and keystone species in chronic **periodontitis**, linked to systemic inflammation and postmortem brain **pathology**.",
+    "in_pipeline": true
   },
   {
     "title": "gingipains",
@@ -221,7 +223,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Toxic **cysteine** protease **enzymes** secreted by **Porphyromonas gingivalis** that degrade neuronal **proteins**, trigger **microglia** activation, and drive **tau** **phosphorylation**."
+    "teaser": "Toxic **cysteine** protease **enzymes** secreted by **Porphyromonas gingivalis** that degrade neuronal **proteins**, trigger **microglia** activation, and drive **tau** **phosphorylation** (targeted by **atuzaginstat**)."
   },
   {
     "title": "atuzaginstat",
@@ -245,7 +247,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The hypothesis that animals have evolved to respond to stress-induced chemical signals synthesized by plants, using them as early warnings to **upregulate** endogenous defense mechanisms."
+    "teaser": "The hypothesis that animals have evolved to respond to stress-induced chemical signals synthesized by plants, using them as early warnings to **upregulate** endogenous defense mechanisms.",
+    "in_pipeline": true
   },
   {
     "title": "sulforaphane",
@@ -280,7 +283,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Sirtuin 1; an NAD+-dependent **protein** deacetylase that acts as a key metabolic sensor regulating chromatin silencing, DNA repair, and mitochondrial biogenesis."
+    "teaser": "Sirtuin 1; an NAD+-dependent **protein** deacetylase that acts as a key metabolic sensor regulating chromatin silencing, DNA repair, and mitochondrial biogenesis.",
+    "in_pipeline": true
   },
   {
     "title": "AMPK",
@@ -288,7 +292,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "AMP-activated **protein** kinase; a conserved master energy sensor that regulates glucose and lipid **metabolism**, and triggers **autophagy** under low energy status."
+    "teaser": "AMP-activated **protein** kinase; a conserved master energy sensor that regulates glucose and lipid **metabolism**, and triggers **autophagy** under low energy status.",
+    "in_pipeline": true
   },
   {
     "title": "autophagy",
@@ -296,7 +301,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An evolutionary conserved lysosomal **degradation pathway** that recycles damaged **organelles**, **misfolded proteins**, and **intracellular** pathogens to maintain cellular quality control."
+    "teaser": "An evolutionary conserved lysosomal **degradation pathway** that recycles damaged **organelles**, **misfolded proteins**, and **intracellular** pathogens to maintain cellular quality control.",
+    "in_pipeline": true
   },
   {
     "title": "Nrf2",
@@ -304,7 +310,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **gene expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**."
+    "teaser": "Nuclear factor erythroid 2-related factor 2; a **Nuclear factor** that coordinates the **gene expression** of **cytoprotective**, **antioxidant**, and phase II **detoxification** **enzymes**.",
+    "in_pipeline": true
   },
   {
     "title": "protein",
@@ -344,7 +351,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Biological catalysts (usually **proteins**) that significantly accelerate the rate of specific **biochemical** reactions without being consumed."
+    "teaser": "Biological catalysts (usually **proteins**) that significantly accelerate the rate of specific **biochemical** reactions without being consumed.",
+    "in_pipeline": true
   },
   {
     "title": "metabolite",
@@ -376,7 +384,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Originating or **synthesized** internally within an organism, tissue, or cell rather than introduced from an external source."
+    "teaser": "Originating or **synthesized** internally within an organism, tissue, or cell rather than introduced from an external source.",
+    "in_pipeline": true
   },
   {
     "title": "upregulate",
@@ -384,7 +393,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The process by which a cell increases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals."
+    "teaser": "The process by which a cell increases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway** in response to external signals.",
+    "in_pipeline": true
   },
   {
     "title": "downregulate",
@@ -425,7 +435,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A **chronic** inflammatory gum disease driven by dysbiotic oral plaque, resulting in **alveolar bone resorption** and systemic bacterial leakage."
+    "teaser": "A **chronic** inflammatory gum disease driven by dysbiotic oral plaque, resulting in **alveolar bone resorption** and systemic bacterial leakage.",
+    "in_pipeline": true
   },
   {
     "title": "coenzyme",
@@ -465,7 +476,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An imbalance between the production of **reactive oxygen species** (ROS) and cellular **antioxidant** defenses, leading to **DNA** damage and **lipid peroxidation**."
+    "teaser": "An imbalance between the production of **reactive oxygen species** (ROS) and cellular **antioxidant** defenses, leading to **DNA** damage and **lipid peroxidation**.",
+    "in_pipeline": true
   },
   {
     "title": "antioxidant",
@@ -473,7 +485,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A molecule capable of neutralizing **reactive oxygen species** (ROS) and **free radicals**, thereby protecting cellular structures from oxidative degradation."
+    "teaser": "A molecule capable of neutralizing **reactive oxygen species** (ROS) and **free radicals**, thereby protecting cellular structures from oxidative degradation.",
+    "in_pipeline": true
   },
   {
     "title": "organosulfur",
@@ -489,7 +502,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Relating to lysosomes; acidic cellular **organelles** containing digestive **enzymes** responsible for degrading and recycling cellular waste."
+    "teaser": "Relating to lysosomes; acidic cellular **organelles** containing digestive **enzymes** responsible for degrading and recycling cellular waste.",
+    "in_pipeline": true
   },
   {
     "title": "degradation pathway",
@@ -665,7 +679,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A strong chemical bond formed by the sharing of one or more pairs of electrons between atoms."
+    "teaser": "A strong chemical bond formed by the sharing of one or more pairs of electrons between atoms.",
+    "in_pipeline": true
   },
   {
     "title": "chronic",
@@ -777,7 +792,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Relating to apoptosis; the programmed cell death pathway that safely eliminates damaged or obsolete cells without causing inflammation."
+    "teaser": "Relating to apoptosis; the programmed cell death pathway that safely eliminates damaged or obsolete cells without causing inflammation.",
+    "in_pipeline": true
   },
   {
     "title": "xenobiotic",
@@ -801,7 +817,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "An insulating layer of lipids and proteins wrapped around nerve fibers (**axons**) that accelerates action potential propagation."
+    "teaser": "An insulating layer of lipids and proteins produced by **oligodendrocytes** wrapped around nerve fibers (**axons**) that accelerates action potential propagation."
   },
   {
     "title": "tau",
@@ -809,7 +825,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A microtubule-associated protein synthesized in **neurons** that stabilizes axonal structures, whose hyperphosphorylation drives **neurofibrillary** tangles."
+    "teaser": "A microtubule-associated protein synthesized in **neurons** that stabilizes axonal structures, whose hyperphosphorylation drives **neurofibrillary** tangles.",
+    "in_pipeline": true
   },
   {
     "title": "phosphorylation",
@@ -930,7 +947,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Nicotinamide adenine dinucleotide; an essential coenzyme present in all living cells, acting as a critical electron carrier in metabolic redox reactions and sirtuin activation."
+    "teaser": "Nicotinamide adenine dinucleotide; an essential coenzyme present in all living cells, acting as a critical electron carrier in metabolic redox reactions and sirtuin activation.",
+    "in_pipeline": true
   },
   {
     "title": "kinase",
@@ -978,7 +996,8 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Double-membrane-bound organelles found in most eukaryotic organisms, responsible for generating adenosine triphosphate (**ATP**), which serves as a source of chemical energy."
+    "teaser": "Double-membrane-bound organelles found in most eukaryotic organisms, responsible for generating adenosine triphosphate (**ATP**), which serves as a source of chemical energy.",
+    "in_pipeline": true
   },
   {
     "title": "glucotypes",

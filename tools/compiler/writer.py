@@ -1498,19 +1498,7 @@ def compile_vocabulary_page(
         The complete HTML string for the glossary page.
     """
     labels = translations.get("en", {})
-    
-    # Use pre-computed mentions if provided (avoids redundant O(N²) scan)
-    if mentions is None:
-        local_mentions: Dict[str, List[Dict[str, str]]] = {term: [] for term in vocabulary.keys()}
-        for n in nodes:
-            overview_text = n["reading_modes"]["overview_3min"]
-            deep_dive_text = " ".join([item["body"] for item in n["reading_modes"]["deep_dive"]])
-            combined_text = f"{n['title']} {n['hook_question']} {n['takeaway_pill']} {overview_text} {deep_dive_text}"
-            for term in vocabulary.keys():
-                pattern = re.compile(r"(?<![-\w])" + re.escape(term) + r"(?![-\w])", re.IGNORECASE)
-                if pattern.search(combined_text):
-                    local_mentions[term].append({"title": n["title"], "slug": f"{n['slug']}.html"})
-        mentions = local_mentions
+    mentions = mentions or {}
 
     # Group cards by alphabetical headers
     groups = {}
@@ -2522,41 +2510,27 @@ def generate_search_index(
         })
 
     # 2. Map glossary terms
+    if mentions is None:
+        from .linker import build_lexicon_matcher
+        from .utils import extract_searchable_text
+        mentions_map = {term: [] for term in vocabulary.keys()}
+        matcher = build_lexicon_matcher(vocabulary)
+        for n in nodes:
+            for canonical in matcher.search_in_text(extract_searchable_text(n)):
+                if canonical in mentions_map:
+                    mentions_map[canonical].append({"title": n["title"], "slug": f"{n['slug']}.html", "type": n.get("type", "biology")})
+        for item in (backlog or []):
+            for canonical in matcher.search_in_text(extract_searchable_text(item)):
+                if canonical in mentions_map:
+                    mentions_map[canonical].append({"title": item["title"], "slug": f"backlog.html#{item.get('id', '')}", "type": item.get("category", "biology"), "in_pipeline": True})
+    else:
+        mentions_map = mentions
+
     for term, details in vocabulary.items():
         term_slug = slugify(term)
-        phrases_to_check = [term] + details.get("aliases", [])
-
-        # Determine mention status from pre-computed map or by scanning locally
-        if mentions is not None:
-            term_mentions = mentions.get(term, [])
-            mentioned_in_nodes = any(not m.get("in_pipeline") for m in term_mentions)
-            mentioned_in_backlog = any(m.get("in_pipeline") for m in term_mentions)
-        else:
-            # Fallback: local O(N²) scan when called without pre-computed map
-            mentioned_in_nodes = False
-            for n in nodes:
-                overview_text = n["reading_modes"]["overview_3min"]
-                deep_dive_text = " ".join([item["body"] for item in n["reading_modes"]["deep_dive"]])
-                combined_text = f"{n['title']} {n['hook_question']} {n['takeaway_pill']} {overview_text} {deep_dive_text}"
-                for phrase in phrases_to_check:
-                    pattern = re.compile(r"(?<![-\w])" + re.escape(phrase) + r"(?![-\w])", re.IGNORECASE)
-                    if pattern.search(combined_text):
-                        mentioned_in_nodes = True
-                        break
-                if mentioned_in_nodes:
-                    break
-
-            mentioned_in_backlog = False
-            if not mentioned_in_nodes and backlog:
-                for item in backlog:
-                    combined_text = f"{item['title']} {item['description']}"
-                    for phrase in phrases_to_check:
-                        pattern = re.compile(r"(?<![-\w])" + re.escape(phrase) + r"(?![-\w])", re.IGNORECASE)
-                        if pattern.search(combined_text):
-                            mentioned_in_backlog = True
-                            break
-                    if mentioned_in_backlog:
-                        break
+        term_mentions = mentions_map.get(term, [])
+        mentioned_in_nodes = any(not m.get("in_pipeline") and m.get("type") != "lexicon" for m in term_mentions)
+        mentioned_in_backlog = any(m.get("in_pipeline") for m in term_mentions)
 
         term_item = {
             "title": term,
@@ -2568,7 +2542,7 @@ def generate_search_index(
         }
         if mentioned_in_backlog and not mentioned_in_nodes:
             term_item["in_pipeline"] = True
-            
+
         index_data.append(term_item)
 
     index_path = os.path.join(output_dir, "search_index.json")
