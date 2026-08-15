@@ -6,43 +6,63 @@ Long-term objectives, roadmap phasing, and validation milestones for the static 
 
 ## 1. Core Mission & Master SSOT Tenets
 
-**The Healthstream** compiles objective, systems-aligned decodings of the underlying feedback loops that govern human health, longevity, daily habits, and scientific literature. Our aim is to present biology, lifestyle protocols, and emerging health research in a precise, non-commercial, and highly accessible format.
+**The Healthstream** compiles objective, systems-aligned decodings of the underlying feedback loops that govern human health, longevity, daily habits, and scientific literature. Our mission is to decode human biology as an interconnected, non-equilibrium thermodynamic system using precise, non-commercial, and highly accessible frameworks.
 
-### Master SSOT Core Tenets
+---
 
-*   **Pillar 1: Epistemic Transparency & GRADE Alignment**:
-    *   Classify all decoded entries into three constructive data confidence tiers: **Consensus Core** (Tier 1: High/Moderate GRADE), **Emerging Frontier** (Tier 2: Low GRADE preliminary human/animal models), and **Exploratory Sandbox** (Tier 3: Very Low GRADE pre-clinical hypotheses).
-    *   Symmetrical Scientific Debates: Require cited opposing perspectives in `epistemic_rating.debate_sides` for lower-tier evidence topics.
-*   **Pillar 2: Category-Tailored Context Mapping**:
-    *   *Biology Nodes*: Trace inputs, cellular transducers, and physiological outcomes where evidence permits.
-    *   *Lifestyle Nodes*: Trace behavioral triggers, physiological adaptations, and functional outcomes.
-    *   *Book Nodes*: Trace core thesis, supporting arguments, and practical implications.
-    *   *Exploratory Sandbox*: Highlight early-stage hypotheses and open research questions transparently.
-*   **Pillar 3: Adolescent Readability Benchmark (Flesch-Kincaid Grade 8–9)**:
-    *   Translate complex mechanisms into familiar everyday mental models (fuel gauges, traffic signals, factory assembly lines) pictureable in < 5 seconds.
-    *   Enforce a **Flesch-Kincaid Grade Level 8–9 (High School / 14–16 Age Literacy)** reading floor for analogy blocks. Biological or chemical textbook jargon (*kinase, phosphorylation, upregulate, transducer*) is strictly forbidden in analogy blocks and reserved exclusively for clinical deep dives.
-    *   *Good vs. Bad Rubric*:
-        *   ❌ **Bad (Jargon Overload)**: *"AMPK suppresses mTORC1 via phosphorylation under low ATP."*
-        *   ✅ **Good (Feynman Mental Model)**: *"Think of AMPK as the cell's main fuel gauge, pausing construction projects when energy reserves drop."*
-*   **Pillar 4: Strategic Monetization & Editorial Independence**:
-    *   *Decoupled Core*: All decoded pathways, jargon definitions, and GRADE evidence reviews remain 100% free, open-access, and paywall-free under Creative Commons/MIT.
-    *   *Strategic Monetization Boundaries*: Future monetization is restricted to value-add utilities (biometric protocol calculators), third-party lab diagnostic referrals, and community supporters (GitHub Sponsors).
-    *   *Mandatory Disclosure*: Editorial choices and evidence grades are 100% decoupled from financial incentives. Any commercial partner or affiliate link carries explicit visual disclosure tags (`[Partner Referral]`).
-*   **Pillar 5: Systems Analogy Rule (3-Element Structural Mapping)**:
-    *   Enforce a mandatory 3-element mapping for all analogy blocks across biological, lifestyle, and frontier entries:
-        `[Target Mechanism/System]` → `[Everyday Systems Parallel]` → `[Behavior / Failure Mode]`.
-    *   Ensure the everyday system is instantly recognizable without domain-specific technical knowledge.
-*   **Pillar 6: Frontier Science & Content Expansion Vision**:
-    *   Expand content reach across three systemic domains: *Biological Pathways*, *Lifestyle Protocols*, and *Frontier / Emerging Science* (pre-clinical longevity research, early human trials, systems biology paradigms).
-    *   Maintain epistemic transparency by dual-tiering graph connections:
-        *   **Tier 1 (Curated / Established)**: Supported by High/Moderate GRADE certainty. Rendered in 1–2 line format with directional badges.
-        *   **Tier 2 (Frontier / Emerging Hypotheses)**: Early-stage research or speculative connections. Rendered as 1-line entries with an `Emerging Hypothesis` tag and an **`Endorse Connection →`** link pre-filling community proposals.
-*   **Zero-Runtime & Zero-Cost Architecture**: Compiles statically to GitHub Pages without server execution. Uses Google Forms/Sheets for background backlog upvoting (`no-cors`) and Giscus for static comments.
-*   **3-Tier Metaphor & Complexity Ceilings**:
-    *   *Level 1 (Single Molecule / State)*: Max 20 words.
-    *   *Level 2 (Dual Interaction / Process)*: Max 35 words (Card teaser ceiling).
-    *   *Level 3 (Multi-System Loop / Disease)*: Max 45 words (Popover ceiling).
-*   **Separation of Concerns**: Strategy and core tenets live here in `mission_and_vision.md` (SSOT). Voice and style live in `BRAND.md`; functional specs and metrics live in `PRODUCT.md`; visual design tokens live in `DESIGN.md`; AI agent rules and compiler build pipelines live in `GEMINI.md`.
+### Part I: The Systems Biology Worldview (The 3 Convergent Hubs)
+
+Our curation is anchored in three first-principles dimensions of living systems. These hubs act as **convergent gravitational centers** for research and related circuit linkages:
+
+```
+┌──────────────────────────────────────────────────────────────────────────────────────────┐
+│                             THE SYSTEMS BIOLOGY TRIUMVIRATE                              │
+├────────────────────────────┬────────────────────────────┬────────────────────────────────┤
+│   HUB 1: BIOENERGETICS     │    HUB 2: CYBERNETICS      │    HUB 3: BOUNDARY DYNAMICS    │
+│   (Energy & Metabolism)    │    (Control & Timing)      │    (Structure & Exchange)      │
+├────────────────────────────┼────────────────────────────┼────────────────────────────────┤
+│ • Endosymbiotic Engine     │ • Biphasic Dynamic Poise   │ • Compartmental Integrity      │
+│ • Mitochondria ⟷ Microb.   │ • Anabolic ⟷ Catabolic     │ • Selective Barrier Defenses   │
+│ • Substrate Flux & Fuel    │ • Circadian Entrainment    │ • Transport & Waste Clearance  │
+└────────────────────────────┴────────────────────────────┴────────────────────────────────┘
+```
+
+1. **Hub 1: Bioenergetics & The Endosymbiotic Engine (Energy & Metabolism)**:
+   - *Core Premise*: Eukaryotic cellular health originates in the 1.5-billion-year metabolic dialogue between our external bacterial ecosystem (the gut microbiome) and our internalized bacterial powerplants (mitochondria).
+   - *Mechanistic Vectors*: Traces fuel substrate selection (glucose, fatty acids, ketones), microbial postbiotic signaling (SCFAs, Urolithin A), electron transport efficiency, and mitochondrial quality control (mitophagy).
+2. **Hub 2: Cybernetics & Dynamic Poise (Control, Timing & Biphasic Balance)**:
+   - *Core Premise*: Biological resilience is not a static maximum, but the capacity to oscillate smoothly between mutually inhibitory physiological states.
+   - *Mechanistic Vectors*: Traces the balance between **Anabolism** (growth, mTOR, cellular construction) and **Catabolism** (autophagy, AMPK, proteostatic clearance), reinforced by circadian light-dark entrainment and hormetic recovery intervals.
+3. **Hub 3: Compartmental Integrity & Boundary Dynamics (Structure & Waste Clearance)**:
+   - *Core Premise*: Multicellular longevity depends on defending selective physical compartments and maintaining continuous fluid transport to prevent toxic accumulation.
+   - *Mechanistic Vectors*: Traces mucosal and endothelial barrier integrity (gut epithelium, blood-brain barrier), active fluid clearance mechanisms (glymphatic slow-wave flushing, microvascular perfusion, lymphatic drainage), and the cellular response to environmental xenobiotics.
+
+---
+
+### Part II: The 3 Experiential Navigational Lenses (Content Categories)
+
+Our library organizes entries across three intuitive experiential categories, representing different "Zoom Levels" into the systems biology framework:
+
+* **Books & Meta-Theory (Macro Paradigm / Gold Border)**: Synthesis of foundational scientific books, evolutionary medicine frameworks, and systems biology paradigms.
+* **Lifestyle Practices (Human Agency / Sage Border)**: Actionable behavioral triggers, sleep schedules, exercise modalities, and somatic habits that stimulate physiological adaptations.
+* **Biological Mechanisms (Cellular Transducers / Rose Border)**: Deep decodings of intracellular signaling cascades, enzymatic loops, and receptor-level molecular circuits.
+
+---
+
+### Part III: Epistemic & Interface Standards
+
+* **Pillar 4: Epistemic Stratification & GRADE Alignment**:
+  - Classify all decoded entries into three constructive confidence tiers: **Consensus Core** (Tier 1: High/Moderate GRADE), **Emerging Frontier** (Tier 2: Low GRADE preliminary human/animal models), and **Exploratory Sandbox** (Tier 3: Very Low GRADE pre-clinical hypotheses).
+  - *Symmetrical Debates*: Require cited opposing perspectives in `epistemic_rating.debate_sides` for lower-tier evidence topics.
+* **Pillar 5: Everyday Lived-Experience Mental Model Benchmark**:
+  - Enforce a **Flesch-Kincaid Grade Level 8–9 (14–16 Age Literacy)** comprehension floor for all top-level card summaries and analogy blocks.
+  - Enforce the **Universal Systems Analogy Protocol**: Exactly 1 sentence, $\le 25$ words, concrete noun subject, grounded in familiar 14yo lived experiences (kitchens, bicycles, garden hoses, backpacks, phones), with zero biological, chemical, or engineering jargon.
+* **Pillar 6: Complete Editorial Decoupling & Open-Access Commons**:
+  - All decoded pathways, evidence ratings, and vocabulary definitions remain 100% free, open-access, and paywall-free under Creative Commons.
+  - Editorial curation choices are strictly decoupled from commercial affiliations or sponsored product promotions.
+
+### Separation of Concerns
+Strategy and master tenets live in `mission_and_vision.md` (SSOT). Voice and style live in `BRAND.md`; functional specs and metrics live in `PRODUCT.md`; visual design tokens live in `DESIGN.md`; AI agent rules and compiler build pipelines live in `GEMINI.md`.
 
 ---
 

@@ -2,12 +2,12 @@
 
 ## 1. Core Brand & Systems Biology Philosophy
 
-Our core systems biology tenets, communication rules (measured rhetoric paired with relational storytelling), visual asset guidelines, and monetization boundaries are fully defined in **[BRAND.md](file:///c:/Users/varga/thehealthstream/BRAND.md)**. 
+Our core systems biology tenets, communication rules (measured rhetoric paired with relational storytelling), visual asset guidelines, and monetization boundaries are fully defined in **[BRAND.md](file:///c:/Users/varga/thehealthstream/BRAND.md)** and **[mission_and_vision.md](file:///c:/Users/varga/thehealthstream/mission_and_vision.md)**. 
 
 ### Design Identity Integration
 Our visual identity is anchored in the **Synapse & Ink Strategy** (coral/rose accents against deep slate-charcoal and warm alabaster backgrounds) detailed in **[DESIGN.md](file:///c:/Users/varga/thehealthstream/DESIGN.md)**.
 
-*   **Anti-patterns**: Avoid generic healthcare/SaaS blue; avoid clickbait/sensationalized headlines; avoid over-rounding (>12px card corners); never use placeholder text or mock metrics.
+*   **Design Values**: Employ bespoke literary typography (`Fraunces` headings, `DM Sans` body), high-contrast accessible palettes, refined geometric containers (8–12px radius), and rigorous empirical data from primary scientific literature.
 
 ---
 
