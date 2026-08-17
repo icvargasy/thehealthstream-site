@@ -190,10 +190,11 @@ def render_related_circuits_section(
 ) -> str:
     """Renders the humanized Systems Connections section on article detail pages.
 
-    Uses a strict 3-Node Triad architecture (Upstream, Downstream, Parallel) with
-    curiosity-first Hook Question card headlines, formal topic subtitles, GRADE
-    evidence badges, bespoke lifecycle state icons, and dedicated 14yo lived-experience
-    Relational Bridge analogy boxes.
+    Uses Option A: A flat, rhythmic stream of cards mirroring the native Feed/Backlog
+    card design (category-colored kicker, serif hook question title, transparent
+    direction/category/evidence pills, signature inline connection analogy block,
+    rich domain tag & date footer metadata, and standardized action buttons).
+    Inline header CTA maximizes visibility and saves vertical space.
 
     Args:
         node: Target node dictionary.
@@ -214,6 +215,9 @@ def render_related_circuits_section(
             "type": n.get("type", "biology"),
             "grade": n.get("epistemic_rating", {}).get("grade", "High"),
             "analogy": n.get("systems_analogy_hook", "") or n.get("takeaway_pill", ""),
+            "tags": n.get("tags", []),
+            "created_at": n.get("created_at", "2026-06-01"),
+            "updated_at": n.get("updated_at", "2026-06-01"),
         }
         for n in nodes
     }
@@ -221,10 +225,13 @@ def render_related_circuits_section(
         b["id"]: {
             "title": b.get("title", b["id"].replace("-", " ").title()),
             "hook_question": b.get("hook_question") or b.get("description", b.get("title", "")),
+            "description": b.get("description", ""),
             "type": b.get("category", "biology"),
             "grade": b.get("grade", "Low"),
             "analogy": b.get("systems_analogy", "") or b.get("takeaway_pill", ""),
             "votes": b.get("votes", 0),
+            "tags": b.get("tags", []),
+            "created_at": b.get("created_at", "2026-07-23"),
         }
         for b in (backlog or [])
     }
@@ -278,13 +285,28 @@ def render_related_circuits_section(
         }
     }
 
-    dir_blocks = []
-    for dir_key, items in grouped.items():
+    git_branch_svg = (
+        '<svg class="pipeline-icon-svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
+        '  <line x1="6" y1="3" x2="6" y2="15"></line>'
+        '  <circle cx="18" cy="6" r="3"></circle>'
+        '  <circle cx="6" cy="18" r="3"></circle>'
+        '  <path d="M18 9a9 9 0 0 1-9 9"></path>'
+        '</svg>'
+    )
+
+    ai_spark_svg = (
+        '<svg class="ai-suggested-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 3px; display: inline-block;">'
+        '  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>'
+        '</svg>'
+    )
+
+    all_cards_html = []
+    for dir_key in ("upstream", "downstream", "similar"):
+        items = grouped.get(dir_key, [])
         if not items:
             continue
 
         dir_info = direction_labels[dir_key]
-        item_html_list = []
 
         for item in items:
             target_slug = item.get("target", "")
@@ -301,11 +323,17 @@ def render_related_circuits_section(
                 target_type = item.get("category") or target_info["type"]
                 target_grade = item.get("grade") or target_info["grade"]
                 target_url = f"{base_path}{target_slug}.html"
-                target_analogy = target_info.get("analogy", "")
+                card_tags = item.get("tags") or target_info.get("tags", [])
+                date_meta_html = (
+                    f'<div class="card-meta-dates">'
+                    f'  <span>Created: {target_info.get("created_at", "2026-06-01")}</span>'
+                    f'</div>'
+                )
                 lifecycle_tier = "decoded"
+                card_container_class = f"feed-card cat-{target_type} connection-card tier-decoded"
                 lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-decoded">{STATE_DECODED_SVG} Decoded</span>'
                 action_btn_html = (
-                    f'<a href="{target_url}" class="connection-action-btn read-article-btn">'
+                    f'<a href="{target_url}" class="read-article-btn">'
                     f'  <span>Read Summary</span>'
                     f'  <span>&rarr;</span>'
                     f'</a>'
@@ -313,17 +341,32 @@ def render_related_circuits_section(
             elif is_in_pipeline:
                 target_info = backlog_map[target_slug]
                 target_title = item.get("title") or target_info["title"]
-                hook_question = item.get("hook_question") or target_info["hook_question"]
+                raw_hook = item.get("hook_question") or target_info["hook_question"]
+                if not raw_hook or raw_hook.strip().lower() == target_title.strip().lower():
+                    raw_hook = target_info.get("description", raw_hook)
+                hook_question = raw_hook
                 target_type = item.get("category") or target_info["type"]
                 target_grade = item.get("grade") or target_info["grade"]
                 target_url = f"{base_path}backlog.html#{target_slug}"
-                target_analogy = target_info.get("analogy", "")
+                card_tags = item.get("tags") or target_info.get("tags", [])
+                date_meta_html = (
+                    f'<div class="card-meta-dates">'
+                    f'  <span>Proposed: {target_info.get("created_at", "2026-07-23")}</span>'
+                    f'</div>'
+                )
                 lifecycle_tier = "pipeline"
-                lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-pipeline">{STATE_PIPELINE_SVG} In Pipeline</span>'
+                card_container_class = f"feed-card pipeline-card-merged cat-{target_type} connection-card tier-pipeline"
+                lifecycle_badge = (
+                    f'<a href="{target_url}" class="pipeline-badge pipeline-badge-link">'
+                    f'  {git_branch_svg} In the Pipeline'
+                    f'</a>'
+                )
                 action_btn_html = (
-                    f'<button type="button" class="connection-action-btn backlog-votes" '
-                    f'data-id="{target_slug}" data-title="{target_title}" data-category="{target_type}" data-base-votes="{target_info.get("votes", 0)}">'
-                    f'  <span class="vote-arrow">▲</span> <span class="vote-count">Upvote</span>'
+                    f'<button class="backlog-votes vote-cta-btn" '
+                    f'data-base-votes="{target_info.get("votes", 0)}" data-id="{target_slug}" aria-label="Upvote topic proposal">'
+                    f'  <span class="upvote-icon">▲</span>'
+                    f'  <span class="vote-label">Upvote</span>'
+                    f'  <span class="vote-count">({target_info.get("votes", 0)})</span>'
                     f'</button>'
                 )
             else:
@@ -332,96 +375,115 @@ def render_related_circuits_section(
                 target_type = item.get("category") or "biology"
                 target_grade = item.get("grade") or "Very Low"
                 target_url = f"{base_path}submit-proposal.html?source={node_slug}&target={target_slug}&type={dir_key}"
-                target_analogy = item.get("target_analogy", "")
+                card_tags = item.get("tags", [target_type, "longevity"])
+                date_meta_html = (
+                    f'<div class="card-meta-dates" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">'
+                    f'  <span class="ai-suggested-tag">{ai_spark_svg}AI Suggested</span>'
+                    f'  <span>&bull;</span>'
+                    f'  <span>Proposed: 2026-08-17</span>'
+                    f'</div>'
+                )
                 lifecycle_tier = "frontier"
+                card_container_class = f"feed-card cat-{target_type} connection-card tier-frontier"
                 lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-frontier">{STATE_FRONTIER_SVG} AI Proposed Loop</span>'
                 action_btn_html = (
-                    f'<button type="button" class="connection-action-btn frontier-support-btn" '
+                    f'<button type="button" class="frontier-support-btn" '
                     f'data-id="{target_slug}" data-title="{target_title}" data-category="{target_type}" data-source="{node_slug}">'
                     f'  <span class="support-plus">+</span> <span class="support-text">Support Pathway</span>'
                     f'</button>'
                 )
 
             evidence_badge_html = render_evidence_tier_badge(target_grade)
-            cat_badge_html = f'<a href="{base_path}category-{target_type}.html" class="category-lens-badge cat-{target_type}">{target_type.upper()}</a>'
+            target_type_label = target_type.upper()
+            if target_type == "lifestyle":
+                target_type_label = "LIFESTYLE PRACTICES"
+            elif target_type == "biology":
+                target_type_label = "BIOLOGICAL MECHANISM"
+            elif target_type == "book":
+                target_type_label = "BOOK SYNTHESIS"
 
-            # Relational Bridge Box (The Connection) - Primary Epistemic Link
-            bridge_html = ""
+            cat_badge_html = f'<a href="{base_path}category-{target_type}.html" class="category-tag">{target_type_label}</a>'
+
+            # Unified Non-Colliding Directional Tag
+            dir_badge_html = (
+                f'<span class="connection-direction-badge badge-{dir_info["badge"]}">'
+                f'  <span class="direction-arrow">{dir_info["arrow"]}</span> {dir_info["badge_text"].upper()}'
+                f'</span>'
+            )
+
+            # Native Healthstream Connection Analogy Block
+            analogy_html = ""
             if mechanism:
-                bridge_html = (
-                    f'<div class="connection-relational-bridge">'
-                    f'  <div class="bridge-header">'
-                    f'    <span class="bridge-label">{RELATIONAL_BRIDGE_SVG} The Connection</span>'
+                analogy_html = (
+                    f'<blockquote class="card-teaser-text card-analogy-block">'
+                    f'  <div class="card-analogy-hook">'
+                    f'    <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>THE CONNECTION:</strong></span> '
+                    f'    <span class="analogy-text">{mechanism}</span>'
                     f'  </div>'
-                    f'  <p class="bridge-text">{mechanism}</p>'
-                    f'</div>'
+                    f'</blockquote>'
                 )
 
-            # Optional Secondary Target Analogy Hook
-            secondary_analogy_html = ""
-            if target_analogy and target_analogy != mechanism:
-                secondary_analogy_html = (
-                    f'<div class="connection-target-analogy">'
-                    f'  <span class="target-analogy-label">{SYNAPSE_LOGO_SVG} <strong>Target Model:</strong></span> '
-                    f'  <span class="target-analogy-text">{target_analogy}</span>'
-                    f'</div>'
-                )
+            valid_site_tags = {"lifestyle", "metabolism", "exercise", "longevity", "biology", "fasting", "supplements", "book", "sleep"}
+            card_tags = [t.lower() for t in (item.get("tags") or card_tags) if t.lower() in valid_site_tags]
+            if not card_tags:
+                card_tags = [target_type] if target_type in valid_site_tags else ["biology"]
 
-            item_html_list.append(
-                f'<li class="connection-item connection-card tier-{lifecycle_tier}">'
-                f'  <div class="connection-card-inner">'
-                f'    <div class="connection-card-header-row">'
-                f'      <span class="connection-direction-badge badge-{dir_info["badge"]}">{dir_info["arrow"]} {dir_info["badge_text"]}</span>'
-                f'      {cat_badge_html}'
-                f'      {evidence_badge_html}'
-                f'      {lifecycle_badge}'
+            # Domain Tag Pills for Card Footer
+            tag_pills_html = "".join([
+                f'<a href="{base_path}tags/{t}.html" class="tag-pill">{TAG_PILL_ICON_SVG}{t}</a>'
+                for t in card_tags
+            ])
+
+            all_cards_html.append(
+                f'<li class="{card_container_class}">'
+                f'  <div class="feed-card-header">'
+                f'    <div class="feed-card-title-group">'
+                f'      <div class="card-kicker-row">'
+                f'        <span class="card-topic-subtitle">{target_title}</span>'
+                f'      </div>'
+                f'      <h3 class="card-title">'
+                f'        <a href="{target_url}" class="card-title-link">{hook_question}</a>'
+                f'      </h3>'
+                f'      <div class="card-pills-row" style="display: flex; gap: var(--space-2); align-items: center; flex-wrap: wrap;">'
+                f'        {dir_badge_html}'
+                f'        {cat_badge_html}'
+                f'        {evidence_badge_html}'
+                f'        {lifecycle_badge}'
+                f'      </div>'
                 f'    </div>'
-                f'    <div class="connection-card-body">'
-                f'      <h4 class="connection-hook-title">'
-                f'        <a href="{target_url}" class="connection-hook-link">{hook_question}</a>'
-                f'      </h4>'
-                f'      <div class="connection-topic-subtitle">Target: <span>{target_title}</span></div>'
-                f'      {bridge_html}'
-                f'      {secondary_analogy_html}'
+                f'  </div>'
+                f'  {analogy_html}'
+                f'  <div class="card-footer-new">'
+                f'    <div class="card-footer-left">'
+                f'      <div class="card-tags-row">{tag_pills_html}</div>'
+                f'      {date_meta_html}'
                 f'    </div>'
-                f'    <div class="connection-card-footer">'
+                f'    <div class="card-footer-right">'
                 f'      {action_btn_html}'
                 f'    </div>'
                 f'  </div>'
                 f'</li>'
             )
 
-        dir_blocks.append(
-            f'<div class="connection-group group-{dir_key}">'
-            f'  <h3 class="connection-group-title">{dir_info["label"]}</h3>'
-            f'  <ul class="connections-list">'
-            f'    {"".join(item_html_list)}'
-            f'  </ul>'
-            f'</div>'
-        )
-
     cta_url = f'{base_path}submit-proposal.html?source={node_slug}'
-    cta_html = (
-        f'<div class="connections-footer-cta">'
-        f'  <a href="{cta_url}" class="connection-submit-btn-primary">+ Propose a Pathway Connection &rarr;</a>'
-        f'</div>'
-    )
 
-    if not dir_blocks:
+    if not all_cards_html:
         content_html = (
             f'<div class="connections-open-frontier">'
             f'  <p class="frontier-desc">This decoded summary operates within our broader systems biology map. Explore our development queue or submit a missing feedback loop connecting to this protocol.</p>'
             f'</div>'
         )
     else:
-        content_html = f'<div class="connections-stream">{"".join(dir_blocks)}</div>'
+        content_html = f'<ul class="connections-list feed-stream">{"".join(all_cards_html)}</ul>'
 
     return (
         f'<section class="connections-section detail-section" id="connections-section" aria-labelledby="connections-title">'
         f'  <h2 id="connections-title" class="detail-section-title">How This Connects: Systems Biology in Action</h2>'
-        f'  <p class="connections-intro">Decoded nodes operate in interconnected biological loops. Upstream drivers, downstream adaptations, and parallel systemic mechanisms are mapped below.</p>'
+        f'  <div class="connections-intro-row">'
+        f'    <p class="connections-intro">Decoded nodes operate in interconnected biological loops. Upstream drivers, downstream adaptations, and parallel systemic mechanisms are mapped below.</p>'
+        f'    <a href="{cta_url}" class="connection-submit-btn-primary">+ Propose a Connection &rarr;</a>'
+        f'  </div>'
         f'  {content_html}'
-        f'  {cta_html}'
         f'</section>'
     )
 
@@ -1450,8 +1512,18 @@ def compile_detail_page(
         for t in node.get("tags", [])
     ])
     
-    # 6.5. Sticky Table of Contents (TOC)
-    toc_html = ""
+    # 6.5. Section Jump Bar (Quick-Nav)
+    jump_bar_html = (
+        f'<nav class="detail-quick-nav" aria-label="Article Sections">'
+        f'  <span class="quick-nav-label">Jump to Section:</span>'
+        f'  <div class="quick-nav-pills-group">'
+        f'    <a href="#overview-section" class="quick-nav-pill">Core Summary</a>'
+        f'    <a href="#deepdive-section" class="quick-nav-pill">Molecular Mechanisms</a>'
+        f'    <a href="#connections-section" class="quick-nav-pill">Systems Connections</a>'
+        f'    <a href="#evidence-section" class="quick-nav-pill">Evidence &amp; Studies</a>'
+        f'  </div>'
+        f'</nav>'
+    )
     
     meta_row_html = (
         f'<div class="detail-header-meta">'
@@ -1480,7 +1552,7 @@ def compile_detail_page(
         f'    {meta_row_html}'
         f'  </header>'
         f'  {takeaway_block_html}'
-        f'  {toc_html}'
+        f'  {jump_bar_html}'
         f'  <section class="detail-section">'
         f'    {body_html}'
         f'  </section>'

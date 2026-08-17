@@ -48,23 +48,23 @@
   "related_circuits": {
     "upstream": [
       {
-        "target": "cgm-non-diabetic-glycotypes",
-        "mechanism": "Metabolic flexibility and glycemic stability optimize substrate oxidation for sustained aerobic training.",
+        "target": "vigorous-exercise-intensity-multipliers",
+        "mechanism": "Opening the furnace flue all the way burns away soot, expanding your body's top pumping speed under heavy load.",
         "tier": "curated"
       }
     ],
     "downstream": [
       {
         "target": "exercise-induced-brain-pad-reversal",
-        "mechanism": "High cardiorespiratory capacity preserves cerebral microvascular elasticity and drives neurogenesis.",
+        "mechanism": "Pumping high-pressure oxygen throughout the pipes rewinds structural wear and keeps your brain functioning younger than your birthday.",
         "tier": "curated"
       }
     ],
     "similar": [
       {
-        "target": "fasting-microbiome-neuroinflammation",
-        "mechanism": "Zone 2 aerobic conditioning triggers mitochondrial turnover and systemic anti-inflammatory signaling, paralleling fasting.",
-        "tier": "hypothesized"
+        "target": "breath-james-nestor-nasal-nitric-oxide",
+        "mechanism": "Breathing through your nose instead of mouth warms and filters incoming air, boosting oxygen delivery without stressing the pump.",
+        "tier": "curated"
       }
     ]
   },

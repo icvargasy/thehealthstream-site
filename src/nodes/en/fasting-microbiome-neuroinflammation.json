@@ -51,22 +51,22 @@
     "upstream": [
       {
         "target": "gut-dysbiosis-lps-microglial-priming",
-        "mechanism": "Gut dysbiosis translocates endotoxins across permeable barriers, driving baseline microglial priming reversed by fasting.",
+        "mechanism": "A leaky garden hose dripping dirty runoff into the basement keeps the house fire alarms blaring until fasting patches the pipe.",
         "tier": "curated"
       }
     ],
     "downstream": [
       {
         "target": "omega3-dha-dementia-trial",
-        "mechanism": "Fasting-induced microbial shifts reduce neuroinflammation, enabling brain membranes to integrate structural DHA.",
+        "mechanism": "Clearing smoking embers from the fireplace allows carpenters to finally install fresh cedar planks into the house framework.",
         "tier": "curated"
       }
     ],
     "similar": [
       {
-        "target": "exercise-induced-brain-pad-reversal",
-        "mechanism": "Intermittent exercise clears metabolic waste via vascular and glymphatic transport pathways, paralleling fasting-induced debris clearance.",
-        "tier": "hypothesized"
+        "target": "glymphatic-clearance-slow-wave-sleep",
+        "mechanism": "Taking trash out to the curb during deep sleep washes away brain debris just like daytime fasting sweeps the kitchen floors.",
+        "tier": "curated"
       }
     ]
   },

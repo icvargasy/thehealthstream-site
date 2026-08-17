@@ -56,23 +56,27 @@
   "related_circuits": {
     "upstream": [
       {
-        "target": "fasting-microbiome-neuroinflammation",
-        "mechanism": "DHA structural integration in neurons requires low baseline neuroinflammation, modulated by fasting-induced microbiome shifts.",
+        "target": "vitamin-microbiome-bidirectional-loop",
+        "mechanism": "Unclogging cellular recycling channels with essential B-vitamins allows structural brain oils to safely lock into place.",
         "tier": "curated"
       }
     ],
     "downstream": [
       {
-        "target": "exercise-induced-brain-pad-reversal",
-        "mechanism": "Membrane lipid fluidity from DHA synergizes with exercise-induced neurogenesis to preserve brain structural volume.",
-        "tier": "curated"
+        "target": "cerebrovascular-dha-peroxidation-barrier",
+        "title": "Cerebrovascular DHA Peroxidation & Membrane Stability",
+        "hook_question": "Can high brain oxidative stress spoil structural omega-3 fats before they protect neurons?",
+        "category": "biology",
+        "grade": "Low",
+        "mechanism": "Exposed wooden siding needs protective paint, or structural brain oils spoil and oxidize under persistent metabolic rust.",
+        "tier": "frontier"
       }
     ],
     "similar": [
       {
-        "target": "gut-dysbiosis-lps-microglial-priming",
-        "mechanism": "Blood-brain barrier transport integrity determines whether oral co-factors reach target neural membranes.",
-        "tier": "hypothesized"
+        "target": "microbiome-creatine-bifidobacterium-axis",
+        "mechanism": "Supplying clean backup power cells revitalizes fatigued brain relays just as structural fats rebuild worn-out electrical insulation.",
+        "tier": "curated"
       }
     ]
   },

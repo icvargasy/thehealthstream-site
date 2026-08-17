@@ -1396,29 +1396,29 @@ def test_related_circuits_3_directional_rendering() -> None:
 
     rendered_html = render_related_circuits_section(node_data, nodes_sample, backlog=backlog_sample)
 
-    # Check section title and directional group headers
+    # Check section title and directional tags
     assert "How This Connects: Systems Biology in Action" in rendered_html
-    assert "Upstream Drivers &amp; Triggers" in rendered_html or "Upstream Drivers & Triggers" in rendered_html
-    assert "Parallel Circuits &amp; Convergent Loops" in rendered_html or "Parallel Circuits & Convergent Loops" in rendered_html
     assert "badge-upstream" in rendered_html
     assert "badge-similar" in rendered_html
+    assert "UPSTREAM DRIVER" in rendered_html
+    assert "PARALLEL LOOP" in rendered_html
 
-    # Check curiosity-first hook question headlines and formal target subtitles
+    # Check curiosity-first hook question headlines and formal target kickers
     assert "How does upstream driver influence cellular respiration?" in rendered_html
-    assert "Target: <span>Upstream Cause Title</span>" in rendered_html
+    assert "Upstream Cause Title" in rendered_html
     assert "Can parallel circuits balance glucose load?" in rendered_html
-    assert "Target: <span>Frontier Target Title</span>" in rendered_html
+    assert "Frontier Target Title" in rendered_html
 
-    # Check Relational Bridge box
-    assert "The Connection" in rendered_html
+    # Check Relational Bridge analogy block
+    assert "THE CONNECTION:" in rendered_html
     assert "Primary driver mechanism transferring metabolic load." in rendered_html
     assert "Hypothesized parallel maintaining homeostasis." in rendered_html
 
     # Check bespoke lifecycle badges with icons
     assert "badge-lifecycle-decoded" in rendered_html
     assert "Decoded" in rendered_html
-    assert "badge-lifecycle-pipeline" in rendered_html
-    assert "In Pipeline" in rendered_html
+    assert "pipeline-badge" in rendered_html
+    assert "In the Pipeline" in rendered_html
 
     # Check card-consistent actions: Read Summary button for published node
     assert "read-article-btn" in rendered_html
@@ -1430,10 +1430,42 @@ def test_related_circuits_3_directional_rendering() -> None:
     assert "data-id=\"frontier-node\"" in rendered_html
     assert "Upvote" in rendered_html
 
-    # Check prominent solid primary CTA
-    assert "+ Propose a Pathway Connection &rarr;" in rendered_html
+    # Check prominent solid primary CTA in header row
+    assert "Propose a Connection" in rendered_html
     assert "connection-submit-btn-primary" in rendered_html
     assert "submit-proposal.html?source=source-node" in rendered_html
+
+
+def test_compile_detail_page_quick_nav() -> None:
+    """Verifies that compiled article detail pages include the Section Quick-Nav jump bar."""
+    from tools.compiler.writer import compile_detail_page
+    node = {
+        "slug": "test-node",
+        "type": "biology",
+        "title": "Test Title",
+        "hook_question": "Does test work?",
+        "takeaway_pill": "Pill takeaway",
+        "systems_analogy_hook": "A test systems analogy.",
+        "epistemic_rating": {"grade": "High", "rationale": "Clear data", "debate_sides": []},
+        "tags": ["biology"],
+        "reading_modes": {
+            "overview_3min": "Overview text",
+            "deep_dive": [{"heading": "Deep Dive Heading", "body": "Deep dive body"}]
+        },
+        "related_circuits": {
+            "upstream": [{"target": "up-node", "mechanism": "Upstream mechanism"}]
+        },
+        "evidence_table": [],
+        "bibliography": []
+    }
+    layout_template = "<html><head><title>{{title}}</title></head><body>{{content}}</body></html>"
+    translations = {"en": {}}
+    rendered = compile_detail_page(layout_template, node, translations, nodes=[node], backlog=[])
+    assert 'class="detail-quick-nav"' in rendered
+    assert 'href="#overview-section"' in rendered
+    assert 'href="#deepdive-section"' in rendered
+    assert 'href="#connections-section"' in rendered
+    assert 'href="#evidence-section"' in rendered
 
 
 def test_compile_vocabulary_detail_page_flat_layout() -> None:

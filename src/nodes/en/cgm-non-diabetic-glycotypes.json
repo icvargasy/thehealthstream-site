@@ -49,23 +49,27 @@
   "related_circuits": {
     "upstream": [
       {
-        "target": "fasting-microbiome-neuroinflammation",
-        "mechanism": "Nutritional fasting windows lower baseline insulin, mitigating severe postprandial glucose excursions.",
-        "tier": "curated"
+        "target": "postprandial-walking-glucose",
+        "title": "Postprandial Walking & Glucose Clearance",
+        "hook_question": "Can a 10-minute walk after meals prevent dangerous blood sugar spikes?",
+        "category": "lifestyle",
+        "grade": "Moderate",
+        "mechanism": "Taking a brisk walk right after eating diverts sugar traffic straight into leg engines before it causes a highway pileup.",
+        "tier": "frontier"
       }
     ],
     "downstream": [
       {
-        "target": "vo2max-retention-and-cardiorespiratory-aging",
-        "mechanism": "Muscle contraction during aerobic training enhances non-insulin-dependent GLUT4 translocation for glucose disposal.",
+        "target": "advanced-glycation-endproducts-collagen-stiffness",
+        "mechanism": "Repeated sugar spills make kitchen countertops crusty and stiff, slowly hardening flexible blood vessel walls over time.",
         "tier": "curated"
       }
     ],
     "similar": [
       {
-        "target": "exercise-induced-brain-pad-reversal",
-        "mechanism": "Blunting glycemic variability protects microvascular endothelial health, preserving brain tissue longevity.",
-        "tier": "hypothesized"
+        "target": "gluteal-muscle-endocrine-glucose-sink",
+        "mechanism": "Building larger fuel storage tanks in your legs absorbs sugar surges just like continuous monitors track sudden tank overflow.",
+        "tier": "curated"
       }
     ]
   },

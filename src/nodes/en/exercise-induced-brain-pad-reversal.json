@@ -50,23 +50,23 @@
   "related_circuits": {
     "upstream": [
       {
-        "target": "vo2max-retention-and-cardiorespiratory-aging",
-        "mechanism": "High cardiorespiratory capacity preserves cerebral microvascular elasticity and hippocampal perfusion.",
+        "target": "vigorous-exercise-intensity-multipliers",
+        "mechanism": "Stomping on the gas pedal pushes engine oil through every narrow pipe, triggering deep cellular maintenance cycles throughout the brain.",
         "tier": "curated"
       }
     ],
     "downstream": [
       {
-        "target": "omega3-dha-dementia-trial",
-        "mechanism": "Enhanced cerebral perfusion and reduced vascular inflammation facilitate DHA integration into neural membranes.",
+        "target": "exerkine-blood-brain-barrier-signaling",
+        "mechanism": "Working muscle engines mail chemical reward letters across the blood barrier to spur growth of fresh brain wiring.",
         "tier": "curated"
       }
     ],
     "similar": [
       {
         "target": "fasting-microbiome-neuroinflammation",
-        "mechanism": "Aerobic conditioning parallelizes fasting by promoting debris clearance and suppressing chronic neuroinflammation.",
-        "tier": "hypothesized"
+        "mechanism": "Periodic meal breaks sweep away cellular debris from the kitchen, running the same cleanup cycle as aerobic workouts.",
+        "tier": "curated"
       }
     ]
   },

@@ -47,23 +47,23 @@
   "related_circuits": {
     "upstream": [
       {
-        "target": "cgm-non-diabetic-glycotypes",
-        "mechanism": "High glycemic excursions and ultra-processed diets disrupt the gut mucosal barrier, accelerating endotoxin translocation.",
+        "target": "periodontal-pathology-and-alzheimers-link",
+        "mechanism": "Rust spreading in the attic leaks dirty runoff down into the main plumbing, multiplying bacterial leaks into the bloodstream.",
         "tier": "curated"
       }
     ],
     "downstream": [
       {
         "target": "fasting-microbiome-neuroinflammation",
-        "mechanism": "ADF-induced microbial shifts restore SCFA production, repairing the barrier and preventing LPS translocation.",
+        "mechanism": "A scheduled meal break rests the damaged gut lining, shutting off the chemical alarm bells that irritate brain guards.",
         "tier": "curated"
       }
     ],
     "similar": [
       {
-        "target": "omega3-dha-dementia-trial",
-        "mechanism": "Endotoxin-driven neuroinflammation impairs blood-brain barrier transport, hindering brain lipid engagement.",
-        "tier": "hypothesized"
+        "target": "luteolin-kynurenine-ahr-axis",
+        "mechanism": "Celery and parsley flavonoids trap cooking smoke right at the stove hood, stopping toxic signals from travelling up to the brain.",
+        "tier": "curated"
       }
     ]
   },
