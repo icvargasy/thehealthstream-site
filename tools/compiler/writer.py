@@ -10,7 +10,7 @@ import shutil
 import json
 import xml.etree.ElementTree as ET
 from xml.dom import minidom
-from typing import Dict, List, Any
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 import markdown
 from .linker import slugify, inject_jargon_links
 from .utils import SYNAPSE_LOGO_SVG

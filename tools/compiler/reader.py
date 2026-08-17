@@ -7,7 +7,7 @@ systems biology content nodes, glossary definitions, translations, and backlog i
 import json
 import os
 import re
-from typing import Any, Dict, List, Set
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 from .utils import load_json_file
 
 BARE_ACTION_VERB_REGEX = re.compile(

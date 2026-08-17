@@ -1701,6 +1701,21 @@ def test_zero_orphans_without_hardcoded_exemptions() -> None:
     assert any("cgm-non-diabetic-glycotypes" in m["slug"] for m in mentions["metabolic syndrome"])
 
 
+def test_compiler_module_imports_and_typing() -> None:
+    """Verifies that all compiler submodules import cleanly with resolved type annotations."""
+    import importlib
+    for module_name in [
+        "tools.compiler.utils",
+        "tools.compiler.reader",
+        "tools.compiler.linker",
+        "tools.compiler.writer",
+        "tools.build",
+    ]:
+        mod = importlib.import_module(module_name)
+        assert mod is not None
+
+
+
 
 
 

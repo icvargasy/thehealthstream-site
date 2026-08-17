@@ -3,7 +3,7 @@
 import json
 import os
 import re
-from typing import Any
+from typing import Any, Dict, List, Optional, Set, Tuple, Union
 
 
 def slugify(text: str) -> str:
