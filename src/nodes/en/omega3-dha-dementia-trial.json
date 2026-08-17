@@ -53,13 +53,29 @@
       }
     ]
   },
-  "edges": [
-    {
-      "target": "fasting-microbiome-neuroinflammation",
-      "type": "requires",
-      "mechanism": "DHA structural integration in neurons requires low baseline neuroinflammation, which is modulated by fasting-induced microbiome shifts."
-    }
-  ],
+  "related_circuits": {
+    "upstream": [
+      {
+        "target": "fasting-microbiome-neuroinflammation",
+        "mechanism": "DHA structural integration in neurons requires low baseline neuroinflammation, modulated by fasting-induced microbiome shifts.",
+        "tier": "curated"
+      }
+    ],
+    "downstream": [
+      {
+        "target": "exercise-induced-brain-pad-reversal",
+        "mechanism": "Membrane lipid fluidity from DHA synergizes with exercise-induced neurogenesis to preserve brain structural volume.",
+        "tier": "curated"
+      }
+    ],
+    "similar": [
+      {
+        "target": "gut-dysbiosis-lps-microglial-priming",
+        "mechanism": "Blood-brain barrier transport integrity determines whether oral co-factors reach target neural membranes.",
+        "tier": "hypothesized"
+      }
+    ]
+  },
   "evidence_table": [
     {
       "study": "Yassine et al., 2026",

@@ -1354,13 +1354,15 @@ def test_debate_stance_cards_in_writer() -> None:
 
 
 def test_related_circuits_3_directional_rendering() -> None:
-    """Confirms that compile_detail_page renders 3-directional connections and Endorse Connection links."""
+    """Confirms that render_related_circuits_section renders Systems Biology in Action title, curiosity-first hook questions, lifecycle badges, relational bridges, and Read Summary/Upvote buttons."""
     from tools.compiler.writer import compile_detail_page, render_related_circuits_section
 
     nodes_sample = [
-        {"slug": "source-node", "title": "Source Node Title", "type": "biology"},
-        {"slug": "upstream-node", "title": "Upstream Cause Title", "type": "lifestyle"},
-        {"slug": "frontier-node", "title": "Frontier Target Title", "type": "biology"}
+        {"slug": "source-node", "title": "Source Node Title", "hook_question": "Does source work?", "type": "biology", "systems_analogy_hook": "A master switch managing daily energy."},
+        {"slug": "upstream-node", "title": "Upstream Cause Title", "hook_question": "How does upstream driver influence cellular respiration?", "type": "lifestyle", "systems_analogy_hook": "A bicycle chain transferring pedal force to the back wheel."},
+    ]
+    backlog_sample = [
+        {"id": "frontier-node", "title": "Frontier Target Title", "hook_question": "Can parallel circuits balance glucose load?", "category": "biology", "systems_analogy": "A household thermostat regulating room temperature."}
     ]
 
     node_data = {
@@ -1376,15 +1378,15 @@ def test_related_circuits_3_directional_rendering() -> None:
             "upstream": [
                 {
                     "target": "upstream-node",
-                    "mechanism": "Primary driver mechanism",
-                    "tier": "curated"
+                    "mechanism": "Primary driver mechanism transferring metabolic load.",
+                    "tier": "published"
                 }
             ],
             "similar": [
                 {
                     "target": "frontier-node",
-                    "mechanism": "Hypothesized parallel",
-                    "tier": "hypothesized"
+                    "mechanism": "Hypothesized parallel maintaining homeostasis.",
+                    "tier": "backlog"
                 }
             ]
         },
@@ -1392,18 +1394,46 @@ def test_related_circuits_3_directional_rendering() -> None:
         "bibliography": []
     }
 
-    rendered_html = render_related_circuits_section(node_data, nodes_sample)
+    rendered_html = render_related_circuits_section(node_data, nodes_sample, backlog=backlog_sample)
 
-    # Check 3-directional headings & badges
-    assert "Upstream Causes & Drivers" in rendered_html
+    # Check section title and directional group headers
+    assert "How This Connects: Systems Biology in Action" in rendered_html
+    assert "Upstream Drivers &amp; Triggers" in rendered_html or "Upstream Drivers & Triggers" in rendered_html
+    assert "Parallel Circuits &amp; Convergent Loops" in rendered_html or "Parallel Circuits & Convergent Loops" in rendered_html
     assert "badge-upstream" in rendered_html
-    assert "Upstream Cause Title" in rendered_html
-    assert "Primary driver mechanism" in rendered_html
+    assert "badge-similar" in rendered_html
 
-    # Check Tier 2 emerging hypothesis & Endorse Connection link
-    assert "Emerging Hypothesis" in rendered_html
-    assert "Endorse Connection &rarr;" in rendered_html
-    assert "submit-proposal.html?source=source-node&amp;target=frontier-node&amp;type=similar" in rendered_html or "submit-proposal.html?source=source-node&target=frontier-node&type=similar" in rendered_html
+    # Check curiosity-first hook question headlines and formal target subtitles
+    assert "How does upstream driver influence cellular respiration?" in rendered_html
+    assert "Target: <span>Upstream Cause Title</span>" in rendered_html
+    assert "Can parallel circuits balance glucose load?" in rendered_html
+    assert "Target: <span>Frontier Target Title</span>" in rendered_html
+
+    # Check Relational Bridge box
+    assert "The Connection" in rendered_html
+    assert "Primary driver mechanism transferring metabolic load." in rendered_html
+    assert "Hypothesized parallel maintaining homeostasis." in rendered_html
+
+    # Check bespoke lifecycle badges with icons
+    assert "badge-lifecycle-decoded" in rendered_html
+    assert "Decoded" in rendered_html
+    assert "badge-lifecycle-pipeline" in rendered_html
+    assert "In Pipeline" in rendered_html
+
+    # Check card-consistent actions: Read Summary button for published node
+    assert "read-article-btn" in rendered_html
+    assert "Read Summary" in rendered_html
+    assert "upstream-node.html" in rendered_html
+
+    # Check in-page upvote button for pipeline proposal
+    assert "backlog-votes" in rendered_html
+    assert "data-id=\"frontier-node\"" in rendered_html
+    assert "Upvote" in rendered_html
+
+    # Check prominent solid primary CTA
+    assert "+ Propose a Pathway Connection &rarr;" in rendered_html
+    assert "connection-submit-btn-primary" in rendered_html
+    assert "submit-proposal.html?source=source-node" in rendered_html
 
 
 def test_compile_vocabulary_detail_page_flat_layout() -> None:

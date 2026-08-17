@@ -45,7 +45,29 @@
       }
     ]
   },
-  "edges": [],
+  "related_circuits": {
+    "upstream": [
+      {
+        "target": "cgm-non-diabetic-glycotypes",
+        "mechanism": "Metabolic flexibility and glycemic stability optimize substrate oxidation for sustained aerobic training.",
+        "tier": "curated"
+      }
+    ],
+    "downstream": [
+      {
+        "target": "exercise-induced-brain-pad-reversal",
+        "mechanism": "High cardiorespiratory capacity preserves cerebral microvascular elasticity and drives neurogenesis.",
+        "tier": "curated"
+      }
+    ],
+    "similar": [
+      {
+        "target": "fasting-microbiome-neuroinflammation",
+        "mechanism": "Zone 2 aerobic conditioning triggers mitochondrial turnover and systemic anti-inflammatory signaling, paralleling fasting.",
+        "tier": "hypothesized"
+      }
+    ]
+  },
   "evidence_table": [
     {
       "study": "Lundy et al., 2026",

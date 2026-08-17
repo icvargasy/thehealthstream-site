@@ -44,13 +44,29 @@
       }
     ]
   },
-  "edges": [
-    {
-      "target": "fasting-microbiome-neuroinflammation",
-      "type": "inhibits",
-      "mechanism": "ADF-induced shifts in gut microbial diversity restore short-chain fatty acids, repairing the intestinal barrier and preventing LPS translocation."
-    }
-  ],
+  "related_circuits": {
+    "upstream": [
+      {
+        "target": "cgm-non-diabetic-glycotypes",
+        "mechanism": "High glycemic excursions and ultra-processed diets disrupt the gut mucosal barrier, accelerating endotoxin translocation.",
+        "tier": "curated"
+      }
+    ],
+    "downstream": [
+      {
+        "target": "fasting-microbiome-neuroinflammation",
+        "mechanism": "ADF-induced microbial shifts restore SCFA production, repairing the barrier and preventing LPS translocation.",
+        "tier": "curated"
+      }
+    ],
+    "similar": [
+      {
+        "target": "omega3-dha-dementia-trial",
+        "mechanism": "Endotoxin-driven neuroinflammation impairs blood-brain barrier transport, hindering brain lipid engagement.",
+        "tier": "hypothesized"
+      }
+    ]
+  },
   "evidence_table": [
     {
       "study": "Zhan et al., 2016",

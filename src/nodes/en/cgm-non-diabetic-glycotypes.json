@@ -46,7 +46,29 @@
       }
     ]
   },
-  "edges": [],
+  "related_circuits": {
+    "upstream": [
+      {
+        "target": "fasting-microbiome-neuroinflammation",
+        "mechanism": "Nutritional fasting windows lower baseline insulin, mitigating severe postprandial glucose excursions.",
+        "tier": "curated"
+      }
+    ],
+    "downstream": [
+      {
+        "target": "vo2max-retention-and-cardiorespiratory-aging",
+        "mechanism": "Muscle contraction during aerobic training enhances non-insulin-dependent GLUT4 translocation for glucose disposal.",
+        "tier": "curated"
+      }
+    ],
+    "similar": [
+      {
+        "target": "exercise-induced-brain-pad-reversal",
+        "mechanism": "Blunting glycemic variability protects microvascular endothelial health, preserving brain tissue longevity.",
+        "tier": "hypothesized"
+      }
+    ]
+  },
   "evidence_table": [
     {
       "study": "Hall et al., 2018",

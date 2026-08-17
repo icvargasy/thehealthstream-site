@@ -96,6 +96,44 @@ NUANCED_STANCE_SVG = (
     '</svg>'
 )
 
+STATE_DECODED_SVG = (
+    '<svg class="lifecycle-icon-svg lifecycle-decoded-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block; flex-shrink: 0;">'
+    '<path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"></path>'
+    '<path d="m9 12 2 2 4-4"></path>'
+    '</svg>'
+)
+
+STATE_PIPELINE_SVG = (
+    '<svg class="lifecycle-icon-svg lifecycle-pipeline-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block; flex-shrink: 0;">'
+    '<path d="M10 2v7.31L4.65 18.27A2 2 0 0 0 6.36 21h11.28a2 2 0 0 0 1.71-2.73L14 9.31V2"></path>'
+    '<path d="M8.5 2h7"></path>'
+    '<path d="M7 16h10"></path>'
+    '</svg>'
+)
+
+STATE_FRONTIER_SVG = (
+    '<svg class="lifecycle-icon-svg lifecycle-frontier-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block; flex-shrink: 0;">'
+    '<path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3L12 3z"></path>'
+    '</svg>'
+)
+
+RELATIONAL_BRIDGE_SVG = (
+    '<svg class="relational-bridge-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 4px; display: inline-block; flex-shrink: 0;">'
+    '<circle cx="6" cy="12" r="3"></circle>'
+    '<circle cx="18" cy="12" r="3"></circle>'
+    '<path d="M9 12h6"></path>'
+    '<path d="m12 9 3 3-3 3"></path>'
+    '</svg>'
+)
+
 
 def render_page_header(
     title: str,
@@ -139,34 +177,57 @@ def get_category_mechanism_label(cat: str) -> str:
     labels = {
         "biology": "Biological Mechanism",
         "lifestyle": "Protocol Mechanism",
-        "book": "Curated Synthesis"
+        "book": "Curated Synthesis",
     }
-    return labels.get(cat, "Empirical Mechanism")
+    return labels.get(cat, "Core Mechanism")
 
 
 def render_related_circuits_section(
     node: Dict[str, Any],
     nodes: List[Dict[str, Any]],
+    backlog: Optional[List[Dict[str, Any]]] = None,
     base_path: str = "./",
 ) -> str:
-    """Renders the Related Circuits section on article detail pages.
+    """Renders the humanized Systems Connections section on article detail pages.
 
-    Supports both explicit 3-directional `related_circuits` ({upstream, downstream, similar})
-    and legacy `edges` lists. Displays Tier 1 (curated) and Tier 2 (hypothesized) connections,
-    including `Endorse Connection ->` community actions for Tier 2 links.
+    Uses a strict 3-Node Triad architecture (Upstream, Downstream, Parallel) with
+    curiosity-first Hook Question card headlines, formal topic subtitles, GRADE
+    evidence badges, bespoke lifecycle state icons, and dedicated 14yo lived-experience
+    Relational Bridge analogy boxes.
 
     Args:
         node: Target node dictionary.
-        nodes: Complete list of node dictionaries for title/type lookup.
+        nodes: Complete list of published node dictionaries for title/type/analogy lookup.
+        backlog: Optional list of backlog proposal dictionaries for pipeline target lookup.
         base_path: Path prefix for relative links.
 
     Returns:
-        HTML section string, or empty string if no connections are defined.
+        HTML section string.
     """
     if not nodes:
         return ""
 
-    slug_map = {n["slug"]: {"title": n["title"], "type": n["type"]} for n in nodes}
+    slug_map = {
+        n["slug"]: {
+            "title": n["title"],
+            "hook_question": n.get("hook_question", n["title"]),
+            "type": n.get("type", "biology"),
+            "grade": n.get("epistemic_rating", {}).get("grade", "High"),
+            "analogy": n.get("systems_analogy_hook", "") or n.get("takeaway_pill", ""),
+        }
+        for n in nodes
+    }
+    backlog_map = {
+        b["id"]: {
+            "title": b.get("title", b["id"].replace("-", " ").title()),
+            "hook_question": b.get("hook_question") or b.get("description", b.get("title", "")),
+            "type": b.get("category", "biology"),
+            "grade": b.get("grade", "Low"),
+            "analogy": b.get("systems_analogy", "") or b.get("takeaway_pill", ""),
+            "votes": b.get("votes", 0),
+        }
+        for b in (backlog or [])
+    }
     node_slug = node.get("slug", "")
 
     grouped: Dict[str, List[Dict[str, Any]]] = {
@@ -187,11 +248,7 @@ def render_related_circuits_section(
                         "tier": "curated"
                     })
                 elif isinstance(item, dict) and "target" in item:
-                    grouped[dir_key].append({
-                        "target": item["target"],
-                        "mechanism": item.get("mechanism", ""),
-                        "tier": item.get("tier", "curated")
-                    })
+                    grouped[dir_key].append(item)
     elif node.get("edges") and isinstance(node["edges"], list):
         for edge in node["edges"][:5]:
             grouped["downstream"].append({
@@ -200,14 +257,25 @@ def render_related_circuits_section(
                 "tier": "curated"
             })
 
-    total_connections = sum(len(v) for v in grouped.values())
-    if total_connections == 0:
-        return ""
-
     direction_labels = {
-        "upstream": {"label": "Upstream Causes & Drivers", "badge": "upstream"},
-        "downstream": {"label": "Downstream Effects & Outcomes", "badge": "downstream"},
-        "similar": {"label": "Peer & Parallel Circuits", "badge": "similar"}
+        "upstream": {
+            "label": "Upstream Drivers & Triggers",
+            "arrow": "&uarr;",
+            "badge": "upstream",
+            "badge_text": "Upstream Driver"
+        },
+        "downstream": {
+            "label": "Downstream Cascades & Adaptations",
+            "arrow": "&darr;",
+            "badge": "downstream",
+            "badge_text": "Downstream Adaptation"
+        },
+        "similar": {
+            "label": "Parallel Circuits & Convergent Loops",
+            "arrow": "&harr;",
+            "badge": "similar",
+            "badge_text": "Parallel Loop"
+        }
     }
 
     dir_blocks = []
@@ -219,34 +287,109 @@ def render_related_circuits_section(
         item_html_list = []
 
         for item in items:
-            target_slug = item["target"]
-            target_info = slug_map.get(
-                target_slug,
-                {"title": target_slug.replace("-", " ").title(), "type": "biology"}
-            )
-            target_title = target_info["title"]
-            target_type = target_info["type"]
-            tier = item["tier"].lower()
-            mechanism = item["mechanism"]
+            target_slug = item.get("target", "")
+            mechanism = item.get("mechanism", "")
 
-            if tier in ("curated", "tier1", "established"):
-                mech_str = f' <span class="connection-mechanism">— {mechanism}</span>' if mechanism else ""
-                item_html_list.append(
-                    f'<li class="connection-item conn-tier1">'
-                    f'  <span class="connection-type-badge badge-{dir_info["badge"]}">{dir_key.capitalize()}</span>'
-                    f'  <a href="{base_path}{target_slug}.html" class="connection-link conn-cat-{target_type}">{target_title}</a>'
-                    f'  {mech_str}'
-                    f'</li>'
+            # Check if target is a published node or backlog proposal
+            is_published = target_slug in slug_map
+            is_in_pipeline = target_slug in backlog_map
+
+            if is_published:
+                target_info = slug_map[target_slug]
+                target_title = item.get("title") or target_info["title"]
+                hook_question = item.get("hook_question") or target_info["hook_question"]
+                target_type = item.get("category") or target_info["type"]
+                target_grade = item.get("grade") or target_info["grade"]
+                target_url = f"{base_path}{target_slug}.html"
+                target_analogy = target_info.get("analogy", "")
+                lifecycle_tier = "decoded"
+                lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-decoded">{STATE_DECODED_SVG} Decoded</span>'
+                action_btn_html = (
+                    f'<a href="{target_url}" class="connection-action-btn read-article-btn">'
+                    f'  <span>Read Summary</span>'
+                    f'  <span>&rarr;</span>'
+                    f'</a>'
+                )
+            elif is_in_pipeline:
+                target_info = backlog_map[target_slug]
+                target_title = item.get("title") or target_info["title"]
+                hook_question = item.get("hook_question") or target_info["hook_question"]
+                target_type = item.get("category") or target_info["type"]
+                target_grade = item.get("grade") or target_info["grade"]
+                target_url = f"{base_path}backlog.html#{target_slug}"
+                target_analogy = target_info.get("analogy", "")
+                lifecycle_tier = "pipeline"
+                lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-pipeline">{STATE_PIPELINE_SVG} In Pipeline</span>'
+                action_btn_html = (
+                    f'<button type="button" class="connection-action-btn backlog-votes" '
+                    f'data-id="{target_slug}" data-title="{target_title}" data-category="{target_type}" data-base-votes="{target_info.get("votes", 0)}">'
+                    f'  <span class="vote-arrow">▲</span> <span class="vote-count">Upvote</span>'
+                    f'</button>'
                 )
             else:
-                proposal_url = f'{base_path}submit-proposal.html?source={node_slug}&target={target_slug}&type={dir_key}'
-                item_html_list.append(
-                    f'<li class="connection-item conn-tier2">'
-                    f'  <span class="connection-type-badge badge-frontier">Emerging Hypothesis</span>'
-                    f'  <a href="{base_path}{target_slug}.html" class="connection-link conn-cat-{target_type}">{target_title}</a>'
-                    f'  <a href="{proposal_url}" class="endorse-link" title="Support or submit evidence for this proposed connection">Endorse Connection &rarr;</a>'
-                    f'</li>'
+                target_title = item.get("title") or target_slug.replace("-", " ").title()
+                hook_question = item.get("hook_question") or item.get("question") or f"How does {target_title.lower()} modulate this biological loop?"
+                target_type = item.get("category") or "biology"
+                target_grade = item.get("grade") or "Very Low"
+                target_url = f"{base_path}submit-proposal.html?source={node_slug}&target={target_slug}&type={dir_key}"
+                target_analogy = item.get("target_analogy", "")
+                lifecycle_tier = "frontier"
+                lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-frontier">{STATE_FRONTIER_SVG} AI Proposed Loop</span>'
+                action_btn_html = (
+                    f'<button type="button" class="connection-action-btn frontier-support-btn" '
+                    f'data-id="{target_slug}" data-title="{target_title}" data-category="{target_type}" data-source="{node_slug}">'
+                    f'  <span class="support-plus">+</span> <span class="support-text">Support Pathway</span>'
+                    f'</button>'
                 )
+
+            evidence_badge_html = render_evidence_tier_badge(target_grade)
+            cat_badge_html = f'<a href="{base_path}category-{target_type}.html" class="category-lens-badge cat-{target_type}">{target_type.upper()}</a>'
+
+            # Relational Bridge Box (The Connection) - Primary Epistemic Link
+            bridge_html = ""
+            if mechanism:
+                bridge_html = (
+                    f'<div class="connection-relational-bridge">'
+                    f'  <div class="bridge-header">'
+                    f'    <span class="bridge-label">{RELATIONAL_BRIDGE_SVG} The Connection</span>'
+                    f'  </div>'
+                    f'  <p class="bridge-text">{mechanism}</p>'
+                    f'</div>'
+                )
+
+            # Optional Secondary Target Analogy Hook
+            secondary_analogy_html = ""
+            if target_analogy and target_analogy != mechanism:
+                secondary_analogy_html = (
+                    f'<div class="connection-target-analogy">'
+                    f'  <span class="target-analogy-label">{SYNAPSE_LOGO_SVG} <strong>Target Model:</strong></span> '
+                    f'  <span class="target-analogy-text">{target_analogy}</span>'
+                    f'</div>'
+                )
+
+            item_html_list.append(
+                f'<li class="connection-item connection-card tier-{lifecycle_tier}">'
+                f'  <div class="connection-card-inner">'
+                f'    <div class="connection-card-header-row">'
+                f'      <span class="connection-direction-badge badge-{dir_info["badge"]}">{dir_info["arrow"]} {dir_info["badge_text"]}</span>'
+                f'      {cat_badge_html}'
+                f'      {evidence_badge_html}'
+                f'      {lifecycle_badge}'
+                f'    </div>'
+                f'    <div class="connection-card-body">'
+                f'      <h4 class="connection-hook-title">'
+                f'        <a href="{target_url}" class="connection-hook-link">{hook_question}</a>'
+                f'      </h4>'
+                f'      <div class="connection-topic-subtitle">Target: <span>{target_title}</span></div>'
+                f'      {bridge_html}'
+                f'      {secondary_analogy_html}'
+                f'    </div>'
+                f'    <div class="connection-card-footer">'
+                f'      {action_btn_html}'
+                f'    </div>'
+                f'  </div>'
+                f'</li>'
+            )
 
         dir_blocks.append(
             f'<div class="connection-group group-{dir_key}">'
@@ -260,17 +403,24 @@ def render_related_circuits_section(
     cta_url = f'{base_path}submit-proposal.html?source={node_slug}'
     cta_html = (
         f'<div class="connections-footer-cta">'
-        f'  <a href="{cta_url}" class="connection-submit-link">Propose / Endorse a Pathway Connection &rarr;</a>'
+        f'  <a href="{cta_url}" class="connection-submit-btn-primary">+ Propose a Pathway Connection &rarr;</a>'
         f'</div>'
     )
 
+    if not dir_blocks:
+        content_html = (
+            f'<div class="connections-open-frontier">'
+            f'  <p class="frontier-desc">This decoded summary operates within our broader systems biology map. Explore our development queue or submit a missing feedback loop connecting to this protocol.</p>'
+            f'</div>'
+        )
+    else:
+        content_html = f'<div class="connections-stream">{"".join(dir_blocks)}</div>'
+
     return (
         f'<section class="connections-section detail-section" id="connections-section" aria-labelledby="connections-title">'
-        f'  <h2 id="connections-title" class="detail-section-title">Pathway Connections &amp; Related Circuits</h2>'
-        f'  <p class="connections-intro">Decoded nodes share direct systemic relationships. Upstream causes, downstream outputs, and parallel mechanisms are indexed below. Explore established pathways or endorse emerging frontier connections.</p>'
-        f'  <div class="connections-grid">'
-        f'    {"".join(dir_blocks)}'
-        f'  </div>'
+        f'  <h2 id="connections-title" class="detail-section-title">How This Connects: Systems Biology in Action</h2>'
+        f'  <p class="connections-intro">Decoded nodes operate in interconnected biological loops. Upstream drivers, downstream adaptations, and parallel systemic mechanisms are mapped below.</p>'
+        f'  {content_html}'
         f'  {cta_html}'
         f'</section>'
     )
@@ -1019,6 +1169,7 @@ def compile_detail_page(
     translations: Dict[str, Any],
     nodes: List[Dict[str, Any]] = None,
     vocabulary: Dict[str, Any] = None,
+    backlog: Optional[List[Dict[str, Any]]] = None,
 ) -> str:
     """Compiles a specific detailed article node page (e.g. ampk-activation.html).
 
@@ -1287,7 +1438,7 @@ def compile_detail_page(
     )
     
     # 5. Directed Connections Links Block (Systemic Circuit Integration & Related Circuits)
-    connections_html = render_related_circuits_section(node, nodes, base_path="")
+    connections_html = render_related_circuits_section(node, nodes, backlog=backlog, base_path="")
 
     # 5.5. Giscus Comment Widget
     giscus_html = ""

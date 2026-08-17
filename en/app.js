@@ -313,8 +313,8 @@ function initializeJargonPopovers() {
  * @returns {void}
  */
 function initializeBacklogVoting() {
-  const backlogItems = document.querySelectorAll(".backlog-item, .pipeline-card-merged");
-  if (backlogItems.length === 0) return;
+  const voteBadges = document.querySelectorAll(".backlog-votes, .connection-action-btn.backlog-votes, .connection-action-btn.frontier-support-btn");
+  if (voteBadges.length === 0) return;
 
   // Retrieve votes map from local storage
   let votesMap = {};
@@ -327,22 +327,28 @@ function initializeBacklogVoting() {
     console.error("Failed parsing backlog votes storage:", e);
   }
 
-  backlogItems.forEach((item) => {
-    const itemId = item.getAttribute("data-id");
-    const itemTitle = item.getAttribute("data-title");
-    const itemCategory = item.getAttribute("data-category");
-    const voteBadge = item.querySelector(".backlog-votes");
-    if (!itemId || !voteBadge) return;
+  voteBadges.forEach((voteBadge) => {
+    const item = voteBadge.closest(".backlog-item, .pipeline-card-merged, .connection-item") || voteBadge;
+    const itemId = voteBadge.getAttribute("data-id") || item.getAttribute("data-id");
+    const itemTitle = voteBadge.getAttribute("data-title") || item.getAttribute("data-title") || "Topic Proposal";
+    const itemCategory = voteBadge.getAttribute("data-category") || item.getAttribute("data-category") || "biology";
+    if (!itemId) return;
 
     const baseVotes = parseInt(voteBadge.getAttribute("data-base-votes") || "0", 10);
     const voteCountSpan = voteBadge.querySelector(".vote-count");
+    const isFrontier = voteBadge.classList.contains("frontier-support-btn");
 
     const updateVoteUI = (voted) => {
       const displayVotes = voted ? baseVotes + 1 : baseVotes;
       if (voteCountSpan) {
-        voteCountSpan.textContent = String(displayVotes);
+        voteCountSpan.textContent = voted ? (isFrontier ? "Supported ✓" : "Voted ✓") : (baseVotes > 0 ? String(displayVotes) : (isFrontier ? "Support Pathway" : "Upvote"));
       } else {
-        voteBadge.textContent = String(displayVotes);
+        const supportText = voteBadge.querySelector(".support-text");
+        if (supportText) {
+          supportText.textContent = voted ? "Supported ✓" : "Support Pathway";
+        } else {
+          voteBadge.textContent = voted ? (isFrontier ? "Supported ✓" : "Voted ✓") : String(displayVotes);
+        }
       }
       if (voted) {
         voteBadge.classList.add("voted");
@@ -405,7 +411,7 @@ function initializeBacklogVoting() {
         modal.className = "vote-modal-overlay";
         modal.style.cssText = "position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 10000;";
         
-        const itemAccent = getComputedStyle(item).getPropertyValue("--backlog-accent") || "var(--accent-synapse)";
+        const itemAccent = (item && item !== voteBadge) ? (getComputedStyle(item).getPropertyValue("--backlog-accent") || "var(--accent-synapse)") : "var(--accent-synapse)";
 
         modal.innerHTML = `
           <div class="vote-modal-content" role="dialog" aria-modal="true" aria-labelledby="vote-modal-title" style="background: var(--bg-paper); border: 1px solid var(--border-color); border-radius: var(--radius-card); padding: var(--space-4); max-width: 400px; width: 90%; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; gap: var(--space-3); animation: modalFadeIn 0.2s ease-out;">
@@ -1367,7 +1373,7 @@ function initializeCardClicks() {
     if (card.classList.contains("pipeline-card-merged")) return;
 
     // Do not redirect if clicking on interactive elements (links, buttons, popovers, upvote, jargon definitions)
-    if (e.target.closest("a, button, input, select, label, .jargon-term, .backlog-votes")) {
+    if (e.target.closest("a, button, input, select, label, .jargon-term, .backlog-votes, .frontier-support-btn")) {
       return;
     }
 

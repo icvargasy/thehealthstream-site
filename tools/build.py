@@ -435,6 +435,7 @@ def run_build() -> None:
             translations=translations,
             nodes=nodes,
             vocabulary=vocabulary,
+            backlog=backlog,
         )
         with open(os.path.join(output_dir, f"{node['slug']}.html"), "w", encoding="utf-8") as f:
             f.write(detail_page_html)
