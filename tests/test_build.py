@@ -1410,7 +1410,7 @@ def test_related_circuits_3_directional_rendering() -> None:
     assert "Frontier Target Title" in rendered_html
 
     # Check Relational Bridge analogy block
-    assert "THE CONNECTION:" in rendered_html
+    assert "CONNECTION ANALOGY:" in rendered_html
     assert "Primary driver mechanism transferring metabolic load." in rendered_html
     assert "Hypothesized parallel maintaining homeostasis." in rendered_html
 

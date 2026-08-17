@@ -381,16 +381,19 @@ def render_related_circuits_section(
                     f'  <span class="ai-suggested-tag">{ai_spark_svg}AI Suggested</span>'
                     f'  <span>&bull;</span>'
                     f'  <span>Proposed: 2026-08-17</span>'
-                    f'</div>'
                 )
                 lifecycle_tier = "frontier"
-                card_container_class = f"feed-card cat-{target_type} connection-card tier-frontier"
-                lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-frontier">{STATE_FRONTIER_SVG} AI Proposed Loop</span>'
+                card_container_class = f"feed-card pipeline-card-merged cat-{target_type} connection-card tier-frontier"
+                lifecycle_badge = (
+                    f'<a href="{target_url}" class="pipeline-badge pipeline-badge-link">'
+                    f'  {ai_spark_svg} AI Suggested'
+                    f'</a>'
+                )
                 action_btn_html = (
-                    f'<button type="button" class="frontier-support-btn" '
-                    f'data-id="{target_slug}" data-title="{target_title}" data-category="{target_type}" data-source="{node_slug}">'
-                    f'  <span class="support-plus">+</span> <span class="support-text">Support Pathway</span>'
-                    f'</button>'
+                    f'<a href="{target_url}" class="backlog-votes vote-cta-btn proposal-cta-btn" aria-label="Propose topic for pipeline">'
+                    f'  <span class="upvote-icon">+</span>'
+                    f'  <span class="vote-label">Propose as New Entry</span>'
+                    f'</a>'
                 )
 
             evidence_badge_html = render_evidence_tier_badge(target_grade)
@@ -417,7 +420,7 @@ def render_related_circuits_section(
                 analogy_html = (
                     f'<blockquote class="card-teaser-text card-analogy-block">'
                     f'  <div class="card-analogy-hook">'
-                    f'    <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>THE CONNECTION:</strong></span> '
+                    f'    <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>CONNECTION ANALOGY:</strong></span> '
                     f'    <span class="analogy-text">{mechanism}</span>'
                     f'  </div>'
                     f'</blockquote>'
