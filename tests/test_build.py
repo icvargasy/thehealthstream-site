@@ -414,7 +414,7 @@ def test_compile_backlog_page() -> None:
     assert "Autophagy Kinetics" in compiled
     assert "124" in compiled
     assert "submit-proposal.html" in compiled
-    assert "Submit a Proposal" in compiled
+    assert "Submit Topic Proposal" in compiled
 
 
 def test_compile_static_content_page(tmp_path) -> None:
@@ -947,7 +947,7 @@ def test_render_backlog_card_layout_parity() -> None:
     translations = {"en": {"category_biology": "Biological Circuits"}}
     card_html = render_backlog_card(backlog_item, translations, as_list_item=False)
 
-    assert 'class="feed-card pipeline-card-merged cat-biology"' in card_html
+    assert 'class="feed-card pipeline-card-merged cat-biology tier-pipeline"' in card_html
     # hook_question must appear as the card H2 headline
     assert 'Could disrupted cell recycling quietly accelerate brain aging?' in card_html
     assert 'class="card-analogy-hook"' in card_html
@@ -959,6 +959,65 @@ def test_render_backlog_card_layout_parity() -> None:
     # Formal mechanism takeaways are reserved for detail pages
     assert 'class="card-takeaway-hook"' not in card_html
     assert 'class="qa-question-text"' not in card_html
+
+
+def test_compile_backlog_page_with_frontier_lifecycle_filter() -> None:
+    """Verifies that compile_backlog_page includes segmented lifecycle controls and unvetted frontier cards."""
+    from tools.compiler.writer import compile_backlog_page
+
+    backlog = [
+        {
+            "id": "item-1",
+            "title": "Editorial Topic",
+            "hook_question": "Can editorial pipeline work?",
+            "category": "biology",
+            "votes": 5,
+            "grade": "Moderate",
+            "systems_analogy": "A factory power grid.",
+            "tags": ["biology"]
+        }
+    ]
+    frontier = [
+        {
+            "id": "frontier-1",
+            "title": "Frontier Suggestion",
+            "hook_question": "Can AI discover new pathways?",
+            "category": "lifestyle",
+            "grade": "Very Low",
+            "systems_analogy": "A traffic detour.",
+            "tags": ["lifestyle", "longevity"],
+            "source_node": "source-article",
+            "source_title": "Source Article",
+            "direction": "upstream",
+            "tier": "frontier"
+        }
+    ]
+    translations = {"en": {"nav_backlog": "Proposed Backlog", "backlog_title": "Proposed Backlog", "backlog_desc": "Roadmap desc"}}
+    layout = "<html><body>{{title}} {{meta_description}} {{content}}</body></html>"
+
+    rendered = compile_backlog_page(layout, backlog, translations, frontier_items=frontier)
+
+    # Segmented lifecycle filter controls
+    assert 'class="feed-toggle-row backlog-toggle-row"' in rendered
+    assert 'data-lifecycle="all"' in rendered
+    assert 'data-lifecycle="pipeline"' in rendered
+    assert 'data-lifecycle="frontier"' in rendered
+    assert 'All <span class="toggle-badge">(2)</span>' in rendered
+    assert 'Pipeline <span class="toggle-badge">(1)</span>' in rendered
+    assert 'AI Frontier <span class="toggle-badge">(1)</span>' in rendered
+
+    # Both card types rendered with distinct actions and lifecycle attributes
+    assert 'id="item-1"' in rendered
+    assert 'data-lifecycle="pipeline"' in rendered
+    assert 'Upvote' in rendered
+    assert 'In the Pipeline' in rendered
+
+    assert 'id="frontier-1"' in rendered
+    assert 'data-lifecycle="frontier"' in rendered
+    assert 'Propose as New Entry' in rendered
+    assert 'AI Suggested' in rendered
+    assert 'title="Automated graph discovery: Discovered via systems biology pathway analysis"' in rendered
+    assert 'Frontier Suggestion · Discovered via Source Article' in rendered
 
 
 def test_validate_vocabulary_item_ai_generated_default() -> None:
@@ -1409,8 +1468,8 @@ def test_related_circuits_3_directional_rendering() -> None:
     assert "Can parallel circuits balance glucose load?" in rendered_html
     assert "Frontier Target Title" in rendered_html
 
-    # Check Relational Bridge analogy block
-    assert "CONNECTION ANALOGY:" in rendered_html
+    # Check Systems Analogy block
+    assert "Systems Analogy:" in rendered_html
     assert "Primary driver mechanism transferring metabolic load." in rendered_html
     assert "Hypothesized parallel maintaining homeostasis." in rendered_html
 
@@ -1462,10 +1521,49 @@ def test_compile_detail_page_quick_nav() -> None:
     translations = {"en": {}}
     rendered = compile_detail_page(layout_template, node, translations, nodes=[node], backlog=[])
     assert 'class="detail-quick-nav"' in rendered
+    assert 'quick-nav-icon' in rendered
+    assert 'Jump to Section:' in rendered
     assert 'href="#overview-section"' in rendered
     assert 'href="#deepdive-section"' in rendered
     assert 'href="#connections-section"' in rendered
     assert 'href="#evidence-section"' in rendered
+
+
+def test_render_related_circuits_section_ai_frontier_suggestion() -> None:
+    """Verifies that frontier AI-suggested circuit connections render dark grey static labels and right-aligned CTA."""
+    from tools.compiler.writer import render_related_circuits_section
+
+    node_data = {
+        "slug": "source-node",
+        "type": "lifestyle",
+        "title": "Source Node",
+        "related_circuits": {
+            "upstream": [
+                {
+                    "target": "unregistered-frontier-topic",
+                    "title": "Postprandial Walking & Glucose Clearance",
+                    "hook_question": "Can a 10-minute walk after meals prevent dangerous blood sugar spikes?",
+                    "category": "lifestyle",
+                    "grade": "Moderate",
+                    "mechanism": "Taking a brisk walk right after eating diverts sugar traffic straight into leg engines.",
+                    "tags": ["lifestyle", "longevity"]
+                }
+            ]
+        }
+    }
+
+    rendered_html = render_related_circuits_section(node_data, [node_data], backlog=[])
+
+    # Check AI suggested label (static label, no duplicate in footer date)
+    assert 'class="pipeline-badge pipeline-badge-label ai-suggested-pill"' in rendered_html
+    assert "AI Suggested" in rendered_html
+    assert 'class="ai-suggested-tag"' not in rendered_html
+    assert '<span>Proposed: 2026-08-17</span>' in rendered_html
+
+    # Check Proposal CTA button
+    assert 'class="vote-cta-btn proposal-cta-btn"' in rendered_html
+    assert "Propose as New Entry" in rendered_html
+    assert "submit-proposal.html?source=source-node&target=unregistered-frontier-topic&type=upstream" in rendered_html
 
 
 def test_compile_vocabulary_detail_page_flat_layout() -> None:

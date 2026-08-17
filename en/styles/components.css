@@ -399,9 +399,9 @@ body.left-collapsed .header-brand-container {
 .guide-mock-pipeline-badge {
   font-size: 0.55rem;
   font-weight: 700;
-  color: var(--accent-synapse);
-  background-color: oklch(0.43 0.16 18 / 0.20);
-  border: 1px solid oklch(0.43 0.16 18 / 0.35);
+  color: oklch(0.25 0.005 20);
+  background-color: oklch(0.20 0.005 20 / 0.06);
+  border: 1px solid oklch(0.35 0.005 20 / 0.45);
   padding: 1.5px 4px;
   border-radius: 3px;
   letter-spacing: 0.03em;
@@ -409,6 +409,12 @@ body.left-collapsed .header-brand-container {
   align-items: center;
   gap: 2px;
   white-space: nowrap;
+}
+
+body[data-theme="dark"] .guide-mock-pipeline-badge {
+  color: oklch(0.88 0.005 20);
+  background-color: oklch(0.90 0.005 20 / 0.08);
+  border-color: oklch(0.70 0.005 20 / 0.45);
 }
 
 .guide-mock-badge {
@@ -690,7 +696,8 @@ a.category-tag {
   align-items: center;
   gap: var(--space-2);
   font-family: var(--font-display);
-  font-size: 1.35rem;
+  font-size: 1.25rem;
+  line-height: 1.35;
   font-weight: 700;
   margin: 0;
   color: var(--text-ink);
@@ -767,9 +774,9 @@ a.tag-pill:focus-visible {
 .evidence-tier-badge {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
   font-family: var(--font-body);
-  font-size: 0.72rem;
+  font-size: 0.65rem;
   font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
@@ -1957,33 +1964,45 @@ body[data-theme="dark"] .connection-link.conn-cat-book:hover {
   margin-top: var(--space-3);
 }
 
-/* Section Jump Bar (Quick-Nav) - Distinct Top-Fold Navigation Bar */
+/* Section Jump Bar (Quick-Nav) - Sleek Single-Line Navigation Bar */
 .detail-quick-nav {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin: var(--space-4) 0 var(--space-5) 0;
-  padding: 8px 14px;
-  background-color: var(--bg-surface);
+  margin: var(--space-3) 0 var(--space-4) 0;
+  padding: 6px 14px;
+  background-color: var(--bg-surface-alt);
   border: 1px solid var(--border-color);
   border-radius: var(--radius-card);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.detail-quick-nav::-webkit-scrollbar {
+  display: none;
 }
 
 .quick-nav-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   color: var(--text-ink-muted);
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .quick-nav-pills-group {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: var(--space-2);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
 }
 
 .quick-nav-pill {
@@ -1997,6 +2016,7 @@ body[data-theme="dark"] .connection-link.conn-cat-book:hover {
   background-color: var(--bg-paper);
   border: 1px solid var(--border-color);
   text-decoration: none;
+  white-space: nowrap;
   transition: color var(--transition-fast), border-color var(--transition-fast), background-color var(--transition-fast), transform var(--transition-fast);
 }
 
@@ -2084,7 +2104,7 @@ body[data-theme="dark"] .connection-link.conn-cat-book:hover {
   gap: 4px;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  font-size: 0.68rem;
+  font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.04em;
@@ -2093,12 +2113,13 @@ body[data-theme="dark"] .connection-link.conn-cat-book:hover {
   background-color: transparent !important;
   color: var(--text-ink) !important;
   border: 1px solid var(--border-color) !important;
+  line-height: 1;
   transition: all var(--transition-fast);
 }
 
 .connection-direction-badge .direction-arrow {
   font-weight: 800;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   line-height: 1;
   color: var(--text-ink-muted) !important;
 }
@@ -2112,10 +2133,11 @@ body[data-theme="dark"] .connection-link.conn-cat-book:hover {
   background-color: transparent !important;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  font-size: 0.70rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  letter-spacing: 0.03em;
+  letter-spacing: 0.04em;
   white-space: nowrap;
+  line-height: 1;
 }
 
 .badge-lifecycle-decoded {
@@ -2128,20 +2150,25 @@ body[data-theme="dark"] .connection-link.conn-cat-book:hover {
   border: 1px dashed var(--border-color);
 }
 
-/* AI Suggested Footer Tag Label */
-.ai-suggested-tag {
+/* AI Suggested Label (Static Label, Dark Grey, No Interaction) */
+.ai-suggested-tag,
+.ai-suggested-pill,
+.pipeline-badge.pipeline-badge-label,
+.badge-ai-suggested {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 1px 7px;
-  border-radius: var(--radius-pill);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  color: var(--text-ink-muted) !important;
-  border: 1px dashed var(--border-color) !important;
+  padding: 2px 8px !important;
+  border-radius: var(--radius-pill) !important;
+  font-size: 0.65rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  color: oklch(0.28 0.005 20) !important;
+  border: 1px solid oklch(0.35 0.005 20 / 0.45) !important;
   background-color: transparent !important;
+  line-height: 1 !important;
+  cursor: default !important;
 }
 
 .ai-suggested-icon {
@@ -2170,12 +2197,12 @@ body[data-theme="dark"] .connection-link.conn-cat-book:hover {
 
 /* Dark theme overrides */
 body[data-theme="dark"] .detail-quick-nav {
-  background-color: var(--bg-surface);
+  background-color: var(--bg-surface-alt);
   border-color: var(--border-color);
 }
 
 body[data-theme="dark"] .quick-nav-pill {
-  background-color: var(--bg-surface-alt);
+  background-color: var(--bg-paper);
   border-color: var(--border-color);
   color: var(--text-ink);
 }
@@ -2183,6 +2210,15 @@ body[data-theme="dark"] .quick-nav-pill {
 body[data-theme="dark"] .quick-nav-pill:hover {
   color: var(--accent-synapse);
   border-color: var(--accent-synapse);
+}
+
+body[data-theme="dark"] .ai-suggested-tag,
+body[data-theme="dark"] .ai-suggested-pill,
+body[data-theme="dark"] .pipeline-badge.pipeline-badge-label,
+body[data-theme="dark"] .badge-ai-suggested {
+  color: oklch(0.85 0.005 20) !important;
+  border-color: oklch(0.70 0.005 20 / 0.45) !important;
+  background-color: transparent !important;
 }
 
 body[data-theme="dark"] .connection-direction-badge {
@@ -2345,12 +2381,12 @@ body[data-theme="dark"] .backlog-item.cat-book {
   font-size: 0.65rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.04em;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  border: 1px solid var(--selected-border);
-  background-color: var(--selected-bg);
-  color: var(--accent-synapse);
+  border: 1px solid oklch(0.35 0.005 20 / 0.45);
+  background-color: oklch(0.20 0.005 20 / 0.05);
+  color: oklch(0.25 0.005 20);
   display: inline-flex;
   align-items: center;
   line-height: 1;
@@ -2505,15 +2541,14 @@ body[data-theme="dark"] .backlog-item.cat-book {
 }
 
 a.pipeline-badge {
-
   cursor: pointer;
   text-decoration: none;
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
 a.pipeline-badge:hover {
-  background-color: var(--backlog-accent, var(--accent-synapse));
-  border-color: var(--backlog-accent, var(--accent-synapse));
+  background-color: oklch(0.25 0.005 20);
+  border-color: oklch(0.25 0.005 20);
   color: var(--bg-paper);
 }
 
@@ -3502,12 +3537,12 @@ a.pipeline-badge:hover {
 .badge-systems-analogy,
 .analogy-badge-label,
 .badge-formal-definition {
-  font-size: 0.7rem !important;
+  font-size: 0.68rem !important;
   font-weight: 700 !important;
   text-transform: uppercase !important;
-  letter-spacing: 0.05em !important;
+  letter-spacing: 0.04em !important;
   background-color: transparent !important;
-  padding: 2px 8px !important;
+  padding: 2px 7px !important;
   border-radius: var(--radius-pill) !important;
   display: inline-flex !important;
   align-items: center !important;
@@ -3532,10 +3567,17 @@ a.pipeline-badge:hover {
 
 .hero-analogy-text,
 .hero-clinical-text,
-.vocab-definition-text,
-.analogy-text {
+.vocab-definition-text {
   display: inline !important;
   font-size: 0.95rem !important;
+  color: var(--text-ink) !important;
+}
+
+.card-analogy-block .analogy-text,
+.card-teaser-text .analogy-text {
+  display: inline !important;
+  font-size: 0.86rem !important;
+  line-height: 1.45 !important;
   color: var(--text-ink) !important;
 }
 
@@ -4544,43 +4586,56 @@ a.pipeline-badge-link {
 }
 
 a.pipeline-badge-link:hover {
-  background-color: var(--accent-synapse) !important;
-  border-color: var(--accent-synapse) !important;
-  color: white !important;
+  background-color: oklch(0.25 0.005 20) !important;
+  border-color: oklch(0.25 0.005 20) !important;
+  color: var(--bg-paper) !important;
 }
 
 .feed-card.pipeline-card-merged.cat-lifestyle a.pipeline-badge-link:hover,
 .backlog-item.cat-lifestyle a.pipeline-badge-link:hover {
-  background-color: var(--accent-lifestyle) !important;
-  border-color: var(--accent-lifestyle) !important;
-  color: var(--text-ink) !important;
+  background-color: oklch(0.25 0.005 20) !important;
+  border-color: oklch(0.25 0.005 20) !important;
+  color: var(--bg-paper) !important;
 }
 
 .feed-card.pipeline-card-merged.cat-book a.pipeline-badge-link:hover,
 .backlog-item.cat-book a.pipeline-badge-link:hover {
-  background-color: var(--accent-book) !important;
-  border-color: var(--accent-book) !important;
-  color: var(--text-ink) !important;
+  background-color: oklch(0.25 0.005 20) !important;
+  border-color: oklch(0.25 0.005 20) !important;
+  color: var(--bg-paper) !important;
 }
 
-/* Style the In the Pipeline status badge itself to have solid border and visible background */
+/* Style the In the Pipeline status badge to have solid dark grey border and subtle fill */
 .pipeline-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  border: 1px solid oklch(0.43 0.16 18 / 0.35) !important;
-  background-color: oklch(0.43 0.16 18 / 0.20) !important;
+  border: 1px solid oklch(0.35 0.005 20 / 0.45) !important;
+  background-color: oklch(0.20 0.005 20 / 0.05) !important;
   border-radius: var(--radius-pill) !important;
   padding: 2px 8px !important;
   font-size: 0.65rem !important;
-  font-weight: 600 !important;
+  font-weight: 700 !important;
   letter-spacing: 0.04em !important;
   text-transform: uppercase !important;
-  color: var(--accent-synapse) !important;
+  color: oklch(0.25 0.005 20) !important;
   text-decoration: none !important;
 }
 
-.feed-card.pipeline-card-merged .backlog-votes {
+body[data-theme="dark"] .pipeline-badge {
+  color: oklch(0.85 0.005 20) !important;
+  border: 1px solid oklch(0.65 0.005 20 / 0.50) !important;
+  background-color: oklch(0.85 0.005 20 / 0.12) !important;
+}
+
+body[data-theme="dark"] .pipeline-badge svg {
+  stroke: oklch(0.85 0.005 20) !important;
+}
+
+.feed-card.pipeline-card-merged .backlog-votes,
+.feed-card.pipeline-card-merged .vote-cta-btn,
+.feed-card .proposal-cta-btn,
+.vote-cta-btn.proposal-cta-btn {
   flex-shrink: 0;
   display: inline-flex;
   align-items: center;
@@ -4596,10 +4651,14 @@ a.pipeline-badge-link:hover {
   cursor: pointer;
   position: relative;
   z-index: 2;
+  text-decoration: none !important;
   transition: all var(--transition-fast);
 }
 
-.feed-card.pipeline-card-merged .backlog-votes:hover:not(:disabled) {
+.feed-card.pipeline-card-merged .backlog-votes:hover:not(:disabled),
+.feed-card.pipeline-card-merged .vote-cta-btn:hover,
+.feed-card .proposal-cta-btn:hover,
+.vote-cta-btn.proposal-cta-btn:hover {
   border-color: var(--accent-synapse);
   background-color: var(--selected-bg);
 }
@@ -4625,21 +4684,27 @@ a.pipeline-badge-link:hover {
 
 /* Category-Dynamic CTA Button & Hover Styling */
 .feed-card.cat-biology .read-article-btn:hover,
-.feed-card.cat-biology .backlog-votes:hover:not(:disabled) {
+.feed-card.cat-biology .backlog-votes:hover:not(:disabled),
+.feed-card.cat-biology .vote-cta-btn:hover,
+.feed-card.cat-biology .proposal-cta-btn:hover {
   border-color: oklch(0.40 0.16 250);
   color: oklch(0.40 0.16 250);
   background-color: oklch(0.70 0.13 250 / 0.10);
 }
 
 .feed-card.cat-lifestyle .read-article-btn:hover,
-.feed-card.cat-lifestyle .backlog-votes:hover:not(:disabled) {
+.feed-card.cat-lifestyle .backlog-votes:hover:not(:disabled),
+.feed-card.cat-lifestyle .vote-cta-btn:hover,
+.feed-card.cat-lifestyle .proposal-cta-btn:hover {
   border-color: oklch(0.40 0.14 140);
   color: oklch(0.40 0.14 140);
   background-color: oklch(0.60 0.12 140 / 0.10);
 }
 
 .feed-card.cat-book .read-article-btn:hover,
-.feed-card.cat-book .backlog-votes:hover:not(:disabled) {
+.feed-card.cat-book .backlog-votes:hover:not(:disabled),
+.feed-card.cat-book .vote-cta-btn:hover,
+.feed-card.cat-book .proposal-cta-btn:hover {
   border-color: oklch(0.45 0.15 70);
   color: oklch(0.45 0.15 70);
   background-color: oklch(0.70 0.14 70 / 0.10);
@@ -5084,20 +5149,33 @@ a.pipeline-badge-link {
   align-items: center;
   gap: 4px;
   font-size: 0.65rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 2px 8px !important;
   border-radius: var(--radius-pill) !important;
-  border: 1px solid oklch(0.43 0.16 18 / 0.35) !important;
-  background-color: oklch(0.43 0.16 18 / 0.20) !important;
-  color: var(--accent-synapse) !important;
+  border: 1px solid oklch(0.35 0.005 20 / 0.45) !important;
+  background-color: oklch(0.20 0.005 20 / 0.05) !important;
+  color: oklch(0.25 0.005 20) !important;
 }
 
 a.pipeline-badge-link:hover {
-  background-color: var(--accent-synapse) !important;
-  border-color: var(--accent-synapse) !important;
+  background-color: oklch(0.25 0.005 20) !important;
+  border-color: oklch(0.25 0.005 20) !important;
   color: var(--bg-paper) !important;
+}
+
+body[data-theme="dark"] .pipeline-badge,
+body[data-theme="dark"] a.pipeline-badge-link {
+  border-color: oklch(0.70 0.005 20 / 0.45) !important;
+  background-color: oklch(0.90 0.005 20 / 0.08) !important;
+  color: oklch(0.88 0.005 20) !important;
+}
+
+body[data-theme="dark"] a.pipeline-badge-link:hover {
+  background-color: oklch(0.88 0.005 20) !important;
+  border-color: oklch(0.88 0.005 20) !important;
+  color: oklch(0.12 0.005 20) !important;
 }
 
 /* Standard unordered lists on static prose pages */

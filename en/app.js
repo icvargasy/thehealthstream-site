@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initializeGradePopover();
   initializeScrollingAndHash();
   initializeFeedFilters();
+  initializeBacklogFilters();
   initializeCardClicks();
   initializeLexiconVerification();
   initializeVocabTaxonomyFilter();
@@ -313,7 +314,7 @@ function initializeJargonPopovers() {
  * @returns {void}
  */
 function initializeBacklogVoting() {
-  const voteBadges = document.querySelectorAll(".backlog-votes, .connection-action-btn.backlog-votes, .connection-action-btn.frontier-support-btn");
+  const voteBadges = document.querySelectorAll("button.backlog-votes, .connection-action-btn.backlog-votes");
   if (voteBadges.length === 0) return;
 
   // Retrieve votes map from local storage
@@ -328,6 +329,7 @@ function initializeBacklogVoting() {
   }
 
   voteBadges.forEach((voteBadge) => {
+    if (voteBadge.tagName === "A" || voteBadge.classList.contains("proposal-cta-btn")) return;
     const item = voteBadge.closest(".backlog-item, .pipeline-card-merged, .connection-item") || voteBadge;
     const itemId = voteBadge.getAttribute("data-id") || item.getAttribute("data-id");
     const itemTitle = voteBadge.getAttribute("data-title") || item.getAttribute("data-title") || "Topic Proposal";
@@ -338,10 +340,15 @@ function initializeBacklogVoting() {
     const voteCountSpan = voteBadge.querySelector(".vote-count");
     const isFrontier = voteBadge.classList.contains("frontier-support-btn");
 
+    const voteLabelSpan = voteBadge.querySelector(".vote-label");
+
     const updateVoteUI = (voted) => {
       const displayVotes = voted ? baseVotes + 1 : baseVotes;
-      if (voteCountSpan) {
-        voteCountSpan.textContent = voted ? (isFrontier ? "Supported ✓" : "Voted ✓") : (baseVotes > 0 ? String(displayVotes) : (isFrontier ? "Support Pathway" : "Upvote"));
+      if (voteLabelSpan && voteCountSpan) {
+        voteLabelSpan.textContent = voted ? (isFrontier ? "Supported ✓" : "Voted ✓") : "Upvote";
+        voteCountSpan.textContent = `(${displayVotes})`;
+      } else if (voteCountSpan) {
+        voteCountSpan.textContent = String(displayVotes);
       } else {
         const supportText = voteBadge.querySelector(".support-text");
         if (supportText) {
@@ -678,9 +685,15 @@ function initializeProposalSubmission() {
       if (questionInput) {
         let prefillMsg = "";
         if (paramSource && paramTarget && paramType) {
-          prefillMsg = `[Connection Endorsement]: Endorsing ${paramType.toUpperCase()} relationship between "${paramSource}" and "${paramTarget}".`;
+          const cleanTarget = paramTarget.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+          const cleanSource = paramSource.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+          prefillMsg = `[Proposed Entry]: ${cleanTarget}\n[Context]: ${paramType.toUpperCase()} connection discovered from "${cleanSource}"`;
+        } else if (paramTarget) {
+          const cleanTarget = paramTarget.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+          prefillMsg = `[Proposed Entry]: ${cleanTarget}`;
         } else if (paramSource) {
-          prefillMsg = `[Pathway Proposal]: Proposing a new circuit connection for entry "${paramSource}".`;
+          const cleanSource = paramSource.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase());
+          prefillMsg = `[Connection Proposal]: New circuit connection for "${cleanSource}"`;
         }
         if (prefillMsg && !questionInput.value) {
           questionInput.value = prefillMsg;
@@ -1268,13 +1281,16 @@ function initializeScrollingAndHash() {
  * @returns {void}
  */
 function initializeFeedFilters() {
-  const toggleButtons = document.querySelectorAll(".feed-toggle-btn");
-  const feedCards = document.querySelectorAll(".feed-card");
+  const toggleButtons = document.querySelectorAll(".feed-toggle-btn[data-filter]");
+  const feedCards = document.querySelectorAll(".feed-card:not(.backlog-item)");
   const tierFilterSelect = document.getElementById("feed-tier-filter-select");
   
   if (toggleButtons.length === 0 && !tierFilterSelect) return;
   
-  let activeFeedFilter = safeStorage.getItem("feed_filter") || "all";
+  const validFeedFilters = ["all", "decoded", "pipeline"];
+  let rawFeedFilter = safeStorage.getItem("feed_filter");
+  let activeFeedFilter = validFeedFilters.includes(rawFeedFilter) ? rawFeedFilter : "all";
+  
   let activeTierFilter = safeStorage.getItem("tier_filter") || "all";
   
   const filterFeed = () => {
@@ -1357,6 +1373,66 @@ function initializeFeedFilters() {
       filterFeed();
     });
   }
+}
+
+/**
+ * Manages segmented lifecycle filtering on the Backlog page (All vs. Editorial Pipeline vs. AI Frontier Ideas).
+ * @returns {void}
+ */
+function initializeBacklogFilters() {
+  const toggleButtons = document.querySelectorAll(".backlog-filter-btn");
+  const backlogCards = document.querySelectorAll("#backlog-list-container .backlog-item");
+  if (toggleButtons.length === 0 || backlogCards.length === 0) return;
+
+  const validLifecycles = ["all", "pipeline", "frontier"];
+  let rawLifecycle = safeStorage.getItem("backlog_lifecycle");
+  let activeLifecycle = validLifecycles.includes(rawLifecycle) ? rawLifecycle : "all";
+
+  const filterBacklog = (lifecycleValue) => {
+    let visibleCount = 0;
+    backlogCards.forEach((card) => {
+      const cardLifecycle = card.getAttribute("data-lifecycle") || (card.classList.contains("tier-frontier") ? "frontier" : "pipeline");
+      if (lifecycleValue === "all" || cardLifecycle === lifecycleValue) {
+        card.style.display = "";
+        visibleCount++;
+      } else {
+        card.style.display = "none";
+      }
+    });
+
+    let announcer = document.getElementById("backlog-announcer");
+    if (!announcer) {
+      announcer = document.createElement("div");
+      announcer.id = "backlog-announcer";
+      announcer.className = "sr-only";
+      announcer.setAttribute("aria-live", "polite");
+      announcer.setAttribute("style", "position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0;");
+      document.body.appendChild(announcer);
+    }
+    announcer.textContent = `Development Queue updated. Showing ${visibleCount} proposals.`;
+  };
+
+  // Restore active class
+  toggleButtons.forEach((btn) => {
+    const val = btn.getAttribute("data-lifecycle") || "all";
+    if (val === activeLifecycle) {
+      btn.classList.add("active");
+    } else {
+      btn.classList.remove("active");
+    }
+  });
+
+  filterBacklog(activeLifecycle);
+
+  toggleButtons.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      toggleButtons.forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+      const lifecycle = btn.getAttribute("data-lifecycle") || "all";
+      safeStorage.setItem("backlog_lifecycle", lifecycle);
+      filterBacklog(lifecycle);
+    });
+  });
 }
 
 /**

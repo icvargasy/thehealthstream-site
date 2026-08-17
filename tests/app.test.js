@@ -559,5 +559,64 @@ describe("Client Interaction - app.js", () => {
     });
     expect(localStorageMock.setItem).toHaveBeenCalledWith("voter_email", "community@example.com");
   });
+
+  it("should toggle backlog cards by lifecycle tier when clicking backlog filter buttons", () => {
+    document.body.innerHTML += `
+      <div class="feed-toggle-row backlog-toggle-row">
+        <button class="backlog-filter-btn active" data-lifecycle="all">All</button>
+        <button class="backlog-filter-btn" data-lifecycle="pipeline">Pipeline</button>
+        <button class="backlog-filter-btn" data-lifecycle="frontier">Frontier</button>
+      </div>
+      <ul id="backlog-list-container">
+        <li class="backlog-item tier-pipeline" data-lifecycle="pipeline" id="item-pipeline">Pipeline Item</li>
+        <li class="backlog-item tier-frontier" data-lifecycle="frontier" id="item-frontier">Frontier Item</li>
+      </ul>
+    `;
+
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+
+    const pipelineBtn = document.querySelector('.backlog-filter-btn[data-lifecycle="pipeline"]');
+    const frontierBtn = document.querySelector('.backlog-filter-btn[data-lifecycle="frontier"]');
+    const allBtn = document.querySelector('.backlog-filter-btn[data-lifecycle="all"]');
+
+    const itemPipeline = document.getElementById("item-pipeline");
+    const itemFrontier = document.getElementById("item-frontier");
+
+    // Filter by pipeline
+    pipelineBtn.click();
+    expect(itemPipeline.style.display).toBe("");
+    expect(itemFrontier.style.display).toBe("none");
+    expect(pipelineBtn.classList.contains("active")).toBe(true);
+
+    // Filter by frontier
+    frontierBtn.click();
+    expect(itemPipeline.style.display).toBe("none");
+    expect(itemFrontier.style.display).toBe("");
+    expect(frontierBtn.classList.contains("active")).toBe(true);
+
+    // Filter by all
+    allBtn.click();
+    expect(itemPipeline.style.display).toBe("");
+    expect(itemFrontier.style.display).toBe("");
+    expect(allBtn.classList.contains("active")).toBe(true);
+  });
+
+  it("should not open vote modal when clicking on propose as new entry CTA", () => {
+    document.body.innerHTML += `
+      <div id="test-frontier-card" class="backlog-item tier-frontier" data-id="test-frontier">
+        <a href="submit-proposal.html?source=test&target=frontier&type=upstream" class="vote-cta-btn proposal-cta-btn">
+          <span class="upvote-icon">+</span>
+          <span class="vote-label">Propose as New Entry</span>
+        </a>
+      </div>
+    `;
+
+    document.dispatchEvent(new Event("DOMContentLoaded"));
+
+    const proposalBtn = document.querySelector(".proposal-cta-btn");
+    proposalBtn.click();
+
+    expect(document.querySelector(".vote-modal-overlay")).toBeNull();
+  });
 });
 

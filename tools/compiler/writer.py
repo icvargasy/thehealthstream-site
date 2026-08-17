@@ -56,6 +56,27 @@ TAG_PILL_ICON_SVG = (
     '</svg>'
 )
 
+AI_GRAPH_ICON_SVG = (
+    '<svg class="ai-suggested-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block;">'
+    '<circle cx="18" cy="5" r="3"></circle>'
+    '<circle cx="6" cy="12" r="3"></circle>'
+    '<circle cx="18" cy="19" r="3"></circle>'
+    '<line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>'
+    '<line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>'
+    '</svg>'
+)
+
+PLUS_ICON_SVG = (
+    '<svg class="upvote-icon" width="10" height="10" viewBox="0 0 24 24" fill="none" '
+    'stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" '
+    'style="vertical-align: middle; margin-right: 3px; display: inline-block;">'
+    '<line x1="12" y1="5" x2="12" y2="19"></line>'
+    '<line x1="5" y1="12" x2="19" y2="12"></line>'
+    '</svg>'
+)
+
 
 CLINICAL_MECHANISM_SVG = (
     '<svg class="clinical-mechanism-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" '
@@ -294,12 +315,6 @@ def render_related_circuits_section(
         '</svg>'
     )
 
-    ai_spark_svg = (
-        '<svg class="ai-suggested-icon" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 3px; display: inline-block;">'
-        '  <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"></path>'
-        '</svg>'
-    )
-
     all_cards_html = []
     for dir_key in ("upstream", "downstream", "similar"):
         items = grouped.get(dir_key, [])
@@ -326,12 +341,12 @@ def render_related_circuits_section(
                 card_tags = item.get("tags") or target_info.get("tags", [])
                 date_meta_html = (
                     f'<div class="card-meta-dates">'
-                    f'  <span>Created: {target_info.get("created_at", "2026-06-01")}</span>'
+                    f'  <span>Published: {target_info.get("created_at", "2026-06-01")}</span>'
                     f'</div>'
                 )
                 lifecycle_tier = "decoded"
                 card_container_class = f"feed-card cat-{target_type} connection-card tier-decoded"
-                lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-decoded">{STATE_DECODED_SVG} Decoded</span>'
+                lifecycle_badge = f'<span class="badge-lifecycle badge-lifecycle-decoded" title="Published decoding: Fully verified systems biology mechanism and evidence audit">{STATE_DECODED_SVG} Decoded</span>'
                 action_btn_html = (
                     f'<a href="{target_url}" class="read-article-btn">'
                     f'  <span>Read Summary</span>'
@@ -357,7 +372,7 @@ def render_related_circuits_section(
                 lifecycle_tier = "pipeline"
                 card_container_class = f"feed-card pipeline-card-merged cat-{target_type} connection-card tier-pipeline"
                 lifecycle_badge = (
-                    f'<a href="{target_url}" class="pipeline-badge pipeline-badge-link">'
+                    f'<a href="{target_url}" class="pipeline-badge pipeline-badge-link" title="In the Pipeline: Community-prioritized roadmap topic awaiting full decoding">'
                     f'  {git_branch_svg} In the Pipeline'
                     f'</a>'
                 )
@@ -377,22 +392,20 @@ def render_related_circuits_section(
                 target_url = f"{base_path}submit-proposal.html?source={node_slug}&target={target_slug}&type={dir_key}"
                 card_tags = item.get("tags", [target_type, "longevity"])
                 date_meta_html = (
-                    f'<div class="card-meta-dates" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">'
-                    f'  <span class="ai-suggested-tag">{ai_spark_svg}AI Suggested</span>'
-                    f'  <span>&bull;</span>'
+                    f'<div class="card-meta-dates">'
                     f'  <span>Proposed: 2026-08-17</span>'
+                    f'</div>'
                 )
                 lifecycle_tier = "frontier"
                 card_container_class = f"feed-card pipeline-card-merged cat-{target_type} connection-card tier-frontier"
                 lifecycle_badge = (
-                    f'<a href="{target_url}" class="pipeline-badge pipeline-badge-link">'
-                    f'  {ai_spark_svg} AI Suggested'
-                    f'</a>'
+                    f'<span class="pipeline-badge pipeline-badge-label ai-suggested-pill" title="Automated graph discovery: Discovered via systems biology pathway analysis">'
+                    f'  {AI_GRAPH_ICON_SVG} AI Suggested'
+                    f'</span>'
                 )
                 action_btn_html = (
-                    f'<a href="{target_url}" class="backlog-votes vote-cta-btn proposal-cta-btn" aria-label="Propose topic for pipeline">'
-                    f'  <span class="upvote-icon">+</span>'
-                    f'  <span class="vote-label">Propose as New Entry</span>'
+                    f'<a href="{target_url}" class="vote-cta-btn proposal-cta-btn" aria-label="Propose topic for pipeline">'
+                    f'  {PLUS_ICON_SVG}<span class="vote-label">Propose as New Entry</span>'
                     f'</a>'
                 )
 
@@ -408,19 +421,24 @@ def render_related_circuits_section(
             cat_badge_html = f'<a href="{base_path}category-{target_type}.html" class="category-tag">{target_type_label}</a>'
 
             # Unified Non-Colliding Directional Tag
+            dir_tooltip = {
+                "upstream": "Upstream Driver: Biological cause or trigger that influences this mechanism",
+                "downstream": "Downstream Cascade: Biological outcome or effect resulting from this pathway",
+                "similar": "Parallel Circuit: Related biological loop operating through similar signaling pathways"
+            }.get(dir_key, "Connected biological circuit")
             dir_badge_html = (
-                f'<span class="connection-direction-badge badge-{dir_info["badge"]}">'
+                f'<span class="connection-direction-badge badge-{dir_info["badge"]}" title="{dir_tooltip}">'
                 f'  <span class="direction-arrow">{dir_info["arrow"]}</span> {dir_info["badge_text"].upper()}'
                 f'</span>'
             )
 
-            # Native Healthstream Connection Analogy Block
+            # Native Healthstream Systems Analogy Block
             analogy_html = ""
             if mechanism:
                 analogy_html = (
                     f'<blockquote class="card-teaser-text card-analogy-block">'
                     f'  <div class="card-analogy-hook">'
-                    f'    <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>CONNECTION ANALOGY:</strong></span> '
+                    f'    <span class="analogy-badge-label">{SYNAPSE_LOGO_SVG} <strong>Systems Analogy:</strong></span> '
                     f'    <span class="analogy-text">{mechanism}</span>'
                     f'  </div>'
                     f'</blockquote>'
@@ -617,7 +635,7 @@ def render_backlog_card(
     """Renders a backlog card HTML in unified flexbox layout format.
 
     Args:
-        item: Backlog item dictionary.
+        item: Backlog or Frontier item dictionary.
         translations: Translation labels dictionary.
         is_nested: If True, uses '../' path prefix for nested files (e.g. tag pages).
         vocabulary: Optional glossary references dictionary.
@@ -627,7 +645,7 @@ def render_backlog_card(
         The rendered HTML markup string.
     """
     labels = translations.get("en", {})
-    cat = item.get("category", "")
+    cat = item.get("category", "biology")
     category_class = f"cat-{cat}" if cat else ""
     category_label = labels.get(f"category_{cat}", cat).upper()
     prefix = "../" if is_nested else ""
@@ -645,8 +663,10 @@ def render_backlog_card(
     if vocabulary and desc:
         desc = inject_jargon_links(desc, vocabulary)
     
+    is_frontier = item.get("tier") == "frontier" or item.get("is_frontier", False)
+    lifecycle_tier_class = "tier-frontier" if is_frontier else "tier-pipeline"
     tag_name = "li" if as_list_item else "div"
-    card_class = f"backlog-item feed-card pipeline-card-merged {category_class}" if as_list_item else f"feed-card pipeline-card-merged {category_class}"
+    card_class = f"backlog-item feed-card pipeline-card-merged {category_class} {lifecycle_tier_class}" if as_list_item else f"feed-card pipeline-card-merged {category_class} {lifecycle_tier_class}"
     
     git_branch_svg = (
         '<svg class="pipeline-icon-svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">'
@@ -656,11 +676,18 @@ def render_backlog_card(
         '  <path d="M18 9a9 9 0 0 1-9 9"></path>'
         '</svg>'
     )
-    pipeline_badge_html = (
-        f'<a href="{backlog_url}" class="pipeline-badge pipeline-badge-link">'
-        f'  {git_branch_svg}In the Pipeline'
-        f'</a>'
-    )
+    if is_frontier:
+        pipeline_badge_html = (
+            f'<span class="pipeline-badge pipeline-badge-label ai-suggested-pill" title="Automated graph discovery: Discovered via systems biology pathway analysis">'
+            f'  {AI_GRAPH_ICON_SVG} AI Suggested'
+            f'</span>'
+        )
+    else:
+        pipeline_badge_html = (
+            f'<a href="{backlog_url}" class="pipeline-badge pipeline-badge-link">'
+            f'  {git_branch_svg}In the Pipeline'
+            f'</a>'
+        )
 
     grade = item.get("grade", "Very Low")
     grade_clean = grade.strip().lower()
@@ -684,13 +711,26 @@ def render_backlog_card(
     for t in item.get("tags", []):
         tag_pills.append(f'<a href="{prefix}tags/{t.lower()}.html" class="tag-pill">{TAG_PILL_ICON_SVG}{t}</a>')
     tags_html = f'<div class="card-tags">{" ".join(tag_pills)}</div>' if tag_pills else ""
-    vote_btn_html = (
-        f'<button class="backlog-votes vote-cta-btn" data-base-votes="{item["votes"]}" data-id="{item["id"]}" aria-label="Upvote topic proposal">'
-        f'  <span class="upvote-icon">▲</span>'
-        f'  <span class="vote-label">Upvote</span>'
-        f'  <span class="vote-count">({item["votes"]})</span>'
-        f'</button>'
-    )
+
+    if is_frontier:
+        source_slug = item.get("source_node", "")
+        target_slug = item.get("id", "")
+        dir_type = item.get("direction", "upstream")
+        proposal_url = f"{prefix}submit-proposal.html?source={source_slug}&target={target_slug}&type={dir_type}"
+        action_btn_html = (
+            f'<a href="{proposal_url}" class="vote-cta-btn proposal-cta-btn" aria-label="Propose topic for pipeline">'
+            f'  {PLUS_ICON_SVG}<span class="vote-label">Propose as New Entry</span>'
+            f'</a>'
+        )
+    else:
+        action_btn_html = (
+            f'<button class="backlog-votes vote-cta-btn" data-base-votes="{item.get("votes", 0)}" data-id="{item["id"]}" aria-label="Upvote topic proposal">'
+            f'  <span class="upvote-icon">▲</span>'
+            f'  <span class="vote-label">Upvote</span>'
+            f'  <span class="vote-count">({item.get("votes", 0)})</span>'
+            f'</button>'
+        )
+
     footer_html = (
         f'<div class="card-footer-new">'
         f'  <div class="card-footer-left">'
@@ -698,21 +738,25 @@ def render_backlog_card(
         f'    {meta_dates_html}'
         f'  </div>'
         f'  <div class="card-footer-right">'
-        f'    {vote_btn_html}'
+        f'    {action_btn_html}'
         f'  </div>'
         f'</div>'
     )
 
-    hook_q = item["hook_question"]
+    hook_q = item.get("hook_question", item["title"])
     if hook_q.strip().lower() == item["title"].strip().lower():
         hook_q = item.get("description", hook_q)
 
+    title_subtitle = item["title"]
+    if is_frontier and item.get("source_title"):
+        title_subtitle = f"{item['title']} · Discovered via {item['source_title']}"
+
     card_html = (
-        f'<{tag_name} id="{item["id"]}" class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item["votes"]}" data-id="{item["id"]}" data-grade="{grade_clean}" data-tier="{tier_slug}">'
+        f'<{tag_name} id="{item["id"]}" class="{card_class}" data-created="{created_at}" data-title="{item["title"]}" data-category="{cat}" data-votes="{item.get("votes", 0)}" data-id="{item["id"]}" data-grade="{grade_clean}" data-tier="{tier_slug}" data-lifecycle="{"frontier" if is_frontier else "pipeline"}">'
         f'  <div class="feed-card-header">'
         f'    <div class="feed-card-title-group">'
         f'      <div class="card-kicker-row">'
-        f'        <span class="card-topic-subtitle">{item["title"]}</span>'
+        f'        <span class="card-topic-subtitle">{title_subtitle}</span>'
         f'      </div>'
         f'      <h2 class="card-title">'
         f'        <span class="card-title-link">{hook_q}</span>'
@@ -1516,9 +1560,16 @@ def compile_detail_page(
     ])
     
     # 6.5. Section Jump Bar (Quick-Nav)
+    quick_nav_icon_svg = (
+        '<svg class="quick-nav-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px; display: inline-block; flex-shrink: 0;">'
+        '<line x1="4" y1="6" x2="20" y2="6"></line>'
+        '<line x1="4" y1="12" x2="14" y2="12"></line>'
+        '<line x1="4" y1="18" x2="18" y2="18"></line>'
+        '</svg>'
+    )
     jump_bar_html = (
         f'<nav class="detail-quick-nav" aria-label="Article Sections">'
-        f'  <span class="quick-nav-label">Jump to Section:</span>'
+        f'  <span class="quick-nav-label">{quick_nav_icon_svg}Jump to Section:</span>'
         f'  <div class="quick-nav-pills-group">'
         f'    <a href="#overview-section" class="quick-nav-pill">Core Summary</a>'
         f'    <a href="#deepdive-section" class="quick-nav-pill">Molecular Mechanisms</a>'
@@ -2284,6 +2335,7 @@ def compile_backlog_page(
     backlog: List[Dict[str, Any]],
     translations: Dict[str, Any],
     vocabulary: Dict[str, Any] = None,
+    frontier_items: List[Dict[str, Any]] = None,
 ) -> str:
     """Compiles the dedicated Backlog proposals and Google Forms submission page.
 
@@ -2292,23 +2344,36 @@ def compile_backlog_page(
         backlog: List of proposed backlog items.
         translations: Translations dictionary.
         vocabulary: Optional dictionary of jargon definitions.
+        frontier_items: Optional list of unvetted AI frontier suggestions.
 
     Returns:
         The complete HTML string for the backlog page.
     """
     labels = translations.get("en", {})
+    frontier_list = frontier_items or []
     
-    backlog_items = []
+    pipeline_items_html = []
     for item in backlog:
-        backlog_items.append(render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, as_list_item=True))
+        pipeline_items_html.append(render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, as_list_item=True))
         
-    cta_html = (
-        f'<div class="backlog-propose-banner">'
-        f'  <div class="backlog-propose-info">'
-        f'    <strong class="backlog-propose-title">Have a systems biology pathway or protocol in mind?</strong>'
-        f'    <span class="backlog-propose-subtitle">Propose a topic for our scientific backlog and citation audit.</span>'
+    frontier_items_html = []
+    for item in frontier_list:
+        frontier_items_html.append(render_backlog_card(item, translations, is_nested=False, vocabulary=vocabulary, as_list_item=True))
+
+    all_cards_html = pipeline_items_html + frontier_items_html
+
+    pipeline_count = len(backlog)
+    frontier_count = len(frontier_list)
+    total_count = pipeline_count + frontier_count
+
+    toggle_row_html = (
+        f'<div class="feed-toggle-row backlog-toggle-row">'
+        f'  <div class="feed-toggle-container backlog-toggle-container">'
+        f'    <button class="feed-toggle-btn backlog-filter-btn active" data-lifecycle="all">All <span class="toggle-badge">({total_count})</span></button>'
+        f'    <button class="feed-toggle-btn backlog-filter-btn" data-lifecycle="pipeline">Pipeline <span class="toggle-badge">({pipeline_count})</span></button>'
+        f'    <button class="feed-toggle-btn backlog-filter-btn" data-lifecycle="frontier">AI Frontier <span class="toggle-badge">({frontier_count})</span></button>'
         f'  </div>'
-        f'  <a href="submit-proposal.html" class="vote-btn backlog-propose-btn">Submit a Proposal &rarr;</a>'
+        f'  <a href="submit-proposal.html" class="explore-proposal-btn">+ Submit Topic Proposal</a>'
         f'</div>'
     )
     
@@ -2322,19 +2387,19 @@ def compile_backlog_page(
     )
     header_html = render_page_header(
         title=labels.get("backlog_title", "Proposed Backlog"),
-        description=labels.get("backlog_desc", ""),
+        description=labels.get("backlog_desc", "Community-prioritized pipeline topics and AI-discovered research frontier ideas awaiting decoding."),
         icon_svg=git_branch_svg,
     )
     content_html = (
         f'{header_html}'
-        f'{cta_html}'
+        f'{toggle_row_html}'
         f'<ul class="feed-cards backlog-list" id="backlog-list-container">'
-        f'  {"".join(backlog_items)}'
+        f'  {"".join(all_cards_html)}'
         f'</ul>'
     )
     
     html = layout_html.replace("{{title}}", f"{labels.get('nav_backlog', 'Proposed Backlog')} — The Healthstream")
-    html = html.replace("{{meta_description}}", labels.get("backlog_desc", ""))
+    html = html.replace("{{meta_description}}", labels.get("backlog_desc", "Community-prioritized pipeline topics and AI-discovered research frontier ideas awaiting decoding."))
     html = html.replace("{{content}}", content_html)
     return html
 

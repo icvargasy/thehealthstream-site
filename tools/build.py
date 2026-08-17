@@ -163,6 +163,39 @@ def run_build() -> None:
         print("Reading tag registry...")
         tags_registry = load_json_file(tags_path)
 
+        # Extract AI frontier suggestions from nodes' related_circuits that are not in backlog or published nodes
+        published_slugs = {n["slug"] for n in nodes}
+        backlog_slugs = {b["id"] for b in backlog}
+        frontier_items = []
+        seen_frontier = set()
+
+        for node in nodes:
+            raw_rc = node.get("related_circuits")
+            if raw_rc and isinstance(raw_rc, dict):
+                for dir_key in ("upstream", "downstream", "similar"):
+                    for item in raw_rc.get(dir_key, []):
+                        if isinstance(item, dict):
+                            target_slug = item.get("target")
+                            if target_slug and target_slug not in published_slugs and target_slug not in backlog_slugs and target_slug not in seen_frontier:
+                                seen_frontier.add(target_slug)
+                                target_title = item.get("title") or target_slug.replace("-", " ").title()
+                                hook_question = item.get("hook_question") or f"How does {target_title.lower()} modulate this biological loop?"
+                                frontier_items.append({
+                                    "id": target_slug,
+                                    "title": target_title,
+                                    "hook_question": hook_question,
+                                    "category": item.get("category") or "biology",
+                                    "grade": item.get("grade") or "Very Low",
+                                    "systems_analogy": item.get("mechanism", ""),
+                                    "tags": item.get("tags") or [item.get("category") or "biology", "longevity"],
+                                    "source_node": node.get("slug"),
+                                    "source_title": node.get("title"),
+                                    "direction": dir_key,
+                                    "tier": "frontier",
+                                    "created_at": "2026-08-17"
+                                })
+
+        combined_backlog = backlog + frontier_items
 
     except FileNotFoundError as e:
         print(f"Error: Source nodes directory not found: {e}")
@@ -193,7 +226,7 @@ def run_build() -> None:
 
     # Pre-compute the vocabulary mention graph ONCE (avoids 3× redundant O(N²) scans)
     print("Computing vocabulary mention graph...")
-    mentions = _build_mentions_map(nodes, backlog, vocabulary)
+    mentions = _build_mentions_map(nodes, combined_backlog, vocabulary)
 
     # 4. Compile index.html (Feed Page)
     print("Compiling feed page (index.html)...")
@@ -201,7 +234,7 @@ def run_build() -> None:
         template_content=template_content,
         translations=translations,
         nodes=nodes,
-        backlog=backlog,
+        backlog=combined_backlog,
         active_nav="feed",
     )
     feed_page_html = compile_feed_page(
@@ -209,7 +242,7 @@ def run_build() -> None:
         nodes=nodes,
         translations=translations,
         vocabulary=vocabulary,
-        backlog=backlog,
+        backlog=combined_backlog,
     )
     with open(os.path.join(output_dir, "index.html"), "w", encoding="utf-8") as f:
         f.write(feed_page_html)
@@ -245,7 +278,7 @@ def run_build() -> None:
             template_content=template_content,
             translations=translations,
             nodes=nodes,
-            backlog=backlog,
+            backlog=combined_backlog,
             active_nav="vocab",
             base_path="../",
         )
@@ -276,7 +309,7 @@ def run_build() -> None:
             template_content=template_content,
             translations=translations,
             nodes=nodes,
-            backlog=backlog,
+            backlog=combined_backlog,
             active_nav="vocab",
             base_path="../",
         )
@@ -296,7 +329,7 @@ def run_build() -> None:
         template_content=template_content,
         translations=translations,
         nodes=nodes,
-        backlog=backlog,
+        backlog=combined_backlog,
         active_nav="backlog",
     )
     backlog_page_html = compile_backlog_page(
@@ -304,6 +337,7 @@ def run_build() -> None:
         backlog=backlog,
         translations=translations,
         vocabulary=vocabulary,
+        frontier_items=frontier_items,
     )
     with open(os.path.join(output_dir, "backlog.html"), "w", encoding="utf-8") as f:
         f.write(backlog_page_html)
@@ -314,7 +348,7 @@ def run_build() -> None:
         template_content=template_content,
         translations=translations,
         nodes=nodes,
-        backlog=backlog,
+        backlog=combined_backlog,
         active_nav="about",
     )
     about_md_path = os.path.join(src_dir, "nodes", "en", "about.md")
@@ -358,7 +392,7 @@ def run_build() -> None:
         template_content=template_content,
         translations=translations,
         nodes=nodes,
-        backlog=backlog,
+        backlog=combined_backlog,
         active_nav="submit-proposal",
     )
     proposal_md_path = os.path.join(src_dir, "nodes", "en", "submit-proposal.md")
@@ -380,7 +414,7 @@ def run_build() -> None:
         template_content=template_content,
         translations=translations,
         nodes=nodes,
-        backlog=backlog,
+        backlog=combined_backlog,
         active_nav="",
     )
     terms_md_path = os.path.join(src_dir, "nodes", "en", "terms.md")
@@ -402,7 +436,7 @@ def run_build() -> None:
         template_content=template_content,
         translations=translations,
         nodes=nodes,
-        backlog=backlog,
+        backlog=combined_backlog,
         active_nav="",
     )
     privacy_md_path = os.path.join(src_dir, "nodes", "en", "privacy.md")
@@ -426,7 +460,7 @@ def run_build() -> None:
             template_content=template_content,
             translations=translations,
             nodes=nodes,
-            backlog=backlog,
+            backlog=combined_backlog,
             active_nav="",
         )
         detail_page_html = compile_detail_page(
@@ -435,7 +469,7 @@ def run_build() -> None:
             translations=translations,
             nodes=nodes,
             vocabulary=vocabulary,
-            backlog=backlog,
+            backlog=combined_backlog,
         )
         with open(os.path.join(output_dir, f"{node['slug']}.html"), "w", encoding="utf-8") as f:
             f.write(detail_page_html)
@@ -452,7 +486,7 @@ def run_build() -> None:
             key = t.lower()
             if key not in seen_tags:
                 seen_tags[key] = t
-    for item in (backlog or []):
+    for item in (combined_backlog or []):
         for t in item.get("tags", []):
             key = t.lower()
             if key not in seen_tags:
@@ -463,7 +497,7 @@ def run_build() -> None:
             template_content=template_content,
             translations=translations,
             nodes=nodes,
-            backlog=backlog,
+            backlog=combined_backlog,
             active_nav="",
             base_path="../",
         )
@@ -472,7 +506,7 @@ def run_build() -> None:
             tag=tag_raw,
             nodes=nodes,
             translations=translations,
-            backlog=backlog,
+            backlog=combined_backlog,
             vocabulary=vocabulary,
             tags_registry=tags_registry,
         )
@@ -493,7 +527,7 @@ def run_build() -> None:
             template_content=template_content,
             translations=translations,
             nodes=nodes,
-            backlog=backlog,
+            backlog=combined_backlog,
             active_nav=f"category-{cat}",
         )
         cat_page_html = compile_category_page(
@@ -502,7 +536,7 @@ def run_build() -> None:
             nodes=nodes,
             translations=translations,
             vocabulary=vocabulary,
-            backlog=backlog,
+            backlog=combined_backlog,
         )
         cat_out_path = os.path.join(output_dir, f"category-{cat}.html")
         with open(cat_out_path, "w", encoding="utf-8") as f:
