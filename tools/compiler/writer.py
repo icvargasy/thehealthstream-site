@@ -1989,16 +1989,20 @@ def compile_vocabulary_detail_page(
                 link_class = f"topic-{m_type} cat-{m_type}"
                 
             item_links.append(
-                f'<a href="{href}" class="connection-item-inline-link {link_class}">'
+                f'<a href="{href}" class="connection-item-link {link_class}">'
                 f'{icon}<span class="connection-title">{title}</span>'
                 f'</a>'
             )
         
         entries_html = ", ".join(item_links)
+        tag_html = (
+            f'<span class="category-tag" style="background: transparent; background-color: transparent; border: 1px solid currentColor; color: inherit; text-transform: none; margin-right: 6px; vertical-align: middle;">'
+            f'{g["label"]}'
+            f'</span>'
+        )
         row_html = (
-            f'<li class="vocab-mention-group-item">'
-            f'  <span class="category-tag mention-group-tag topic-{g["cat_class"]} cat-{g["cat_class"]}">{g["label"]}</span>'
-            f'  <div class="mention-group-entries">{entries_html}</div>'
+            f'<li class="vocab-connection-item topic-{g["cat_class"]} cat-{g["cat_class"]}" style="list-style: none;">'
+            f'{tag_html}{entries_html}'
             f'</li>'
         )
         connections_html.append(row_html)
@@ -2008,7 +2012,7 @@ def compile_vocabulary_detail_page(
         connections_html_section = (
             f'<div class="vocab-connections-section" style="margin-top: var(--space-4); margin-bottom: var(--space-4);">'
             f'  <h3 class="vocab-section-title" style="font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-ink); margin-bottom: var(--space-2.5);">Mentioned In</h3>'
-            f'  <ul class="vocab-connections-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2.5, 10px);">'
+            f'  <ul class="vocab-connections-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 6px;">'
             f'    {"".join(connections_html)}'
             f'  </ul>'
             f'</div>'

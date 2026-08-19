@@ -4274,74 +4274,25 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 .vocab-connections-list {
   display: flex;
   flex-direction: column;
-  gap: var(--space-2.5, 10px);
+  gap: 6px;
 }
 
-.vocab-mention-group-item {
-  display: flex;
-  align-items: baseline;
-  gap: var(--space-2, 8px);
-  line-height: 1.6;
-  font-size: 0.9rem;
-  padding: 2px 0;
-  flex-wrap: wrap;
-}
-
-.mention-group-tag {
-  flex-shrink: 0;
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  padding: 1px 7px;
-  border-radius: var(--radius-button, 4px);
-  background: transparent !important;
-  background-color: transparent !important;
-  border: 1px solid currentColor;
-  text-transform: none;
-  white-space: nowrap;
-  vertical-align: middle;
-}
-
-.mention-group-entries {
-  display: inline;
+.vocab-connection-item {
+  display: block;
+  font-size: 0.85rem;
+  line-height: 1.5;
   color: var(--text-ink);
-  line-height: 1.6;
-}
-
-.connection-item-inline-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  font-weight: 500;
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-  transition: opacity var(--transition-fast), color var(--transition-fast);
-}
-
-.connection-item-inline-link:hover {
-  opacity: 0.85;
-}
-
-.connection-item-inline-link .connection-icon-svg {
-  display: inline-block;
-  vertical-align: middle;
-  flex-shrink: 0;
-  margin-right: 2px;
 }
 
 .connection-item-link {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-2);
-  font-size: 0.95rem;
+  gap: 2px;
+  font-size: 0.85rem;
   font-weight: 500;
   text-decoration: none;
-  transition: all var(--transition-fast);
-  padding: 0.2rem 0;
-  width: fit-content;
+  transition: opacity var(--transition-fast);
+  vertical-align: middle;
 }
 
 .connection-item-link:hover {
@@ -4362,39 +4313,31 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 }
 
 /* Topic specific colors for the links */
+.topic-biology,
+.cat-biology,
 .connection-item-link.topic-biology,
-.connection-item-link.cat-biology,
-.connection-item-inline-link.topic-biology,
-.connection-item-inline-link.cat-biology,
-.mention-group-tag.topic-biology,
-.mention-group-tag.cat-biology {
+.connection-item-link.cat-biology {
   color: var(--accent-biology) !important;
 }
 
+.topic-lifestyle,
+.cat-lifestyle,
 .connection-item-link.topic-lifestyle,
-.connection-item-link.cat-lifestyle,
-.connection-item-inline-link.topic-lifestyle,
-.connection-item-inline-link.cat-lifestyle,
-.mention-group-tag.topic-lifestyle,
-.mention-group-tag.cat-lifestyle {
+.connection-item-link.cat-lifestyle {
   color: var(--accent-lifestyle) !important;
 }
 
+.topic-book,
+.cat-book,
 .connection-item-link.topic-book,
-.connection-item-link.cat-book,
-.connection-item-inline-link.topic-book,
-.connection-item-inline-link.cat-book,
-.mention-group-tag.topic-book,
-.mention-group-tag.cat-book {
+.connection-item-link.cat-book {
   color: var(--accent-book) !important;
 }
 
+.topic-lexicon,
+.cat-lexicon,
 .connection-item-link.topic-lexicon,
-.connection-item-link.cat-lexicon,
-.connection-item-inline-link.topic-lexicon,
-.connection-item-inline-link.cat-lexicon,
-.mention-group-tag.topic-lexicon,
-.mention-group-tag.cat-lexicon {
+.connection-item-link.cat-lexicon {
   color: var(--accent-synapse) !important;
 }
 
