@@ -1996,7 +1996,7 @@ def compile_vocabulary_detail_page(
         
         entries_html = ", ".join(item_links)
         tag_html = (
-            f'<span class="category-tag" style="background: transparent; background-color: transparent; border: 1px solid currentColor; color: inherit; text-transform: none; margin-right: 6px; vertical-align: middle;">'
+            f'<span class="category-tag topic-{g["cat_class"]} cat-{g["cat_class"]}">'
             f'{g["label"]}'
             f'</span>'
         )

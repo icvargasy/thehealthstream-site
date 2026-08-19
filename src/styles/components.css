@@ -646,7 +646,9 @@ a.category-tag {
   transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast);
 }
 
-.cat-biology .category-tag {
+.cat-biology .category-tag,
+.category-tag.cat-biology,
+.category-tag.topic-biology {
   background-color: oklch(0.55 0.18 250 / 0.18);
   border: 1px solid oklch(0.55 0.18 250 / 0.35);
   color: oklch(0.55 0.18 250);
@@ -657,7 +659,9 @@ a.category-tag {
   color: var(--bg-paper) !important;
 }
 
-.cat-lifestyle .category-tag {
+.cat-lifestyle .category-tag,
+.category-tag.cat-lifestyle,
+.category-tag.topic-lifestyle {
   background-color: oklch(0.62 0.15 140 / 0.18);
   border: 1px solid oklch(0.62 0.15 140 / 0.35);
   color: oklch(0.50 0.12 140);
@@ -668,7 +672,9 @@ a.category-tag {
   color: var(--bg-paper) !important;
 }
 
-.cat-book .category-tag {
+.cat-book .category-tag,
+.category-tag.cat-book,
+.category-tag.topic-book {
   background-color: oklch(0.70 0.16 75 / 0.18);
   border: 1px solid oklch(0.70 0.16 75 / 0.35);
   color: oklch(0.55 0.12 75);
@@ -679,7 +685,9 @@ a.category-tag {
   color: var(--bg-paper) !important;
 }
 
-.cat-lexicon .category-tag {
+.cat-lexicon .category-tag,
+.category-tag.cat-lexicon,
+.category-tag.topic-lexicon {
   background-color: oklch(0.60 0.18 15 / 0.18);
   border: 1px solid oklch(0.60 0.18 15 / 0.35);
   color: oklch(0.55 0.18 15);
@@ -4280,8 +4288,19 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 .vocab-connection-item {
   display: block;
   font-size: 0.85rem;
-  line-height: 1.5;
+  line-height: 1.6;
   color: var(--text-ink);
+}
+
+.vocab-connection-item .category-tag {
+  text-transform: none;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  padding: 1px 7px;
+  margin-right: 6px;
+  vertical-align: middle;
+  line-height: 1.2;
 }
 
 .connection-item-link {
@@ -4290,7 +4309,9 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   gap: 2px;
   font-size: 0.85rem;
   font-weight: 500;
-  text-decoration: none;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 2px;
   transition: opacity var(--transition-fast);
   vertical-align: middle;
 }
@@ -4306,6 +4327,7 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
 .connection-icon-svg {
   flex-shrink: 0;
   vertical-align: middle;
+  margin-right: 3px;
 }
 
 .connection-title {
@@ -4429,31 +4451,6 @@ h4 .jargon-term:hover {
   border-bottom-style: solid !important;
 }
 
-/* Flexbox connection item formatting (Issue 5 - prevents SVG wrap isolation) */
-.connection-item-link {
-  display: inline-flex !important;
-  align-items: flex-start !important;
-  flex-wrap: wrap !important;
-  gap: var(--space-2) !important;
-  width: 100% !important;
-  max-width: 100% !important;
-}
-.connection-icon-svg {
-  flex-shrink: 0 !important;
-  margin-top: 3px !important; /* aligns icon with first line of wrapped text */
-}
-.connection-title {
-  flex-grow: 0 !important;
-  flex-shrink: 1 !important;
-  word-break: break-word !important;
-  margin-right: 0 !important;
-}
-
-.connection-item-link .category-tag {
-  margin-left: 0 !important;
-  flex-shrink: 0 !important;
-  align-self: center !important;
-}
 
 /* Direct relative wiki-style Lexicon links (Issue 1) */
 .vocab-nested-link {
