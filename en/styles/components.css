@@ -4334,35 +4334,6 @@ body[data-theme="dark"] .vocab-status-badge.badge-agent {
   font-weight: 600;
 }
 
-/* Topic specific colors for the links */
-.topic-biology,
-.cat-biology,
-.connection-item-link.topic-biology,
-.connection-item-link.cat-biology {
-  color: var(--accent-biology) !important;
-}
-
-.topic-lifestyle,
-.cat-lifestyle,
-.connection-item-link.topic-lifestyle,
-.connection-item-link.cat-lifestyle {
-  color: var(--accent-lifestyle) !important;
-}
-
-.topic-book,
-.cat-book,
-.connection-item-link.topic-book,
-.connection-item-link.cat-book {
-  color: var(--accent-book) !important;
-}
-
-.topic-lexicon,
-.cat-lexicon,
-.connection-item-link.topic-lexicon,
-.connection-item-link.cat-lexicon {
-  color: var(--accent-synapse) !important;
-}
-
 /* Feed Card Header & CTA elements */
 .feed-card-header {
   display: flex;
