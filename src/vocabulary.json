@@ -2294,5 +2294,113 @@
       }
     ],
     "verification_status": "verified_human"
+  },
+  "psychoneuroimmunology": {
+    "definition": "The interdisciplinary field studying bidirectional communication networks between the nervous, endocrine, and immune systems.",
+    "vulgarized_analogy": "A school intercom connecting the principal, teachers, and security guards so every announcement instantly updates all three.",
+    "taxonomy": "framework",
+    "aliases": [
+      "PNI",
+      "psychoneuroimmunology framework"
+    ],
+    "citations": [
+      {
+        "text": "Ader R. Psychoneuroimmunology. 4th ed. Academic Press; 2007.",
+        "link": "https://doi.org/10.1016/B978-012088576-3/50002-3",
+        "defining_quote": "Psychoneuroimmunology is the study of the interactions among behavioral, neural, endocrine, and immune processes.",
+        "quote_page": "Page 1"
+      }
+    ],
+    "verification_status": "verified_agent_grounded"
+  },
+  "differentiation": {
+    "definition": "The psychological and somatic capacity to maintain distinct personal boundaries and autonomous functioning while staying in emotional connection with others.",
+    "vulgarized_analogy": "A two-way window screen that lets fresh air circulate into the room while keeping out mosquitoes and rain.",
+    "taxonomy": "framework",
+    "aliases": [
+      "self-differentiation",
+      "emotional differentiation"
+    ],
+    "citations": [
+      {
+        "text": "Bowen M. Family Therapy in Clinical Practice. Jason Aronson; 1978.",
+        "link": "https://www.worldcat.org/title/family-therapy-in-clinical-practice/oclc/4194600",
+        "defining_quote": "Differentiation is the ability to be in emotional contact with others yet still autonomous in one's emotional functioning.",
+        "quote_page": "Page 362"
+      }
+    ],
+    "verification_status": "verified_agent_grounded"
+  },
+  "internal milieu": {
+    "definition": "The extracellular fluid environment and physiological equilibrium required to protect cellular vitality against external disruptions.",
+    "vulgarized_analogy": "The clear, balanced water inside a home aquarium that keeps fish alive regardless of outside room temperature.",
+    "taxonomy": "concept",
+    "aliases": [
+      "milieu interieur",
+      "internal environment"
+    ],
+    "citations": [
+      {
+        "text": "Bernard C. An Introduction to the Study of Experimental Medicine. Macmillan & Co; 1927 (Orig 1865).",
+        "link": "https://doi.org/10.1037/10022-000",
+        "defining_quote": "The constancy of the internal milieu is the essential condition for a free and independent life.",
+        "quote_page": "Page 65"
+      }
+    ],
+    "verification_status": "verified_agent_grounded"
+  },
+  "allostatic load": {
+    "definition": "The cumulative physiological wear and tear on tissues and receptors resulting from chronic exposure to heightened neuroendocrine stress mediators.",
+    "vulgarized_analogy": "A delivery truck hauling heavy cargo over bumpy dirt roads daily until its shock absorbers completely fail.",
+    "taxonomy": "concept",
+    "aliases": [
+      "allostasis",
+      "allostatic overload"
+    ],
+    "citations": [
+      {
+        "text": "McEwen BS. Protective and damaging effects of stress mediators. N Engl J Med. 1998;338(3):171-179.",
+        "link": "https://doi.org/10.1056/NEJM199801153380307",
+        "defining_quote": "Allostatic load refers to the cumulative cost to the body of allostasis, with allostatic load turning into allostatic overload in extreme situations.",
+        "quote_page": "Page 171"
+      }
+    ],
+    "verification_status": "verified_agent_grounded"
+  },
+  "central sensitization": {
+    "definition": "A state of neurological hyper-responsiveness where the central nervous system amplifies sensory and pain signals without ongoing tissue damage.",
+    "vulgarized_analogy": "A car alarm adjusted so sensitively that a passing leaf triggers a full screeching siren.",
+    "taxonomy": "process",
+    "aliases": [
+      "neural hypervigilance",
+      "sensitization"
+    ],
+    "citations": [
+      {
+        "text": "Woolf CJ. Central sensitization: Implications for the diagnosis and treatment of pain. Pain. 2011;152(3):S2-S15.",
+        "link": "https://doi.org/10.1016/j.pain.2010.09.030",
+        "defining_quote": "Central sensitization represents an operational manifestation of neuronal plasticity within the central nervous system.",
+        "quote_page": "Page S2"
+      }
+    ],
+    "verification_status": "verified_agent_grounded"
+  },
+  "HPA axis": {
+    "definition": "The hypothalamic-pituitary-adrenal neuroendocrine feedback circuit regulating physiological stress responses, cortisol secretion, and metabolic adaptation.",
+    "vulgarized_analogy": "A home thermostat connecting temperature sensors directly to the basement furnace to regulate heating cycles.",
+    "taxonomy": "framework",
+    "aliases": [
+      "hypothalamic-pituitary-adrenal axis",
+      "stress axis"
+    ],
+    "citations": [
+      {
+        "text": "Smith SM, Vale WW. The role of the hypothalamic-pituitary-adrenal axis in neuroendocrine responses to stress. Dialogues Clin Neurosci. 2006;8(4):383-395.",
+        "link": "https://doi.org/10.31887/DCNS.2006.8.4/ssmith",
+        "defining_quote": "The hypothalamic-pituitary-adrenal axis is a major neuroendocrine system that controls reactions to stress and regulates many body processes.",
+        "quote_page": "Page 383"
+      }
+    ],
+    "verification_status": "verified_agent_grounded"
   }
 }

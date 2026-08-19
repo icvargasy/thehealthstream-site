@@ -3730,17 +3730,17 @@ a.pipeline-badge:hover {
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.04em;
-  line-height: 1.25;
-  padding: 2px 7px;
+  line-height: 1.2;
+  padding: 1px 6px;
   border-radius: var(--radius-button, 4px);
   background: transparent !important;
   background-color: transparent !important;
   color: var(--color-citation, #0284c7);
   border: 1px solid rgba(2, 132, 199, 0.4);
   white-space: nowrap;
-  vertical-align: middle;
+  vertical-align: 1px;
   margin-left: 3px;
-  margin-right: 3px;
+  margin-right: 4px;
   text-decoration: none;
 }
 

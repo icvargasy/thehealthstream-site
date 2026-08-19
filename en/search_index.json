@@ -48,6 +48,14 @@
     "teaser": "Can lifelong endurance training keep your heart and lungs a decade younger than your age?"
   },
   {
+    "title": "When the Body Says No: Stress, Differentiation, and Disease",
+    "slug": "when-the-body-says-no.html",
+    "type": "article",
+    "category": "Finds",
+    "category_type": "book",
+    "teaser": "Can chronic people-pleasing and suppressed anger silently turn your immune system against your own body?"
+  },
+  {
     "title": "healthspan",
     "slug": "vocabulary/healthspan.html",
     "type": "glossary",
@@ -384,8 +392,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "Originating or **synthesized** internally within an organism, tissue, or cell rather than introduced from an external source.",
-    "in_pipeline": true
+    "teaser": "Originating or **synthesized** internally within an organism, tissue, or cell rather than introduced from an external source."
   },
   {
     "title": "upregulate",
@@ -402,8 +409,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "The process by which a cell decreases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway**.",
-    "in_pipeline": true
+    "teaser": "The process by which a cell decreases the response, rate, or **gene expression** of a **gene**, **protein**, or metabolic **pathway**."
   },
   {
     "title": "pathogen",
@@ -929,8 +935,7 @@
     "type": "glossary",
     "category": "Lexicon",
     "category_type": "glossary",
-    "teaser": "A state of disease where the immune system mistakenly targets and destroys the body's own healthy cells and tissues.",
-    "in_pipeline": true
+    "teaser": "A state of disease where the immune system mistakenly targets and destroys the body's own healthy cells and tissues."
   },
   {
     "title": "amyloid-beta",
@@ -1061,5 +1066,53 @@
     "category": "Lexicon",
     "category_type": "glossary",
     "teaser": "The mucosal epithelial layer and associated tight junction complexes of the gastrointestinal tract that selectively regulate nutrient absorption while blocking pathogens and macromolecules."
+  },
+  {
+    "title": "psychoneuroimmunology",
+    "slug": "vocabulary/psychoneuroimmunology.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The interdisciplinary field studying bidirectional communication networks between the nervous, endocrine, and immune systems."
+  },
+  {
+    "title": "differentiation",
+    "slug": "vocabulary/differentiation.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The psychological and somatic capacity to maintain distinct personal boundaries and autonomous functioning while staying in emotional connection with others."
+  },
+  {
+    "title": "internal milieu",
+    "slug": "vocabulary/internal-milieu.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The extracellular fluid environment and physiological equilibrium required to protect cellular vitality against external disruptions."
+  },
+  {
+    "title": "allostatic load",
+    "slug": "vocabulary/allostatic-load.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The cumulative physiological wear and tear on tissues and receptors resulting from chronic exposure to heightened neuroendocrine stress mediators."
+  },
+  {
+    "title": "central sensitization",
+    "slug": "vocabulary/central-sensitization.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "A state of neurological hyper-responsiveness where the central nervous system amplifies sensory and pain signals without ongoing tissue damage."
+  },
+  {
+    "title": "HPA axis",
+    "slug": "vocabulary/hpa-axis.html",
+    "type": "glossary",
+    "category": "Lexicon",
+    "category_type": "glossary",
+    "teaser": "The hypothalamic-pituitary-adrenal neuroendocrine feedback circuit regulating physiological stress responses, cortisol secretion, and metabolic adaptation."
   }
 ]

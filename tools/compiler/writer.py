@@ -1355,6 +1355,10 @@ def compile_detail_page(
     rationale = er["rationale"]
     grade_lower = grade.lower().replace(" ", "-")
     
+    bib_items = node.get("bibliography", [])
+    ref_num_map = {bib.get("id", ""): i for i, bib in enumerate(bib_items, 1)}
+    ref_tag_map = {bib.get("id", ""): _infer_bib_tag(bib) for bib in bib_items}
+
     debates_html = ""
     if er.get("debate_sides"):
         debate_items = []
@@ -1376,18 +1380,25 @@ def compile_detail_page(
 
             # Render explicit debate side citations if not already formatted in args_text
             if not re.search(r'href=["\']#ref', args_text):
-                injected_citations = [
-                    f'<a href="#{cid}" class="citation-link">[{cid}]</a>'
-                    for cid in side.get("citations", [])
-                ]
+                injected_citations = []
+                for cid in side.get("citations", []):
+                    ref_idx = ref_num_map.get(cid, cid)
+                    tag_badge = f' <span class="bib-tag-badge">{ref_tag_map.get(cid, "Source")}</span>' if cid in ref_tag_map else ""
+                    injected_citations.append(f'<a href="#{cid}" class="citation-link">[{ref_idx}]{tag_badge}</a>')
                 if injected_citations:
                     args_text += " " + " ".join(injected_citations)
             
+            compiled_args = markdown.markdown(args_text).strip()
+            if compiled_args.startswith("<p>") and compiled_args.endswith("</p>"):
+                compiled_args = compiled_args[3:-4]
+            if vocabulary:
+                compiled_args = inject_jargon_links(compiled_args, vocabulary)
+
             item = (
                 f'<li class="debate-bullet-item stance-{stance_slug}">'
                 f'  <span class="stance-badge stance-{stance_slug}">{stance_badge_html}</span> '
                 f'  <strong class="debate-position-title">{pos_text}</strong> &mdash; '
-                f'  <span class="debate-argument-text">{args_text}</span>'
+                f'  <span class="debate-argument-text">{compiled_args}</span>'
                 f'</li>'
             )
             debate_items.append(item)
@@ -1469,10 +1480,14 @@ def compile_detail_page(
     )
     
     # 4. Evidence Row-List (Tabular Middle-Ground, Responsive)
+    compiled_rationale = rationale
+    if vocabulary:
+        compiled_rationale = inject_jargon_links(compiled_rationale, vocabulary)
+
     grade_details_card = (
         f'<div class="evidence-grade-summary" style="margin-top: var(--space-2); margin-bottom: var(--space-4); line-height: 1.6;">'
         f'  <span class="section-grade-badge tier-{tier_slug} grade-{grade_lower}">{grade} — {tier_label}</span> '
-        f'  <span style="color: var(--text-ink-muted);">{rationale}</span>'
+        f'  <span style="color: var(--text-ink-muted);">{compiled_rationale}</span>'
         f'</div>'
         f'{debates_html}'
     )
@@ -1487,6 +1502,8 @@ def compile_detail_page(
         meta_text = ", ".join(meta_parts)
         
         outcome_desc = item.get("outcome", "")
+        if vocabulary:
+            outcome_desc = inject_jargon_links(outcome_desc, vocabulary)
 
         meta_span = f'<span class="evidence-design">{meta_text}</span>' if meta_text else ""
         item_html = (

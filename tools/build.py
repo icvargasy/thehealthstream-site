@@ -46,6 +46,11 @@ MIN_TOTAL_INVENTORY: int = 34
 
 
 
+PROMOTED_BACKLOG_MAP = {
+    "when-the-body-says-no-summary": "when-the-body-says-no",
+}
+
+
 def _build_mentions_map(
     nodes: List[Dict[str, Any]],
     backlog: List[Dict[str, Any]],
@@ -81,7 +86,11 @@ def _build_mentions_map(
                 })
 
     # 2. Backlog Items
+    published_slugs = {n["slug"] for n in nodes}
     for item in (backlog or []):
+        item_id = item.get("id", "")
+        if item_id in published_slugs or item_id in PROMOTED_BACKLOG_MAP:
+            continue
         full_text = extract_searchable_text(item)
         for canonical in global_matcher.search_in_text(full_text):
             if canonical in mentions:
@@ -195,7 +204,11 @@ def run_build() -> None:
                                     "created_at": "2026-08-17"
                                 })
 
-        combined_backlog = backlog + frontier_items
+        active_backlog = [
+            b for b in backlog
+            if b.get("id") not in published_slugs and b.get("id") not in PROMOTED_BACKLOG_MAP
+        ]
+        combined_backlog = active_backlog + frontier_items
 
     except FileNotFoundError as e:
         print(f"Error: Source nodes directory not found: {e}")
@@ -253,7 +266,7 @@ def run_build() -> None:
         template_content=template_content,
         translations=translations,
         nodes=nodes,
-        backlog=backlog,
+        backlog=active_backlog,
         active_nav="vocab",
     )
     vocab_page_html = compile_vocabulary_page(
@@ -261,7 +274,7 @@ def run_build() -> None:
         vocabulary=vocabulary,
         translations=translations,
         nodes=nodes,
-        backlog=backlog,
+        backlog=active_backlog,
         mentions=mentions,
     )
     with open(os.path.join(output_dir, "vocabulary.html"), "w", encoding="utf-8") as f:
