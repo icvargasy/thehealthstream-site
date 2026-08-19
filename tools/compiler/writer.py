@@ -1931,47 +1931,84 @@ def compile_vocabulary_detail_page(
         '</svg>'
     )
 
-    connections_html = []
-    for m in sorted(mentions, key=lambda x: x["title"]):
-        title = m["title"]
-        slug = m["slug"]
+    # Group mentions: Categories first, then Lexicon taxonomies
+    groups: Dict[str, Dict[str, Any]] = {}
+    for m in sorted(mentions, key=lambda x: x["title"].lower()):
         m_type = m.get("type", "biology")
-        
         if m_type == "lexicon":
-            taxonomy_val = m.get("taxonomy", "concept").title()
-            tag_html = (
-                f'<a href="{slug}" class="connection-item-link topic-lexicon cat-lexicon">'
-                f'  {lexicon_icon}'
-                f'  <span class="category-tag" style="background: transparent; background-color: transparent; border: 1px solid currentColor; color: inherit; text-transform: none;">{taxonomy_val}</span>'
-                f'  <span class="connection-title">{title}</span>'
-                f'</a>'
-            )
-        elif m.get("in_pipeline"):
-            category_label = labels.get(f"category_{m_type}", m_type).title()
-            tag_html = (
-                f'<a href="../{slug}" class="connection-item-link topic-{m_type} cat-{m_type}">'
-                f'  {pipeline_icon}'
-                f'  <span class="category-tag" style="background: transparent; background-color: transparent; border: 1px solid currentColor; color: inherit; text-transform: none;">{category_label}</span>'
-                f'  <span class="connection-title">{title}</span>'
-                f'</a>'
-            )
+            tax = m.get("taxonomy", "concept").lower()
+            group_key = f"lexicon_{tax}"
+            group_label = tax.title()
+            cat_class = "lexicon"
         else:
-            category_label = labels.get(f"category_{m_type}", m_type).title()
-            tag_html = (
-                f'<a href="../{slug}" class="connection-item-link topic-{m_type} cat-{m_type}">'
-                f'  {article_icon}'
-                f'  <span class="category-tag" style="background: transparent; background-color: transparent; border: 1px solid currentColor; color: inherit; text-transform: none;">{category_label}</span>'
-                f'  <span class="connection-title">{title}</span>'
+            cat_key = m_type.lower()
+            group_key = f"cat_{cat_key}"
+            group_label = labels.get(f"category_{cat_key}", cat_key).title()
+            if cat_key == "biology":
+                group_label = "Biological Circuits"
+            elif cat_key == "lifestyle":
+                group_label = "Lifestyle Practices"
+            elif cat_key == "book":
+                group_label = "Book Synthesis"
+            cat_class = cat_key
+
+        if group_key not in groups:
+            groups[group_key] = {
+                "label": group_label,
+                "cat_class": cat_class,
+                "is_lexicon": (m_type == "lexicon"),
+                "items": []
+            }
+        groups[group_key]["items"].append(m)
+
+    sorted_group_keys = sorted(
+        groups.keys(),
+        key=lambda k: (1 if groups[k]["is_lexicon"] else 0, groups[k]["label"].lower())
+    )
+
+    connections_html = []
+    for gkey in sorted_group_keys:
+        g = groups[gkey]
+        item_links = []
+        for m in g["items"]:
+            title = m["title"]
+            slug = m["slug"]
+            m_type = m.get("type", "biology")
+            
+            if m_type == "lexicon":
+                icon = lexicon_icon
+                href = slug
+                link_class = "topic-lexicon cat-lexicon"
+            elif m.get("in_pipeline"):
+                icon = pipeline_icon
+                href = f"../{slug}"
+                link_class = f"topic-{m_type} cat-{m_type}"
+            else:
+                icon = article_icon
+                href = f"../{slug}"
+                link_class = f"topic-{m_type} cat-{m_type}"
+                
+            item_links.append(
+                f'<a href="{href}" class="connection-item-inline-link {link_class}">'
+                f'{icon}<span class="connection-title">{title}</span>'
                 f'</a>'
             )
-        connections_html.append(f'<li class="vocab-connection-item" style="list-style: none;">{tag_html}</li>')
+        
+        entries_html = ", ".join(item_links)
+        row_html = (
+            f'<li class="vocab-mention-group-item">'
+            f'  <span class="category-tag mention-group-tag topic-{g["cat_class"]} cat-{g["cat_class"]}">{g["label"]}</span>'
+            f'  <div class="mention-group-entries">{entries_html}</div>'
+            f'</li>'
+        )
+        connections_html.append(row_html)
 
     connections_html_section = ""
     if connections_html:
         connections_html_section = (
             f'<div class="vocab-connections-section" style="margin-top: var(--space-4); margin-bottom: var(--space-4);">'
             f'  <h3 class="vocab-section-title" style="font-family: var(--font-display); font-size: 1.1rem; font-weight: 700; color: var(--text-ink); margin-bottom: var(--space-2.5);">Mentioned In</h3>'
-            f'  <ul class="vocab-connections-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: 5px;">'
+            f'  <ul class="vocab-connections-list" style="list-style: none; padding-left: 0; margin: 0; display: flex; flex-direction: column; gap: var(--space-2.5, 10px);">'
             f'    {"".join(connections_html)}'
             f'  </ul>'
             f'</div>'
